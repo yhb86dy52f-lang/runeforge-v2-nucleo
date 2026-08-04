@@ -1,0 +1,46 @@
+﻿{
+  "ts": "2026-05-22T18:26:15.7577198-06:00",
+  "event": "RF_USB2_MIC_TARGETED_RESET_V4",
+  "targets_before": [
+    {
+      "Status": "Unknown",
+      "Class": "MEDIA",
+      "FriendlyName": "USB2.0 Device",
+      "InstanceId": "USB\\VID_8087&PID_1024&MI_00\\7&4FEC34E&0&0000"
+    },
+    {
+      "Status": "Unknown",
+      "Class": "AudioEndpoint",
+      "FriendlyName": "Micrófono (USB2.0 Device)",
+      "InstanceId": "SWD\\MMDEVAPI\\{0.0.1.00000000}.{D3466AA6-A142-4E6A-95A5-00EC70ACC05C}"
+    }
+  ],
+  "targets_after": [
+    {
+      "Status": "Unknown",
+      "Class": "MEDIA",
+      "FriendlyName": "USB2.0 Device",
+      "InstanceId": "USB\\VID_8087&PID_1024&MI_00\\7&4FEC34E&0&0000"
+    },
+    {
+      "Status": "Unknown",
+      "Class": "AudioEndpoint",
+      "FriendlyName": "Micrófono (USB2.0 Device)",
+      "InstanceId": "SWD\\MMDEVAPI\\{0.0.1.00000000}.{D3466AA6-A142-4E6A-95A5-00EC70ACC05C}"
+    }
+  ],
+  "services_after": [
+    {
+      "Name": "AudioEndpointBuilder",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "Audiosrv",
+      "Status": 4,
+      "StartType": 2
+    }
+  ],
+  "backend": "NO_TOCADO",
+  "action": "disable_enable_only_usb2_mic_audio_endpoint_and_media_device"
+}

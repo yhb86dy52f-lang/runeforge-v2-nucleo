@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-06-28T18:07:37.4647176-06:00",
+  "status": "COCKPIT_STATIC_MVP_OK",
+  "backend_ok": true,
+  "smoke_ok": true,
+  "next": "RF_RUNEFORGE_COCKPIT_ENDPOINT_BIND_CURRENT"
+}

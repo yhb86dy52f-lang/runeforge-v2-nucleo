@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-05-31T10:02:37.4146848-06:00",
+  "event": "RF_MARKOV_GRAPH_RENDER_V1",
+  "status": "MARKOV_GRAPH_RENDER_DONE",
+  "source_csv": "C:\\RUNEFOGE_PRO\\runeforge\\data\\markov\\graph_export\\rf_markov_graph_edges_v1_20260531_095106.csv",
+  "states": 16,
+  "edges": 27,
+  "probability_one_edges": 8,
+  "high_probability_edges": 18,
+  "weak_sample_edges": 18,
+  "svg": "C:\\RUNEFOGE_PRO\\runeforge\\data\\markov\\graph_render\\rf_markov_graph_render_v1_20260531_100235.svg",
+  "html": "C:\\RUNEFOGE_PRO\\runeforge\\data\\markov\\graph_render\\rf_markov_graph_render_v1_20260531_100235.html",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "recommendation": "VALIDATION_ONLY",
+  "next": "RF_MARKOV_RENDER_REVIEW_V1"
+}

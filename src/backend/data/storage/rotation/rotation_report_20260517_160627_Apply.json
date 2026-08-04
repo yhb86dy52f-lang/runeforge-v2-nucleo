@@ -1,0 +1,93 @@
+﻿{
+  "ts": "2026-05-17T16:06:27.6558058-06:00",
+  "version": "1.0",
+  "mode": "Apply",
+  "result": "OK",
+  "daily_root": "D:\\RUNEFORGE_BACKUPS\\daily",
+  "daily_keep": 7,
+  "weekly_root": "G:\\RUNEFORGE_ARCHIVE\\weekly",
+  "weekly_keep": 4,
+  "total_items": 8,
+  "delete_candidates": 0,
+  "skipped_unsealed": 0,
+  "deleted_count": 0,
+  "delete_error_count": 0,
+  "deleted": [],
+  "delete_errors": [],
+  "plan": [
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260517_160553",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_160553",
+      "LastWriteTime": "2026-05-17T16:05:53.6921341-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260517_160420",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_160420",
+      "LastWriteTime": "2026-05-17T16:04:40.7222335-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260517_145512",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_145512",
+      "LastWriteTime": "2026-05-17T14:57:55.0971622-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260517_145357",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_145357",
+      "LastWriteTime": "2026-05-17T14:54:02.8023432-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260517_145201",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_145201",
+      "LastWriteTime": "2026-05-17T14:52:04.4098558-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260517_145002",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_145002",
+      "LastWriteTime": "2026-05-17T14:50:06.8434489-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260517_144705",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_144705",
+      "LastWriteTime": "2026-05-17T14:47:11.8834672-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "WEEKLY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260517_145512",
+      "FullName": "G:\\RUNEFORGE_ARCHIVE\\weekly\\runeforge_safe_daily_20260517_145512",
+      "LastWriteTime": "2026-05-17T15:04:42.2132632-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    }
+  ],
+  "backend": "NO_TOCADO",
+  "runeforge": "ROTACION_BACKUP"
+}

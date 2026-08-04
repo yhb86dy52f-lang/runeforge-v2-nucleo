@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-05-26T13:10:47.6535368-06:00",
+  "event": "RF_MARKOV_N8N_FRESH_EVENT_CANARY_V1",
+  "status": "CORE_ACTION_FAILED",
+  "core_ok": false,
+  "changed_files_count": 1,
+  "changed_files": [
+    {
+      "FullName": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v4_error_20260526.jsonl",
+      "BeforeLength": 0,
+      "AfterLength": 284,
+      "BeforeWrite": null,
+      "AfterWrite": "2026-05-26T13:10:43.8512916-06:00"
+    }
+  ],
+  "backend": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "daemon": "NO_INICIADO",
+  "action": "CONTROLLED_PING_ONLY",
+  "next": "REVISAR_CORE_ACTIONS_V4"
+}

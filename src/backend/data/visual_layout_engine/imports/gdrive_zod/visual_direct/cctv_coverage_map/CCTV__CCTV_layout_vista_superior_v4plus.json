@@ -1,0 +1,190 @@
+{
+  "version": 4,
+  "revision": 2,
+  "meta": {
+    "title": "CCTV Layout - Vista Superior (Base Lerdo)",
+    "created_local": "2026-01-04",
+    "timezone": "America/Monterrey",
+    "units": "m",
+    "notes": [
+      "Este JSON mantiene compatibilidad con el formato v4 (worldScale, perimeter, buildings, cameras).",
+      "Se agregan secciones extra (zones, style, view) para un layout superior más claro."
+    ]
+  },
+  "worldScale": 6.113811127411104,
+  "view": {
+    "mode": "top",
+    "orthographic": true,
+    "target": {
+      "x": -16.74543364567861,
+      "z": -38.96693940512178
+    },
+    "rotation_deg": 0,
+    "grid": {
+      "enabled": true,
+      "step_m": 5
+    }
+  },
+  "walls": {
+    "height": 3.5,
+    "thickness": 0.2
+  },
+  "perimeter": [
+    {
+      "x": -325.60062838431736,
+      "z": -208.95439240115854
+    },
+    {
+      "x": 331.5625331245975,
+      "z": -198.53182762230307
+    },
+    {
+      "x": 141.3146185053982,
+      "z": 129.54328648034027
+    },
+    {
+      "x": -214.25825782839277,
+      "z": 122.07517592263424
+    }
+  ],
+  "buildings": [
+    {
+      "id": "nave_principal",
+      "type": "warehouse",
+      "height": 9,
+      "locked": true
+    },
+    {
+      "id": "oficinas",
+      "type": "office",
+      "height": 3.5,
+      "locked": true
+    },
+    {
+      "id": "caseta",
+      "type": "guardhouse",
+      "height": 3.0,
+      "locked": false,
+      "note": "Colocar centrada entre los muros/portones según referencia."
+    }
+  ],
+  "gates": [
+    {
+      "id": "porton_1",
+      "type": "gate",
+      "style": "sliding",
+      "color": "black",
+      "note": "Ajusta la posición exacta según la imagen base."
+    },
+    {
+      "id": "porton_2",
+      "type": "gate",
+      "style": "sliding",
+      "color": "black",
+      "note": "Ajusta la posición exacta según la imagen base."
+    }
+  ],
+  "zones": [
+    {
+      "id": "zona_roja",
+      "label": "Oficinas, accesos y salidas",
+      "color": "#E53935",
+      "polygon": []
+    },
+    {
+      "id": "zona_amarilla",
+      "label": "Taller",
+      "color": "#FDD835",
+      "polygon": []
+    },
+    {
+      "id": "zona_carga_pesada",
+      "label": "Carga pesada (tráilers, cajas termo, pipas)",
+      "color": "#1E88E5",
+      "polygon": []
+    }
+  ],
+  "camera_presets": {
+    "default": {
+      "height": 2.1,
+      "length": 18,
+      "angle": 0.42
+    },
+    "wide": {
+      "height": 2.1,
+      "length": 20,
+      "angle": 0.55
+    },
+    "tele": {
+      "height": 2.1,
+      "length": 30,
+      "angle": 0.28
+    }
+  },
+  "cameras": [
+    {
+      "id": "CAM-DRAFT-01",
+      "x": -323.4104393388085,
+      "z": -207.74895806245195,
+      "height": 2.1,
+      "yaw": 1.06766208471751,
+      "length": 18,
+      "angle": 0.42,
+      "enabled": false,
+      "note": "Borrador: cámara en esquina apuntando al centro. Ajusta posición/yaw según layout real."
+    },
+    {
+      "id": "CAM-DRAFT-02",
+      "x": 329.289682612214,
+      "z": -197.49060211917802,
+      "height": 2.1,
+      "yaw": -1.1412150055552492,
+      "length": 18,
+      "angle": 0.42,
+      "enabled": false,
+      "note": "Borrador: cámara en esquina apuntando al centro. Ajusta posición/yaw según layout real."
+    },
+    {
+      "id": "CAM-DRAFT-03",
+      "x": 139.6042951369746,
+      "z": 127.71988472114835,
+      "height": 2.1,
+      "yaw": -2.388183344309032,
+      "length": 18,
+      "angle": 0.42,
+      "enabled": false,
+      "note": "Borrador: cámara en esquina apuntando al centro. Ajusta posición/yaw según layout real."
+    },
+    {
+      "id": "CAM-DRAFT-04",
+      "x": -212.3206784247734,
+      "z": 120.49537022107786,
+      "height": 2.1,
+      "yaw": 2.2548272985031272,
+      "length": 18,
+      "angle": 0.42,
+      "enabled": false,
+      "note": "Borrador: cámara en esquina apuntando al centro. Ajusta posición/yaw según layout real."
+    }
+  ],
+  "style": {
+    "icons": {
+      "type": "pin_camera",
+      "color": "red"
+    },
+    "cones": {
+      "enabled": true,
+      "opacity": 0.25,
+      "feather": 0.35
+    },
+    "colors": {
+      "concrete": "#E0E0E0",
+      "asphalt": "#616161",
+      "grass": "#43A047"
+    }
+  },
+  "calibration": {
+    "hint": "Si vas a alinear con imagen satelital/plano: agrega 2 o 3 puntos de control (world↔pixel) para escala/rotación.",
+    "control_points": []
+  }
+}

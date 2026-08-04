@@ -1,0 +1,1 @@
+{ "id": "evt_manual_test", "ts": "ISO8601", "source": "iphone_shortcuts", "shortcut": "RF_OFFLINE_EVENT_TEST", "mode": "offline", "status": "pending", "payload": { "test": true, "message": "primer evento offline Runeforge" } }

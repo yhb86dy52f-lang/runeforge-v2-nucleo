@@ -1,0 +1,42 @@
+﻿{
+  "ts": "2026-05-22T00:47:53.0985009-06:00",
+  "event": "RF_N8N_LANGCHAIN_CORE_EXPORT_DISCOVERY",
+  "canary": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\runtime_canary_2_20_12",
+  "checked_versions": 80,
+  "hits": [
+    {
+      "Version": "1.1.48",
+      "HasLanguageModelsStream": true,
+      "ExportsSnippet": "{\r\n  \".\": {\r\n    \"input\": \"./src/index.ts\",\r\n    \"require\": {\r\n      \"types\": \"./dist/index.d.cts\",\r\n      \"default\": \"./dist/index.cjs\"\r\n    },\r\n    \"import\": {\r\n      \"types\": \"./dist/index.d.ts\",\r\n      \"default\": \"./dist/index.js\"\r\n    }\r\n  },\r\n  \"./agents\": {\r\n    \"input\": \"./src/agents.ts\",\r\n    \"require\": {\r\n      \"types\": \"./dist/agents.d.cts\",\r\n      \"default\": \"./dist/agents.cjs\"\r\n    },\r\n    \"import\": {\r\n      \"types\": \"./dist/agents.d.ts\",\r\n      \"default\": \"./dist/agents.js\"\r\n    }\r"
+    },
+    {
+      "Version": "1.1.47",
+      "HasLanguageModelsStream": true,
+      "ExportsSnippet": "{\r\n  \".\": {\r\n    \"input\": \"./src/index.ts\",\r\n    \"import\": {\r\n      \"types\": \"./dist/index.d.ts\",\r\n      \"default\": \"./dist/index.js\"\r\n    },\r\n    \"require\": {\r\n      \"types\": \"./dist/index.d.cts\",\r\n      \"default\": \"./dist/index.cjs\"\r\n    }\r\n  },\r\n  \"./load\": {\r\n    \"input\": \"./src/load/index.ts\",\r\n    \"import\": {\r\n      \"types\": \"./dist/load/index.d.ts\",\r\n      \"default\": \"./dist/load/index.js\"\r\n    },\r\n    \"require\": {\r\n      \"types\": \"./dist/load/index.d.cts\",\r\n      \"default\": \"./dist/load/"
+    },
+    {
+      "Version": "1.1.46",
+      "HasLanguageModelsStream": true,
+      "ExportsSnippet": "{\r\n  \".\": {\r\n    \"input\": \"./src/index.ts\",\r\n    \"import\": {\r\n      \"types\": \"./dist/index.d.ts\",\r\n      \"default\": \"./dist/index.js\"\r\n    },\r\n    \"require\": {\r\n      \"types\": \"./dist/index.d.cts\",\r\n      \"default\": \"./dist/index.cjs\"\r\n    }\r\n  },\r\n  \"./load\": {\r\n    \"input\": \"./src/load/index.ts\",\r\n    \"import\": {\r\n      \"types\": \"./dist/load/index.d.ts\",\r\n      \"default\": \"./dist/load/index.js\"\r\n    },\r\n    \"require\": {\r\n      \"types\": \"./dist/load/index.d.cts\",\r\n      \"default\": \"./dist/load/"
+    },
+    {
+      "Version": "1.1.45",
+      "HasLanguageModelsStream": true,
+      "ExportsSnippet": "{\r\n  \".\": {\r\n    \"input\": \"./src/index.ts\",\r\n    \"import\": {\r\n      \"types\": \"./dist/index.d.ts\",\r\n      \"default\": \"./dist/index.js\"\r\n    },\r\n    \"require\": {\r\n      \"types\": \"./dist/index.d.cts\",\r\n      \"default\": \"./dist/index.cjs\"\r\n    }\r\n  },\r\n  \"./load\": {\r\n    \"input\": \"./src/load/index.ts\",\r\n    \"import\": {\r\n      \"types\": \"./dist/load/index.d.ts\",\r\n      \"default\": \"./dist/load/index.js\"\r\n    },\r\n    \"require\": {\r\n      \"types\": \"./dist/load/index.d.cts\",\r\n      \"default\": \"./dist/load/"
+    },
+    {
+      "Version": "1.1.44",
+      "HasLanguageModelsStream": true,
+      "ExportsSnippet": "{\r\n  \".\": {\r\n    \"input\": \"./src/index.ts\",\r\n    \"import\": {\r\n      \"types\": \"./dist/index.d.ts\",\r\n      \"default\": \"./dist/index.js\"\r\n    },\r\n    \"require\": {\r\n      \"types\": \"./dist/index.d.cts\",\r\n      \"default\": \"./dist/index.cjs\"\r\n    }\r\n  },\r\n  \"./load\": {\r\n    \"input\": \"./src/load/index.ts\",\r\n    \"import\": {\r\n      \"types\": \"./dist/load/index.d.ts\",\r\n      \"default\": \"./dist/load/index.js\"\r\n    },\r\n    \"require\": {\r\n      \"types\": \"./dist/load/index.d.cts\",\r\n      \"default\": \"./dist/load/"
+    },
+    {
+      "Version": "1.1.43",
+      "HasLanguageModelsStream": true,
+      "ExportsSnippet": "{\r\n  \".\": {\r\n    \"input\": \"./src/index.ts\",\r\n    \"import\": {\r\n      \"types\": \"./dist/index.d.ts\",\r\n      \"default\": \"./dist/index.js\"\r\n    },\r\n    \"require\": {\r\n      \"types\": \"./dist/index.d.cts\",\r\n      \"default\": \"./dist/index.cjs\"\r\n    }\r\n  },\r\n  \"./load\": {\r\n    \"input\": \"./src/load/index.ts\",\r\n    \"import\": {\r\n      \"types\": \"./dist/load/index.d.ts\",\r\n      \"default\": \"./dist/load/index.js\"\r\n    },\r\n    \"require\": {\r\n      \"types\": \"./dist/load/index.d.cts\",\r\n      \"default\": \"./dist/load/"
+    }
+  ],
+  "backend": "NO_TOCADO",
+  "runtime_original": "NO_TOCADO",
+  "node_global": "NO_TOCADO",
+  "next": "PROBAR_OVERRIDE_CORE_EN_CANARY"
+}

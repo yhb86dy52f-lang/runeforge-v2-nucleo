@@ -1,0 +1,34 @@
+﻿{
+  "rf_schema": "rf.whatsapp.webhook.echo.result.v1",
+  "estado": "RF_WHATSAPP_WEBHOOK_ECHO_OK",
+  "created_at": "2026-06-16T04:00:28.622Z",
+  "server": "127.0.0.1:3199",
+  "verify_status": 200,
+  "verify_challenge": "RF_CHALLENGE_OK",
+  "post_status": 200,
+  "normalized": {
+    "rf_schema": "rf.whatsapp.inbound_message.v1",
+    "received_at": "2026-06-16T04:00:28.618Z",
+    "channel": "whatsapp",
+    "from_hash": "hash_1237714380",
+    "message_id": "wamid.DRYRUN",
+    "type": "text",
+    "text": "/help",
+    "route": "help",
+    "trace_id": "rf_wa_echo_1781582428618",
+    "policy": "DRYRUN_ONLY_NO_SHELL"
+  },
+  "dryrun_reply": {
+    "messaging_product": "whatsapp",
+    "to": "DRYRUN_TO",
+    "type": "text",
+    "text": {
+      "body": "RF_WHATSAPP_ECHO_OK"
+    }
+  },
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "firewall": "NO_TOCADO",
+  "real_whatsapp_send": "NO_REAL_SEND",
+  "siguiente": "RF_WHATSAPP_SEND_DRYRUN_V1"
+}

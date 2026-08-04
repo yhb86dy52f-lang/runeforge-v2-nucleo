@@ -1,0 +1,253 @@
+﻿{
+  "ts": "2026-06-02T03:30:48.0726298-06:00",
+  "version": "1.0",
+  "mode": "Apply",
+  "result": "OK",
+  "daily_root": "D:\\RUNEFORGE_BACKUPS\\daily",
+  "daily_keep": 7,
+  "weekly_root": "G:\\RUNEFORGE_ARCHIVE\\weekly",
+  "weekly_keep": 4,
+  "total_items": 24,
+  "delete_candidates": 0,
+  "skipped_unsealed": 16,
+  "deleted_count": 0,
+  "delete_error_count": 0,
+  "deleted": [],
+  "delete_errors": [],
+  "plan": [
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260602_033006",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260602_033006",
+      "LastWriteTime": "2026-06-02T03:30:28.7644452-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260601_033004",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260601_033004",
+      "LastWriteTime": "2026-06-01T03:30:23.7041815-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260531_033004",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260531_033004",
+      "LastWriteTime": "2026-05-31T03:30:34.7052275-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260530_033008",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260530_033008",
+      "LastWriteTime": "2026-05-30T03:30:25.5813830-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260529_033005",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260529_033005",
+      "LastWriteTime": "2026-05-29T03:30:10.1550515-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260528_033007",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260528_033007",
+      "LastWriteTime": "2026-05-28T03:30:29.5976067-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260527_033005",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260527_033005",
+      "LastWriteTime": "2026-05-27T03:30:25.3553751-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260526_035336",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260526_035336",
+      "LastWriteTime": "2026-05-26T03:53:46.3314024-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260525_033003",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260525_033003",
+      "LastWriteTime": "2026-05-25T03:30:45.8825519-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260524_033006",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260524_033006",
+      "LastWriteTime": "2026-05-24T03:30:15.3977344-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260523_033004",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260523_033004",
+      "LastWriteTime": "2026-05-23T03:30:36.4153974-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260522_033004",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260522_033004",
+      "LastWriteTime": "2026-05-22T03:30:07.9826554-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260521_033005",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260521_033005",
+      "LastWriteTime": "2026-05-21T03:30:31.0092544-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260520_033004",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260520_033004",
+      "LastWriteTime": "2026-05-20T03:30:07.6456657-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260519_033042",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260519_033042",
+      "LastWriteTime": "2026-05-19T03:33:57.7119677-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260518_033005",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260518_033005",
+      "LastWriteTime": "2026-05-18T03:30:29.7617879-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260518_001342",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260518_001342",
+      "LastWriteTime": "2026-05-18T00:14:03.3938585-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260517_160553",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_160553",
+      "LastWriteTime": "2026-05-17T16:05:53.6921341-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260517_160420",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_160420",
+      "LastWriteTime": "2026-05-17T16:04:40.7222335-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260517_145357",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_145357",
+      "LastWriteTime": "2026-05-17T14:54:02.8023432-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260517_145201",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_145201",
+      "LastWriteTime": "2026-05-17T14:52:04.4098558-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260517_145002",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_145002",
+      "LastWriteTime": "2026-05-17T14:50:06.8434489-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "DAILY",
+      "Action": "SKIP_UNSEALED",
+      "Name": "runeforge_safe_daily_20260517_144705",
+      "FullName": "D:\\RUNEFORGE_BACKUPS\\daily\\runeforge_safe_daily_20260517_144705",
+      "LastWriteTime": "2026-05-17T14:47:11.8834672-06:00",
+      "HasRequiredSeal": false,
+      "SealPath": "",
+      "Reason": "Fuera del límite, pero sin sello. No se borra por seguridad."
+    },
+    {
+      "Kind": "WEEKLY",
+      "Action": "KEEP",
+      "Name": "runeforge_safe_daily_20260517_145512",
+      "FullName": "G:\\RUNEFORGE_ARCHIVE\\weekly\\runeforge_safe_daily_20260517_145512",
+      "LastWriteTime": "2026-05-17T15:04:42.2132632-06:00",
+      "HasRequiredSeal": true,
+      "Reason": "Dentro del límite de retención"
+    }
+  ],
+  "backend": "NO_TOCADO",
+  "runeforge": "ROTACION_BACKUP"
+}

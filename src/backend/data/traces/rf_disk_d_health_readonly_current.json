@@ -1,0 +1,379 @@
+{
+  "timestamp": "2026-06-28T04:07:33.7645586-06:00",
+  "phase": "RF_DISK_D_HEALTH_READONLY_FLAT_CURRENT",
+  "output_policy": "CURRENT_OVERWRITE_WITH_BACKUP",
+  "status": "DISK_D_REVIEW_REQUIRED",
+  "drive": "D:",
+  "drive_exists": true,
+  "free_bytes": 410963877888,
+  "used_bytes": 88570384384,
+  "volume_health": "Healthy",
+  "filesystem": "NTFS",
+  "disk_number": 0,
+  "disk_health": "Healthy",
+  "disk_operational": "Online",
+  "disk_friendly_name": "WDC WD5000LPCX-24VHAT0",
+  "system_disk_events_count": 50,
+  "system_disk_events": [
+    {
+      "TimeCreated": "2026-06-28T04:07:30.3650500-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f37a8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:07:18.7903662-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f3740 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:07:14.7695547-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x607010 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:07:13.1611985-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5d9438 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:07:05.5440430-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f36e0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:07:04.3040449-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f36d8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:07:03.0747518-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f36a8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:07:00.6240764-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f36a0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:55.0445766-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f36a0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:47.0853805-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x6061e0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:41.5060419-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x605f20 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:40.7790061-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5d9438 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:39.5498903-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f35e8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:38.3097524-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f35c8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:32.7053859-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f35b8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:20.8601636-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f3568 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:19.3103540-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x6023c0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:14.2287950-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f3518 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:13.2327740-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x601020 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:10.6200715-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x600c90 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:05.3755004-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f34c0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:04.1355903-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f34a0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:02.8957495-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f3498 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:06:01.6662793-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f3488 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:49.4101911-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x6081c8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:44.7274615-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f33d0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:43.8744434-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x607ed8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:37.9647125-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f33c8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:36.7356716-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f33a8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:31.1554835-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f3378 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:24.7134350-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f3328 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:23.8554280-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x6075e0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:23.1193628-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5d9438 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:16.8745333-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x6071f8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:12.3691442-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f32a0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:05:00.9337247-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f3220 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:59.0965114-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x606d28 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:54.8892393-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f31f8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:48.8232443-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f31c8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:47.3502551-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x606778 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:41.7664253-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x6061e0 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:40.5424203-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x606120 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:34.5354900-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x605f20 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:28.6928199-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x6059b8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:25.9729515-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f3110 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:20.4056541-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f30b8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:18.8001454-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x6031d8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:17.5641564-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x602d58 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:08.6700838-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x5f3080 del disco 0 (nombre PDO: \\Device\\00000031)."
+    },
+    {
+      "TimeCreated": "2026-06-28T04:04:00.0412467-06:00",
+      "Provider": "disk",
+      "Id": 153,
+      "Level": "Advertencia",
+      "Message": "Se reintentó la operación de E/S en la dirección de bloque lógico 0x6016c8 del disco 0 (nombre PDO: \\Device\\00000031)."
+    }
+  ],
+  "bad_signals": [
+    "SYSTEM_DISK_EVENTS_LAST_24H"
+  ],
+  "next": "RF_BACKUP_SWITCH_DESTINATION_CURRENT",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "delete": "NO",
+  "move": "NO",
+  "fix": "NO"
+}

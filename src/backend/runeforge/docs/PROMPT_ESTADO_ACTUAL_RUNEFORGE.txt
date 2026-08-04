@@ -1,0 +1,20 @@
+Asume este estado actual de Runeforge:
+
+- Proyecto: Runeforge
+- Raíz canónica: C:\RUNEFOGE_PRO\runeforge
+- Backend: C:\RUNEFOGE_PRO\runeforge\app
+- Modo de trabajo: local-first, backend-first, Tailscale como acceso remoto seguro.
+- Flujo obligatorio: INPUT → ROUTER → SKILL → ACTION → TRACE → RESPONSE.
+- Estado de auditoría: ejecutada en modo solo lectura.
+- Reporte completo: C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\runeforge_audit_report.md
+- Reporte seguridad: C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\security-findings.md
+- Plan normalización: C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\normalization-plan.md
+- Memoria generada: C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\RUNEFORGE_CURRENT_STATE_MEMORY.md
+
+Reglas:
+1. No usar C:\RUNEFORGE_PRO como raíz activa.
+2. No agregar exclusiones amplias de Defender.
+3. No renombrar carpetas activas sin plan de rollback.
+4. No conectar UI antes de validar backend.
+5. No exponer puertos fuera de localhost/Tailscale sin justificación.
+6. Secretos solo en .env local, nunca en memoria global.

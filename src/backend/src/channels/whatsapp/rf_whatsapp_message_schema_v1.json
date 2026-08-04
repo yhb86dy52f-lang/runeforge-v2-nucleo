@@ -1,0 +1,12 @@
+﻿{
+    "rf_schema":  "rf.whatsapp.inbound_message.v1",
+    "received_at":  "ISO_TIMESTAMP",
+    "channel":  "whatsapp",
+    "from_hash":  "HASHED_PHONE_OR_WA_ID",
+    "message_id":  "META_MESSAGE_ID",
+    "type":  "text",
+    "text":  "USER_TEXT",
+    "route":  "chat_local_ai|help|status_readonly|blocked",
+    "trace_id":  "RF_TRACE_ID",
+    "policy":  "NO_SHELL_NO_SECRETS_NO_DESTRUCTIVE_ACTIONS"
+}

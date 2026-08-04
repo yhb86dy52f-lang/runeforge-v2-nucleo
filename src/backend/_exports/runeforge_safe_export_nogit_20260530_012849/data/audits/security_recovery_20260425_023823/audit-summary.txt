@@ -1,0 +1,26 @@
+RUNEFORGE_SECURITY_AUDIT_SUMMARY
+timestamp=2026-04-25T02:38:39
+mode=AUDIT_ONLY_NO_FIX_RECOVERY
+root=C:\RUNEFOGE_PRO\runeforge
+backend=C:\RUNEFOGE_PRO\runeforge\app
+root_exists=True
+backend_exists=True
+is_admin=True
+
+env_files=2
+git_tracked_env=0
+all_interface_ports=276
+defender_exclusions=5
+secret_indicator_files=165
+log_secret_indicator_files=11
+errors=0
+findings=5
+
+outputs:
+- C:\RUNEFOGE_PRO\runeforge\data\audits\security_recovery_20260425_023823\security-audit.json
+- C:\RUNEFOGE_PRO\runeforge\data\audits\security_recovery_20260425_023823\security-findings.md
+- C:\RUNEFOGE_PRO\runeforge\data\audits\security_recovery_20260425_023823\audit-summary.txt
+
+NEXT_REQUIRED_RESULT:
+Pega aquí el contenido completo de:
+C:\RUNEFOGE_PRO\runeforge\data\audits\security_recovery_20260425_023823\audit-summary.txt

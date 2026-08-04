@@ -1,0 +1,25 @@
+RUNEFORGE_SECURITY_FIX03B_SSH_READONLY_SUMMARY
+timestamp=2026-04-25T03:22:22
+mode=READ_ONLY_SSH_AUDIT
+root=C:\RUNEFOGE_PRO\runeforge
+
+ssh_service_status=Running
+ssh_service_start_type=Automatic
+ssh_22_listeners=2
+ssh_22_all_interfaces=2
+ssh_firewall_rules=5
+tailscale_ip=100.111.32.10
+
+outputs:
+- C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03b_ssh_readonly_20260425_032216\fix03b-ssh-report.json
+- C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03b_ssh_readonly_20260425_032216\fix03b-ssh-report.md
+- C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03b_ssh_readonly_20260425_032216\fix03b-ssh-summary.txt
+
+backend=NO_TOCADO
+ssh=NO_TOCADO
+firewall=NO_TOCADO
+tailscale=NO_TOCADO
+
+NEXT_REQUIRED_RESULT:
+Pega aquí el contenido completo de:
+C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03b_ssh_readonly_20260425_032216\fix03b-ssh-report.md

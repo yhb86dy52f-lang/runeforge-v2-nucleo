@@ -1,0 +1,18 @@
+﻿{
+    "rf_schema":  "rf.whatsapp.public_edge.hosting_decision.v1",
+    "created_at":  "2026-06-16T00:22:22.5679586-06:00",
+    "estado":  "HOSTING_DECISION_SELECTED",
+    "decision":  "CLOUDFLARE_TUNNEL_MINIMAL_PUBLIC_HTTPS",
+    "why":  "Meta necesita HTTPS publico para webhook; Cloudflare Tunnel evita abrir puertos del router y mantiene Runeforge privado",
+    "local_service":  "http://127.0.0.1:3198",
+    "public_path":  "/webhooks/whatsapp",
+    "required_meta_callback":  "https://PENDIENTE_DOMINIO/webhooks/whatsapp",
+    "verify_token_source":  "WHATSAPP_VERIFY_TOKEN_EN_ENV",
+    "real_whatsapp_send":  "NO_REAL_SEND",
+    "backend":  "NO_TOCADO",
+    "pm2":  "NO_TOCADO",
+    "firewall":  "NO_TOCADO",
+    "router_ports":  "NO_ABRIR",
+    "secrets":  "NO_IMPRESOS",
+    "siguiente":  "RF_WHATSAPP_CLOUDFLARED_PRECHECK_V1"
+}

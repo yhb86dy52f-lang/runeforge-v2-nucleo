@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-05-31T19:05:16.1191616-06:00",
+  "event": "RF_FORGE_UI_BACKEND_START_STATUS_FIX_CURRENT_V1",
+  "status": "BACKEND_STARTED_OK",
+  "listen_3100": true,
+  "health_ok": true,
+  "status_ok": true,
+  "webcommand_ok": true,
+  "actions_v4_ping_ok": false,
+  "pm2_process_count": 1,
+  "pm2_names": [
+    "runeforge-mvp"
+  ],
+  "backend": "NO_RESTART_STATUS_ONLY",
+  "code": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "next": "RF_FORGE_UI_PRECHECK_CURRENT_V1_RETEST"
+}

@@ -1,0 +1,18 @@
+{
+  "Timestamp": "2026-05-26T02:36:33.0279831-06:00",
+  "Estado": "RF_ROUTER_KILLSWITCH_PREP_DONE",
+  "Router": "http://192.168.100.1",
+  "IpLocal": "192.168.100.3",
+  "Gateway": "192.168.100.1",
+  "MacPc": "",
+  "AccionManual": "Security > Firewall > MAC Filtering > Enable + Black List + Apply",
+  "NoTocar": [
+    "White List",
+    "Restore",
+    "Reboot",
+    "DVR",
+    "Router",
+    "MAC_PC_LOCAL"
+  ],
+  "BloqueoAutomatico": "PENDIENTE_ENDPOINT_ROUTER"
+}

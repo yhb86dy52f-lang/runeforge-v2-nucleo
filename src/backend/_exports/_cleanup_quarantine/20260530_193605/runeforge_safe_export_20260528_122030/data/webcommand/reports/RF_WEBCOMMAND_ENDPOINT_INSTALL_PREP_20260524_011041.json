@@ -1,0 +1,12 @@
+{
+  "OkPrep": true,
+  "Root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "App": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+  "AppJs": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\app.js",
+  "RouteFile": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\webcommand\\webcommand.routes.js",
+  "BackupDir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\webcommand\\backups\\20260524_011040",
+  "Endpoint": "POST http://127.0.0.1:3100/api/webcommand",
+  "HealthEndpoint": "GET http://127.0.0.1:3100/api/webcommand/health",
+  "Next": "Restart backend or PM2, then test endpoint",
+  "GeneratedAt": "2026-05-24T01:10:41.3994172-06:00"
+}

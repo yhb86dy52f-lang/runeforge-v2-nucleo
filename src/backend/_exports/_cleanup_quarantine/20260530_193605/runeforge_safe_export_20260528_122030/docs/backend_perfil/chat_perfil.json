@@ -1,0 +1,11 @@
+{
+  "Fecha": "2026-04-19 04:49:00",
+  "App": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+  "Server": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\server.js",
+  "TieneServer": true,
+  "ServerTieneApiChat": false,
+  "ServerUsaRoutes": false,
+  "RoutesDirExiste": false,
+  "RouteFiles": 0,
+  "Hallazgos": null
+}

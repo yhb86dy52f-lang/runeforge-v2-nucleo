@@ -1,0 +1,37 @@
+[
+  {
+    "name": "RUNEFORGE_COMMANDER_V43_4_CLEAN_OPS.ahk",
+    "bytes": 6486,
+    "lines": 198,
+    "sha256": "283c7e926c22e7ff93fcffb25f1b369321193a179ec4d591d31ee444997dd4ff",
+    "role": "LEGACY_STABLE_CLEAN_OPS"
+  },
+  {
+    "name": "RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk",
+    "bytes": 13936,
+    "lines": 442,
+    "sha256": "8736eb65757dd4a737f3d01a664db47dc8ffdbb3c854895829c3acde8291461e",
+    "role": "CANONICAL_FULL_PANEL"
+  },
+  {
+    "name": "RUNEFORGE_COMMANDER_V43_6_QUICK_DOCK.ahk",
+    "bytes": 6754,
+    "lines": 204,
+    "sha256": "ab88ed474679c86b6c293f50877fb10346e41de2fc1f71f3e1e50c45a7901190",
+    "role": "CANONICAL_QUICK_DOCK"
+  },
+  {
+    "name": "RUNEFORGE_COMMANDER_V41_GHOST_FUSION.ahk",
+    "bytes": 14336,
+    "lines": 463,
+    "sha256": "8fa7a42b08ddda0bc8012ccf7e9addfb8a374861530e9861540f14cee8cbdec7",
+    "role": "LEGACY_GHOST_FUSION_HIGHER_INJECTION_RISK"
+  },
+  {
+    "name": "RUNEFORGE_COMMANDER_V42_EXPORT_BRIDGE.ahk",
+    "bytes": 15032,
+    "lines": 495,
+    "sha256": "ac796ef519ecbd956475324c06a7efa3c2b89e22c95cb974a1dca8f691cb261e",
+    "role": "LEGACY_EXPORT_BRIDGE_UNIQUE_IMPORT_FEATURES"
+  }
+]

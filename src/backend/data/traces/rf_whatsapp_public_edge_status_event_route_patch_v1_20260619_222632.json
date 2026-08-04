@@ -1,0 +1,15 @@
+{
+  "rf_schema": "rf.whatsapp.public_edge.status_event_route_patch.v1",
+  "created_at": "2026-06-19T22:26:33.2602766-06:00",
+  "estado": "PUBLIC_EDGE_STATUS_EVENT_ROUTE_PATCH_READY",
+  "server": "C:\\RUNEFOGE_PRO\\runeforge\\relay\\whatsapp-public-edge\\src\\server.mjs",
+  "backup": "C:\\RUNEFOGE_PRO\\runeforge\\relay\\whatsapp-public-edge\\src\\server.mjs.backup_status_event_route_20260619_222632",
+  "route_change": "statuses_to_status_event_not_chat",
+  "text_route": "messages_text_to_chat_local_ai",
+  "status_route": "statuses_to_status_event",
+  "real_whatsapp_send": "NO_REAL_SEND",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "firewall": "NO_TOCADO",
+  "siguiente": "REINICIAR_PUBLIC_EDGE_Y_REPROBAR_STATUS_EVENT"
+}

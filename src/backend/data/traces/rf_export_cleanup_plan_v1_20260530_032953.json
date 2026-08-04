@@ -1,0 +1,38 @@
+{
+  "resumen": {
+    "timestamp": "2026-05-30T03:30:00.3770791-06:00",
+    "event": "RF_EXPORT_CLEANUP_PLAN_V1",
+    "status": "PLAN_GENERADO",
+    "export_dir": "C:\\RUNEFOGE_PRO\\runeforge\\_exports",
+    "total_zips": 2,
+    "export_final": "runeforge_safe_export_nogit_20260530_012849.zip",
+    "final_detectado": true,
+    "candidatos_limpieza": 1,
+    "accion_real": "NO_BORRAR",
+    "backend": "NO_TOCADO",
+    "pm2": "NO_TOCADO",
+    "n8n": "NO_TOCADO"
+  },
+  "items": [
+    {
+      "Nombre": "runeforge_safe_export_nogit_20260530_012849.zip",
+      "Ruta": "C:\\RUNEFOGE_PRO\\runeforge\\_exports\\runeforge_safe_export_nogit_20260530_012849.zip",
+      "MB": 1092.38,
+      "LastWrite": "2026-05-30 01:39:26",
+      "SHA256": "4924CF7893F22311AF34C560ACBD17D091F5A61DB94F415F536A0D5442578FD9",
+      "EsFinal": true,
+      "Decision": "CONSERVAR_EXPORT_FINAL",
+      "Accion": "NO_BORRAR_EN_V1"
+    },
+    {
+      "Nombre": "runeforge_safe_export_20260528_122030.zip",
+      "Ruta": "C:\\RUNEFOGE_PRO\\runeforge\\_exports\\runeforge_safe_export_20260528_122030.zip",
+      "MB": 1094.3,
+      "LastWrite": "2026-05-28 12:33:41",
+      "SHA256": "CE89D9BA0ACF53286CA9DE796B742E612EABEC24E578358E19A9F9DE63A2C386",
+      "EsFinal": false,
+      "Decision": "CANDIDATO_LIMPIEZA",
+      "Accion": "NO_BORRAR_EN_V1"
+    }
+  ]
+}

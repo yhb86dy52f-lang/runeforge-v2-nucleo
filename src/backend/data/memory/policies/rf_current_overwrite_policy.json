@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-05-31T18:09:47.4660611-06:00",
+  "event": "RF_CURRENT_OVERWRITE_POLICY_V1",
+  "status": "CURRENT_POLICY_ACTIVE",
+  "policy_md": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\policies\\RF_CURRENT_OVERWRITE_POLICY.md",
+  "policy_json": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\policies\\rf_current_overwrite_policy.json",
+  "current_files": "OVERWRITE",
+  "versioned_files": "MILESTONES_ONLY",
+  "delete_policy": "QUARANTINE_BEFORE_DELETE",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO"
+}

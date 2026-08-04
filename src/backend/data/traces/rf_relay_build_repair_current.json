@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-06-23T13:19:07.5860580-06:00",
+  "phase": "RF_RELAY_BUILD_REPAIR_CURRENT",
+  "output_policy": "CURRENT_OVERWRITE_WITH_BACKUP",
+  "repo": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\github\\runeforge-relay-clean",
+  "fix": "rawBody typing via RequestWithRawBody cast",
+  "build_exit": 0,
+  "dist_index_exists": true,
+  "residual_risks": [],
+  "status": "BUILD_REPAIR_OK",
+  "next": "RF_RELAY_LOCAL_RUNTIME_SMOKE_TEST_V1",
+  "current_backup_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\current_overwrite\\relay_build_repair\\20260623_131851",
+  "code_backup_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\relay_build_repair_current\\20260623_131851",
+  "write_github": "NO",
+  "write_drive": "NO",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO"
+}

@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-06-28T15:11:48.1806202-06:00",
+  "phase": "RF_DEV_QUALITY_GATE_CURRENT",
+  "status": "DEV_QUALITY_GATE_OK",
+  "node_check_ok": true,
+  "backend_ok": true,
+  "panel_ok": true,
+  "health_ok": true,
+  "chat_ok": true,
+  "smoke_ok": true,
+  "drive_d_policy_ok": true,
+  "emergency_backup_ok": true,
+  "hallucination_risk": false,
+  "chat_sample": "Runeforge se refiere al conjunto de herramientas locales utilizadas para el desarrollo e implementación de sistemas y aplicaciones en un entorno localizado.",
+  "residual": [],
+  "next": "RF_RUNEFORGE_COCKPIT_PLAN_CURRENT",
+  "backend": "NO_PATCH",
+  "n8n": "NO_TOCADO",
+  "drive_d": "NO_TOCADO"
+}

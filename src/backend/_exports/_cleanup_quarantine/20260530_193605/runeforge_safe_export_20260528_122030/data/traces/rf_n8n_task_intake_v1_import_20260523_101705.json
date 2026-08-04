@@ -1,0 +1,16 @@
+{
+  "ts": "2026-05-23T10:19:42.9541423-06:00",
+  "event": "RF_N8N_TASK_INTAKE_V1_IMPORT",
+  "workflow_id": "rf_task_intake_v1",
+  "workflow_name": "RF_N8N_TASK_INTAKE_V1",
+  "workflow_file": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\workflows\\RF_N8N_TASK_INTAKE_V1.workflow.json",
+  "import_log": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\logs\\n8n_import_task_intake_v1_20260523_101705.log",
+  "import_exit_code": 0,
+  "publish_exit_code": 0,
+  "update_exit_code": 0,
+  "list_exit_code": 0,
+  "backend_core": "NO_TOCADO",
+  "n8n_runtime": "NO_TOCADO",
+  "n8n_db": "TOCADO_CANARY",
+  "next": "ARRANCAR_N8N_CANARY_EN_X2"
+}

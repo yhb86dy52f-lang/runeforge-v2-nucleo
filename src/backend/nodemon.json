@@ -1,0 +1,14 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ignore": [
+    "node_modules",
+    "_archive",
+    "retro",
+    "data",
+    "*.log"
+  ],
+  "ext": "js,json",
+  "exec": "node src/server.js"
+}

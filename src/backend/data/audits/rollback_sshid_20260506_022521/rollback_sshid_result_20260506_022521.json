@@ -1,0 +1,27 @@
+{
+  "Timestamp": "2026-05-06 02:25:21",
+  "AuditDir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\rollback_sshid_20260506_022521",
+  "AdminKeys": "C:\\ProgramData\\ssh\\administrators_authorized_keys",
+  "BackupBefore": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\rollback_sshid_20260506_022521\\administrators_authorized_keys.before_rollback.20260506_022521.bak",
+  "Rollback": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\rollback_sshid_20260506_022521\\rollback-restore-sshid-state-20260506_022521.ps1",
+  "TargetBlobs": 2,
+  "LinesBefore": 5,
+  "LinesAfter": 3,
+  "RemovedLines": 2,
+  "SshdConfigTest": "OK",
+  "SshdRestarted": true,
+  "Port22": [
+    {
+      "LocalAddress": "::",
+      "LocalPort": 22,
+      "OwningProcess": 12264
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 22,
+      "OwningProcess": 12264
+    }
+  ],
+  "Status": "OK_SSHID_KEYS_REMOVED",
+  "Error": null
+}

@@ -1,0 +1,113 @@
+# RUNEFORGE DIRECT COMMAND CAPTURE
+timestamp=2026-04-25T02:56:05
+command=FIX02A_PREFLIGHT_SOURCE_READ_NO_RFCAP
+
+--- OUTPUT ---
+
+===== FILE: C:\RUNEFOGE_PRO\runeforge\app\src\server.js =====
+   1: const path = require('path');
+   2: const app = require('./app');
+   3: const env = require('./config/env');
+   4: const logger = require('./shared/logger');
+   5: 
+   6: app.listen(env.port, () => {
+   7:   logger.info('runeforge_started', {
+   8:     service: env.appName,
+   9:     env: env.nodeEnv,
+  10:     port: env.port
+  11:   });
+  12: });
+  13: 
+  14: 
+  15: app.post('/api/chat', (req, res) => {
+  16:   const input = String(req.body?.input ?? req.body?.message ?? '').trim();
+  17: 
+  18:   const text = input
+  19:     ? 'Runeforge recibió: ' + input
+  20:     : 'Runeforge listo.';
+  21: 
+  22:   return res.json({
+  23:     ok: true,
+  24:     input,
+  25:     reply: {
+  26:       text,
+  27:       blocks: [
+  28:         { type: 'text', text }
+  29:       ]
+  30:     },
+  31:     meta: {
+  32:       skill: 'general',
+  33:       mode: 'mvp'
+  34:     }
+  35:   });
+  36: });
+  37: 
+
+===== FILE: C:\RUNEFOGE_PRO\runeforge\app\src\config\env.js =====
+   1: const path = require('path');
+   2: const dotenv = require('dotenv');
+   3: 
+   4: dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+   5: 
+   6: function parseList(value, fallback = '') {
+   7:   return (value || fallback)
+   8:     .split(',')
+   9:     .map(v => v.trim())
+  10:     .filter(Boolean);
+  11: }
+  12: 
+  13: module.exports = {
+  14:   nodeEnv: process.env.NODE_ENV || 'development',
+  15:   port: Number(process.env.PORT || 3100),
+  16:   appName: process.env.RUNEFORGE_NAME || 'Runeforge',
+  17:   allowedCommands: parseList(process.env.RUNEFORGE_ALLOWED_COMMANDS, 'ping,status,echo,time'),
+  18:   ai: {
+  19:     provider: process.env.AI_PROVIDER || '',
+  20:     apiKey: ,
+  21:     model: process.env.AI_MODEL || ''
+  22:   },
+  23:   telemetria: {
+  24:     apn: process.env.RUNEFORGE_DEFAULT_APN || 'PENDIENTE',
+  25:     inboundIp: process.env.RUNEFORGE_DEFAULT_INBOUND_IP || 'PENDIENTE',
+  26:     inboundPort: process.env.RUNEFORGE_DEFAULT_INBOUND_PORT || 'PENDIENTE'
+  27:   },
+  28:   whatsapp: {
+  29:     enabled: String(process.env.WHATSAPP_ENABLED || 'false').toLowerCase() === 'true',
+  30:     verifyToken: ,
+  31:     accessToken: ,
+  32:     phoneNumberId: process.env.WHATSAPP_PHONE_NUMBER_ID || '',
+  33:     appSecret: 
+  34:   }
+  35: };
+
+===== FILE: C:\RUNEFOGE_PRO\runeforge\app\package.json =====
+   1: {
+   2:   "name": "runeforge-mvp",
+   3:   "version": "0.1.0",
+   4:   "private": true,
+   5:   "description": "Runeforge MVP local-first backend for Windows + PowerShell 7 + Node.js",
+   6:   "main": "src/server.js",
+   7:   "scripts": {
+   8:     "dev": "nodemon src/server.js",
+   9:     "start": "node src/server.js",
+  10:     "doctor": "node -e \"require('./src/config/env'); console.log('RUNEFORGE_DOCTOR_OK')\""
+  11:   },
+  12:   "keywords": [
+  13:     "runeforge",
+  14:     "local-first",
+  15:     "whatsapp",
+  16:     "automation",
+  17:     "node"
+  18:   ],
+  19:   "author": "Nesthor",
+  20:   "license": "UNLICENSED",
+  21:   "dependencies": {
+  22:     "dotenv": "^16.4.5",
+  23:     "express": "^4.21.2"
+  24:   },
+  25:   "devDependencies": {
+  26:     "nodemon": "^3.1.10"
+  27:   }
+  28: }
+
+

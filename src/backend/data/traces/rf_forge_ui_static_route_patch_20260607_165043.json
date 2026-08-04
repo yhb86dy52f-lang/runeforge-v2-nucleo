@@ -1,0 +1,14 @@
+{
+  "Estado": "RF_FORGE_UI_STATIC_ROUTE_PATCH_REVIEW",
+  "Fecha": "2026-06-07 16:50:43",
+  "AppJs": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\app.js",
+  "Backup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\forge_ui_static_route\\20260607_165043\\app.js.20260607_165043.bak",
+  "Rollback": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\ops\\rollback\\Rollback-RF-ForgeUiStaticRoute-20260607_165043.ps1",
+  "HealthOk": false,
+  "ForgeOk": false,
+  "ForgeUrl": "http://127.0.0.1:3100/forge/",
+  "Backend": "TOCADO_APPJS",
+  "PM2": "RESTARTED",
+  "Firewall": "NO_TOCADO",
+  "n8n": "NO_TOCADO"
+}

@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-06-28T03:14:39.9663606-06:00",
+  "phase": "RF_LOCAL_AI_ASSISTANT_ENDPOINT_AUTONOMOUS_CURRENT",
+  "output_policy": "CURRENT_OVERWRITE_WITH_BACKUP",
+  "root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "app": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+  "model": "qwen2.5:1.5b",
+  "ollama_exe": "C:\\Users\\nesth\\AppData\\Local\\Programs\\Ollama\\ollama.exe",
+  "ollama_started_by_script": true,
+  "models_detected": [
+    "qwen2.5:1.5b"
+  ],
+  "files_created": [
+    "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\local_ai\\local_ai.routes.js",
+    "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\local_ai\\local_ai.service.js",
+    "C:\\RUNEFOGE_PRO\\runeforge\\app\\public\\forge\\local-ai.html"
+  ],
+  "app_js_patched": true,
+  "node_check": [
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\local_ai\\local_ai.service.js",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\local_ai\\local_ai.routes.js",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\app.js",
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "pm2_action": "STARTED_RUNEFORGE_MVP",
+  "backend_health_ok": true,
+  "local_ai_health_ok": true,
+  "chat_ok": false,
+  "panel_ok": false,
+  "endpoint_chat": "http://127.0.0.1:3100/api/ai/local/chat",
+  "endpoint_health": "http://127.0.0.1:3100/api/ai/local/health",
+  "panel_url": "http://127.0.0.1:3100/forge/local-ai.html",
+  "trace_jsonl": "C:\\RUNEFOGE_PRO\\runeforge\\data\\local_ai\\traces\\rf_local_ai_chat_current.jsonl",
+  "residual_risks": [
+    "LOCAL_AI_CHAT_NO_OK",
+    "LOCAL_AI_PANEL_NO_OK"
+  ],
+  "status": "LOCAL_AI_ASSISTANT_ENDPOINT_PARTIAL",
+  "next": "RF_LOCAL_AI_ASSISTANT_ENDPOINT_REPAIR_CURRENT",
+  "backend": "TOCADO_LOCAL_AI_ROUTE_ONLY",
+  "pm2": "STARTED_RUNEFORGE_MVP",
+  "n8n": "NO_TOCADO",
+  "github": "NO_TOCADO",
+  "drive": "NO_TOCADO",
+  "secrets": "NO_LEIDOS",
+  "current_backup_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\current_overwrite\\local_ai_endpoint_autonomous\\20260628_031128"
+}

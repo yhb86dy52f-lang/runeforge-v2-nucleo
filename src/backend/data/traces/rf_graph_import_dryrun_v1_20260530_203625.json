@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-05-30T20:36:28.4564740-06:00",
+  "event": "RF_GRAPH_IMPORT_DRYRUN_V1",
+  "status": "DRYRUN_DONE",
+  "eventos_leidos": 30,
+  "parse_errors": 0,
+  "nodes_candidatos": 81,
+  "edges_candidatos": 150,
+  "invalid_edges": 0,
+  "nodes_json": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\dryrun\\rf_graph_nodes_dryrun_v1_20260530_203625.json",
+  "edges_json": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\dryrun\\rf_graph_edges_dryrun_v1_20260530_203625.json",
+  "nodes_csv": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\dryrun\\rf_graph_nodes_dryrun_v1_20260530_203625.csv",
+  "edges_csv": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\dryrun\\rf_graph_edges_dryrun_v1_20260530_203625.csv",
+  "accion_real": "NO_IMPORT_OFFICIAL_GRAPH",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "siguiente": "RF_GRAPH_IMPORT_APPLY_V1 si invalid_edges = 0"
+}

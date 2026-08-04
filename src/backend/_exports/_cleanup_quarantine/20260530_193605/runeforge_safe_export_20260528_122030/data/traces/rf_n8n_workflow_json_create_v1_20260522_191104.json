@@ -1,0 +1,10 @@
+﻿{
+  "ts": "2026-05-22T19:11:06.8326495-06:00",
+  "event": "RF_N8N_WORKFLOW_JSON_CREATE_V1",
+  "workflow_file": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\workflows\\RF_N8N_CANARY_WEBHOOK_TEST_V1.workflow.json",
+  "clipboard_file": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\workflows\\RF_N8N_CANARY_WEBHOOK_TEST_V1.clipboard.json",
+  "json_valid": true,
+  "backend": "NO_TOCADO",
+  "n8n_db": "NO_TOCADO",
+  "action": "create_workflow_json_and_copy_to_clipboard"
+}

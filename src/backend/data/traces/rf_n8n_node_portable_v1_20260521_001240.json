@@ -1,0 +1,15 @@
+﻿{
+  "ts": "2026-05-21T00:12:40.9823329-06:00",
+  "event": "RF_N8N_NODE_PORTABLE_V1",
+  "status": "OK",
+  "version": "v22.22.3",
+  "zip": "C:\\RUNEFOGE_PRO\\runeforge\\downloads\\node-v22.22.3-win-x64.zip",
+  "sha256": "6C8D54F635FEFF4DF76C2CA80F45332EB2FF57D25226EDCE36592E51A177EE33",
+  "hash_ok": true,
+  "node_exe": "C:\\RUNEFOGE_PRO\\runeforge\\tools\\node-n8n\\node-v22.22.3-win-x64\\node.exe",
+  "npm_cmd": "C:\\RUNEFOGE_PRO\\runeforge\\tools\\node-n8n\\node-v22.22.3-win-x64\\npm.cmd",
+  "npx_cmd": "C:\\RUNEFOGE_PRO\\runeforge\\tools\\node-n8n\\node-v22.22.3-win-x64\\npx.cmd",
+  "backend": "NO_TOCADO",
+  "global_path_change": "NO",
+  "next": "PATCH_N8N_LAUNCHER_TO_USE_PORTABLE_NODE"
+}

@@ -1,0 +1,110 @@
+{
+  "Timestamp": "2026-05-24T14:03:51.0278995-06:00",
+  "Estado": "RF_TRACCAR_FASE2_2_CLASIFICAR_REGLAS_DONE",
+  "Fuente": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\security_baseline\\RF_TRACCAR_FASE2_1_FIREWALL_EFECTIVO_20260524_140008.json",
+  "ReglasTotal": 7,
+  "Tailscale": 3,
+  "Steam": 4,
+  "TraccarJava": 0,
+  "ConexionesRemotas": 0,
+  "ListenersTraccar": [
+    {
+      "PID": 900,
+      "Proceso": "svchost.exe",
+      "Ruta": "C:\\Windows\\system32\\svchost.exe",
+      "Puertos": 1,
+      "PrimerPuerto": 5040,
+      "UltimoPuerto": 5040
+    },
+    {
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "Puertos": 238,
+      "PrimerPuerto": 5001,
+      "UltimoPuerto": 5262
+    }
+  ],
+  "Clasificacion": [
+    {
+      "Tipo": "TAILSCALE_MANTENER",
+      "Riesgo": "NO_BORRAR_ES_CANAL_SEGURO",
+      "Nombre": "Tailscale-Process",
+      "Programa": "C:\\Program Files\\Tailscale\\tailscaled.exe",
+      "Protocolo": "UDP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 0
+    },
+    {
+      "Tipo": "TAILSCALE_MANTENER",
+      "Riesgo": "NO_BORRAR_ES_CANAL_SEGURO",
+      "Nombre": "Tailscale-In",
+      "Programa": "Any",
+      "Protocolo": "Any",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 3
+    },
+    {
+      "Tipo": "TAILSCALE_MANTENER",
+      "Riesgo": "NO_BORRAR_ES_CANAL_SEGURO",
+      "Nombre": "Tailscale-In",
+      "Programa": "Any",
+      "Protocolo": "Any",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 3
+    },
+    {
+      "Tipo": "APP_CLIENTE_CANDIDATA_A_DESHABILITAR",
+      "Riesgo": "RIESGO_MEDIO_NO_RELACIONADO_CON_TRACCAR",
+      "Nombre": "Steam",
+      "Programa": "C:\\Program Files (x86)\\Steam\\steam.exe",
+      "Protocolo": "TCP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    },
+    {
+      "Tipo": "APP_CLIENTE_CANDIDATA_A_DESHABILITAR",
+      "Riesgo": "RIESGO_MEDIO_NO_RELACIONADO_CON_TRACCAR",
+      "Nombre": "Steam",
+      "Programa": "C:\\Program Files (x86)\\Steam\\steam.exe",
+      "Protocolo": "UDP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    },
+    {
+      "Tipo": "APP_CLIENTE_CANDIDATA_A_DESHABILITAR",
+      "Riesgo": "RIESGO_MEDIO_NO_RELACIONADO_CON_TRACCAR",
+      "Nombre": "Steam Web Helper",
+      "Programa": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "Protocolo": "TCP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    },
+    {
+      "Tipo": "APP_CLIENTE_CANDIDATA_A_DESHABILITAR",
+      "Riesgo": "RIESGO_MEDIO_NO_RELACIONADO_CON_TRACCAR",
+      "Nombre": "Steam Web Helper",
+      "Programa": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "Protocolo": "UDP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    }
+  ],
+  "Decision": "FASE2_3_DESHABILITAR_STEAM_INBOUND_ANY_ANY_OPCIONAL",
+  "Alertas": [
+    "Tailscale aparece como regla amplia, pero NO debe borrarse: es canal seguro del ecosistema.",
+    "Steam/Steam Web Helper tienen inbound Any/Any y no son necesarios para Runeforge/Traccar. Candidatos a deshabilitar, no borrar.",
+    "No se detectó regla Allow directa Java/Traccar Any/Any en el reporte Fase 2.1.",
+    "No hay conexiones GPS remotas activas capturadas. No cerrar puertos GPS sin ventana de prueba."
+  ],
+  "Backend": "NO_TOCADO",
+  "Firewall": "NO_MODIFICADO",
+  "Sistema": "NO_MODIFICADO"
+}

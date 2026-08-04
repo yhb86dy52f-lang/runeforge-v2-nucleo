@@ -1,0 +1,2244 @@
+{
+  "Timestamp": "2026-05-24T13:57:46.9692702-06:00",
+  "Estado": "RF_TRACCAR_FASE2_DIAGNOSTICO_RANGO_GPS_DONE",
+  "RangoGps": "5001-5262",
+  "WebTraccar": "8082",
+  "PuertosGpsAbiertos": [
+    5001,
+    5002,
+    5003,
+    5004,
+    5005,
+    5006,
+    5007,
+    5008,
+    5009,
+    5010,
+    5011,
+    5012,
+    5013,
+    5014,
+    5015,
+    5016,
+    5017,
+    5018,
+    5019,
+    5020,
+    5022,
+    5023,
+    5024,
+    5025,
+    5026,
+    5027,
+    5028,
+    5029,
+    5030,
+    5031,
+    5032,
+    5033,
+    5034,
+    5035,
+    5036,
+    5037,
+    5039,
+    5040,
+    5041,
+    5042,
+    5043,
+    5044,
+    5045,
+    5046,
+    5047,
+    5048,
+    5049,
+    5050,
+    5051,
+    5052,
+    5054,
+    5055,
+    5056,
+    5057,
+    5058,
+    5059,
+    5060,
+    5061,
+    5062,
+    5063,
+    5064,
+    5065,
+    5066,
+    5067,
+    5068,
+    5069,
+    5070,
+    5071,
+    5072,
+    5073,
+    5074,
+    5075,
+    5076,
+    5077,
+    5078,
+    5079,
+    5080,
+    5081,
+    5083,
+    5085,
+    5086,
+    5087,
+    5088,
+    5089,
+    5090,
+    5091,
+    5092,
+    5093,
+    5094,
+    5095,
+    5096,
+    5097,
+    5098,
+    5099,
+    5100,
+    5101,
+    5102,
+    5103,
+    5105,
+    5106,
+    5107,
+    5108,
+    5109,
+    5110,
+    5111,
+    5112,
+    5113,
+    5114,
+    5115,
+    5116,
+    5117,
+    5118,
+    5119,
+    5120,
+    5122,
+    5123,
+    5124,
+    5126,
+    5127,
+    5128,
+    5129,
+    5130,
+    5131,
+    5132,
+    5133,
+    5134,
+    5135,
+    5136,
+    5137,
+    5139,
+    5140,
+    5141,
+    5142,
+    5143,
+    5144,
+    5145,
+    5146,
+    5147,
+    5148,
+    5149,
+    5150,
+    5151,
+    5152,
+    5153,
+    5154,
+    5155,
+    5156,
+    5157,
+    5159,
+    5160,
+    5161,
+    5162,
+    5163,
+    5164,
+    5165,
+    5166,
+    5167,
+    5168,
+    5169,
+    5171,
+    5172,
+    5173,
+    5174,
+    5176,
+    5177,
+    5178,
+    5179,
+    5180,
+    5181,
+    5182,
+    5184,
+    5185,
+    5186,
+    5187,
+    5188,
+    5191,
+    5192,
+    5193,
+    5194,
+    5195,
+    5197,
+    5199,
+    5200,
+    5201,
+    5202,
+    5203,
+    5204,
+    5205,
+    5206,
+    5207,
+    5208,
+    5209,
+    5210,
+    5211,
+    5212,
+    5213,
+    5214,
+    5215,
+    5216,
+    5217,
+    5218,
+    5219,
+    5220,
+    5221,
+    5222,
+    5223,
+    5225,
+    5226,
+    5228,
+    5229,
+    5231,
+    5232,
+    5233,
+    5234,
+    5235,
+    5236,
+    5237,
+    5238,
+    5239,
+    5240,
+    5241,
+    5242,
+    5243,
+    5244,
+    5245,
+    5246,
+    5247,
+    5248,
+    5249,
+    5250,
+    5251,
+    5253,
+    5255,
+    5256,
+    5257,
+    5258,
+    5259,
+    5261,
+    5262
+  ],
+  "CantidadPuertosGpsAbiertos": 239,
+  "ListenersTraccar": [
+    {
+      "Puerto": 5001,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5002,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5003,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5004,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5005,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5006,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5007,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5008,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5009,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5010,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5011,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5012,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5013,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5014,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5015,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5016,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5017,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5018,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5019,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5020,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5022,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5023,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5024,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5025,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5026,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5027,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5028,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5029,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5030,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5031,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5032,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5033,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5034,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5035,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5036,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5037,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5039,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5040,
+      "Direccion": "0.0.0.0",
+      "PID": 900,
+      "Proceso": "svchost.exe",
+      "Ruta": "C:\\Windows\\system32\\svchost.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5041,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5042,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5043,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5044,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5045,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5046,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5047,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5048,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5049,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5050,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5051,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5052,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5054,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5055,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5056,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5057,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5058,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5059,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5060,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5061,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5062,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5063,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5064,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5065,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5066,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5067,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5068,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5069,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5070,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5071,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5072,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5073,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5074,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5075,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5076,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5077,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5078,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5079,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5080,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5081,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5083,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5085,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5086,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5087,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5088,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5089,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5090,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5091,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5092,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5093,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5094,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5095,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5096,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5097,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5098,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5099,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5100,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5101,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5102,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5103,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5105,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5106,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5107,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5108,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5109,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5110,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5111,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5112,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5113,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5114,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5115,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5116,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5117,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5118,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5119,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5120,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5122,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5123,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5124,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5126,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5127,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5128,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5129,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5130,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5131,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5132,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5133,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5134,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5135,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5136,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5137,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5139,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5140,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5141,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5142,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5143,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5144,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5145,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5146,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5147,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5148,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5149,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5150,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5151,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5152,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5153,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5154,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5155,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5156,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5157,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5159,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5160,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5161,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5162,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5163,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5164,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5165,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5166,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5167,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5168,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5169,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5171,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5172,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5173,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5174,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5176,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5177,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5178,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5179,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5180,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5181,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5182,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5184,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5185,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5186,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5187,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5188,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5191,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5192,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5193,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5194,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5195,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5197,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5199,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5200,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5201,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5202,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5203,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5204,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5205,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5206,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5207,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5208,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5209,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5210,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5211,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5212,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5213,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5214,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5215,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5216,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5217,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5218,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5219,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5220,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5221,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5222,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5223,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5225,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5226,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5228,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5229,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5231,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5232,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5233,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5234,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5235,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5236,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5237,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5238,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5239,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5240,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5241,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5242,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5243,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5244,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5245,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5246,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5247,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5248,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5249,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5250,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5251,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5253,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5255,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5256,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5257,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5258,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5259,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5261,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5262,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 8082,
+      "Direccion": "::",
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "EscuchaAmplia": true
+    }
+  ],
+  "ResumenPorProceso": [
+    {
+      "PID": "900",
+      "Proceso": "svchost.exe",
+      "Ruta": "C:\\Windows\\system32\\svchost.exe",
+      "PuertosAbiertos": 1,
+      "PrimerPuerto": 5040,
+      "UltimoPuerto": 5040,
+      "IncluyeWeb8082": false,
+      "EscuchaAmplia": true
+    },
+    {
+      "PID": "4420",
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "PuertosAbiertos": 239,
+      "PrimerPuerto": 5001,
+      "UltimoPuerto": 8082,
+      "IncluyeWeb8082": true,
+      "EscuchaAmplia": true
+    }
+  ],
+  "ServiciosTraccar": {
+    "Name": "traccar",
+    "DisplayName": "traccar",
+    "State": "Running",
+    "StartMode": "Auto",
+    "ProcessId": 4420,
+    "PathName": "\"C:\\Program Files\\Traccar\\jre\\bin\\java.exe\" -Duser.dir=\"C:\\Program Files\\Traccar\" -jar \"C:\\Program Files\\Traccar\\tracker-server.jar\" --service \".\\conf\\traccar.xml\""
+  },
+  "ConfigTraccarSinSecretos": null,
+  "ReglasFirewallTraccar": [
+    {
+      "Nombre": "Node.js JavaScript Runtime",
+      "Habilitada": 2,
+      "Accion": 2,
+      "Perfil": 2,
+      "Programa": "C:\\runefoge_pro\\runeforge\\tools\\node-n8n\\node-v22.22.3-win-x64\\node.exe",
+      "Protocolo": "TCP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any"
+    },
+    {
+      "Nombre": "Node.js JavaScript Runtime",
+      "Habilitada": 2,
+      "Accion": 2,
+      "Perfil": 2,
+      "Programa": "C:\\runefoge_pro\\runeforge\\tools\\node-n8n\\node-v22.22.3-win-x64\\node.exe",
+      "Protocolo": "UDP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any"
+    },
+    {
+      "Nombre": "RF_ALLOW_TRACCAR_WEB_SOLO_TAILSCALE_TCP_8082",
+      "Habilitada": 1,
+      "Accion": 2,
+      "Perfil": 0,
+      "Programa": "Any",
+      "Protocolo": "TCP",
+      "PuertoLocal": "8082",
+      "DireccionRemota": [
+        "100.64.0.0/255.192.0.0",
+        "fd7a:115c:a1e0::/48"
+      ]
+    }
+  ],
+  "Alertas": [
+    "Hay puertos GPS 5001-5262 escuchando en 0.0.0.0 o ::. Esto requiere Fase 2.1 con regla fina."
+  ],
+  "Backend": "NO_TOCADO",
+  "Sistema": "NO_MODIFICADO",
+  "Firewall": "NO_MODIFICADO",
+  "Secretos": "NO_LEIDOS",
+  "ReporteJson": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\security_baseline\\RF_TRACCAR_FASE2_DIAGNOSTICO_RANGO_GPS_20260524_135727.json"
+}

@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-05-26T12:39:12.7576432-06:00",
+  "event": "RF_MARKOV_LOG_CANDIDATE_VALIDATE_V1",
+  "status": "LOG_CANDIDATE_VALID",
+  "discovery_report": "C:\\RUNEFOGE_PRO\\runeforge\\data\\markov\\reports\\RF_MARKOV_LOG_SOURCE_DISCOVERY_V1_20260526_123449.json",
+  "candidate": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\logs\\n8n_canary_2_20_12_5680_localhost_20260523_163334.log",
+  "exists": true,
+  "readable": true,
+  "length_before": 1253,
+  "length_after": 1253,
+  "live_growth_observed": false,
+  "last_write_time": "2026-05-23T18:33:19.1221842-06:00",
+  "tail_lines": 22,
+  "signals": {
+    "workflow": true,
+    "execution": true,
+    "webhook": false,
+    "action": true,
+    "error_seen": true
+  },
+  "backend": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "daemon": "NO_INICIADO",
+  "next": "CREAR_RF_MARKOV_LIVE_MONITOR_CANARY_V1_READ_ONLY"
+}

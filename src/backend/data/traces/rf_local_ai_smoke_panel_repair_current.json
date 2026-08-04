@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-06-28T13:58:59.5393386-06:00",
+  "phase": "RF_LOCAL_AI_SMOKE_PANEL_REPAIR_CURRENT",
+  "status": "LOCAL_AI_SMOKE_PANEL_REPAIR_PARTIAL",
+  "restored_from_backup": true,
+  "restored_backup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\current_overwrite\\local_ai_smoke_panel_fix\\20260628_135600\\app.js.bak",
+  "backend_ok": true,
+  "local_ai_health_ok": true,
+  "local_ai_smoke_ok": false,
+  "local_ai_chat_ok": true,
+  "panel_ok": false,
+  "pm2_action": "STARTED_RUNEFORGE_MVP",
+  "panel_url": "http://127.0.0.1:3100/forge/local-ai.html",
+  "residual": [
+    "LOCAL_AI_SMOKE_FAIL",
+    "LOCAL_AI_PANEL_FAIL"
+  ],
+  "backup_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\current_overwrite\\local_ai_smoke_panel_repair\\20260628_135842",
+  "next": "RF_LOCAL_AI_DEEP_DIAG_CURRENT",
+  "backend": "TOCADO_LOCAL_AI_ROUTE_ONLY",
+  "n8n": "NO_TOCADO",
+  "drive_d": "NO_TOCADO"
+}

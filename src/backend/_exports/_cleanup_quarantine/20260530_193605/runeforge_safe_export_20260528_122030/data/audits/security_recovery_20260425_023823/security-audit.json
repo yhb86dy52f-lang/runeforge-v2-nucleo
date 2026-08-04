@@ -1,0 +1,3221 @@
+{
+  "timestamp": "2026-04-25T02:38:23",
+  "mode": "AUDIT_ONLY_NO_FIX_RECOVERY",
+  "root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "backend": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+  "rootExists": true,
+  "backendExists": true,
+  "isAdmin": true,
+  "envFiles": [
+    {
+      "FullName": "C:\\RUNEFOGE_PRO\\runeforge\\app\\.env",
+      "Name": ".env",
+      "Length": 510,
+      "LastWriteTime": "2026-03-27T07:04:56-06:00"
+    },
+    {
+      "FullName": "C:\\RUNEFOGE_PRO\\runeforge\\app\\.env.example",
+      "Name": ".env.example",
+      "Length": 510,
+      "LastWriteTime": "2026-03-27T07:04:56-06:00"
+    }
+  ],
+  "gitTrackedEnv": [],
+  "allInterfacePorts": [
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 22,
+      "OwningProcess": 10040,
+      "ProcessName": "sshd",
+      "Path": "C:\\Program Files\\OpenSSH-Win64\\sshd.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 22,
+      "OwningProcess": 10040,
+      "ProcessName": "sshd",
+      "Path": "C:\\Program Files\\OpenSSH-Win64\\sshd.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 135,
+      "OwningProcess": 984,
+      "ProcessName": "svchost",
+      "Path": "C:\\Windows\\system32\\svchost.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 135,
+      "OwningProcess": 984,
+      "ProcessName": "svchost",
+      "Path": "C:\\Windows\\system32\\svchost.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 445,
+      "OwningProcess": 4,
+      "ProcessName": "System",
+      "Path": null
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 3100,
+      "OwningProcess": 9020,
+      "ProcessName": "node",
+      "Path": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5001,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5002,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5003,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5004,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5005,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5006,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5007,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5008,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5009,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5010,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5011,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5012,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5013,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5014,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5015,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5016,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5017,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5018,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5019,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5020,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 5021,
+      "OwningProcess": 8216,
+      "ProcessName": "AirServer",
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5021,
+      "OwningProcess": 8216,
+      "ProcessName": "AirServer",
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5022,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5023,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5024,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5025,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5026,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5027,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5028,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5029,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5030,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5031,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5032,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5033,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5034,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5035,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5036,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5037,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5039,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5040,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5041,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5042,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5043,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5044,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5045,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5046,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5047,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5048,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5049,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5050,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5051,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5052,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5054,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5055,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5056,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5057,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5058,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5059,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5060,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5061,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5062,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5063,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5064,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5065,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5066,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5067,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5068,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5069,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5070,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5071,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5072,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5073,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5074,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5075,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5076,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5077,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5078,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5079,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5080,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5081,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5083,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5085,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5086,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5087,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5088,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5089,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5090,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5091,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5092,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5093,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5094,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5095,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5096,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5097,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5098,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5099,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5100,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5101,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5102,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5103,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5105,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5106,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5107,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5108,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5109,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5110,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5111,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5112,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5113,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5114,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5115,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5116,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5117,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5118,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5119,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5120,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5122,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5123,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5124,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5126,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5127,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5128,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5129,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5130,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5131,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5132,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5133,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5134,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5135,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5136,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5137,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5139,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5140,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5141,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5142,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5143,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5144,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5145,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5146,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5147,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5148,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5149,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5150,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5151,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5152,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5153,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5154,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5155,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5156,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5157,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5159,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5160,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5161,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5162,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5163,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5164,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5165,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5166,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5167,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5168,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5169,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5171,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5172,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5173,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5174,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5176,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5177,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5178,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5179,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5180,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5181,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5182,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5184,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5185,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5186,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5187,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5188,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5191,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5192,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5193,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5194,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5195,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5197,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5199,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5200,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5201,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5202,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5203,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5204,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5205,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5206,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5207,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5208,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5209,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5210,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5211,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5212,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5213,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5214,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5215,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5216,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5217,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5218,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5219,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5220,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5221,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5222,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5223,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5225,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5226,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5228,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5229,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5231,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5232,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5233,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5234,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5235,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5236,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5237,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5238,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5239,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5240,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5241,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5242,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5243,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5244,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5245,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5246,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5247,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5248,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5249,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5250,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5251,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5253,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5255,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5256,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5257,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5258,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5259,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5261,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5262,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5357,
+      "OwningProcess": 4,
+      "ProcessName": "System",
+      "Path": null
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5985,
+      "OwningProcess": 4,
+      "ProcessName": "System",
+      "Path": null
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 7000,
+      "OwningProcess": 8216,
+      "ProcessName": "AirServer",
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 7000,
+      "OwningProcess": 8216,
+      "ProcessName": "AirServer",
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 7100,
+      "OwningProcess": 8216,
+      "ProcessName": "AirServer",
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 7100,
+      "OwningProcess": 8216,
+      "ProcessName": "AirServer",
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 7680,
+      "OwningProcess": 3448,
+      "ProcessName": "svchost",
+      "Path": null
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 8008,
+      "OwningProcess": 8216,
+      "ProcessName": "AirServer",
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 8009,
+      "OwningProcess": 8216,
+      "ProcessName": "AirServer",
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 8082,
+      "OwningProcess": 4608,
+      "ProcessName": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 8100,
+      "OwningProcess": 8216,
+      "ProcessName": "AirServer",
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 8100,
+      "OwningProcess": 8216,
+      "ProcessName": "AirServer",
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 47001,
+      "OwningProcess": 4,
+      "ProcessName": "System",
+      "Path": null
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 47984,
+      "OwningProcess": 3724,
+      "ProcessName": "sunshine",
+      "Path": "C:\\Program Files\\Sunshine\\Sunshine.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 47989,
+      "OwningProcess": 3724,
+      "ProcessName": "sunshine",
+      "Path": "C:\\Program Files\\Sunshine\\Sunshine.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 47990,
+      "OwningProcess": 3724,
+      "ProcessName": "sunshine",
+      "Path": "C:\\Program Files\\Sunshine\\Sunshine.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 48010,
+      "OwningProcess": 3724,
+      "ProcessName": "sunshine",
+      "Path": "C:\\Program Files\\Sunshine\\Sunshine.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 49664,
+      "OwningProcess": 760,
+      "ProcessName": "lsass",
+      "Path": "C:\\Windows\\system32\\lsass.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 49664,
+      "OwningProcess": 760,
+      "ProcessName": "lsass",
+      "Path": "C:\\Windows\\system32\\lsass.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 49665,
+      "OwningProcess": 676,
+      "ProcessName": "wininit",
+      "Path": null
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 49665,
+      "OwningProcess": 676,
+      "ProcessName": "wininit",
+      "Path": null
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 49666,
+      "OwningProcess": 1148,
+      "ProcessName": "svchost",
+      "Path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 49666,
+      "OwningProcess": 1148,
+      "ProcessName": "svchost",
+      "Path": "C:\\Windows\\System32\\svchost.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 49667,
+      "OwningProcess": 1572,
+      "ProcessName": "svchost",
+      "Path": "C:\\Windows\\system32\\svchost.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 49667,
+      "OwningProcess": 1572,
+      "ProcessName": "svchost",
+      "Path": "C:\\Windows\\system32\\svchost.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 49668,
+      "OwningProcess": 4092,
+      "ProcessName": "spoolsv",
+      "Path": "C:\\Windows\\System32\\spoolsv.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 49668,
+      "OwningProcess": 4092,
+      "ProcessName": "spoolsv",
+      "Path": "C:\\Windows\\System32\\spoolsv.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 49679,
+      "OwningProcess": 748,
+      "ProcessName": "services",
+      "Path": null
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 49679,
+      "OwningProcess": 748,
+      "ProcessName": "services",
+      "Path": null
+    }
+  ],
+  "packageExists": true,
+  "npmAuditSummary": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "defenderExclusionsCount": 5,
+  "secretIndicatorFiles": [
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\NotebookLM Mind Map.png",
+      "Name": "NotebookLM Mind Map.png",
+      "Length": 1790978,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\.env.example",
+      "Name": ".env.example",
+      "Length": 510,
+      "MatchLineCount": 4,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\README.md",
+      "Name": "README.md",
+      "Length": 713,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\ops\\runeforge-ssh-bootstrap.ps1",
+      "Name": "runeforge-ssh-bootstrap.ps1",
+      "Length": 4347,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\ops\\runeforge-ssh-repair-v2.ps1",
+      "Name": "runeforge-ssh-repair-v2.ps1",
+      "Length": 5384,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\frontends\\playnite\\PlayniteInstaller.exe",
+      "Name": "PlayniteInstaller.exe",
+      "Length": 256296,
+      "MatchLineCount": 5,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\compat.ini",
+      "Name": "compat.ini",
+      "Length": 49061,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\redump.csv",
+      "Name": "redump.csv",
+      "Length": 569622,
+      "MatchLineCount": 10,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\Roboto_Condensed-Regular.ttf",
+      "Name": "Roboto_Condensed-Regular.ttf",
+      "Length": 145908,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\debugger\\static\\js\\main.fe87e942.js",
+      "Name": "main.fe87e942.js",
+      "Length": 585278,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\ar_AE.ini",
+      "Name": "ar_AE.ini",
+      "Length": 75511,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\az_AZ.ini",
+      "Name": "az_AZ.ini",
+      "Length": 72008,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\be_BY.ini",
+      "Name": "be_BY.ini",
+      "Length": 76828,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\bg_BG.ini",
+      "Name": "bg_BG.ini",
+      "Length": 76533,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\ca_ES.ini",
+      "Name": "ca_ES.ini",
+      "Length": 66223,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\cz_CZ.ini",
+      "Name": "cz_CZ.ini",
+      "Length": 66476,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\da_DK.ini",
+      "Name": "da_DK.ini",
+      "Length": 64299,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\de_DE.ini",
+      "Name": "de_DE.ini",
+      "Length": 70726,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\dr_ID.ini",
+      "Name": "dr_ID.ini",
+      "Length": 63659,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\en_US.ini",
+      "Name": "en_US.ini",
+      "Length": 64017,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\es_ES.ini",
+      "Name": "es_ES.ini",
+      "Length": 71845,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\es_LA.ini",
+      "Name": "es_LA.ini",
+      "Length": 69943,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\fa_IR.ini",
+      "Name": "fa_IR.ini",
+      "Length": 76600,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\fi_FI.ini",
+      "Name": "fi_FI.ini",
+      "Length": 68348,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\fr_FR.ini",
+      "Name": "fr_FR.ini",
+      "Length": 70532,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\gl_ES.ini",
+      "Name": "gl_ES.ini",
+      "Length": 65317,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\gr_EL.ini",
+      "Name": "gr_EL.ini",
+      "Length": 86249,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\he_IL_invert.ini",
+      "Name": "he_IL_invert.ini",
+      "Length": 65587,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\he_IL.ini",
+      "Name": "he_IL.ini",
+      "Length": 65851,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\hr_HR.ini",
+      "Name": "hr_HR.ini",
+      "Length": 65652,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\hu_HU.ini",
+      "Name": "hu_HU.ini",
+      "Length": 71815,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\id_ID.ini",
+      "Name": "id_ID.ini",
+      "Length": 67683,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\it_IT.ini",
+      "Name": "it_IT.ini",
+      "Length": 70993,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\ja_JP.ini",
+      "Name": "ja_JP.ini",
+      "Length": 83600,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\jv_ID.ini",
+      "Name": "jv_ID.ini",
+      "Length": 64466,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\ko_KR.ini",
+      "Name": "ko_KR.ini",
+      "Length": 73066,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\ku_SO.ini",
+      "Name": "ku_SO.ini",
+      "Length": 69604,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\lo_LA.ini",
+      "Name": "lo_LA.ini",
+      "Length": 86608,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\lt-LT.ini",
+      "Name": "lt-LT.ini",
+      "Length": 67107,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\ms_MY.ini",
+      "Name": "ms_MY.ini",
+      "Length": 64381,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\nl_NL.ini",
+      "Name": "nl_NL.ini",
+      "Length": 66162,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\no_NO.ini",
+      "Name": "no_NO.ini",
+      "Length": 63859,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\pl_PL.ini",
+      "Name": "pl_PL.ini",
+      "Length": 71611,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\pt_BR.ini",
+      "Name": "pt_BR.ini",
+      "Length": 73162,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\pt_PT.ini",
+      "Name": "pt_PT.ini",
+      "Length": 73924,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\ro_RO.ini",
+      "Name": "ro_RO.ini",
+      "Length": 64950,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\ru_RU.ini",
+      "Name": "ru_RU.ini",
+      "Length": 95971,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\sv_SE.ini",
+      "Name": "sv_SE.ini",
+      "Length": 66492,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\tg_PH.ini",
+      "Name": "tg_PH.ini",
+      "Length": 71755,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\th_TH.ini",
+      "Name": "th_TH.ini",
+      "Length": 132245,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\tr_TR.ini",
+      "Name": "tr_TR.ini",
+      "Length": 68932,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\uk_UA.ini",
+      "Name": "uk_UA.ini",
+      "Length": 95253,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\vi_VN.ini",
+      "Name": "vi_VN.ini",
+      "Length": 69702,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\zh_CN.ini",
+      "Name": "zh_CN.ini",
+      "Length": 64220,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\lang\\zh_TW.ini",
+      "Name": "zh_TW.ini",
+      "Length": 63392,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\shaders\\tex_mmpx_adv.csh",
+      "Name": "tex_mmpx_adv.csh",
+      "Length": 49087,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\retro\\_downloads\\PPSSPPWindowsARM64\\assets\\vfpu\\vfpu_exp2_lut.dat",
+      "Name": "vfpu_exp2_lut.dat",
+      "Length": 262144,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\app.js",
+      "Name": "app.js",
+      "Length": 1024,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\adapters\\ai\\ai.client.js",
+      "Name": "ai.client.js",
+      "Length": 255,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\adapters\\whatsapp\\whatsapp.webhook.routes.js",
+      "Name": "whatsapp.webhook.routes.js",
+      "Length": 886,
+      "MatchLineCount": 5,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\config\\env.js",
+      "Name": "env.js",
+      "Length": 1230,
+      "MatchLineCount": 4,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\forge\\forge.routes.js",
+      "Name": "forge.routes.js",
+      "Length": 1742,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\LICENSE",
+      "Name": "LICENSE",
+      "Length": 35149,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\README.md",
+      "Name": "README.md",
+      "Length": 13502,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\vite.config.js",
+      "Name": "vite.config.js",
+      "Length": 3128,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\_release-notifier.yml",
+      "Name": "_release-notifier.yml",
+      "Length": 836,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\_update-changelog.yml",
+      "Name": "_update-changelog.yml",
+      "Length": 849,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\_update-docs.yml",
+      "Name": "_update-docs.yml",
+      "Length": 1062,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\_update-flathub-repo.yml",
+      "Name": "_update-flathub-repo.yml",
+      "Length": 951,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\_update-homebrew-repo.yml",
+      "Name": "_update-homebrew-repo.yml",
+      "Length": 961,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\_update-pacman-repo.yml",
+      "Name": "_update-pacman-repo.yml",
+      "Length": 950,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\_update-winget-repo.yml",
+      "Name": "_update-winget-repo.yml",
+      "Length": 901,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\ci-archlinux.yml",
+      "Name": "ci-archlinux.yml",
+      "Length": 5386,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\ci-bundle.yml",
+      "Name": "ci-bundle.yml",
+      "Length": 757,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\ci-copr.yml",
+      "Name": "ci-copr.yml",
+      "Length": 2208,
+      "MatchLineCount": 12,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\ci-homebrew.yml",
+      "Name": "ci-homebrew.yml",
+      "Length": 9480,
+      "MatchLineCount": 4,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\ci-linux.yml",
+      "Name": "ci-linux.yml",
+      "Length": 6683,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\ci-macos.yml",
+      "Name": "ci-macos.yml",
+      "Length": 10269,
+      "MatchLineCount": 21,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\ci-windows.yml",
+      "Name": "ci-windows.yml",
+      "Length": 12715,
+      "MatchLineCount": 9,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\ci.yml",
+      "Name": "ci.yml",
+      "Length": 11812,
+      "MatchLineCount": 33,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\localize.yml",
+      "Name": "localize.yml",
+      "Length": 2895,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\release-notifier-moonlight.yml",
+      "Name": "release-notifier-moonlight.yml",
+      "Length": 1399,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\.github\\workflows\\update-pages.yml",
+      "Name": "update-pages.yml",
+      "Length": 1108,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\docs\\api.js",
+      "Name": "api.js",
+      "Length": 5585,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\docs\\api.md",
+      "Name": "api.md",
+      "Length": 2965,
+      "MatchLineCount": 11,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\docs\\configuration.md",
+      "Name": "configuration.md",
+      "Length": 80333,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\docs\\getting_started.md",
+      "Name": "getting_started.md",
+      "Length": 23293,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\docs\\troubleshooting.md",
+      "Name": "troubleshooting.md",
+      "Length": 9929,
+      "MatchLineCount": 4,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\gh-pages-template\\assets\\img\\banners\\AdobeStock_231616343_1920x1280.jpg",
+      "Name": "AdobeStock_231616343_1920x1280.jpg",
+      "Length": 1879867,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\gh-pages-template\\assets\\img\\banners\\AdobeStock_303330124_1920x1280.jpg",
+      "Name": "AdobeStock_303330124_1920x1280.jpg",
+      "Length": 1822360,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\gh-pages-template\\assets\\img\\banners\\AdobeStock_305732536_1920x1280.jpg",
+      "Name": "AdobeStock_305732536_1920x1280.jpg",
+      "Length": 1436590,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\packaging\\linux\\flatpak\\modules\\xvfb\\xvfb-run",
+      "Name": "xvfb-run",
+      "Length": 5696,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\scripts\\linux_build.sh",
+      "Name": "linux_build.sh",
+      "Length": 23860,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\scripts\\macos_build.sh",
+      "Name": "macos_build.sh",
+      "Length": 6447,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\config.cpp",
+      "Name": "config.cpp",
+      "Length": 52460,
+      "MatchLineCount": 4,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\config.h",
+      "Name": "config.h",
+      "Length": 8705,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\confighttp.cpp",
+      "Name": "confighttp.cpp",
+      "Length": 61443,
+      "MatchLineCount": 85,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\confighttp.h",
+      "Name": "confighttp.h",
+      "Length": 3900,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\crypto.cpp",
+      "Name": "crypto.cpp",
+      "Length": 16812,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\display_device.cpp",
+      "Name": "display_device.cpp",
+      "Length": 34720,
+      "MatchLineCount": 9,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\entry_handler.h",
+      "Name": "entry_handler.h",
+      "Length": 3133,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\httpcommon.cpp",
+      "Name": "httpcommon.cpp",
+      "Length": 7560,
+      "MatchLineCount": 5,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\httpcommon.h",
+      "Name": "httpcommon.h",
+      "Length": 815,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\logging.cpp",
+      "Name": "logging.cpp",
+      "Length": 9322,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\nvhttp.cpp",
+      "Name": "nvhttp.cpp",
+      "Length": 42353,
+      "MatchLineCount": 24,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\nvhttp.h",
+      "Name": "nvhttp.h",
+      "Length": 6110,
+      "MatchLineCount": 9,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\process.cpp",
+      "Name": "process.cpp",
+      "Length": 26373,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\platform\\linux\\misc.cpp",
+      "Name": "misc.cpp",
+      "Length": 36653,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\platform\\linux\\portalgrab.cpp",
+      "Name": "portalgrab.cpp",
+      "Length": 59592,
+      "MatchLineCount": 49,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\platform\\macos\\av_audio.mm",
+      "Name": "av_audio.mm",
+      "Length": 38080,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\platform\\macos\\misc.mm",
+      "Name": "misc.mm",
+      "Length": 19402,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\platform\\windows\\display_base.cpp",
+      "Name": "display_base.cpp",
+      "Length": 44816,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src\\platform\\windows\\misc.cpp",
+      "Name": "misc.cpp",
+      "Length": 69804,
+      "MatchLineCount": 68,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\Navbar.vue",
+      "Name": "Navbar.vue",
+      "Length": 3157,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\password.html",
+      "Name": "password.html",
+      "Length": 3991,
+      "MatchLineCount": 22,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\troubleshooting.html",
+      "Name": "troubleshooting.html",
+      "Length": 23726,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\welcome.html",
+      "Name": "welcome.html",
+      "Length": 3401,
+      "MatchLineCount": 12,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\css\\sunshine.css",
+      "Name": "sunshine.css",
+      "Length": 51033,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\bg.json",
+      "Name": "bg.json",
+      "Length": 72914,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\cs.json",
+      "Name": "cs.json",
+      "Length": 44115,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\de.json",
+      "Name": "de.json",
+      "Length": 43925,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\en_GB.json",
+      "Name": "en_GB.json",
+      "Length": 39086,
+      "MatchLineCount": 9,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\en_US.json",
+      "Name": "en_US.json",
+      "Length": 39203,
+      "MatchLineCount": 9,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\en.json",
+      "Name": "en.json",
+      "Length": 39513,
+      "MatchLineCount": 9,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\es.json",
+      "Name": "es.json",
+      "Length": 44643,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\fr.json",
+      "Name": "fr.json",
+      "Length": 46095,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\hu.json",
+      "Name": "hu.json",
+      "Length": 45492,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\it.json",
+      "Name": "it.json",
+      "Length": 44051,
+      "MatchLineCount": 9,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\ja.json",
+      "Name": "ja.json",
+      "Length": 51834,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\ko.json",
+      "Name": "ko.json",
+      "Length": 46495,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\pl.json",
+      "Name": "pl.json",
+      "Length": 45310,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\pt_BR.json",
+      "Name": "pt_BR.json",
+      "Length": 44877,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\pt.json",
+      "Name": "pt.json",
+      "Length": 43705,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\ru.json",
+      "Name": "ru.json",
+      "Length": 65444,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\sv.json",
+      "Name": "sv.json",
+      "Length": 41426,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\tr.json",
+      "Name": "tr.json",
+      "Length": 44482,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\uk.json",
+      "Name": "uk.json",
+      "Length": 65527,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\vi.json",
+      "Name": "vi.json",
+      "Length": 52271,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\zh_TW.json",
+      "Name": "zh_TW.json",
+      "Length": 37784,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\assets\\locale\\zh.json",
+      "Name": "zh.json",
+      "Length": 37306,
+      "MatchLineCount": 6,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\common\\assets\\web\\public\\images\\sunshine-locked.ico",
+      "Name": "sunshine-locked.ico",
+      "Length": 118386,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\windows\\misc\\path\\update-path.bat",
+      "Name": "update-path.bat",
+      "Length": 3416,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\src_assets\\windows\\misc\\service\\uninstall-service.bat",
+      "Name": "uninstall-service.bat",
+      "Length": 1193,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\tests\\unit\\test_confighttp.cpp",
+      "Name": "test_confighttp.cpp",
+      "Length": 61205,
+      "MatchLineCount": 75,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\tests\\unit\\test_http_pairing.cpp",
+      "Name": "test_http_pairing.cpp",
+      "Length": 13999,
+      "MatchLineCount": 15,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\app\\_archive\\source-zips\\Sunshine-master\\Sunshine-master\\tools\\sunshinesvc.cpp",
+      "Name": "sunshinesvc.cpp",
+      "Length": 13369,
+      "MatchLineCount": 21,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\commander-db.json",
+      "Name": "commander-db.json",
+      "Length": 1496,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\commander-ops-memory.txt",
+      "Name": "commander-ops-memory.txt",
+      "Length": 3297,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\code_secret_triage.ps1",
+      "Name": "code_secret_triage.ps1",
+      "Length": 1524,
+      "MatchLineCount": 11,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\memory_resume_v43_3_to_ahk_panel_v44.txt",
+      "Name": "memory_resume_v43_3_to_ahk_panel_v44.txt",
+      "Length": 3233,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_analyze_latest_clean.txt",
+      "Name": "prompt_analyze_latest_clean.txt",
+      "Length": 345,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_analyze_latest_terminal_export.txt",
+      "Name": "prompt_analyze_latest_terminal_export.txt",
+      "Length": 505,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_code_injection_safe_v41.txt",
+      "Name": "prompt_code_injection_safe_v41.txt",
+      "Length": 428,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_memory_operator.txt",
+      "Name": "prompt_memory_operator.txt",
+      "Length": 400,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_memory_update.txt",
+      "Name": "prompt_memory_update.txt",
+      "Length": 415,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_security_audit.txt",
+      "Name": "prompt_security_audit.txt",
+      "Length": 394,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_security_review.txt",
+      "Name": "prompt_security_review.txt",
+      "Length": 428,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\request_extraction_v41.txt",
+      "Name": "request_extraction_v41.txt",
+      "Length": 647,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\docs\\PROMPT_ESTADO_ACTUAL_RUNEFORGE.txt",
+      "Name": "PROMPT_ESTADO_ACTUAL_RUNEFORGE.txt",
+      "Length": 1105,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\docs\\RUNEFORGE_CURRENT_STATE_MEMORY.md",
+      "Name": "RUNEFORGE_CURRENT_STATE_MEMORY.md",
+      "Length": 44535,
+      "MatchLineCount": 3,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\docs\\RUNEFORGE_RESUME_2026-04-24_V43.3_TO_AHK_PANEL_V44.md",
+      "Name": "RUNEFORGE_RESUME_2026-04-24_V43.3_TO_AHK_PANEL_V44.md",
+      "Length": 3233,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\Invoke-Runeforge-Capture.ps1",
+      "Name": "Invoke-Runeforge-Capture.ps1",
+      "Length": 8956,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\Watch-TerminalExport.ps1",
+      "Name": "Watch-TerminalExport.ps1",
+      "Length": 3943,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\ahk\\RUNEFORGE_COMMANDER_V41_GHOST_FUSION.ahk",
+      "Name": "RUNEFORGE_COMMANDER_V41_GHOST_FUSION.ahk",
+      "Length": 14336,
+      "MatchLineCount": 4,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\ahk\\RUNEFORGE_COMMANDER_V42_EXPORT_BRIDGE.ahk",
+      "Name": "RUNEFORGE_COMMANDER_V42_EXPORT_BRIDGE.ahk",
+      "Length": 15032,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    }
+  ],
+  "logSecretIndicatorFiles": [
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\memory_resume_v43_3_to_ahk_panel_v44.txt",
+      "Name": "memory_resume_v43_3_to_ahk_panel_v44.txt",
+      "Length": 3233,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_analyze_latest_clean.txt",
+      "Name": "prompt_analyze_latest_clean.txt",
+      "Length": 345,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_analyze_latest_terminal_export.txt",
+      "Name": "prompt_analyze_latest_terminal_export.txt",
+      "Length": 505,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_code_injection_safe_v41.txt",
+      "Name": "prompt_code_injection_safe_v41.txt",
+      "Length": 428,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_memory_operator.txt",
+      "Name": "prompt_memory_operator.txt",
+      "Length": 400,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_memory_update.txt",
+      "Name": "prompt_memory_update.txt",
+      "Length": 415,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_security_audit.txt",
+      "Name": "prompt_security_audit.txt",
+      "Length": 394,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_security_review.txt",
+      "Name": "prompt_security_review.txt",
+      "Length": 428,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\request_extraction_v41.txt",
+      "Name": "request_extraction_v41.txt",
+      "Length": 647,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\commander-ops-memory.txt",
+      "Name": "commander-ops-memory.txt",
+      "Length": 3297,
+      "MatchLineCount": 2,
+      "Note": "No se imprimen valores."
+    },
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\docs\\PROMPT_ESTADO_ACTUAL_RUNEFORGE.txt",
+      "Name": "PROMPT_ESTADO_ACTUAL_RUNEFORGE.txt",
+      "Length": 1105,
+      "MatchLineCount": 1,
+      "Note": "No se imprimen valores."
+    }
+  ],
+  "errors": [],
+  "counts": {
+    "envFiles": 2,
+    "gitTrackedEnv": 0,
+    "allInterfacePorts": 276,
+    "defenderExclusions": 5,
+    "secretIndicatorFiles": 165,
+    "logSecretIndicatorFiles": 11,
+    "errors": 0
+  },
+  "findings": [
+    "HIGH: hay puertos escuchando en 0.0.0.0 o ::.",
+    "MEDIUM: existen archivos .env/.env.*; no se leyó contenido.",
+    "MEDIUM: existen exclusiones Defender.",
+    "MEDIUM: indicadores de secretos en archivos no .env.",
+    "MEDIUM: indicadores de secretos en logs/txt."
+  ]
+}

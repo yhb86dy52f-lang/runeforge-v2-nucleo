@@ -1,0 +1,13 @@
+=== WINRM SERVICE AFTER ===
+
+Name      : WinRM
+Status    : Stopped
+StartType : Manual
+
+
+
+=== WINRM LISTENERS AFTER ===
+
+
+=== FIREWALL WINRM AFTER ===
+

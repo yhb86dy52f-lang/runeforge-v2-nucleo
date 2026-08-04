@@ -1,0 +1,106 @@
+{
+  "timestamp": "2026-05-30T20:26:01.9420037-06:00",
+  "event": "RF_EVENT_MODEL_STATUS_V1",
+  "status": "EVENT_MODEL_OK",
+  "event_log": "C:\\RUNEFOGE_PRO\\runeforge\\data\\event_model\\events\\rf_events_v1.jsonl",
+  "lineas": 30,
+  "eventos_parseados": 30,
+  "parse_errors": 0,
+  "duplicated_event_ids": 0,
+  "domains": [
+    {
+      "domain": "actions",
+      "count": 17
+    },
+    {
+      "domain": "export_cleanup",
+      "count": 5
+    },
+    {
+      "domain": "n8n",
+      "count": 5
+    },
+    {
+      "domain": "system",
+      "count": 2
+    },
+    {
+      "domain": "event_model",
+      "count": 1
+    }
+  ],
+  "actions": [
+    {
+      "action": "trace_observed",
+      "count": 12
+    },
+    {
+      "action": "memory_written",
+      "count": 4
+    },
+    {
+      "action": "patch_applied",
+      "count": 4
+    },
+    {
+      "action": "action_execute",
+      "count": 2
+    },
+    {
+      "action": "blocked_action",
+      "count": 2
+    },
+    {
+      "action": "safe_export_finalized",
+      "count": 2
+    },
+    {
+      "action": "bootstrap_created",
+      "count": 1
+    },
+    {
+      "action": "cleanup_closed",
+      "count": 1
+    },
+    {
+      "action": "cleanup_plan_generated",
+      "count": 1
+    },
+    {
+      "action": "move_to_quarantine",
+      "count": 1
+    }
+  ],
+  "statuses": [
+    {
+      "status": "ok",
+      "count": 25
+    },
+    {
+      "status": "blocked",
+      "count": 2
+    },
+    {
+      "status": "error",
+      "count": 2
+    },
+    {
+      "status": "closed",
+      "count": 1
+    }
+  ],
+  "risks": [
+    {
+      "risk": "low",
+      "count": 26
+    },
+    {
+      "risk": "medium",
+      "count": 4
+    }
+  ],
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "siguiente": "RF_GRAPH_SCHEMA_V1"
+}

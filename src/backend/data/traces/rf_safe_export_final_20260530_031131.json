@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-05-30T03:11:34.9100561-06:00",
+  "event": "RF_SAFE_EXPORT_FINAL",
+  "status": "CERRADO",
+  "zip_local": "C:\\RUNEFOGE_PRO\\runeforge\\_exports\\runeforge_safe_export_nogit_20260530_012849.zip",
+  "zip_mb": 1092.38,
+  "sha256": "4924CF7893F22311AF34C560ACBD17D091F5A61DB94F415F536A0D5442578FD9",
+  "drive_link": "https://drive.google.com/file/d/1asT-9hytYYSOhOwjeyR-QdndfTMUDZwu/view?usp=sharing",
+  "validation": {
+    "TieneEnv": 0,
+    "TieneNodeModules": 0,
+    "TieneGit": 0,
+    "TieneDb": 0
+  },
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO"
+}

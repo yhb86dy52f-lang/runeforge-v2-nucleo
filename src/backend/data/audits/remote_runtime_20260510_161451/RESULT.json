@@ -1,0 +1,371 @@
+{
+  "Timestamp": "2026-05-10 16:14:51",
+  "Computer": "DESKTOP-NDFE0B0",
+  "User": "nesth",
+  "PwshPID": 8760,
+  "PwshSessionId": 0,
+  "Ports": [
+    {
+      "LocalAddress": "::",
+      "LocalPort": 22,
+      "PID": 15416,
+      "ProcessName": "sshd",
+      "SessionId": 0,
+      "Path": "C:\\Program Files\\OpenSSH-Win64\\sshd.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 22,
+      "PID": 15416,
+      "ProcessName": "sshd",
+      "SessionId": 0,
+      "Path": "C:\\Program Files\\OpenSSH-Win64\\sshd.exe"
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 8082,
+      "PID": 4364,
+      "ProcessName": "java",
+      "SessionId": 0,
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 47990,
+      "PID": 16092,
+      "ProcessName": "sunshine",
+      "SessionId": 2,
+      "Path": "C:\\Program Files\\Sunshine\\Sunshine.exe"
+    }
+  ],
+  "TopCPU": [
+    {
+      "ProcessName": "SmartPSSLite",
+      "Id": 3640,
+      "SessionId": 2,
+      "CPU": 11726.08,
+      "RAM_MB": 217.0,
+      "Path": "C:\\Program Files\\SmartPSSLite\\SmartPSSLite.exe"
+    },
+    {
+      "ProcessName": "ChatGPT",
+      "Id": 16648,
+      "SessionId": 2,
+      "CPU": 5681.33,
+      "RAM_MB": 1285.2,
+      "Path": "C:\\Program Files\\WindowsApps\\OpenAI.ChatGPT-Desktop_1.2026.119.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe"
+    },
+    {
+      "ProcessName": "System",
+      "Id": 4,
+      "SessionId": 0,
+      "CPU": 5498.55,
+      "RAM_MB": 14.2,
+      "Path": null
+    },
+    {
+      "ProcessName": "ChatGPT",
+      "Id": 5208,
+      "SessionId": 2,
+      "CPU": 4492.16,
+      "RAM_MB": 168.0,
+      "Path": "C:\\Program Files\\WindowsApps\\OpenAI.ChatGPT-Desktop_1.2026.119.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe"
+    },
+    {
+      "ProcessName": "dwm",
+      "Id": 4312,
+      "SessionId": 2,
+      "CPU": 4036.34,
+      "RAM_MB": 85.2,
+      "Path": "C:\\Windows\\system32\\dwm.exe"
+    },
+    {
+      "ProcessName": "MsMpEng",
+      "Id": 4416,
+      "SessionId": 0,
+      "CPU": 1469.12,
+      "RAM_MB": 271.8,
+      "Path": null
+    },
+    {
+      "ProcessName": "remoting_host",
+      "Id": 5452,
+      "SessionId": 0,
+      "CPU": 1013.05,
+      "RAM_MB": 26.7,
+      "Path": "C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\148.0.7778.23\\remoting_host.exe"
+    },
+    {
+      "ProcessName": "svchost",
+      "Id": 2732,
+      "SessionId": 0,
+      "CPU": 801.77,
+      "RAM_MB": 23.1,
+      "Path": "C:\\Windows\\system32\\svchost.exe"
+    },
+    {
+      "ProcessName": "SearchIndexer",
+      "Id": 11112,
+      "SessionId": 0,
+      "CPU": 707.22,
+      "RAM_MB": 92.5,
+      "Path": "C:\\Windows\\system32\\SearchIndexer.exe"
+    },
+    {
+      "ProcessName": "Rainmeter",
+      "Id": 16900,
+      "SessionId": 2,
+      "CPU": 562.11,
+      "RAM_MB": 42.3,
+      "Path": "C:\\Program Files\\Rainmeter\\Rainmeter.exe"
+    },
+    {
+      "ProcessName": "ShareX",
+      "Id": 4292,
+      "SessionId": 2,
+      "CPU": 395.36,
+      "RAM_MB": 169.4,
+      "Path": "C:\\Program Files\\ShareX\\ShareX.exe"
+    },
+    {
+      "ProcessName": "EoAExperiences",
+      "Id": 8680,
+      "SessionId": 2,
+      "CPU": 302.17,
+      "RAM_MB": 21.1,
+      "Path": "C:\\Windows\\System32\\EoaExperiences.exe"
+    },
+    {
+      "ProcessName": "AirServer",
+      "Id": 14516,
+      "SessionId": 2,
+      "CPU": 213.06,
+      "RAM_MB": 111.4,
+      "Path": "C:\\Program Files\\WindowsApps\\F3F176BD.AirServer_2025.2.20.2_x64__p8qzvses5c8me\\AirServer.exe"
+    },
+    {
+      "ProcessName": "ChatGPT",
+      "Id": 16596,
+      "SessionId": 2,
+      "CPU": 212.83,
+      "RAM_MB": 225.4,
+      "Path": "C:\\Program Files\\WindowsApps\\OpenAI.ChatGPT-Desktop_1.2026.119.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe"
+    },
+    {
+      "ProcessName": "tailscaled",
+      "Id": 6672,
+      "SessionId": 0,
+      "CPU": 201.5,
+      "RAM_MB": 96.3,
+      "Path": "C:\\Program Files\\Tailscale\\tailscaled.exe"
+    }
+  ],
+  "TopRAM": [
+    {
+      "ProcessName": "ChatGPT",
+      "Id": 16648,
+      "SessionId": 2,
+      "RAM_MB": 1285.2,
+      "CPU": 5681.33,
+      "Path": "C:\\Program Files\\WindowsApps\\OpenAI.ChatGPT-Desktop_1.2026.119.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe"
+    },
+    {
+      "ProcessName": "MsMpEng",
+      "Id": 4416,
+      "SessionId": 0,
+      "RAM_MB": 271.8,
+      "CPU": 1469.12,
+      "Path": null
+    },
+    {
+      "ProcessName": "ChatGPT",
+      "Id": 16596,
+      "SessionId": 2,
+      "RAM_MB": 225.4,
+      "CPU": 212.83,
+      "Path": "C:\\Program Files\\WindowsApps\\OpenAI.ChatGPT-Desktop_1.2026.119.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe"
+    },
+    {
+      "ProcessName": "explorer",
+      "Id": 11984,
+      "SessionId": 2,
+      "RAM_MB": 220.1,
+      "CPU": 53.8,
+      "Path": "C:\\Windows\\Explorer.EXE"
+    },
+    {
+      "ProcessName": "SmartPSSLite",
+      "Id": 3640,
+      "SessionId": 2,
+      "RAM_MB": 217.0,
+      "CPU": 11726.08,
+      "Path": "C:\\Program Files\\SmartPSSLite\\SmartPSSLite.exe"
+    },
+    {
+      "ProcessName": "SearchApp",
+      "Id": 5756,
+      "SessionId": 2,
+      "RAM_MB": 213.4,
+      "CPU": 9.64,
+      "Path": "C:\\Windows\\SystemApps\\Microsoft.Windows.Search_cw5n1h2txyewy\\SearchApp.exe"
+    },
+    {
+      "ProcessName": "java",
+      "Id": 4364,
+      "SessionId": 0,
+      "RAM_MB": 195.1,
+      "CPU": 38.92,
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe"
+    },
+    {
+      "ProcessName": "pwsh",
+      "Id": 8760,
+      "SessionId": 0,
+      "RAM_MB": 183.0,
+      "CPU": 9.81,
+      "Path": "c:\\program files\\powershell\\7\\pwsh.exe"
+    },
+    {
+      "ProcessName": "ShareX",
+      "Id": 4292,
+      "SessionId": 2,
+      "RAM_MB": 169.4,
+      "CPU": 395.36,
+      "Path": "C:\\Program Files\\ShareX\\ShareX.exe"
+    },
+    {
+      "ProcessName": "ChatGPT",
+      "Id": 5208,
+      "SessionId": 2,
+      "RAM_MB": 168.0,
+      "CPU": 4492.16,
+      "Path": "C:\\Program Files\\WindowsApps\\OpenAI.ChatGPT-Desktop_1.2026.119.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe"
+    },
+    {
+      "ProcessName": "PhoneExperienceHost",
+      "Id": 13656,
+      "SessionId": 2,
+      "RAM_MB": 163.8,
+      "CPU": 3.33,
+      "Path": "C:\\Program Files\\WindowsApps\\Microsoft.YourPhone_1.25072.79.0_x64__8wekyb3d8bbwe\\PhoneExperienceHost.exe"
+    },
+    {
+      "ProcessName": "WhatsApp.Root",
+      "Id": 10820,
+      "SessionId": 2,
+      "RAM_MB": 139.9,
+      "CPU": 18.98,
+      "Path": "C:\\Program Files\\WindowsApps\\5319275A.WhatsAppDesktop_2.2616.100.0_x64__cv1g1gvanyjgm\\WhatsApp.Root.exe"
+    },
+    {
+      "ProcessName": "AirServer",
+      "Id": 14516,
+      "SessionId": 2,
+      "RAM_MB": 111.4,
+      "CPU": 213.06,
+      "Path": "C:\\Program Files\\WindowsApps\\F3F176BD.AirServer_2025.2.20.2_x64__p8qzvses5c8me\\AirServer.exe"
+    },
+    {
+      "ProcessName": "ChatGPT",
+      "Id": 13832,
+      "SessionId": 2,
+      "RAM_MB": 107.0,
+      "CPU": 4.61,
+      "Path": "C:\\Program Files\\WindowsApps\\OpenAI.ChatGPT-Desktop_1.2026.119.0_x64__2p2nqsd0c76g0\\app\\ChatGPT.exe"
+    },
+    {
+      "ProcessName": "StartMenuExperienceHost",
+      "Id": 17232,
+      "SessionId": 2,
+      "RAM_MB": 98.5,
+      "CPU": 10.97,
+      "Path": "C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe"
+    }
+  ],
+  "Services": [
+    {
+      "Name": "Spooler",
+      "State": "Running",
+      "StartMode": "Auto",
+      "PathName": "C:\\Windows\\System32\\spoolsv.exe"
+    },
+    {
+      "Name": "sshd",
+      "State": "Running",
+      "StartMode": "Auto",
+      "PathName": "\"C:\\Program Files\\OpenSSH-Win64\\sshd.exe\""
+    },
+    {
+      "Name": "Tailscale",
+      "State": "Running",
+      "StartMode": "Auto",
+      "PathName": "\"C:\\Program Files\\Tailscale\\tailscaled.exe\""
+    },
+    {
+      "Name": "traccar",
+      "State": "Running",
+      "StartMode": "Auto",
+      "PathName": "\"C:\\Program Files\\Traccar\\jre\\bin\\java.exe\" -Duser.dir=\"C:\\Program Files\\Traccar\" -jar \"C:\\Program Files\\Traccar\\tracker-server.jar\" --service \".\\conf\\traccar.xml\""
+    },
+    {
+      "Name": "WinRM",
+      "State": "Stopped",
+      "StartMode": "Manual",
+      "PathName": "C:\\Windows\\System32\\svchost.exe -k NetworkService -p"
+    }
+  ],
+  "PM2": [],
+  "Node": [
+    {
+      "ProcessName": "node",
+      "Id": 15732,
+      "SessionId": 0,
+      "RAM_MB": 52.8,
+      "Path": "C:\\Program Files\\nodejs\\node.exe"
+    }
+  ],
+  "AutoHotkey": [
+    {
+      "ProcessName": "AutoHotkey64",
+      "Id": 1632,
+      "SessionId": 2,
+      "Path": "C:\\Program Files\\AutoHotkey\\v2\\AutoHotkey64.exe"
+    },
+    {
+      "ProcessName": "AutoHotkey64",
+      "Id": 13192,
+      "SessionId": 2,
+      "Path": "C:\\Program Files\\AutoHotkey\\v2\\AutoHotkey64.exe"
+    }
+  ],
+  "Health": [
+    {
+      "Url": "http://127.0.0.1:3100/health",
+      "Status": "FAILED",
+      "Error": "No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión. (127.0.0.1:3100)"
+    },
+    {
+      "Url": "http://127.0.0.1:5501/health",
+      "Status": "FAILED",
+      "Error": "No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión. (127.0.0.1:5501)"
+    },
+    {
+      "Url": "http://127.0.0.1:5510/health",
+      "Status": "FAILED",
+      "Error": "No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión. (127.0.0.1:5510)"
+    }
+  ],
+  "RuneforgeTasks": [
+    {
+      "TaskName": "RUNEFORGE_DESKTOP_MUTE_TEST_V2",
+      "State": 3,
+      "TaskPath": "\\"
+    },
+    {
+      "TaskName": "RUNEFORGE_DESKTOP_UNMUTE",
+      "State": 3,
+      "TaskPath": "\\"
+    }
+  ],
+  "AuditDir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\remote_runtime_20260510_161451"
+}

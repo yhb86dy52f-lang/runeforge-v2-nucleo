@@ -1,0 +1,386 @@
+{
+  "Timestamp": "2026-05-24T04:17:36.6008695-06:00",
+  "Estado": "RF_HARDENING_FASE1_VALIDACION_FINAL_DONE",
+  "RuneforgeOk": true,
+  "SshSoloTailscale": true,
+  "TraccarSoloTailscale": true,
+  "SunshineSoloTailscale": true,
+  "AirServerSoloTailscale": true,
+  "ReglasRuneforge": [
+    {
+      "Nombre": "RF_ALLOW_SSH_SOLO_TAILSCALE_TCP_22",
+      "Habilitada": 1,
+      "Accion": 2,
+      "Protocolo": "TCP",
+      "PuertoLocal": "22",
+      "DireccionRemota": [
+        "100.64.0.0/255.192.0.0",
+        "fd7a:115c:a1e0::/48"
+      ]
+    },
+    {
+      "Nombre": "RF_ALLOW_TRACCAR_WEB_SOLO_TAILSCALE_TCP_8082",
+      "Habilitada": 1,
+      "Accion": 2,
+      "Protocolo": "TCP",
+      "PuertoLocal": "8082",
+      "DireccionRemota": [
+        "100.64.0.0/255.192.0.0",
+        "fd7a:115c:a1e0::/48"
+      ]
+    },
+    {
+      "Nombre": "RF_ALLOW_SUNSHINE_SOLO_TAILSCALE_TCP",
+      "Habilitada": 1,
+      "Accion": 2,
+      "Protocolo": "TCP",
+      "PuertoLocal": [
+        "47984",
+        "47989",
+        "47990",
+        "48010"
+      ],
+      "DireccionRemota": [
+        "100.64.0.0/255.192.0.0",
+        "fd7a:115c:a1e0::/48"
+      ]
+    },
+    {
+      "Nombre": "RF_ALLOW_AIRSERVER_SOLO_TAILSCALE_TCP",
+      "Habilitada": 1,
+      "Accion": 2,
+      "Protocolo": "TCP",
+      "PuertoLocal": [
+        "5021",
+        "7000",
+        "7100",
+        "8008",
+        "8009",
+        "8100"
+      ],
+      "DireccionRemota": [
+        "100.64.0.0/255.192.0.0",
+        "fd7a:115c:a1e0::/48"
+      ]
+    }
+  ],
+  "ReglasAmpliasPeligrosas": [
+    {
+      "Nombre": "SmartPSSLite",
+      "ReglaInterna": "TCP Query User{5BF13D3E-9760-4A36-B2A0-7E9C481C5B85}C:\\program files\\smartpsslite\\smartpsslite.exe",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "SmartPSSLite",
+      "ReglaInterna": "UDP Query User{3EB9BD10-55F8-404D-8C33-7B6806FBB9F8}C:\\program files\\smartpsslite\\smartpsslite.exe",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Brave Browser",
+      "ReglaInterna": "TCP Query User{F66A29C6-471D-4DA6-81DB-6D35A5F8AC93}C:\\program files\\bravesoftware\\brave-browser\\application\\brave.exe",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Brave Browser",
+      "ReglaInterna": "UDP Query User{A5E549A8-3F1A-49C2-AFF6-9EAE4C7E7ED7}C:\\program files\\bravesoftware\\brave-browser\\application\\brave.exe",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "ChatGPT",
+      "ReglaInterna": "TCP Query User{705B377C-40F6-4D59-8175-09370AB827B3}C:\\program files\\windowsapps\\openai.chatgpt-desktop_1.2026.119.0_x64__2p2nqsd0c76g0\\app\\chatgpt.exe",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "ChatGPT",
+      "ReglaInterna": "UDP Query User{5525C3FF-59DF-48C8-B975-50C4D89904DB}C:\\program files\\windowsapps\\openai.chatgpt-desktop_1.2026.119.0_x64__2p2nqsd0c76g0\\app\\chatgpt.exe",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "opera.exe",
+      "ReglaInterna": "TCP Query User{C3D7C627-FAFB-455A-9C99-7901FB158F85}C:\\users\\nesth\\appdata\\local\\programs\\opera gx\\opera.exe",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "opera.exe",
+      "ReglaInterna": "UDP Query User{9B36D99C-4443-464B-87C7-C6A0ABE031CB}C:\\users\\nesth\\appdata\\local\\programs\\opera gx\\opera.exe",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "ChatGPT",
+      "ReglaInterna": "{8B5187BE-A439-4FBB-9E75-08419E764757}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "ChatGPT",
+      "ReglaInterna": "{1989D758-EF80-4919-9E81-967FED4201BD}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "ChatGPT",
+      "ReglaInterna": "{0347310E-885A-40C3-B7A5-8CA9F1E1BCE3}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "termius.exe",
+      "ReglaInterna": "TCP Query User{729CF369-7749-44E8-AA20-BCEEE731302E}C:\\users\\nesth\\appdata\\local\\programs\\termius\\termius.exe",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "termius.exe",
+      "ReglaInterna": "UDP Query User{DB7BD0B6-B54F-476F-A6BD-7F96FA5E0190}C:\\users\\nesth\\appdata\\local\\programs\\termius\\termius.exe",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Instalador de aplicación",
+      "ReglaInterna": "{9431A94C-ABA9-4717-90CF-6790D440A1FE}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Cámara de Windows",
+      "ReglaInterna": "{DC41E3A9-CD76-4CB2-B020-C55420D240BF}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Reloj de Windows",
+      "ReglaInterna": "{E32BB6C8-706A-4003-9D1A-7220F64DA3D8}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Centro de opiniones",
+      "ReglaInterna": "{BE29047F-72AE-446A-A6F1-3D6FEF95E624}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Solitaire & Casual Games",
+      "ReglaInterna": "{CD0CDFE0-405F-45BA-8B10-232A7DA7506F}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "MSN El tiempo",
+      "ReglaInterna": "{6F8EC33F-34F7-4111-89A9-A6A40B623625}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Notas rápidas de Microsoft",
+      "ReglaInterna": "{65C4DA39-DEDD-45CC-B31A-A2C9F7EC809F}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Game Bar",
+      "ReglaInterna": "{6F2222C8-74D3-4301-9318-CDBAB1B2C8DA}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Películas y TV",
+      "ReglaInterna": "{41745EE1-C0EF-4875-B61B-6E55FF4A9625}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Reproductor multimedia de Windows",
+      "ReglaInterna": "{C1740796-A2C0-4AAC-BB0B-FAD452F32194}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "DTS Sound Unbound",
+      "ReglaInterna": "{2D78F7D7-257B-4658-BC76-ED3D13CFB91F}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Microsoft Store",
+      "ReglaInterna": "{CD151666-795B-4888-B555-6878816F0AE0}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    },
+    {
+      "Nombre": "Microsoft 365 Copilot",
+      "ReglaInterna": "{D913B6C6-7732-4BAF-950D-3C8E73D3357A}",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Accion": 2
+    }
+  ],
+  "Listeners": [
+    {
+      "Puerto": 22,
+      "Direccion": "0.0.0.0",
+      "PID": 4280,
+      "Proceso": "sshd.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 22,
+      "Direccion": "::",
+      "PID": 4280,
+      "Proceso": "sshd.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 3100,
+      "Direccion": "127.0.0.1",
+      "PID": 26212,
+      "Proceso": "node.exe",
+      "EscuchaAmplia": false
+    },
+    {
+      "Puerto": 5021,
+      "Direccion": "::",
+      "PID": 26852,
+      "Proceso": "AirServer.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 5021,
+      "Direccion": "0.0.0.0",
+      "PID": 26852,
+      "Proceso": "AirServer.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 7000,
+      "Direccion": "::",
+      "PID": 26852,
+      "Proceso": "AirServer.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 7000,
+      "Direccion": "0.0.0.0",
+      "PID": 26852,
+      "Proceso": "AirServer.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 7100,
+      "Direccion": "::",
+      "PID": 26852,
+      "Proceso": "AirServer.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 7100,
+      "Direccion": "0.0.0.0",
+      "PID": 26852,
+      "Proceso": "AirServer.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 8008,
+      "Direccion": "::",
+      "PID": 26852,
+      "Proceso": "AirServer.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 8009,
+      "Direccion": "0.0.0.0",
+      "PID": 26852,
+      "Proceso": "AirServer.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 8082,
+      "Direccion": "::",
+      "PID": 4328,
+      "Proceso": "java.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 8100,
+      "Direccion": "::",
+      "PID": 26852,
+      "Proceso": "AirServer.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 8100,
+      "Direccion": "0.0.0.0",
+      "PID": 26852,
+      "Proceso": "AirServer.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 47984,
+      "Direccion": "0.0.0.0",
+      "PID": 13184,
+      "Proceso": "sunshine.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 47989,
+      "Direccion": "0.0.0.0",
+      "PID": 13184,
+      "Proceso": "sunshine.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 47990,
+      "Direccion": "0.0.0.0",
+      "PID": 13184,
+      "Proceso": "sunshine.exe",
+      "EscuchaAmplia": true
+    },
+    {
+      "Puerto": 48010,
+      "Direccion": "0.0.0.0",
+      "PID": 13184,
+      "Proceso": "sunshine.exe",
+      "EscuchaAmplia": true
+    }
+  ],
+  "Alertas": [
+    "Aún hay reglas amplias peligrosas para puertos críticos."
+  ],
+  "Backend": "VALIDADO_NO_MODIFICADO",
+  "Sistema": "FIREWALL_VALIDADO",
+  "Secretos": "NO_LEIDOS",
+  "Reporte": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\security_baseline\\RF_HARDENING_FASE1_VALIDACION_FINAL_20260524_041731.json"
+}

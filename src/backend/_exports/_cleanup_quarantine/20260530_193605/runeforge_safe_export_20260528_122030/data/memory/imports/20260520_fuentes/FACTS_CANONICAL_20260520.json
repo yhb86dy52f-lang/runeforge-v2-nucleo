@@ -1,0 +1,294 @@
+{
+  "generated_at": "2026-05-20T19:09:39.425057-06:00",
+  "source_zip": {
+    "path": "/mnt/data/fuentes.zip",
+    "size_bytes": 19228230,
+    "sha256": "69821042bc0b6143caf4c278bb1d049d5850df4fe7a5685fcd5a68ce0fe47b0c",
+    "files_total": 21
+  },
+  "validated_from_zip": {
+    "estructura_cerrada": {
+      "Fecha": "2026-04-19 03:25:06",
+      "Base": "C:\\RUNEFOGE_PRO",
+      "RaizActiva": "C:\\RUNEFOGE_PRO\\runeforge",
+      "BackendActivo": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+      "MemoriaDocumental": "C:\\Users\\nesth\\Documents\\EL_ABISMO\\RUNEFORGE_CENTRO",
+      "Estructura": [
+        "app",
+        "scripts",
+        "docs",
+        "data",
+        "backups",
+        "archive",
+        "lab"
+      ],
+      "Estado": "ESTRUCTURA_CERRADA"
+    },
+    "estado_base": {
+      "Fecha": "2026-04-19 02:04:04",
+      "ProyectoRaiz": "C:\\Users\\nesth\\Documents\\RUNEFOGE_PRO",
+      "HistorialMemoria": "C:\\Users\\nesth\\Documents\\EL_ABISMO\\01_MEMORIAS\\Historial",
+      "ElementosEnRaiz": 1,
+      "MemoriasDetectadas": 7,
+      "MemoriasConHTML": 1,
+      "MemoriasMuyCortas": 2,
+      "CandidatosRuido": 3,
+      "CarpetaSalida": "C:\\Users\\nesth\\Documents\\RUNEFOGE_PRO\\00_cierre_base",
+      "Estado": "AUDITORIA_BASE_GENERADA"
+    },
+    "memorias_detectadas_count": 7,
+    "candidatos_ruido_count": 3,
+    "xlsx_rows": 16,
+    "pptx_summary": {
+      "slides": 15,
+      "text_slides_nonempty": 0,
+      "media_count": 15,
+      "media_total_bytes": 19170652
+    }
+  },
+  "canonical_decision": {
+    "active_base": "C:\\RUNEFOGE_PRO",
+    "active_root": "C:\\RUNEFOGE_PRO\\runeforge",
+    "active_backend": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+    "document_memory": "C:\\Users\\nesth\\Documents\\EL_ABISMO\\RUNEFORGE_CENTRO",
+    "legacy_or_audit_root": "C:\\Users\\nesth\\Documents\\RUNEFOGE_PRO",
+    "reason": "estructura_cerrada.json marca ESTADO=ESTRUCTURA_CERRADA y contiene C:\\RUNEFOGE_PRO como base activa; 04_estado_base.json es auditoría fechada antes con ruta en Documents."
+  },
+  "priority_sources": [
+    "CINER-Maestro.txt",
+    "PROMPT MAESTRO A-SHEEL.txt",
+    "Runeforge.md",
+    "estructura_cerrada.json",
+    "MASTER_MEMORY.md",
+    "memoria_operativa_actual.txt",
+    "README.md"
+  ],
+  "exclude_or_archive": [
+    {
+      "file": "memoria_20260417_231816.txt",
+      "reason": "memoria demasiado corta"
+    },
+    {
+      "file": "memoria_20260417_231926.txt",
+      "reason": "memoria demasiado corta"
+    },
+    {
+      "file": "memoria_20260415_032107.txt",
+      "reason": "detectada en csv como HTML/UI embebido; no viene completo en ZIP"
+    },
+    {
+      "file": "Runeforge_Tactical_Playbook.pptx",
+      "reason": "15 slides pero 0 texto extraíble; conservar como asset visual"
+    },
+    {
+      "file": "20260404_asasasasasasasas0.csv",
+      "reason": "muestra/encabezado de test, sin filas completas"
+    }
+  ],
+  "memory_rules": {
+    "no_suppositions": true,
+    "missing_data_policy": "marcar PENDIENTE",
+    "conflict_policy": "priorizar fecha más reciente + evidencia ejecutada + estructura_cerrada",
+    "runtime_flow": "INPUT → ROUTER → SKILL → ACTION → TRACE → RESPONSE"
+  },
+  "xlsx_catalog": [
+    {
+      "Proyecto o Producto": "Runeforge (Ecosistema Integral)",
+      "Empresa o Institución": "Runeforge (Alma)",
+      "Categoría Tecnológica": "Software / IA / Automatización",
+      "Estado o Fase": "Implementación Activa / Fase 1",
+      "Características Principales": "Arquitectura  local-first  con stack Windows, PowerShell 7, Node.js y Tailscale. Incluye motor de IA dinámico (Gemini/ChatGPT), interfaz modular 'Cyber Monja', inyección de scripts y gestión de telemetría/CCTV.",
+      "Fecha o Periodo": "Marzo - Abril 2026",
+      "Impacto o Resultado (Inferido)": "Centralización soberana de infraestructura crítica e IA; elimina dependencia de la nube y optimiza el control de carga externa.",
+      "Fuente": "1-4"
+    },
+    {
+      "Proyecto o Producto": "Integración CCTV TGL (iPhone / Planta)",
+      "Empresa o Institución": "Transportes Garza Leal (TGL)",
+      "Categoría Tecnológica": "Seguridad / Videovigilancia",
+      "Estado o Fase": "Fase 2 (Operativo)",
+      "Características Principales": "Monitoreo de 80 canales, nodos híbridos (DVR EPCOM 4K, Hikvision, Dahua). Tecnología AcuSense, AI Coding y relevo RTSP vía Node.js integrado con iPhone.",
+      "Fecha o Periodo": "Abril 2026",
+      "Impacto o Resultado (Inferido)": "Optimización de vigilancia remota industrial y reducción de falsas alarmas mediante gestión móvil de baja latencia.",
+      "Fuente": "1, 5"
+    },
+    {
+      "Proyecto o Producto": "Telemetría CalAmp (LMU-4350 / LMU2630)",
+      "Empresa o Institución": "CalAmp / TGL / Enertronics",
+      "Categoría Tecnológica": "Semiconductores / Telemetría",
+      "Estado o Fase": "Operativo / Fase de Pruebas",
+      "Características Principales": "Sensores de combustible ITalon (Digital/Análogo), mapeo de E/S, integración con Wialon y LMDirect. Reporte de eventos mediante scripting personalizado.",
+      "Fecha o Periodo": "Enero 2020 - Marzo 2026",
+      "Impacto o Resultado (Inferido)": "Control preciso de consumo de combustible y logística; integración de telemetría como payload de datos en Runeforge.",
+      "Fuente": "1, 5, 6"
+    },
+    {
+      "Proyecto o Producto": "CCTV Patio 3 Lerdo / Visor 3D",
+      "Empresa o Institución": "Gemini / TGL",
+      "Categoría Tecnológica": "Ciudades Inteligentes / Seguridad",
+      "Estado o Fase": "Final / Desarrollo",
+      "Características Principales": "Documentación técnica nivel 3, reconocimiento facial Dahua y modelado 3D de patios con Three.js para visualización de conos de visión y edificios.",
+      "Fecha o Periodo": "Enero - Febrero 2026",
+      "Impacto o Resultado (Inferido)": "Creación de perímetros de seguridad de alta fidelidad mediante gemelos digitales y simulaciones de cobertura.",
+      "Fuente": "1"
+    },
+    {
+      "Proyecto o Producto": "Atlatl",
+      "Empresa o Institución": "Robert Allen (Zircote)",
+      "Categoría Tecnológica": "Inteligencia Artificial",
+      "Estado o Fase": "Desarrollo (v5+)",
+      "Características Principales": "Servidor de memoria estructurada para agentes de IA, especificación MIF, ontologías personalizadas y búsqueda híbrida (BM25 y vectores).",
+      "Fecha o Periodo": "2023 - 2026",
+      "Impacto o Resultado (Inferido)": "Estandarización de memoria persistente para agentes IA, permitiendo portabilidad de datos y recuerdo entre sesiones.",
+      "Fuente": "7"
+    },
+    {
+      "Proyecto o Producto": "Despliegue OpenSSH Standalone",
+      "Empresa o Institución": "Runeforge Infrastructure",
+      "Categoría Tecnológica": "Software / Redes",
+      "Estado o Fase": "Operativo",
+      "Características Principales": "Instalación aislada de Microsoft Win32-OpenSSH para evitar conflictos de dependencias, llaves ED25519 y túneles vía Tailscale.",
+      "Fecha o Periodo": "Abril 2026",
+      "Impacto o Resultado (Inferido)": "Acceso remoto cifrado a backend desde terminales móviles (iPhone) sin exposición a internet público.",
+      "Fuente": "8"
+    },
+    {
+      "Proyecto o Producto": "Eco5 / Plug5 / Trace5-LTE",
+      "Empresa o Institución": "Ruptela",
+      "Categoría Tecnológica": "Hardware / Telemática",
+      "Estado o Fase": "Lanzamiento",
+      "Características Principales": "Dispositivos de seguimiento de 5ta generación con soporte BLE, LTE, 1-Wire y CAN. Configuración mediante Device Center.",
+      "Fecha o Periodo": "Marzo 2024",
+      "Impacto o Resultado (Inferido)": "Expansión de monitoreo vehicular y compatibilidad con redes móviles modernas mediante instalación asistida.",
+      "Fuente": "9"
+    },
+    {
+      "Proyecto o Producto": "FLOTANT",
+      "Empresa o Institución": "AIMPLAS",
+      "Categoría Tecnológica": "Energías Renovables",
+      "Estado o Fase": "En desarrollo (H2020)",
+      "Características Principales": "Anclajes poliméricos y flotadores híbridos para aerogeneradores de  $+10$  MW en profundidades de  $100$  a  $600$  metros.",
+      "Fecha o Periodo": "Abril 2019 (36 meses)",
+      "Impacto o Resultado (Inferido)": "Reducción de costes de instalación en  $60\\%$  y de mantenimiento en  $55\\%$  en industria eólica offshore.",
+      "Fuente": "10"
+    },
+    {
+      "Proyecto o Producto": "SMC 1000 8x25G",
+      "Empresa o Institución": "Microchip Technology Inc.",
+      "Categoría Tecnológica": "Semiconductores",
+      "Estado o Fase": "Lanzamiento comercial",
+      "Características Principales": "Controlador de memoria serie que cuadruplica canales DRAM DDR4 utilizando interfaz OMI de baja latencia.",
+      "Fecha o Periodo": "Septiembre 2019",
+      "Impacto o Resultado (Inferido)": "Incremento crítico del ancho de banda por núcleo en CPUs para centros de datos de próxima generación.",
+      "Fuente": "10"
+    },
+    {
+      "Proyecto o Producto": "ORPHEO",
+      "Empresa o Institución": "EnerOcean / Ingeteam / UCA",
+      "Categoría Tecnológica": "Energías Renovables",
+      "Estado o Fase": "Culminado",
+      "Características Principales": "Plataforma híbrida (W2Power) semi-sumergible que combina energía eólica offshore y energía undimotriz.",
+      "Fecha o Periodo": "Septiembre 2019",
+      "Impacto o Resultado (Inferido)": "Incremento de rentabilidad del  $20\\%$  mediante generación combinada y predicción meteorológica.",
+      "Fuente": "10"
+    },
+    {
+      "Proyecto o Producto": "UNEXMIN (UX-1a)",
+      "Empresa o Institución": "CAR (UPM-CSIC)",
+      "Categoría Tecnológica": "Robótica / Exploración",
+      "Estado o Fase": "Pruebas finalizadas",
+      "Características Principales": "Robot submarino autónomo esférico ( $60$  cm) con LIDAR y cámaras para mapeo de minas inundadas.",
+      "Fecha o Periodo": "Septiembre 2019",
+      "Impacto o Resultado (Inferido)": "Evaluación de viabilidad económica para reapertura de minas sin riesgo para operadores humanos.",
+      "Fuente": "10"
+    },
+    {
+      "Proyecto o Producto": "Solar-XOne SX1.2",
+      "Empresa o Institución": "XSun",
+      "Categoría Tecnológica": "Vehículos Aéreos / UAV",
+      "Estado o Fase": "Prototipo",
+      "Características Principales": "UAV autónomo alimentado por energía solar; envergadura de  $15$  pies con capacidad de vuelo de meses.",
+      "Fecha o Periodo": "2019",
+      "Impacto o Resultado (Inferido)": "Avance en misiones de larga duración para vigilancia forestal, agricultura y pesca inteligente.",
+      "Fuente": "10"
+    },
+    {
+      "Proyecto o Producto": "G4ND4LF",
+      "Empresa o Institución": "AIMPLAS",
+      "Categoría Tecnológica": "Software / Industria 4.0",
+      "Estado o Fase": "Primera anualidad",
+      "Características Principales": "Sistema de IA para optimizar producción de plásticos mediante monitorización de parámetros en tiempo real.",
+      "Fecha o Periodo": "Septiembre 2019",
+      "Impacto o Resultado (Inferido)": "Mejora en tiempos de diseño y predicción de comportamiento de materiales sin pruebas físicas.",
+      "Fuente": "10"
+    },
+    {
+      "Proyecto o Producto": "Flex’ion",
+      "Empresa o Institución": "SAFT",
+      "Categoría Tecnológica": "Energía / Almacenamiento",
+      "Estado o Fase": "Operativo",
+      "Características Principales": "Baterías de Li-ion para UPS; operan hasta  $35$  °C con carga completa en una hora.",
+      "Fecha o Periodo": "Septiembre 2019",
+      "Impacto o Resultado (Inferido)": "Reducción de costes de construcción y mayor eficiencia energética en superordenadores.",
+      "Fuente": "10"
+    },
+    {
+      "Proyecto o Producto": "Sunshine",
+      "Empresa o Institución": "LizardByte",
+      "Categoría Tecnológica": "Software / Streaming",
+      "Estado o Fase": "Estable",
+      "Características Principales": "Servidor de streaming de baja latencia compatible con NVENC, QuickSync y VAAPI.",
+      "Fecha o Periodo": "Marzo 2026",
+      "Impacto o Resultado (Inferido)": "Alternativa de código abierto de alto rendimiento para transmisión entre dispositivos diversos.",
+      "Fuente": "1"
+    },
+    {
+      "Proyecto o Producto": "BodyCam DS-MCW406",
+      "Empresa o Institución": "Transportes Garza Leal (TGL)",
+      "Categoría Tecnológica": "Hardware / Seguridad",
+      "Estado o Fase": "Implementación",
+      "Características Principales": "Cámara corporal con manual de usuario v2.2.4 y guías operativas visuales.",
+      "Fecha o Periodo": "Enero 2026",
+      "Impacto o Resultado (Inferido)": "Aumento en la transparencia y seguridad de operadores en campo mediante evidencia digital.",
+      "Fuente": "1"
+    }
+  ],
+  "xlsx_references": [
+    [
+      "1",
+      "01_inventario_fusion.csv"
+    ],
+    [
+      "2",
+      "Runeforge Premium Analysis Mode"
+    ],
+    [
+      "4",
+      "memoria_operativa_actual.txt"
+    ],
+    [
+      "5",
+      "Runeforge_ Desarrollo IA Móvil_PC - Documentos de Google.pdf"
+    ],
+    [
+      "6",
+      "LMU's Notes _14 FLS Sensores de Combustible.pdf"
+    ],
+    [
+      "7",
+      "Robert Allen zircote - GitHub"
+    ],
+    [
+      "8",
+      "MENORIA"
+    ],
+    [
+      "9",
+      "Device Center User Manual.pdf"
+    ],
+    [
+      "10",
+      "electrónica para ingenierías e integradores de sistemas - Convertronic"
+    ]
+  ]
+}

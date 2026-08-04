@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-05-31T15:34:01.4775306-06:00",
+  "event": "RF_EVENT_ACCUMULATION_PLAN_V1",
+  "status": "PLAN_DONE",
+  "eventos_actuales": 30,
+  "objetivo": 100,
+  "faltantes": 70,
+  "fuentes": [
+    {
+      "fuente": "data\\traces",
+      "existe": true,
+      "archivos": 81,
+      "prioridad": "ALTA"
+    },
+    {
+      "fuente": "data\\reports",
+      "existe": true,
+      "archivos": 26,
+      "prioridad": "ALTA"
+    },
+    {
+      "fuente": "data\\memory",
+      "existe": true,
+      "archivos": 30,
+      "prioridad": "MEDIA"
+    },
+    {
+      "fuente": "data\\visual_layout_engine",
+      "existe": true,
+      "archivos": 256,
+      "prioridad": "BAJA_CONTROLADA"
+    },
+    {
+      "fuente": "data\\webcommand",
+      "existe": true,
+      "archivos": 11,
+      "prioridad": "BAJA_CONTROLADA"
+    },
+    {
+      "fuente": "data\\n8n_canary_2_20_12",
+      "existe": true,
+      "archivos": 860,
+      "prioridad": "BAJA_CONTROLADA"
+    }
+  ],
+  "accion_real": "NO_IMPORT_EVENTS",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "next": "RF_EVENT_ACCUMULATION_DRYRUN_V1"
+}

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-05-30T20:28:15.1626634-06:00",
+  "event": "RF_GRAPH_SCHEMA_V1_BOOTSTRAP",
+  "status": "DONE",
+  "schema": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\schema\\rf_graph_schema_v1.json",
+  "rules": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\rules\\rf_graph_relation_rules_v1.json",
+  "example_node": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\schema\\rf_graph_node_example_v1.json",
+  "example_edge": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\schema\\rf_graph_edge_example_v1.json",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "siguiente": "RF_GRAPH_IMPORT_DRYRUN_V1"
+}

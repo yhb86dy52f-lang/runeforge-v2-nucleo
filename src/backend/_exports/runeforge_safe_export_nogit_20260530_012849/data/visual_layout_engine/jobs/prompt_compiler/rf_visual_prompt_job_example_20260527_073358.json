@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "job_id": "rf_visual_job_example_20260527_073358",
+  "tipo_visual": "cctv_coverage_map",
+  "objetivo_usuario": "Compilar prompt técnico para generar o limpiar un layout CCTV usando evidencia importada.",
+  "prompt_original": "PENDIENTE_REEMPLAZAR_CON_SOLICITUD_REAL_DEL_USUARIO",
+  "metadata_extraida": {
+    "domain": "cctv_coverage_map",
+    "source_type": "imported_reference",
+    "style": "clean_security_layout",
+    "required_layers": [
+      "base_map",
+      "camera_points",
+      "coverage_zones",
+      "routes",
+      "labels",
+      "legend"
+    ],
+    "constraints": [
+      "no generar aleatorio",
+      "usar evidencia",
+      "mantener trazabilidad"
+    ]
+  },
+  "layout_spec": {
+    "site": "PENDIENTE",
+    "zones": [],
+    "cameras": [],
+    "routes": [],
+    "labels": [],
+    "pending": [
+      "definir sitio",
+      "definir zonas",
+      "definir cámaras",
+      "definir ruta de seguridad si aplica"
+    ]
+  },
+  "referencias": [
+    {
+      "visual_id": "rfvis_0071",
+      "file_name": "CCTV__OFICINAS__PANTA ALTA 2.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\CCTV__OFICINAS__PANTA ALTA 2.png",
+      "sha256": "23305CFE8BDBD18D915790753315B2848D54890BBCC6896F5CA817F07A738057"
+    },
+    {
+      "visual_id": "rfvis_0181",
+      "file_name": "Nueva carpeta (3)__CCTV__OFICINAS__PANTA ALTA 2.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\Nueva carpeta (3)__CCTV__OFICINAS__PANTA ALTA 2.png",
+      "sha256": "23305CFE8BDBD18D915790753315B2848D54890BBCC6896F5CA817F07A738057"
+    },
+    {
+      "visual_id": "rfvis_0045",
+      "file_name": "CCTV__FOTODS__Gemini_Generated_Image_otvgw6otvgw6otvg.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\CCTV__FOTODS__Gemini_Generated_Image_otvgw6otvgw6otvg.png",
+      "sha256": "4506E4989C3AFDB298AAD2372CF40BAC4800EC9DD17DAF7CAA162D7648B9FAA2"
+    }
+  ],
+  "output_policy": {
+    "no_random_generation": true,
+    "require_evidence": true,
+    "require_checklist": true,
+    "require_version": true
+  }
+}

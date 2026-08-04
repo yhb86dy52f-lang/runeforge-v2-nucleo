@@ -1,0 +1,21 @@
+# RF_FORGE_UI_STATIC_ROUTE_CURRENT
+
+Fecha: 2026-06-07 17:03:58
+
+Estado: RF_FORGE_UI_STATIC_ROUTE_OK
+
+- Health: 200 OK
+- Forge sin slash: 200 OK
+- Forge con slash: 200 OK
+- PM2: runeforge-mvp online
+- Backend: VALIDADO_NO_TOCADO_EN_CIERRE
+- PM2: VALIDADO_NO_TOCADO_EN_CIERRE
+- Firewall: NO_TOCADO
+- n8n: NO_TOCADO
+- Politica: CURRENT_OVERWRITE_WITH_BACKUP
+
+URL principal:
+http://127.0.0.1:3100/forge/
+
+Siguiente:
+FORGE_UI_WEBCOMMAND_BINDING_V1

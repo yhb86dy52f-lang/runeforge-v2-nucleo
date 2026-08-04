@@ -1,0 +1,44 @@
+flowchart TD
+  S6["actions|trace_observed|ok<br/>count=7 freq=0.233333"]
+  S14["n8n|trace_observed|ok<br/>count=3 freq=0.1"]
+  S1["actions|action_execute|ok<br/>count=2 freq=0.066667"]
+  S2["actions|blocked_action|blocked<br/>count=2 freq=0.066667"]
+  S3["actions|memory_written|ok<br/>count=2 freq=0.066667"]
+  S4["actions|patch_applied|ok<br/>count=2 freq=0.066667"]
+  S5["actions|trace_observed|error<br/>count=2 freq=0.066667"]
+  S11["export_cleanup|safe_export_finalized|ok<br/>count=2 freq=0.066667"]
+  S7["event_model|bootstrap_created|ok<br/>count=1 freq=0.033333"]
+  S8["export_cleanup|cleanup_closed|closed<br/>count=1 freq=0.033333"]
+  S9["export_cleanup|cleanup_plan_generated|ok<br/>count=1 freq=0.033333"]
+  S10["export_cleanup|move_to_quarantine|ok<br/>count=1 freq=0.033333"]
+  S12["n8n|memory_written|ok<br/>count=1 freq=0.033333"]
+  S13["n8n|patch_applied|ok<br/>count=1 freq=0.033333"]
+  S15["system|memory_written|ok<br/>count=1 freq=0.033333"]
+  S16["system|patch_applied|ok<br/>count=1 freq=0.033333"]
+  S3 -->|p=1 count=2| S6
+  S6 -->|p=0.285714 count=2| S1
+  S1 -->|p=0.5 count=1| S2
+  S14 -->|p=0.333333 count=1| S14
+  S14 -->|p=0.333333 count=1| S13
+  S14 -->|p=0.333333 count=1| S3
+  S13 -->|p=1 count=1| S12
+  S12 -->|p=1 count=1| S6
+  S11 -->|p=0.5 count=1| S11
+  S11 -->|p=0.5 count=1| S9
+  S10 -->|p=1 count=1| S8
+  S9 -->|p=1 count=1| S10
+  S8 -->|p=1 count=1| S7
+  S6 -->|p=0.142857 count=1| S14
+  S6 -->|p=0.142857 count=1| S6
+  S6 -->|p=0.142857 count=1| S5
+  S6 -->|p=0.142857 count=1| S4
+  S6 -->|p=0.142857 count=1| S2
+  S5 -->|p=0.5 count=1| S16
+  S5 -->|p=0.5 count=1| S11
+  S4 -->|p=0.5 count=1| S5
+  S4 -->|p=0.5 count=1| S3
+  S2 -->|p=0.5 count=1| S15
+  S2 -->|p=0.5 count=1| S4
+  S1 -->|p=0.5 count=1| S6
+  S15 -->|p=1 count=1| S6
+  S16 -->|p=1 count=1| S6

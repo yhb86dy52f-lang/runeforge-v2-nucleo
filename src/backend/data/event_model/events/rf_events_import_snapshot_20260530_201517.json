@@ -1,0 +1,572 @@
+[
+  {
+    "event_id": "evt_20260530_201137_001",
+    "ts": "2026-05-30T20:09:01.2959815-06:00",
+    "domain": "event_model",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_event_schema_v1_bootstrap_20260530_200901.json",
+    "action": "bootstrap_created",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_event_schema_v1_bootstrap_20260530_200901.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 390,
+      "last_write": "2026-05-30T20:09:01.2959815-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_002",
+    "ts": "2026-05-30T19:42:44.6310205-06:00",
+    "domain": "export_cleanup",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_export_cleanup_close_v1_20260530_194238.json",
+    "action": "cleanup_closed",
+    "status": "closed",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_export_cleanup_close_v1_20260530_194238.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 577,
+      "last_write": "2026-05-30T19:42:44.6310205-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_003",
+    "ts": "2026-05-30T19:36:15.475144-06:00",
+    "domain": "export_cleanup",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_export_cleanup_quarantine_v1_1_20260530_193605.json",
+    "action": "move_to_quarantine",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_export_cleanup_quarantine_v1_1_20260530_193605.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 493,
+      "last_write": "2026-05-30T19:36:15.475144-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_004",
+    "ts": "2026-05-30T03:30:00.409583-06:00",
+    "domain": "export_cleanup",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_export_cleanup_plan_v1_20260530_032953.json",
+    "action": "cleanup_plan_generated",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_export_cleanup_plan_v1_20260530_032953.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 1370,
+      "last_write": "2026-05-30T03:30:00.409583-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_005",
+    "ts": "2026-05-30T03:16:40.2132083-06:00",
+    "domain": "export_cleanup",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_safe_export_final_20260530_031637.json",
+    "action": "safe_export_finalized",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_safe_export_final_20260530_031637.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 614,
+      "last_write": "2026-05-30T03:16:40.2132083-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_006",
+    "ts": "2026-05-30T03:11:35.0065059-06:00",
+    "domain": "export_cleanup",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_safe_export_final_20260530_031131.json",
+    "action": "safe_export_finalized",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_safe_export_final_20260530_031131.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 614,
+      "last_write": "2026-05-30T03:11:35.0065059-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_007",
+    "ts": "2026-05-26T13:17:27.8197406-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_v4_error_20260526.jsonl",
+    "action": "trace_observed",
+    "status": "error",
+    "risk": "medium",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v4_error_20260526.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 576,
+      "last_write": "2026-05-26T13:17:27.8197406-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_008",
+    "ts": "2026-05-23T18:31:24.769148-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_core_actions_v5_endpoint_patch_20260523_183102.json",
+    "action": "patch_applied",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_core_actions_v5_endpoint_patch_20260523_183102.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 814,
+      "last_write": "2026-05-23T18:31:24.769148-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_009",
+    "ts": "2026-05-23T18:31:24.039779-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_v5_blocked_20260524.jsonl",
+    "action": "blocked_action",
+    "status": "blocked",
+    "risk": "medium",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v5_blocked_20260524.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 1402,
+      "last_write": "2026-05-23T18:31:24.039779-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_010",
+    "ts": "2026-05-23T18:31:23.9427659-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_v5_execute_20260524.jsonl",
+    "action": "action_execute",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v5_execute_20260524.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 2245,
+      "last_write": "2026-05-23T18:31:23.9427659-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_011",
+    "ts": "2026-05-23T18:31:23.8377528-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_v5_core_health_snapshot_2026-05-24T00-31-23-836Z.json",
+    "action": "trace_observed",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v5_core_health_snapshot_2026-05-24T00-31-23-836Z.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 491,
+      "last_write": "2026-05-23T18:31:23.8377528-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_012",
+    "ts": "2026-05-23T18:31:23.7035836-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_v5_memory_event_20260524.jsonl",
+    "action": "memory_written",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v5_memory_event_20260524.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 302,
+      "last_write": "2026-05-23T18:31:23.7035836-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_013",
+    "ts": "2026-05-23T16:33:34.6007433-06:00",
+    "domain": "n8n",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_n8n_canary_2_20_12_start_5680_localhost.jsonl",
+    "action": "trace_observed",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_n8n_canary_2_20_12_start_5680_localhost.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 3312,
+      "last_write": "2026-05-23T16:33:34.6007433-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_014",
+    "ts": "2026-05-23T16:28:07.705975-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_n8n_action_router_v5_import_20260523_162713.json",
+    "action": "trace_observed",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_n8n_action_router_v5_import_20260523_162713.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 667,
+      "last_write": "2026-05-23T16:28:07.705975-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_015",
+    "ts": "2026-05-23T14:09:01.2139647-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_n8n_action_router_v5_allowlist_audit_20260523_140701.json",
+    "action": "trace_observed",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_n8n_action_router_v5_allowlist_audit_20260523_140701.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 1279,
+      "last_write": "2026-05-23T14:09:01.2139647-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_016",
+    "ts": "2026-05-23T13:13:44.1033984-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_v4_execute_20260523.jsonl",
+    "action": "action_execute",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v4_execute_20260523.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 1829,
+      "last_write": "2026-05-23T13:13:44.1033984-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_017",
+    "ts": "2026-05-23T13:03:55.6911982-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_v5_blueprint_20260523_130354.json",
+    "action": "trace_observed",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v5_blueprint_20260523_130354.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 1466,
+      "last_write": "2026-05-23T13:03:55.6911982-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_018",
+    "ts": "2026-05-23T12:44:24.816258-06:00",
+    "domain": "system",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_controladas_v4_memory_20260523_124422.json",
+    "action": "memory_written",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_controladas_v4_memory_20260523_124422.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 1755,
+      "last_write": "2026-05-23T12:44:24.816258-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_019",
+    "ts": "2026-05-23T12:42:56.4916067-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_v4_blocked_20260523.jsonl",
+    "action": "blocked_action",
+    "status": "blocked",
+    "risk": "medium",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v4_blocked_20260523.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 1102,
+      "last_write": "2026-05-23T12:42:56.4916067-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_020",
+    "ts": "2026-05-23T12:42:56.2415833-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_v4_trace_event_20260523.jsonl",
+    "action": "trace_observed",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v4_trace_event_20260523.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 352,
+      "last_write": "2026-05-23T12:42:56.2415833-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_021",
+    "ts": "2026-05-23T12:38:57.1608221-06:00",
+    "domain": "system",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_controladas_v4_patch_safe_20260523_123833.json",
+    "action": "patch_applied",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_controladas_v4_patch_safe_20260523_123833.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 749,
+      "last_write": "2026-05-23T12:38:57.1608221-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_022",
+    "ts": "2026-05-23T12:38:55.6251705-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_actions_v4_error_20260523.jsonl",
+    "action": "trace_observed",
+    "status": "error",
+    "risk": "medium",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v4_error_20260523.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 1229,
+      "last_write": "2026-05-23T12:38:55.6251705-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_023",
+    "ts": "2026-05-23T12:14:50.8312686-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_core_n8n_action_router_v3_20260523.jsonl",
+    "action": "trace_observed",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_core_n8n_action_router_v3_20260523.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 6786,
+      "last_write": "2026-05-23T12:14:50.8312686-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_024",
+    "ts": "2026-05-23T11:18:49.639596-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_n8n_action_router_v3_memory_20260523_111848.json",
+    "action": "memory_written",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_n8n_action_router_v3_memory_20260523_111848.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 1975,
+      "last_write": "2026-05-23T11:18:49.639596-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_025",
+    "ts": "2026-05-23T11:15:46.5199866-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_core_n8n_action_router_v3_endpoint_patch_20260523_111534.json",
+    "action": "patch_applied",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_core_n8n_action_router_v3_endpoint_patch_20260523_111534.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 685,
+      "last_write": "2026-05-23T11:15:46.5199866-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_026",
+    "ts": "2026-05-23T11:07:30.1575132-06:00",
+    "domain": "actions",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_n8n_action_router_v3_import_20260523_110639.json",
+    "action": "trace_observed",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_n8n_action_router_v3_import_20260523_110639.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 699,
+      "last_write": "2026-05-23T11:07:30.1575132-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_027",
+    "ts": "2026-05-23T10:55:04.4471853-06:00",
+    "domain": "n8n",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_core_n8n_task_intake_memory_v2_20260523_105503.json",
+    "action": "memory_written",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_core_n8n_task_intake_memory_v2_20260523_105503.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 1730,
+      "last_write": "2026-05-23T10:55:04.4471853-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_028",
+    "ts": "2026-05-23T10:42:40.02745-06:00",
+    "domain": "n8n",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_core_n8n_task_intake_endpoint_patch_v1_20260523_104229.json",
+    "action": "patch_applied",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_core_n8n_task_intake_endpoint_patch_v1_20260523_104229.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 679,
+      "last_write": "2026-05-23T10:42:40.02745-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_029",
+    "ts": "2026-05-23T10:42:39.6004108-06:00",
+    "domain": "n8n",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_core_n8n_task_intake_20260523.jsonl",
+    "action": "trace_observed",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_core_n8n_task_intake_20260523.jsonl",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 2954,
+      "last_write": "2026-05-23T10:42:39.6004108-06:00",
+      "dryrun": true
+    }
+  },
+  {
+    "event_id": "evt_20260530_201137_030",
+    "ts": "2026-05-23T10:26:30.2482989-06:00",
+    "domain": "n8n",
+    "source": "trace_file",
+    "actor": "system",
+    "entity_type": "trace_file",
+    "entity_id": "rf_n8n_task_intake_v2_import_20260523_102528.json",
+    "action": "trace_observed",
+    "status": "ok",
+    "risk": "low",
+    "trace_path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_n8n_task_intake_v2_import_20260523_102528.json",
+    "evidence_path": "",
+    "metadata": {
+      "size_bytes": 667,
+      "last_write": "2026-05-23T10:26:30.2482989-06:00",
+      "dryrun": true
+    }
+  }
+]

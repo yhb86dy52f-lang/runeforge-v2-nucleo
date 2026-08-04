@@ -1,0 +1,100 @@
+# CONFLICTS_DETECTED.yaml
+metadata:
+  version: "MERGED_2026-05-19"
+  status: "CONFLICTS_REVIEWED"
+
+conflicts:
+  - id: "C001"
+    topic: "Ruta raíz Runeforge"
+    observed:
+      - "C:\\RUNEFOGE_PRO\\runeforge"
+      - "C:\\RUNEFOGE_PRO\\runeforge-v2-ready\\runeforge-v2"
+      - "C:\\Users\\nesth\\Documents\\RUNEFOGE_PRO"
+    resolution: "Usar C:\\RUNEFOGE_PRO\\runeforge como raíz activa por estructura cerrada y validaciones operativas."
+    confidence: "ALTA"
+    status: "RESUELTO"
+
+  - id: "C002"
+    topic: "Backend activo"
+    observed:
+      - "C:\\RUNEFOGE_PRO\\runeforge\\app"
+      - "dist/index.js"
+      - "src/server.js"
+      - "src/index.js"
+    resolution: "Usar C:\\RUNEFOGE_PRO\\runeforge\\app como backend activo. Antes de editar código, validar archivo exacto."
+    confidence: "ALTA para ruta; MEDIA para entrypoint"
+    status: "PARCIAL"
+
+  - id: "C003"
+    topic: "Framework backend"
+    observed:
+      - "Express/CommonJS"
+      - "Fastify/TypeScript ESM"
+    resolution: "No asumir framework universal. Tratar Express como MVP histórico y Fastify/TS como dirección v2; validar repo antes de parchear."
+    confidence: "MEDIA"
+    status: "ABIERTO"
+
+  - id: "C004"
+    topic: "Base de datos"
+    observed:
+      - "SQLite / better-sqlite3"
+      - "libSQL / Drizzle / Turso"
+      - "PostgreSQL opcional"
+    resolution: "SQLite es confirmado como base local. libSQL/Drizzle/Turso queda como arquitectura/evolución; Postgres solo opcional remoto."
+    confidence: "MEDIA"
+    status: "PARCIAL"
+
+  - id: "C005"
+    topic: "Rol del usuario"
+    observed:
+      - "Técnico en Seguridad Electrónica"
+      - "Ingeniero en telemetría / seguridad electrónica"
+      - "Ingeniero electrónico con automatización"
+    resolution: "Usar rol técnico consolidado: Ingeniero en telemetría / seguridad electrónica; puesto operativo puede ser técnico de seguridad electrónica."
+    confidence: "ALTA"
+    status: "RESUELTO"
+
+  - id: "C006"
+    topic: "iPhone vs Windows"
+    observed:
+      - "Windows como servidor/core"
+      - "iPhone como nodo operativo"
+    resolution: "Arquitectura híbrida: Windows/PC es core; iPhone es consola, recolector y orquestador local-first."
+    confidence: "ALTA"
+    status: "RESUELTO"
+
+  - id: "C007"
+    topic: "Runeforge Commander"
+    observed:
+      - "V43.5 operativo"
+      - "V43.6.1 callback fix OK"
+      - "V44 Trace Spine pendiente"
+    resolution: "Registrar V43.6.1 como último punto estable; V44 como siguiente fase arquitectónica."
+    confidence: "ALTA"
+    status: "RESUELTO"
+
+  - id: "C008"
+    topic: "Bot WhatsApp / canales"
+    observed:
+      - "Bot WhatsApp activo/producción"
+      - "WhatsApp como canal no crítico"
+    resolution: "WhatsApp es canal/interfaz, no núcleo. No depender de él para lógica."
+    confidence: "ALTA"
+    status: "RESUELTO"
+
+  - id: "C009"
+    topic: "Datos personales y empresa"
+    observed:
+      - "Memorias con identidad personal y posibles datos operativos"
+    resolution: "Memoria consolidada minimiza datos personales y omite empresa/datos sensibles."
+    confidence: "ALTA"
+    status: "RESUELTO"
+
+  - id: "C010"
+    topic: "Traccar 8082"
+    observed:
+      - "8082 activo en java/bind amplio"
+      - "Pendiente validar política global de firewall"
+    resolution: "Marcar como riesgo pendiente; no modificar hasta auditoría read-only."
+    confidence: "ALTA"
+    status: "PENDIENTE"

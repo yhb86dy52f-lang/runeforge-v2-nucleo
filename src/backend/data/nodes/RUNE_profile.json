@@ -1,0 +1,78 @@
+
+{
+  "perfil_id": "RUNE_iPhone14Pro_DeepPurple_256GB",
+  "timestamp": "2026-07-19T22:31:34",
+  "device": {
+    "alias": "RUNE",
+    "model": "iPhone 14 Pro",
+    "model_identifier": "iPhone15,2",
+    "color": "Deep Purple",
+    "capacity": "256GB",
+    "serial": "WXKH07LGL0",
+    "ios_version": "iOS 27.0",
+    "battery_current": "75% Charging",
+    "battery_health": "77%",
+    "storage_used_percent": "45%",
+    "tool": "3uTools V9.07"
+  },
+  "backup_profile": {
+    "last_path": "D:\\3uTools\\CustomizedBackup",
+    "content": {
+      "photos": { "selected": true, "count": 596, "size": "4.78 GB", "excludes": "Hidden Photos" },
+      "apps": { "selected": true, "count": "129/129", "includes_data": false, "warning": "in-app Data not supported" },
+      "contacts": { "selected": false, "reason": "iCloud Contacts sync ON - disable to backup" },
+      "music": { "selected": true, "count": 20, "size": "183.71 MB" },
+      "ringtones": { "selected": true, "count": 4, "size": "1.50 MB" },
+      "notes": { "selected": false, "reason": "Not supported iOS 11+" }
+    },
+    "limitation": "Customized backup only saves app list, not login/chat/cache"
+  },
+  "diagnostics": {
+    "test_date": "2026-07-19 22:31:34",
+    "charging": {
+      "prolonged_duration": "Days",
+      "time_high_charge": "Days",
+      "cycles": "0/0"
+    },
+    "display": {
+      "true_tone": "Present",
+      "color_calibration": "Present",
+      "ambient_light_sensor": "Present"
+    },
+    "other": {
+      "fdr_failures": 0,
+      "boot_clock_rollbacks": 3,
+      "runtime_clock_rollbacks": 0
+    },
+    "statistics": {
+      "max_normal_boot": "167.8 s",
+      "max_abnormal_boot": "42.5 s",
+      "total_reads": "96.67 TB",
+      "total_writes": "24.00 TB",
+      "actual_reads": "125.10 TB",
+      "actual_writes": "36.36 TB",
+      "critical_health": 0,
+      "read_failures": 0,
+      "write_failures": 0,
+      "gc_failures": 0
+    },
+    "storage_health": {
+      "factory_bad_blocks": 43,
+      "grown_bad_blocks": 0,
+      "retired_blocks": 0,
+      "self_test_errors": 0,
+      "power_on_hours": "2756 Hours",
+      "uncorrectable_errors": 0,
+      "flash_cycles": 198798,
+      "max_user_wear": "5%/161 counts",
+      "avg_user_wear": "4%/133 counts",
+      "cache_wear": "4%/4409 counts",
+      "spare_space": "100%"
+    }
+  },
+  "runeforge_targets": {
+    "fast_copy": "D:\\RUNEFORGE_BACKUPS\\iphone\\RUNE_FAST_",
+    "weekly": "G:\\RUNEFORGE_ARCHIVE\\weekly\\iphone",
+    "action": "Ejecutar Backup Now en 3uTools -> Cerrar 3uTools -> Correr script turbo MT:32"
+  }
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Levantamiento_Coordenadas</name>
+    <Placemark>
+      <name>Polígono Perimetral</name>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>
+              -99.30391667,20.05530556,0
+              -99.30391667,20.05550000,0
+              -99.30408333,20.05552778,0
+              -99.30377778,20.05625000,0
+              -99.30305556,20.05622222,0
+              -99.30286111,20.05550000,0
+              -99.30391667,20.05530556,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

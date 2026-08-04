@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-05-30T23:58:44.5253797-06:00",
+  "event": "RF_GRAPH_MODEL_STATUS_V1",
+  "status": "GRAPH_MODEL_OK",
+  "nodes_log": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\nodes\\rf_graph_nodes_v1.jsonl",
+  "edges_log": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\edges\\rf_graph_edges_v1.jsonl",
+  "nodes_total": 81,
+  "edges_total": 150,
+  "node_parse_errors": 0,
+  "edge_parse_errors": 0,
+  "node_duplicates": 0,
+  "edge_duplicates": 0,
+  "invalid_edges": 0,
+  "orphan_edges": 0,
+  "node_types": [
+    {
+      "node_type": "event",
+      "count": 30
+    },
+    {
+      "node_type": "trace_file",
+      "count": 30
+    },
+    {
+      "node_type": "action",
+      "count": 10
+    },
+    {
+      "node_type": "domain",
+      "count": 5
+    },
+    {
+      "node_type": "status",
+      "count": 4
+    },
+    {
+      "node_type": "risk",
+      "count": 2
+    }
+  ],
+  "relations": [
+    {
+      "relation": "ejecuto_accion",
+      "count": 30
+    },
+    {
+      "relation": "pertenece_a_dominio",
+      "count": 30
+    },
+    {
+      "relation": "registrado_en",
+      "count": 30
+    },
+    {
+      "relation": "tiene_estado",
+      "count": 30
+    },
+    {
+      "relation": "tiene_riesgo",
+      "count": 30
+    }
+  ],
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "siguiente": "RF_MARKOV_PRECHECK_V1 si status = GRAPH_MODEL_OK"
+}

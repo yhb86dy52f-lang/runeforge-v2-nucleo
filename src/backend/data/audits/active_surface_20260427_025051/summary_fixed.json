@@ -1,0 +1,10 @@
+{
+  "Estado": "ACTIVE_SURFACE_AUDIT_FIXED_OK_SOLO_LECTURA",
+  "OutDir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\active_surface_20260427_025051",
+  "TotalFiles": 282,
+  "TotalSizeMB": 43.8,
+  "DuplicateGroups": 111,
+  "DuplicateFiles": 228,
+  "SecretIndicators": 6,
+  "BackendHealth": "{\"ok\":true,\"service\":\"Runeforge\",\"env\":\"development\",\"uptimeSec\":730}"
+}

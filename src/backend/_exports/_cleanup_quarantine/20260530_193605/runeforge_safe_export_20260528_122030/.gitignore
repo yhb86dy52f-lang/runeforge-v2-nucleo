@@ -1,0 +1,84 @@
+# RUNEFORGE SECURITY
+
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime / logs
+logs/
+*.log
+*.tmp
+*.cache
+tmp/
+temp/
+.cache/
+
+# Builds
+dist/
+build/
+.next/
+coverage/
+.turbo/
+
+# Databases / local state
+*.db
+*.sqlite
+*.sqlite3
+data/**/*.db
+data/**/*.sqlite
+data/**/*.sqlite3
+
+# Secrets / keys
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+*_rsa
+*_ed25519
+
+# Heavy local folders
+backups/
+_archive/
+node_modules/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+# RUNEFORGE heavy/binary exclusions
+*.exe
+*.msi
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+*.iso
+*.elf
+*.bin
+*.img
+*.pptx
+*.xlsx
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.mp4
+*.mov
+*.mp3
+*.wav
+app/retro/
+downloads/
+media/
+audio/
+lab/n8n/runtime*/
+tools/node-n8n/
+runeforge/

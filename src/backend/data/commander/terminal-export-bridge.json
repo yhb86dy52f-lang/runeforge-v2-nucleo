@@ -1,0 +1,12 @@
+{
+  "version": "terminal-export-bridge-v1",
+  "exportSource": "C:\\Users\\nesth\\Documents\\EL_ABISMO\\PWSH RESULTADOS CODIGOS",
+  "importer": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\Import-LatestTerminalExport.ps1",
+  "openFolder": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\Open-TerminalExportFolder.ps1",
+  "latestTxt": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\exports\\latest-terminal-export.txt",
+  "latestJson": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\exports\\latest-terminal-export.json",
+  "snippet": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\code_import_latest_terminal_export.ps1",
+  "prompt": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\snippets\\prompt_analyze_latest_terminal_export.txt",
+  "trace": "C:\\RUNEFOGE_PRO\\runeforge\\data\\commander\\commander-trace.jsonl",
+  "createdAt": "2026-04-24T01:11:19"
+}

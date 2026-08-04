@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-06-01T00:12:07.3901835-06:00",
+  "event": "RF_FORGE_UI_STATIC_SHELL_CURRENT_V1",
+  "status": "FORGE_UI_STATIC_SHELL_REVIEW_REQUIRED",
+  "panel_file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\public\\forge\\index.html",
+  "panel_url": "http://127.0.0.1:3100/forge/",
+  "backup": "NO_EXISTIA",
+  "health_ok": false,
+  "panel_ok": false,
+  "actions_v4": "PENDING_NO_BLOQUEANTE",
+  "backend": "NO_RESTART",
+  "code": "STATIC_FILE_ONLY",
+  "n8n": "NO_TOCADO",
+  "next": "RF_FORGE_UI_STATIC_ROUTE_REVIEW_CURRENT_V1"
+}

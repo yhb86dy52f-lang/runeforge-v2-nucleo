@@ -1,0 +1,64 @@
+# Dependencias de Node.js
+node_modules/
+
+# Archivos de entorno (seguros y privados)
+.env
+.env.local
+
+# Logs y bases de datos
+logs/
+*.log
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Archivos de sistema que no sirven
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backups y archivos temporales
+*.bak
+*.backup
+*.tmp
+*~
+
+# Configuración del servidor (para que no se suba con rutas absolutas de tu PC)
+ecosystem.config.js
+# ENV - proteger secretos
+.env
+*.env
+**/app.env
+**/*.env.local
+
+# Artefactos typo
+README.mdg
+# Backups de env - proteger
+**/.env.backup*
+**/*.backup*
+*.backup_*
+*.env.backup_*
+# ENV
+.env
+*.env
+**/app.env
+**/.env.backup*
+**/*.backup*
+*.backup_*
+
+# EXPORTS Y CUARENTENA - NUNCA SUBIR
+**/_exports/
+**/_cleanup_quarantine/
+**/knowledge/
+**/RUNEFORGE_KNOWLEDGE/
+**/data/traces/
+**/data/storage/
+**/audits/
+
+# CLAVES SSH
+**/ssh_host_*_key
+**/ssh_host_*_key.pub
+**/authorized_keys
+**/sshd_config.bak_*

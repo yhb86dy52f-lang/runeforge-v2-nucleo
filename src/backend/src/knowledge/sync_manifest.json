@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-07-27T00:31:56.2214770-06:00",
+  "action": "SYNC_SOURCES",
+  "target_directory": "C:\\RUNEFOGE_PRO\\runeforge\\src\\knowledge",
+  "required_files": [
+    "CLAUDE.md",
+    "MEMORY.md",
+    "MASTER_MEMORY.md",
+    "FACTS_CANONICAL.yaml"
+  ],
+  "method": "MANUAL_DROP_OR_AUTOMATED_COPY",
+  "status": "READY_FOR_INGESTION"
+}

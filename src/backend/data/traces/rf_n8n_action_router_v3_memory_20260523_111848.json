@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-05-23T11:18:49.3471914-06:00",
+  "event": "RF_ACTION_ROUTER_V3_MEMORY_V1",
+  "status": "HITO_CERRADO",
+  "progress_global": "86%",
+  "progress_n8n": "100%",
+  "progress_core": "89%",
+  "root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "backend_pm2_name": "runeforge-mvp",
+  "workflow_action_router_id": "rf_action_router_v3",
+  "workflow_action_router_name": "RF_N8N_ACTION_ROUTER_V3",
+  "core_route_file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\integrations\\n8n.routes.js",
+  "endpoints": {
+    "n8n_action_router": "POST http://127.0.0.1:5680/webhook/rf-action-router-v3",
+    "core_action_router": "POST http://127.0.0.1:3100/integrations/n8n/action-router",
+    "core_action_router_api_alias": "POST http://127.0.0.1:3100/api/integrations/n8n/action-router",
+    "core_action_router_v3": "POST http://127.0.0.1:3100/integrations/n8n/action-router-v3",
+    "core_action_router_v3_api_alias": "POST http://127.0.0.1:3100/api/integrations/n8n/action-router-v3"
+  },
+  "validation": {
+    "parser_ok": true,
+    "pm2_restart_exit_code": 0,
+    "health_ok": true,
+    "n8n_action_direct_ok": true,
+    "core_action_allowed_ok": true,
+    "core_action_blocked_ok": true,
+    "allowed_intents": [
+      "ping",
+      "echo",
+      "trace_event",
+      "health_check_request"
+    ],
+    "blocked_test": "run_powershell"
+  },
+  "security_policy": {
+    "allowlist_only": true,
+    "shell": false,
+    "filesystem_write": false,
+    "external_network": false,
+    "controlled_actions_only": true
+  },
+  "traces": {
+    "latest_patch_trace": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_core_n8n_action_router_v3_endpoint_patch_20260523_111534.json",
+    "latest_import_trace": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_n8n_action_router_v3_import_20260523_110639.json"
+  },
+  "backend_code": "TOCADO_N8N_ROUTE_ONLY",
+  "n8n_runtime_original": "NO_TOCADO",
+  "next": "DISEÑAR_ACTIONS_CONTROLADAS_V4"
+}

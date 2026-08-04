@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-06-28T00:58:42.8245866-06:00",
+  "phase": "RF_LOCAL_AI_ASSISTANT_ENDPOINT_PLAN_CURRENT",
+  "output_policy": "CURRENT_OVERWRITE_WITH_BACKUP",
+  "root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "app": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+  "previous_response": "LOCAL_AI_PRECHECK_OK | siguiente=RF_LOCAL_AI_ASSISTANT_ENDPOINT_PLAN_CURRENT | escritura=CURRENT_OVERWRITE",
+  "backend_files": {
+    "package_json": true,
+    "app_js": true,
+    "server_js": true,
+    "modules_dir": true,
+    "local_ai_dir": false,
+    "local_ai_route": false,
+    "local_ai_service": false
+  },
+  "package_name": "runeforge-mvp",
+  "package_version": "0.1.0",
+  "route_already_mounted": false,
+  "has_express_use": true,
+  "has_module_style": true,
+  "has_import_style": false,
+  "ollama_tags_ok": false,
+  "models_detected": [],
+  "recommended_model": null,
+  "patch_plan": {
+    "endpoint": "POST /api/ai/local/chat",
+    "health_endpoint": "GET /api/ai/local/health",
+    "model": null,
+    "files_to_create": [
+      "src\\modules\\local_ai\\local_ai.routes.js",
+      "src\\modules\\local_ai\\local_ai.service.js"
+    ],
+    "files_to_patch": [
+      "src\\app.js"
+    ],
+    "trace_output": "C:\\RUNEFOGE_PRO\\runeforge\\data\\local_ai\\traces\\rf_local_ai_chat_current.jsonl",
+    "safety": [
+      "NO_SHELL",
+      "NO_POWERSHELL",
+      "NO_SECRETS",
+      "NO_EXTERNAL_API",
+      "OLLAMA_127_0_0_1_ONLY",
+      "TRACE_JSONL_ONLY",
+      "INPUT_LENGTH_LIMIT"
+    ]
+  },
+  "risks": [
+    "OLLAMA_API_NO_RESPONDE",
+    "MODELO_OBJETIVO_NO_DETECTADO"
+  ],
+  "status": "LOCAL_AI_ENDPOINT_PLAN_BLOCKED",
+  "next": "RF_LOCAL_AI_ASSISTANT_ENDPOINT_PLAN_FIX_CURRENT",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "github": "NO_TOCADO",
+  "drive": "NO_TOCADO",
+  "secrets": "NO_LEIDOS",
+  "current_backup_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\current_overwrite\\local_ai_endpoint_plan\\20260628_005835"
+}

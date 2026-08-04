@@ -1,0 +1,21 @@
+﻿{
+    "rf_schema":  "rf.whatsapp.deploy.precheck.retest.v1",
+    "created_at":  "2026-06-15T21:55:28.8106480-06:00",
+    "estado":  "READY_FOR_SCAFFOLD_DRYRUN_WITH_PLACEHOLDERS",
+    "missing_keys":  [
+
+                     ],
+    "placeholder_keys":  [
+                             "WHATSAPP_ACCESS_TOKEN",
+                             "WHATSAPP_PHONE_NUMBER_ID",
+                             "WHATSAPP_WABA_ID",
+                             "WHATSAPP_VERIFY_TOKEN",
+                             "WHATSAPP_APP_SECRET"
+                         ],
+    "ready_for_dryrun":  true,
+    "ready_for_real_send":  false,
+    "backend":  "NO_TOCADO",
+    "pm2":  "NO_TOCADO",
+    "firewall":  "NO_TOCADO",
+    "siguiente":  "RF_WHATSAPP_RELAY_SCAFFOLD_V1"
+}

@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-06-28T13:52:59.1863682-06:00",
+  "phase": "RF_RUNEFORGE_RESUME_BOOT_CURRENT",
+  "status": "RUNEFORGE_RESUME_REVIEW_REQUIRED",
+  "emergency_backup_ok": true,
+  "drive_d_policy_ok": true,
+  "backend_ok": true,
+  "ollama_ok": true,
+  "local_ai_health_ok": true,
+  "local_ai_smoke_ok": false,
+  "local_ai_chat_ok": true,
+  "panel_ok": false,
+  "residual": [
+    "LOCAL_AI_SMOKE_FAIL",
+    "LOCAL_AI_PANEL_FAIL"
+  ],
+  "next": "RF_LOCAL_AI_SMOKE_PANEL_FIX_CURRENT",
+  "backend": "NO_TOCADO",
+  "local_ai": "NO_TOCADO",
+  "drive_d": "NO_TOCADO",
+  "output_policy": "CURRENT_OVERWRITE_WITH_BACKUP"
+}

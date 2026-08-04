@@ -1,0 +1,74 @@
+[
+  {
+    "DisplayName": "Allow SSH",
+    "Name": "AllowSSH",
+    "Enabled": 2,
+    "Profile": 0,
+    "Direction": 1,
+    "Action": 2,
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "Any",
+    "Program": "Any"
+  },
+  {
+    "DisplayName": "Runeforge SSH 22",
+    "Name": "{7ad679b3-5b60-4217-9340-3b32c945602e}",
+    "Enabled": 2,
+    "Profile": 2,
+    "Direction": 1,
+    "Action": 2,
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "Any",
+    "Program": "Any"
+  },
+  {
+    "DisplayName": "OpenSSH Server",
+    "Name": "sshd",
+    "Enabled": 2,
+    "Profile": 0,
+    "Direction": 1,
+    "Action": 2,
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "Any",
+    "Program": "Any"
+  },
+  {
+    "DisplayName": "OpenSSH Server",
+    "Name": "{689beeb7-6c7d-4d5c-afcf-ae0b219f47e5}",
+    "Enabled": 2,
+    "Profile": 0,
+    "Direction": 1,
+    "Action": 2,
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "Any",
+    "Program": "Any"
+  },
+  {
+    "DisplayName": "OpenSSH Server",
+    "Name": "{48399a75-acfc-4dd2-a3c2-aa091c9e6e8e}",
+    "Enabled": 2,
+    "Profile": 0,
+    "Direction": 1,
+    "Action": 2,
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "Any",
+    "Program": "Any"
+  },
+  {
+    "DisplayName": "Runeforge SSH Tailscale Only",
+    "Name": "{bf4d8171-2837-4b08-b7b1-2a3da5e0e5a4}",
+    "Enabled": 1,
+    "Profile": 0,
+    "Direction": 1,
+    "Action": 2,
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "100.64.0.0/255.192.0.0",
+    "Program": "C:\\Program Files\\OpenSSH-Win64\\sshd.exe"
+  }
+]

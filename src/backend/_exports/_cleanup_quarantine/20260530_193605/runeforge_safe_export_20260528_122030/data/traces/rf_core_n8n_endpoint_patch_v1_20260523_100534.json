@@ -1,0 +1,20 @@
+{
+  "ts": "2026-05-23T10:05:46.1438041-06:00",
+  "event": "RF_CORE_N8N_ENDPOINT_PATCH_V1",
+  "route_file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\integrations\\n8n.routes.js",
+  "app_js": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\app.js",
+  "app_js_backup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\core_n8n_endpoint_patch_v1\\app.js.20260523_100534.bak",
+  "route_backup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\core_n8n_endpoint_patch_v1\\n8n.routes.js.20260523_100534.bak",
+  "parser_route": 0,
+  "parser_app": 0,
+  "parser_server": 0,
+  "pm2_restart_exit_code": 0,
+  "health_ok": true,
+  "chat_ok": true,
+  "n8n_direct_ok": true,
+  "core_n8n_endpoint_ok": true,
+  "core_n8n_alias_ok": true,
+  "backend_code": "TOCADO_ENDPOINT_ONLY",
+  "n8n_runtime": "NO_TOCADO",
+  "next": "CREAR_WORKFLOW_REAL_V1"
+}

@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-05-26T12:22:11.3873753-06:00",
+  "event": "RF_MARKOV_ENGINE_V1_FREEZE_V1_1",
+  "status": "VALIDADO_CONGELADO_AS_IS",
+  "root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "training_exists": true,
+  "matrix_exists": true,
+  "anomalies_log_exists": true,
+  "n8n_event_log": "NO_DETECTADO",
+  "n8n_event_log_exists": false,
+  "states": 29,
+  "transitions": 68,
+  "total_records": 376,
+  "mode": "PS_NATIVO_TRACE_ONLY",
+  "backend": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "daemon": "NO_INICIADO",
+  "correction": "STATES_COUNT_FIXED",
+  "next": "RF_MARKOV_LIVE_MONITOR_CANARY_V1_SOLO_LECTURA"
+}

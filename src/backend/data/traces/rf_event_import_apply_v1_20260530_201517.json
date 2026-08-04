@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-05-30T20:15:19.5258539-06:00",
+  "event": "RF_EVENT_IMPORT_APPLY_V1",
+  "status": "APPLY_DONE",
+  "dryrun_source": "C:\\RUNEFOGE_PRO\\runeforge\\data\\event_model\\dryrun\\rf_event_import_dryrun_v1_20260530_201137.json",
+  "eventos_entrada": 30,
+  "eventos_nuevos": 30,
+  "eventos_duplicados": 0,
+  "eventos_invalidos": 0,
+  "event_log": "C:\\RUNEFOGE_PRO\\runeforge\\data\\event_model\\events\\rf_events_v1.jsonl",
+  "snapshot": "C:\\RUNEFOGE_PRO\\runeforge\\data\\event_model\\events\\rf_events_import_snapshot_20260530_201517.json",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO"
+}

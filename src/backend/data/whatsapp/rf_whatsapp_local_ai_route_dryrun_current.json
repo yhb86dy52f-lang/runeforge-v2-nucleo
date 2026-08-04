@@ -1,0 +1,38 @@
+﻿{
+  "rf_schema": "rf.whatsapp.local_ai.route.dryrun.v1",
+  "created_at": "2026-06-16T04:08:37.486Z",
+  "estado": "RF_WHATSAPP_LOCAL_AI_ROUTE_DRYRUN_OK",
+  "inbound": {
+    "rf_schema": "rf.whatsapp.inbound_message.v1",
+    "received_at": "2026-06-16T04:08:32.860Z",
+    "channel": "whatsapp",
+    "from_hash": "hash_1237714380",
+    "message_id": "wamid.DRYRUN_LOCAL_AI",
+    "type": "text",
+    "text": "/ai Explica en 2 lineas que es Runeforge",
+    "route": "chat_local_ai",
+    "trace_id": "rf_wa_ai_1781582912863",
+    "policy": "DRYRUN_ONLY_NO_SHELL"
+  },
+  "local_ai": {
+    "model": "qwen2.5:1.5b",
+    "ollama_url": "http://127.0.0.1:11434/api/chat",
+    "ok": true,
+    "error": null
+  },
+  "outbound_payload": {
+    "messaging_product": "whatsapp",
+    "to": "DRYRUN_USER_WA_ID",
+    "type": "text",
+    "text": {
+      "body": "Runeforge es un ecosistema local-first: sistema de fondo PC Windows, tecnología Ollama para la nube, red privada Tailscale y WhatsApp canal/adaptador con consola iPhone ligera."
+    }
+  },
+  "outbound_payload_ok": true,
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "firewall": "NO_TOCADO",
+  "secrets": "NO_IMPRESOS",
+  "real_whatsapp_send": "NO_REAL_SEND",
+  "siguiente": "RF_WHATSAPP_MVP_CURRENT_STATUS_V1"
+}

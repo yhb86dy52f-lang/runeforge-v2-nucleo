@@ -1,0 +1,36 @@
+﻿{
+    "rf_schema":  "rf.whatsapp.public_relay_decision.v1",
+    "created_at":  "2026-06-15T22:24:00.9316944-06:00",
+    "estado":  "PUBLIC_RELAY_REQUIRED_BEFORE_REAL_SEND",
+    "basis":  {
+                  "mvp_status":  "RF_WHATSAPP_MVP_DRYRUN_CLOSED_OK",
+                  "webhook_echo_ok":  true,
+                  "send_dryrun_ok":  true,
+                  "local_ai_route_ok":  true,
+                  "real_send_blocked":  true
+              },
+    "decision":  {
+                     "selected":  "PUBLIC_HTTPS_RELAY_MINIMAL",
+                     "reason":  "Meta webhook necesita HTTPS publico, pero Runeforge Core debe permanecer privado/local-first",
+                     "public_edge_role":  "recibir webhook, validar token, normalizar evento, reenviar o encolar hacia core privado",
+                     "private_core_role":  "router, skill, action, trace, local AI, respuesta controlada",
+                     "forbidden":  "no shell, no powershell, no secrets, no firewall, no exposicion directa de 3100 ni 11434"
+                 },
+    "allowed_next":  [
+                         "RF_WHATSAPP_RELAY_PUBLIC_EDGE_SCAFFOLD_V1",
+                         "RF_WHATSAPP_REAL_CREDENTIALS_REVIEW_V1"
+                     ],
+    "blocked_next":  [
+                         "REAL_SEND_WITH_PLACEHOLDERS",
+                         "OPEN_PORT_3100_PUBLIC",
+                         "OPEN_OLLAMA_11434_PUBLIC"
+                     ],
+    "security":  {
+                     "backend":  "NO_TOCADO",
+                     "pm2":  "NO_TOCADO",
+                     "firewall":  "NO_TOCADO",
+                     "secrets":  "NO_IMPRESOS",
+                     "real_whatsapp_send":  "NO_REAL_SEND"
+                 },
+    "siguiente":  "RF_WHATSAPP_RELAY_PUBLIC_EDGE_SCAFFOLD_V1"
+}

@@ -1,0 +1,19 @@
+[RUNEFORGE_PROMPT_V44_PREFLIGHT_ANALYSIS]
+
+Fecha: 2026-04-24
+Estado base: V43.3 Clean Capture validado + V43.5 Panel AHK en operación.
+
+Objetivo:
+Analiza el latest clean export generado por Runeforge y prepara el siguiente bloque para V44 Backend Trace Spine.
+
+Reglas:
+- No inventes datos.
+- No leer ni imprimir .env.
+- No tocar backend sin validación previa.
+- Mantener flujo INPUT → ROUTER → SKILL → ACTION → TRACE → RESPONSE.
+- Entregar:
+  [OBJETIVO]
+  [RESULTADO]
+  [HALLAZGOS]
+  [RIESGOS]
+  [SIGUIENTE BLOQUE]

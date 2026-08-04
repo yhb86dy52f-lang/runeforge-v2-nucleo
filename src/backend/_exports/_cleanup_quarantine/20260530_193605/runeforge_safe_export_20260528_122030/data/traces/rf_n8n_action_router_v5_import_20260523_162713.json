@@ -1,0 +1,16 @@
+{
+  "ts": "2026-05-23T16:28:07.6593217-06:00",
+  "event": "RF_N8N_ACTION_ROUTER_V5_IMPORT",
+  "workflow_id": "rf_action_router_v5",
+  "workflow_name": "RF_N8N_ACTION_ROUTER_V5",
+  "workflow_file": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\workflows\\RF_N8N_ACTION_ROUTER_V5.workflow.json",
+  "import_log": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\logs\\n8n_import_action_router_v5_20260523_162713.log",
+  "import_exit_code": 0,
+  "publish_exit_code": 0,
+  "list_exit_code": 0,
+  "backend": "NO_TOCADO",
+  "v3": "NO_TOCADO",
+  "n8n_db": "TOCADO_CANARY",
+  "security_model": "ALLOWLIST_V5_NO_SHELL",
+  "next": "ARRANCAR_N8N_CANARY_X2_Y_VALIDAR_V5_DIRECTO"
+}

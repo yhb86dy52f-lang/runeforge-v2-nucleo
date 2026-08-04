@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-06-28T04:30:42.8088902-06:00",
+  "phase": "RF_LOCAL_AI_RESUME_STATUS_CURRENT",
+  "status": "LOCAL_AI_RESUME_REPAIR_REQUIRED",
+  "backend_ok": true,
+  "ollama_ok": true,
+  "model": "qwen2.5:1.5b",
+  "local_ai_health_ok": true,
+  "local_ai_smoke_ok": false,
+  "local_ai_chat_ok": true,
+  "panel_ok": false,
+  "emergency_backup_ok": true,
+  "emergency_backup": "C:\\RUNEFOGE_PRO\\_SAFE_BACKUPS\\runeforge_emergency_current",
+  "residual": [
+    "LOCAL_AI_SMOKE_FAIL",
+    "LOCAL_AI_PANEL_FAIL"
+  ],
+  "next": "RF_LOCAL_AI_ASSISTANT_ENDPOINT_REPAIR_CURRENT",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "drive_d": "PAUSADO"
+}

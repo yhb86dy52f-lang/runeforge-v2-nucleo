@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0",
+  "template_id": "tpl_cctv_coverage_map_v1",
+  "tipo_visual": "cctv_coverage_map",
+  "objective": "Generar o limpiar mapas/layouts de CCTV, cobertura, zonas, cámaras, rutas internas y visor técnico.",
+  "style": "clean_security_layout",
+  "input_required": [
+    "prompt_original",
+    "metadata_extraida",
+    "layout_spec",
+    "referencias",
+    "objetivo_usuario"
+  ],
+  "required_layers": [
+    "base_map",
+    "camera_points",
+    "coverage_zones",
+    "routes",
+    "labels",
+    "legend"
+  ],
+  "output_required": [
+    "prompt_compilado",
+    "layout_spec",
+    "checklist",
+    "negative_rules",
+    "version"
+  ],
+  "policy": {
+    "no_random_generation": true,
+    "require_evidence": true,
+    "require_metadata": true,
+    "require_checklist": true,
+    "require_version": true
+  },
+  "canonical_examples": [
+    {
+      "visual_id": "rfvis_0071",
+      "file_name": "CCTV__OFICINAS__PANTA ALTA 2.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\CCTV__OFICINAS__PANTA ALTA 2.png",
+      "sha256": "23305CFE8BDBD18D915790753315B2848D54890BBCC6896F5CA817F07A738057"
+    },
+    {
+      "visual_id": "rfvis_0181",
+      "file_name": "Nueva carpeta (3)__CCTV__OFICINAS__PANTA ALTA 2.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\Nueva carpeta (3)__CCTV__OFICINAS__PANTA ALTA 2.png",
+      "sha256": "23305CFE8BDBD18D915790753315B2848D54890BBCC6896F5CA817F07A738057"
+    },
+    {
+      "visual_id": "rfvis_0045",
+      "file_name": "CCTV__FOTODS__Gemini_Generated_Image_otvgw6otvgw6otvg.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\CCTV__FOTODS__Gemini_Generated_Image_otvgw6otvgw6otvg.png",
+      "sha256": "4506E4989C3AFDB298AAD2372CF40BAC4800EC9DD17DAF7CAA162D7648B9FAA2"
+    },
+    {
+      "visual_id": "rfvis_0159",
+      "file_name": "Nueva carpeta (3)__CCTV__FOTODS__Gemini_Generated_Image_otvgw6otvgw6otvg.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\Nueva carpeta (3)__CCTV__FOTODS__Gemini_Generated_Image_otvgw6otvgw6otvg.png",
+      "sha256": "4506E4989C3AFDB298AAD2372CF40BAC4800EC9DD17DAF7CAA162D7648B9FAA2"
+    },
+    {
+      "visual_id": "rfvis_0148",
+      "file_name": "Nueva carpeta (3)__CCTV__Gemini_Generated_Image_b5lbxqb5lbxqb5lb.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\Nueva carpeta (3)__CCTV__Gemini_Generated_Image_b5lbxqb5lbxqb5lb.png",
+      "sha256": "B7F169C182C51B625A819A947F98A5BC509E54CEF0228A8D059950D89F891641"
+    },
+    {
+      "visual_id": "rfvis_0034",
+      "file_name": "CCTV__Gemini_Generated_Image_b5lbxqb5lbxqb5lb.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\CCTV__Gemini_Generated_Image_b5lbxqb5lbxqb5lb.png",
+      "sha256": "B7F169C182C51B625A819A947F98A5BC509E54CEF0228A8D059950D89F891641"
+    },
+    {
+      "visual_id": "rfvis_0149",
+      "file_name": "Nueva carpeta (3)__CCTV__Gemini_Generated_Image_cbt5yxcbt5yxcbt5.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\Nueva carpeta (3)__CCTV__Gemini_Generated_Image_cbt5yxcbt5yxcbt5.png",
+      "sha256": "73E6F0076EE334AAB7EFE573FAA3A6AC601816166ACE142014C8A44B310E476A"
+    },
+    {
+      "visual_id": "rfvis_0035",
+      "file_name": "CCTV__Gemini_Generated_Image_cbt5yxcbt5yxcbt5.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\CCTV__Gemini_Generated_Image_cbt5yxcbt5yxcbt5.png",
+      "sha256": "73E6F0076EE334AAB7EFE573FAA3A6AC601816166ACE142014C8A44B310E476A"
+    },
+    {
+      "visual_id": "rfvis_0152",
+      "file_name": "Nueva carpeta (3)__CCTV__Gemini_Generated_Image_x8c6ggx8c6ggx8c6.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\Nueva carpeta (3)__CCTV__Gemini_Generated_Image_x8c6ggx8c6ggx8c6.png",
+      "sha256": "13A17FCB327E8D01152759C839A98BF66DDE5B7AF46CDC5EE6BBC120E4949EE7"
+    },
+    {
+      "visual_id": "rfvis_0038",
+      "file_name": "CCTV__Gemini_Generated_Image_x8c6ggx8c6ggx8c6.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\CCTV__Gemini_Generated_Image_x8c6ggx8c6ggx8c6.png",
+      "sha256": "13A17FCB327E8D01152759C839A98BF66DDE5B7AF46CDC5EE6BBC120E4949EE7"
+    },
+    {
+      "visual_id": "rfvis_0048",
+      "file_name": "CCTV__NAVE TALLER__Gemini_Generated_Image_l85f3pl85f3pl85f.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\CCTV__NAVE TALLER__Gemini_Generated_Image_l85f3pl85f3pl85f.png",
+      "sha256": "83EF34BD0642F38676CAF75BC7F91285B1930CA9F7784D814A5B8CD718EA3447"
+    },
+    {
+      "visual_id": "rfvis_0162",
+      "file_name": "Nueva carpeta (3)__CCTV__NAVE TALLER__Gemini_Generated_Image_l85f3pl85f3pl85f.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "DUPLICATE_CONTENT",
+      "duplicate_count": 2,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\cctv_coverage_map\\Nueva carpeta (3)__CCTV__NAVE TALLER__Gemini_Generated_Image_l85f3pl85f3pl85f.png",
+      "sha256": "83EF34BD0642F38676CAF75BC7F91285B1930CA9F7784D814A5B8CD718EA3447"
+    }
+  ]
+}

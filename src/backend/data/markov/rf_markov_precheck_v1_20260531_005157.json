@@ -1,0 +1,642 @@
+{
+  "resumen": {
+    "timestamp": "2026-05-31T00:51:59.9079668-06:00",
+    "event": "RF_MARKOV_PRECHECK_V1",
+    "status": "MARKOV_PRECHECK_OK",
+    "eventos": 30,
+    "parse_errors": 0,
+    "estados": 30,
+    "estados_unicos": 16,
+    "transiciones": 29,
+    "transiciones_unicas": 27,
+    "ready_for_train": true,
+    "backend": "NO_TOCADO",
+    "pm2": "NO_TOCADO",
+    "n8n": "NO_TOCADO",
+    "siguiente": "RF_MARKOV_TRAIN_DRYRUN_V1"
+  },
+  "state_counts": [
+    {
+      "state": "actions|trace_observed|ok",
+      "count": 7
+    },
+    {
+      "state": "n8n|trace_observed|ok",
+      "count": 3
+    },
+    {
+      "state": "actions|action_execute|ok",
+      "count": 2
+    },
+    {
+      "state": "actions|blocked_action|blocked",
+      "count": 2
+    },
+    {
+      "state": "actions|memory_written|ok",
+      "count": 2
+    },
+    {
+      "state": "actions|patch_applied|ok",
+      "count": 2
+    },
+    {
+      "state": "actions|trace_observed|error",
+      "count": 2
+    },
+    {
+      "state": "export_cleanup|safe_export_finalized|ok",
+      "count": 2
+    },
+    {
+      "state": "event_model|bootstrap_created|ok",
+      "count": 1
+    },
+    {
+      "state": "export_cleanup|cleanup_closed|closed",
+      "count": 1
+    },
+    {
+      "state": "export_cleanup|cleanup_plan_generated|ok",
+      "count": 1
+    },
+    {
+      "state": "export_cleanup|move_to_quarantine|ok",
+      "count": 1
+    },
+    {
+      "state": "n8n|memory_written|ok",
+      "count": 1
+    },
+    {
+      "state": "n8n|patch_applied|ok",
+      "count": 1
+    },
+    {
+      "state": "system|memory_written|ok",
+      "count": 1
+    },
+    {
+      "state": "system|patch_applied|ok",
+      "count": 1
+    }
+  ],
+  "transition_counts": [
+    {
+      "transition": "actions|memory_written|ok, actions|trace_observed|ok",
+      "count": 2
+    },
+    {
+      "transition": "actions|trace_observed|ok, actions|action_execute|ok",
+      "count": 2
+    },
+    {
+      "transition": "actions|action_execute|ok, actions|blocked_action|blocked",
+      "count": 1
+    },
+    {
+      "transition": "n8n|trace_observed|ok, n8n|trace_observed|ok",
+      "count": 1
+    },
+    {
+      "transition": "n8n|trace_observed|ok, n8n|patch_applied|ok",
+      "count": 1
+    },
+    {
+      "transition": "n8n|trace_observed|ok, actions|memory_written|ok",
+      "count": 1
+    },
+    {
+      "transition": "n8n|patch_applied|ok, n8n|memory_written|ok",
+      "count": 1
+    },
+    {
+      "transition": "n8n|memory_written|ok, actions|trace_observed|ok",
+      "count": 1
+    },
+    {
+      "transition": "export_cleanup|safe_export_finalized|ok, export_cleanup|safe_export_finalized|ok",
+      "count": 1
+    },
+    {
+      "transition": "export_cleanup|safe_export_finalized|ok, export_cleanup|cleanup_plan_generated|ok",
+      "count": 1
+    },
+    {
+      "transition": "export_cleanup|move_to_quarantine|ok, export_cleanup|cleanup_closed|closed",
+      "count": 1
+    },
+    {
+      "transition": "export_cleanup|cleanup_plan_generated|ok, export_cleanup|move_to_quarantine|ok",
+      "count": 1
+    },
+    {
+      "transition": "export_cleanup|cleanup_closed|closed, event_model|bootstrap_created|ok",
+      "count": 1
+    },
+    {
+      "transition": "actions|trace_observed|ok, n8n|trace_observed|ok",
+      "count": 1
+    },
+    {
+      "transition": "actions|trace_observed|ok, actions|trace_observed|ok",
+      "count": 1
+    },
+    {
+      "transition": "actions|trace_observed|ok, actions|trace_observed|error",
+      "count": 1
+    },
+    {
+      "transition": "actions|trace_observed|ok, actions|patch_applied|ok",
+      "count": 1
+    },
+    {
+      "transition": "actions|trace_observed|ok, actions|blocked_action|blocked",
+      "count": 1
+    },
+    {
+      "transition": "actions|trace_observed|error, system|patch_applied|ok",
+      "count": 1
+    },
+    {
+      "transition": "actions|trace_observed|error, export_cleanup|safe_export_finalized|ok",
+      "count": 1
+    },
+    {
+      "transition": "actions|patch_applied|ok, actions|trace_observed|error",
+      "count": 1
+    },
+    {
+      "transition": "actions|patch_applied|ok, actions|memory_written|ok",
+      "count": 1
+    },
+    {
+      "transition": "actions|blocked_action|blocked, system|memory_written|ok",
+      "count": 1
+    },
+    {
+      "transition": "actions|blocked_action|blocked, actions|patch_applied|ok",
+      "count": 1
+    },
+    {
+      "transition": "actions|action_execute|ok, actions|trace_observed|ok",
+      "count": 1
+    },
+    {
+      "transition": "system|memory_written|ok, actions|trace_observed|ok",
+      "count": 1
+    },
+    {
+      "transition": "system|patch_applied|ok, actions|trace_observed|ok",
+      "count": 1
+    }
+  ],
+  "estados": [
+    {
+      "ts": "2026-05-23T10:26:30.2482989-06:00",
+      "event_id": "evt_20260530_201137_030",
+      "state": "n8n|trace_observed|ok",
+      "domain": "n8n",
+      "action": "trace_observed",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T10:42:39.6004108-06:00",
+      "event_id": "evt_20260530_201137_029",
+      "state": "n8n|trace_observed|ok",
+      "domain": "n8n",
+      "action": "trace_observed",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T10:42:40.02745-06:00",
+      "event_id": "evt_20260530_201137_028",
+      "state": "n8n|patch_applied|ok",
+      "domain": "n8n",
+      "action": "patch_applied",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T10:55:04.4471853-06:00",
+      "event_id": "evt_20260530_201137_027",
+      "state": "n8n|memory_written|ok",
+      "domain": "n8n",
+      "action": "memory_written",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T11:07:30.1575132-06:00",
+      "event_id": "evt_20260530_201137_026",
+      "state": "actions|trace_observed|ok",
+      "domain": "actions",
+      "action": "trace_observed",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T11:15:46.5199866-06:00",
+      "event_id": "evt_20260530_201137_025",
+      "state": "actions|patch_applied|ok",
+      "domain": "actions",
+      "action": "patch_applied",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T11:18:49.639596-06:00",
+      "event_id": "evt_20260530_201137_024",
+      "state": "actions|memory_written|ok",
+      "domain": "actions",
+      "action": "memory_written",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T12:14:50.8312686-06:00",
+      "event_id": "evt_20260530_201137_023",
+      "state": "actions|trace_observed|ok",
+      "domain": "actions",
+      "action": "trace_observed",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T12:38:55.6251705-06:00",
+      "event_id": "evt_20260530_201137_022",
+      "state": "actions|trace_observed|error",
+      "domain": "actions",
+      "action": "trace_observed",
+      "status": "error",
+      "risk": "medium"
+    },
+    {
+      "ts": "2026-05-23T12:38:57.1608221-06:00",
+      "event_id": "evt_20260530_201137_021",
+      "state": "system|patch_applied|ok",
+      "domain": "system",
+      "action": "patch_applied",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T12:42:56.2415833-06:00",
+      "event_id": "evt_20260530_201137_020",
+      "state": "actions|trace_observed|ok",
+      "domain": "actions",
+      "action": "trace_observed",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T12:42:56.4916067-06:00",
+      "event_id": "evt_20260530_201137_019",
+      "state": "actions|blocked_action|blocked",
+      "domain": "actions",
+      "action": "blocked_action",
+      "status": "blocked",
+      "risk": "medium"
+    },
+    {
+      "ts": "2026-05-23T12:44:24.816258-06:00",
+      "event_id": "evt_20260530_201137_018",
+      "state": "system|memory_written|ok",
+      "domain": "system",
+      "action": "memory_written",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T13:03:55.6911982-06:00",
+      "event_id": "evt_20260530_201137_017",
+      "state": "actions|trace_observed|ok",
+      "domain": "actions",
+      "action": "trace_observed",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T13:13:44.1033984-06:00",
+      "event_id": "evt_20260530_201137_016",
+      "state": "actions|action_execute|ok",
+      "domain": "actions",
+      "action": "action_execute",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T14:09:01.2139647-06:00",
+      "event_id": "evt_20260530_201137_015",
+      "state": "actions|trace_observed|ok",
+      "domain": "actions",
+      "action": "trace_observed",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T16:28:07.705975-06:00",
+      "event_id": "evt_20260530_201137_014",
+      "state": "actions|trace_observed|ok",
+      "domain": "actions",
+      "action": "trace_observed",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T16:33:34.6007433-06:00",
+      "event_id": "evt_20260530_201137_013",
+      "state": "n8n|trace_observed|ok",
+      "domain": "n8n",
+      "action": "trace_observed",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T18:31:23.7035836-06:00",
+      "event_id": "evt_20260530_201137_012",
+      "state": "actions|memory_written|ok",
+      "domain": "actions",
+      "action": "memory_written",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T18:31:23.8377528-06:00",
+      "event_id": "evt_20260530_201137_011",
+      "state": "actions|trace_observed|ok",
+      "domain": "actions",
+      "action": "trace_observed",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T18:31:23.9427659-06:00",
+      "event_id": "evt_20260530_201137_010",
+      "state": "actions|action_execute|ok",
+      "domain": "actions",
+      "action": "action_execute",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-23T18:31:24.039779-06:00",
+      "event_id": "evt_20260530_201137_009",
+      "state": "actions|blocked_action|blocked",
+      "domain": "actions",
+      "action": "blocked_action",
+      "status": "blocked",
+      "risk": "medium"
+    },
+    {
+      "ts": "2026-05-23T18:31:24.769148-06:00",
+      "event_id": "evt_20260530_201137_008",
+      "state": "actions|patch_applied|ok",
+      "domain": "actions",
+      "action": "patch_applied",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-26T13:17:27.8197406-06:00",
+      "event_id": "evt_20260530_201137_007",
+      "state": "actions|trace_observed|error",
+      "domain": "actions",
+      "action": "trace_observed",
+      "status": "error",
+      "risk": "medium"
+    },
+    {
+      "ts": "2026-05-30T03:11:35.0065059-06:00",
+      "event_id": "evt_20260530_201137_006",
+      "state": "export_cleanup|safe_export_finalized|ok",
+      "domain": "export_cleanup",
+      "action": "safe_export_finalized",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-30T03:16:40.2132083-06:00",
+      "event_id": "evt_20260530_201137_005",
+      "state": "export_cleanup|safe_export_finalized|ok",
+      "domain": "export_cleanup",
+      "action": "safe_export_finalized",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-30T03:30:00.409583-06:00",
+      "event_id": "evt_20260530_201137_004",
+      "state": "export_cleanup|cleanup_plan_generated|ok",
+      "domain": "export_cleanup",
+      "action": "cleanup_plan_generated",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-30T19:36:15.475144-06:00",
+      "event_id": "evt_20260530_201137_003",
+      "state": "export_cleanup|move_to_quarantine|ok",
+      "domain": "export_cleanup",
+      "action": "move_to_quarantine",
+      "status": "ok",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-30T19:42:44.6310205-06:00",
+      "event_id": "evt_20260530_201137_002",
+      "state": "export_cleanup|cleanup_closed|closed",
+      "domain": "export_cleanup",
+      "action": "cleanup_closed",
+      "status": "closed",
+      "risk": "low"
+    },
+    {
+      "ts": "2026-05-30T20:09:01.2959815-06:00",
+      "event_id": "evt_20260530_201137_001",
+      "state": "event_model|bootstrap_created|ok",
+      "domain": "event_model",
+      "action": "bootstrap_created",
+      "status": "ok",
+      "risk": "low"
+    }
+  ],
+  "transiciones": [
+    {
+      "from": "n8n|trace_observed|ok",
+      "to": "n8n|trace_observed|ok",
+      "from_event": "evt_20260530_201137_030",
+      "to_event": "evt_20260530_201137_029"
+    },
+    {
+      "from": "n8n|trace_observed|ok",
+      "to": "n8n|patch_applied|ok",
+      "from_event": "evt_20260530_201137_029",
+      "to_event": "evt_20260530_201137_028"
+    },
+    {
+      "from": "n8n|patch_applied|ok",
+      "to": "n8n|memory_written|ok",
+      "from_event": "evt_20260530_201137_028",
+      "to_event": "evt_20260530_201137_027"
+    },
+    {
+      "from": "n8n|memory_written|ok",
+      "to": "actions|trace_observed|ok",
+      "from_event": "evt_20260530_201137_027",
+      "to_event": "evt_20260530_201137_026"
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|patch_applied|ok",
+      "from_event": "evt_20260530_201137_026",
+      "to_event": "evt_20260530_201137_025"
+    },
+    {
+      "from": "actions|patch_applied|ok",
+      "to": "actions|memory_written|ok",
+      "from_event": "evt_20260530_201137_025",
+      "to_event": "evt_20260530_201137_024"
+    },
+    {
+      "from": "actions|memory_written|ok",
+      "to": "actions|trace_observed|ok",
+      "from_event": "evt_20260530_201137_024",
+      "to_event": "evt_20260530_201137_023"
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|trace_observed|error",
+      "from_event": "evt_20260530_201137_023",
+      "to_event": "evt_20260530_201137_022"
+    },
+    {
+      "from": "actions|trace_observed|error",
+      "to": "system|patch_applied|ok",
+      "from_event": "evt_20260530_201137_022",
+      "to_event": "evt_20260530_201137_021"
+    },
+    {
+      "from": "system|patch_applied|ok",
+      "to": "actions|trace_observed|ok",
+      "from_event": "evt_20260530_201137_021",
+      "to_event": "evt_20260530_201137_020"
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|blocked_action|blocked",
+      "from_event": "evt_20260530_201137_020",
+      "to_event": "evt_20260530_201137_019"
+    },
+    {
+      "from": "actions|blocked_action|blocked",
+      "to": "system|memory_written|ok",
+      "from_event": "evt_20260530_201137_019",
+      "to_event": "evt_20260530_201137_018"
+    },
+    {
+      "from": "system|memory_written|ok",
+      "to": "actions|trace_observed|ok",
+      "from_event": "evt_20260530_201137_018",
+      "to_event": "evt_20260530_201137_017"
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|action_execute|ok",
+      "from_event": "evt_20260530_201137_017",
+      "to_event": "evt_20260530_201137_016"
+    },
+    {
+      "from": "actions|action_execute|ok",
+      "to": "actions|trace_observed|ok",
+      "from_event": "evt_20260530_201137_016",
+      "to_event": "evt_20260530_201137_015"
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|trace_observed|ok",
+      "from_event": "evt_20260530_201137_015",
+      "to_event": "evt_20260530_201137_014"
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "n8n|trace_observed|ok",
+      "from_event": "evt_20260530_201137_014",
+      "to_event": "evt_20260530_201137_013"
+    },
+    {
+      "from": "n8n|trace_observed|ok",
+      "to": "actions|memory_written|ok",
+      "from_event": "evt_20260530_201137_013",
+      "to_event": "evt_20260530_201137_012"
+    },
+    {
+      "from": "actions|memory_written|ok",
+      "to": "actions|trace_observed|ok",
+      "from_event": "evt_20260530_201137_012",
+      "to_event": "evt_20260530_201137_011"
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|action_execute|ok",
+      "from_event": "evt_20260530_201137_011",
+      "to_event": "evt_20260530_201137_010"
+    },
+    {
+      "from": "actions|action_execute|ok",
+      "to": "actions|blocked_action|blocked",
+      "from_event": "evt_20260530_201137_010",
+      "to_event": "evt_20260530_201137_009"
+    },
+    {
+      "from": "actions|blocked_action|blocked",
+      "to": "actions|patch_applied|ok",
+      "from_event": "evt_20260530_201137_009",
+      "to_event": "evt_20260530_201137_008"
+    },
+    {
+      "from": "actions|patch_applied|ok",
+      "to": "actions|trace_observed|error",
+      "from_event": "evt_20260530_201137_008",
+      "to_event": "evt_20260530_201137_007"
+    },
+    {
+      "from": "actions|trace_observed|error",
+      "to": "export_cleanup|safe_export_finalized|ok",
+      "from_event": "evt_20260530_201137_007",
+      "to_event": "evt_20260530_201137_006"
+    },
+    {
+      "from": "export_cleanup|safe_export_finalized|ok",
+      "to": "export_cleanup|safe_export_finalized|ok",
+      "from_event": "evt_20260530_201137_006",
+      "to_event": "evt_20260530_201137_005"
+    },
+    {
+      "from": "export_cleanup|safe_export_finalized|ok",
+      "to": "export_cleanup|cleanup_plan_generated|ok",
+      "from_event": "evt_20260530_201137_005",
+      "to_event": "evt_20260530_201137_004"
+    },
+    {
+      "from": "export_cleanup|cleanup_plan_generated|ok",
+      "to": "export_cleanup|move_to_quarantine|ok",
+      "from_event": "evt_20260530_201137_004",
+      "to_event": "evt_20260530_201137_003"
+    },
+    {
+      "from": "export_cleanup|move_to_quarantine|ok",
+      "to": "export_cleanup|cleanup_closed|closed",
+      "from_event": "evt_20260530_201137_003",
+      "to_event": "evt_20260530_201137_002"
+    },
+    {
+      "from": "export_cleanup|cleanup_closed|closed",
+      "to": "event_model|bootstrap_created|ok",
+      "from_event": "evt_20260530_201137_002",
+      "to_event": "evt_20260530_201137_001"
+    }
+  ]
+}

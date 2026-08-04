@@ -1,0 +1,13 @@
+{
+  "Estado": "RF_PANEL_WEBCOMMAND_SAME_ORIGIN_V11_DONE",
+  "PanelUrl": "http://127.0.0.1:3100/panel/webcommand",
+  "PanelFile": "C:\\RUNEFOGE_PRO\\runeforge\\data\\webcommand\\panel\\RUNEFORGE_PANEL_WEBCOMMAND_V1_1.html",
+  "RouteFile": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\webcommand\\webcommand.routes.js",
+  "BackupDir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\webcommand\\backups\\20260524_032353",
+  "HealthOk": true,
+  "PanelStatusCode": 200,
+  "PostStatusOk": true,
+  "Backend": "TOCADO_WEBCOMMAND_ROUTE_ONLY",
+  "Cors": "NO_TOCADO",
+  "GeneratedAt": "2026-05-24T03:24:02.0826104-06:00"
+}

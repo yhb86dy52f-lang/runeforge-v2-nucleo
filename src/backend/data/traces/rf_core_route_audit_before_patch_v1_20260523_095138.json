@@ -1,0 +1,196 @@
+{
+  "ts": "2026-05-23T09:51:41.9604982-06:00",
+  "event": "RF_CORE_ROUTE_AUDIT_BEFORE_PATCH_V1",
+  "app": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+  "previews": [
+    {
+      "Relative": "src\\app.js",
+      "FullName": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\app.js",
+      "Exists": true,
+      "Length": 1128,
+      "HasExpress": true,
+      "HasRouter": false,
+      "HasHealth": false,
+      "HasChat": true,
+      "HasAuth": false
+    },
+    {
+      "Relative": "src\\server.js",
+      "FullName": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\server.js",
+      "Exists": true,
+      "Length": 735,
+      "HasExpress": false,
+      "HasRouter": false,
+      "HasHealth": false,
+      "HasChat": true,
+      "HasAuth": false
+    },
+    {
+      "Relative": "src\\config\\env.js",
+      "FullName": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\config\\env.js",
+      "Exists": true,
+      "Length": 1304,
+      "HasExpress": false,
+      "HasRouter": false,
+      "HasHealth": false,
+      "HasChat": false,
+      "HasAuth": true
+    },
+    {
+      "Relative": "src\\modules\\chat\\chat.routes.js",
+      "FullName": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\chat\\chat.routes.js",
+      "Exists": true,
+      "Length": 511,
+      "HasExpress": true,
+      "HasRouter": true,
+      "HasHealth": false,
+      "HasChat": true,
+      "HasAuth": false
+    },
+    {
+      "Relative": "src\\modules\\chat\\chat.service.js",
+      "FullName": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\chat\\chat.service.js",
+      "Exists": true,
+      "Length": 947,
+      "HasExpress": false,
+      "HasRouter": true,
+      "HasHealth": false,
+      "HasChat": true,
+      "HasAuth": false
+    },
+    {
+      "Relative": "src\\shared\\logger.js",
+      "FullName": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\shared\\logger.js",
+      "Exists": true,
+      "Length": 728,
+      "HasExpress": false,
+      "HasRouter": false,
+      "HasHealth": false,
+      "HasChat": false,
+      "HasAuth": false
+    }
+  ],
+  "route_scan": [
+    {
+      "Relative": "src\\adapters\\whatsapp\\whatsapp.webhook.routes.js",
+      "RouteCall": "router.get('/webhook'"
+    },
+    {
+      "Relative": "src\\adapters\\whatsapp\\whatsapp.webhook.routes.js",
+      "RouteCall": "router.post('/webhook'"
+    },
+    {
+      "Relative": "src\\modules\\beacon\\beacon.routes.js",
+      "RouteCall": "router.get('/health'"
+    },
+    {
+      "Relative": "src\\modules\\beacon\\beacon.routes.js",
+      "RouteCall": "router.get('/status'"
+    },
+    {
+      "Relative": "src\\modules\\botforce\\botforce.routes.js",
+      "RouteCall": "router.get('/api/botforce/health'"
+    },
+    {
+      "Relative": "src\\modules\\botforce\\botforce.routes.js",
+      "RouteCall": "router.get('/api/botforce/latest'"
+    },
+    {
+      "Relative": "src\\modules\\botforce\\botforce.routes.js",
+      "RouteCall": "router.post('/api/botforce/ingest'"
+    },
+    {
+      "Relative": "src\\modules\\chat\\chat.routes.js",
+      "RouteCall": "router.post('/api/chat'"
+    },
+    {
+      "Relative": "src\\modules\\codex\\codex.routes.js",
+      "RouteCall": "router.get('/api/codex'"
+    },
+    {
+      "Relative": "src\\modules\\forge\\forge.routes.js",
+      "RouteCall": "router.get('/'"
+    },
+    {
+      "Relative": "src\\modules\\forge\\forge.routes.js",
+      "RouteCall": "router.get('/api/forge'"
+    },
+    {
+      "Relative": "src\\modules\\relay\\relay.routes.js",
+      "RouteCall": "router.post('/command'"
+    },
+    {
+      "Relative": "src\\modules\\sentinel\\sentinel.routes.js",
+      "RouteCall": "router.get('/api/sentinel'"
+    },
+    {
+      "Relative": "src\\app.js",
+      "RouteCall": "app.use('/'"
+    },
+    {
+      "Relative": "src\\app.js",
+      "RouteCall": "app.use('/'"
+    },
+    {
+      "Relative": "src\\app.js",
+      "RouteCall": "app.use('/'"
+    },
+    {
+      "Relative": "src\\app.js",
+      "RouteCall": "app.use('/'"
+    },
+    {
+      "Relative": "src\\app.js",
+      "RouteCall": "app.use('/'"
+    },
+    {
+      "Relative": "src\\app.js",
+      "RouteCall": "app.use('/'"
+    },
+    {
+      "Relative": "src\\app.js",
+      "RouteCall": "app.use('/'"
+    },
+    {
+      "Relative": "src\\app.js",
+      "RouteCall": "app.use('/api/relay/whatsapp'"
+    },
+    {
+      "Relative": "src\\server.js",
+      "RouteCall": "app.post('/api/chat'"
+    }
+  ],
+  "http_results": [
+    {
+      "Name": "health",
+      "Ok": true,
+      "Url": "http://127.0.0.1:3100/health",
+      "Status": "OK",
+      "Response": "{\"ok\":true,\"service\":\"Runeforge\",\"env\":\"development\",\"uptimeSec\":15254}"
+    },
+    {
+      "Name": "chat_empty",
+      "Ok": false,
+      "Url": "http://127.0.0.1:3100/api/chat",
+      "Status": "ERROR",
+      "Message": "Response status code does not indicate success: 400 (Bad Request)."
+    },
+    {
+      "Name": "chat_input",
+      "Ok": false,
+      "Url": "http://127.0.0.1:3100/api/chat",
+      "Status": "ERROR",
+      "Message": "Response status code does not indicate success: 400 (Bad Request)."
+    },
+    {
+      "Name": "n8n",
+      "Ok": true,
+      "Url": "http://127.0.0.1:5680/webhook/rf-core-ping-v1",
+      "Status": "OK",
+      "Response": "{\"ok\":true,\"source\":\"n8n_canary\",\"workflow\":\"RF_N8N_ACTIVE_PING_V1\",\"path\":\"rf-core-ping-v1\",\"runeforge\":\"NO_TOCADO\",\"runtime_original\":\"NO_TOCADO\",\"status\":\"N8N_ACTIVE_WEBHOOK_OK\",\"ts\":\"2026-05-23T15:51:41.5Z\"}"
+    }
+  ],
+  "backend_code": "NO_TOCADO",
+  "n8n_runtime": "NO_TOCADO",
+  "next": "PATCH_ENDPOINT_AFTER_ROUTE_AUDIT"
+}

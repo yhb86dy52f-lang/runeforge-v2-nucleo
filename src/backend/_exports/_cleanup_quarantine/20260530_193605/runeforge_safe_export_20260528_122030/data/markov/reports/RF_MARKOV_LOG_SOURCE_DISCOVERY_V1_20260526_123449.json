@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-05-26T12:34:49.8446869-06:00",
+  "event": "RF_MARKOV_LOG_SOURCE_DISCOVERY_V1",
+  "status": "LOG_CANDIDATE_FOUND",
+  "root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "searched_roots": [
+    "C:\\Users\\nesth\\.n8n",
+    "C:\\RUNEFOGE_PRO\\runeforge\\data\\n8n_canary_2_20_12",
+    "C:\\RUNEFOGE_PRO\\runeforge\\data\\n8n_lab",
+    "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\logs",
+    "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces"
+  ],
+  "candidates_count": 40,
+  "best_candidate": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\logs\\n8n_canary_2_20_12_5680_localhost_20260523_163334.log",
+  "backend": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "daemon": "NO_INICIADO",
+  "next": "VALIDAR_LOG_CANDIDATO_PARA_RF_MARKOV_LIVE_MONITOR_CANARY_V1"
+}

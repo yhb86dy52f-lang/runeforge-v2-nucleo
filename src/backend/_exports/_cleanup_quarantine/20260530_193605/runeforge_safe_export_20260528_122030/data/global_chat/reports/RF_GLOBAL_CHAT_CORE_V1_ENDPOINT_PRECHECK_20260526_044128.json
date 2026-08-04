@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-05-26T04:41:28.7582157-06:00",
+  "event": "RF_GLOBAL_CHAT_CORE_V1_ENDPOINT_PRECHECK",
+  "root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "app": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+  "src": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src",
+  "app_exists": true,
+  "src_exists": true,
+  "package_exists": true,
+  "package_type": null,
+  "package_main": "src/server.js",
+  "found_route_candidates": [
+    {
+      "Path": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\app.js",
+      "Length": 1353,
+      "HasRouter": true
+    },
+    {
+      "Path": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\server.js",
+      "Length": 736,
+      "HasRouter": false
+    },
+    {
+      "Path": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\webcommand\\webcommand.routes.js",
+      "Length": 4452,
+      "HasRouter": true
+    },
+    {
+      "Path": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\integrations\\n8n.routes.js",
+      "Length": 28394,
+      "HasRouter": true
+    }
+  ],
+  "backend": "NO_TOCADO",
+  "next": "PEGAR_SALIDA_PARA_PATCH_ENDPOINT_MVP"
+}

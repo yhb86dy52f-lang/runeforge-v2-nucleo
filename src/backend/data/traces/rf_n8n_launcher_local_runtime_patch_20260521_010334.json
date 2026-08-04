@@ -1,0 +1,13 @@
+﻿{
+  "ts": "2026-05-21T01:03:35.1241846-06:00",
+  "event": "RF_N8N_PATCH_LAUNCHER_LOCAL_RUNTIME",
+  "status": "OK",
+  "launcher": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\scripts\\Start-RF-N8N-Lab-V1.ps1",
+  "runtime": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\runtime",
+  "n8n_cmd": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\runtime\\node_modules\\.bin\\n8n.cmd",
+  "node_home": "C:\\RUNEFOGE_PRO\\runeforge\\tools\\node-n8n\\node-v22.22.3-win-x64",
+  "node_version": "v22.22.3",
+  "backend": "NO_TOCADO",
+  "global_path_change": "NO",
+  "next": "INICIAR_N8N_LOCAL_RUNTIME_EN_X2"
+}

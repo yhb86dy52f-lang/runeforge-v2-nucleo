@@ -1,0 +1,60 @@
+{
+  "created_at": "2026-06-20T04:43:02.857Z",
+  "normalized": {
+    "ok": true,
+    "route": "status_event",
+    "payload_type": "status",
+    "field": "messages",
+    "from": null,
+    "message_id": "ABGGFlA5Fpa",
+    "message_type": null,
+    "text_body": "",
+    "status": "sent",
+    "recipient_id": "16315551181",
+    "conversation_id": "CONVERSATION_ID",
+    "pricing_category": "marketing",
+    "contact_name": "test user name",
+    "phone_number_id": "123456123",
+    "display_phone_number": "16505551111"
+  },
+  "payload": {
+    "value": {
+      "metadata": {
+        "phone_number_id": "123456123",
+        "display_phone_number": "16505551111"
+      },
+      "statuses": [
+        {
+          "status": "sent",
+          "timestamp": "1504902988",
+          "pricing": {
+            "pricing_model": "PMP",
+            "type": "regular",
+            "billable": true,
+            "category": "marketing"
+          },
+          "recipient_id": "16315551181",
+          "conversation": {
+            "origin": {
+              "type": "marketing"
+            },
+            "id": "CONVERSATION_ID",
+            "expiration_timestamp": "1504903988"
+          },
+          "id": "ABGGFlA5Fpa"
+        }
+      ],
+      "contacts": [
+        {
+          "user_id": "US.13491208655302741918",
+          "profile": {
+            "name": "test user name"
+          },
+          "wa_id": "16315551181"
+        }
+      ],
+      "messaging_product": "whatsapp"
+    },
+    "field": "messages"
+  }
+}

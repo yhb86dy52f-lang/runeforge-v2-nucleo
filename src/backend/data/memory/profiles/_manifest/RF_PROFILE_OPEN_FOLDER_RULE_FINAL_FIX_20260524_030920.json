@@ -1,0 +1,32 @@
+﻿{
+  "timestamp": "2026-05-24T03:09:21.1201487-06:00",
+  "event": "RF_PROFILE_OPEN_FOLDER_RULE_FINAL_FIX",
+  "status": "DONE",
+  "rule": "CREATED_FILES_MUST_INCLUDE_OPEN_DESTINATION_FOLDER_OPTION",
+  "open_folder_default": true,
+  "profile_file": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\profiles\\PERFIL_CINER_OPERATIVO_20260524.md",
+  "obsidian_file": "C:\\Users\\nesth\\Documents\\EL_ABISMO\\RUNEFORGE_OBSIDIAN\\09_MEMORIA_IA\\profiles\\PERFIL_CINER_OPERATIVO_20260524.md",
+  "hash_match": true,
+  "targets": [
+    {
+      "File": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\profiles\\PERFIL_CINER_OPERATIVO_20260524.md",
+      "Backup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\profiles\\_backups\\PERFIL_CINER_OPERATIVO_20260524.md.20260524_030920.bak",
+      "SHA256": "43C245092D7B3973170AC9A60D2118843B26A1B4E447FDD6B8465432712F20A4",
+      "Exists": true,
+      "ContainsRule": true,
+      "ContainsOpenFolder": false,
+      "ContainsInvokeItem": true
+    },
+    {
+      "File": "C:\\Users\\nesth\\Documents\\EL_ABISMO\\RUNEFORGE_OBSIDIAN\\09_MEMORIA_IA\\profiles\\PERFIL_CINER_OPERATIVO_20260524.md",
+      "Backup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\profiles\\_backups\\PERFIL_CINER_OPERATIVO_20260524.md.20260524_030920.bak",
+      "SHA256": "43C245092D7B3973170AC9A60D2118843B26A1B4E447FDD6B8465432712F20A4",
+      "Exists": true,
+      "ContainsRule": true,
+      "ContainsOpenFolder": false,
+      "ContainsInvokeItem": true
+    }
+  ],
+  "backend": "NO_TOCADO",
+  "next": "REGLA_ACTIVA_EN_PERFIL_Y_OBSIDIAN"
+}

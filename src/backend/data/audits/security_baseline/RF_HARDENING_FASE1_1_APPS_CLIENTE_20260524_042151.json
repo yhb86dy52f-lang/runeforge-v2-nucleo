@@ -1,0 +1,74 @@
+{
+  "Timestamp": "2026-05-24T04:21:53.1081115-06:00",
+  "Estado": "RF_HARDENING_FASE1_1_APPS_CLIENTE_DONE",
+  "RuneforgeOk": true,
+  "ReglasApagadas": [],
+  "ReglasRuneforge": [
+    {
+      "Nombre": "RF_ALLOW_SSH_SOLO_TAILSCALE_TCP_22",
+      "Habilitada": 1,
+      "Accion": 2,
+      "Protocolo": "TCP",
+      "PuertoLocal": "22",
+      "DireccionRemota": [
+        "100.64.0.0/255.192.0.0",
+        "fd7a:115c:a1e0::/48"
+      ]
+    },
+    {
+      "Nombre": "RF_ALLOW_TRACCAR_WEB_SOLO_TAILSCALE_TCP_8082",
+      "Habilitada": 1,
+      "Accion": 2,
+      "Protocolo": "TCP",
+      "PuertoLocal": "8082",
+      "DireccionRemota": [
+        "100.64.0.0/255.192.0.0",
+        "fd7a:115c:a1e0::/48"
+      ]
+    },
+    {
+      "Nombre": "RF_ALLOW_SUNSHINE_SOLO_TAILSCALE_TCP",
+      "Habilitada": 1,
+      "Accion": 2,
+      "Protocolo": "TCP",
+      "PuertoLocal": [
+        "47984",
+        "47989",
+        "47990",
+        "48010"
+      ],
+      "DireccionRemota": [
+        "100.64.0.0/255.192.0.0",
+        "fd7a:115c:a1e0::/48"
+      ]
+    },
+    {
+      "Nombre": "RF_ALLOW_AIRSERVER_SOLO_TAILSCALE_TCP",
+      "Habilitada": 1,
+      "Accion": 2,
+      "Protocolo": "TCP",
+      "PuertoLocal": [
+        "5021",
+        "7000",
+        "7100",
+        "8008",
+        "8009",
+        "8100"
+      ],
+      "DireccionRemota": [
+        "100.64.0.0/255.192.0.0",
+        "fd7a:115c:a1e0::/48"
+      ]
+    }
+  ],
+  "ReglasAmpliasRestantes": null,
+  "Alertas": [
+    "Sin alertas críticas. Fase 1.1 aplicada."
+  ],
+  "BackupFirewall": "C:\\RUNEFOGE_PRO\\runeforge\\backups\\firewall\\FIREWALL_BACKUP_ANTES_FASE1_1_APPS_CLIENTE_20260524_042151.wfw",
+  "RollbackScript": "C:\\RUNEFOGE_PRO\\runeforge\\backups\\firewall\\ROLLBACK_FIREWALL_FASE1_1_APPS_CLIENTE_20260524_042151.ps1",
+  "Backend": "VALIDADO_NO_MODIFICADO",
+  "Sistema": "FIREWALL_MODIFICADO",
+  "Secretos": "NO_LEIDOS",
+  "Reporte": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\security_baseline\\RF_HARDENING_FASE1_1_APPS_CLIENTE_20260524_042151.json"
+}

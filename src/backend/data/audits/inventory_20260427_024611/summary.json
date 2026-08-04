@@ -1,0 +1,104 @@
+{
+  "Fecha": "2026-04-27T02:46:53.4064734-06:00",
+  "BasePath": "C:\\RUNEFOGE_PRO",
+  "CanonicalRoot": "C:\\RUNEFOGE_PRO\\runeforge",
+  "OutDir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\inventory_20260427_024611",
+  "TotalFiles": 2773,
+  "TotalSizeMB": 633.21,
+  "OldDaysThreshold": 60,
+  "OldFiles": 5,
+  "DuplicateFiles": 2546,
+  "SecretIndicators": 58,
+  "Categories": [
+    {
+      "Count": 2662,
+      "Name": "RuneforgeCore"
+    },
+    {
+      "Count": 60,
+      "Name": "Laboratorio"
+    },
+    {
+      "Count": 48,
+      "Name": "MemoriaIA"
+    },
+    {
+      "Count": 3,
+      "Name": "Bitacoras"
+    }
+  ],
+  "RootFolders": [
+    {
+      "Folder": "runeforge",
+      "Path": "C:\\RUNEFOGE_PRO\\runeforge",
+      "Files": 2603,
+      "SizeMB": 486.43,
+      "LatestWrite": "2026-04-27T02:44:10.8561305-06:00",
+      "CanonicalHit": true
+    },
+    {
+      "Folder": "RUNEFOGE_PRO",
+      "Path": "C:\\RUNEFOGE_PRO\\RUNEFOGE_PRO",
+      "Files": 80,
+      "SizeMB": 146.65,
+      "LatestWrite": "2026-04-19T19:38:22.9665735-06:00",
+      "CanonicalHit": false
+    },
+    {
+      "Folder": "runeforge-v2-ready",
+      "Path": "C:\\RUNEFOGE_PRO\\runeforge-v2-ready",
+      "Files": 33,
+      "SizeMB": 0.1,
+      "LatestWrite": "2026-04-19T19:38:22.9665735-06:00",
+      "CanonicalHit": false
+    },
+    {
+      "Folder": "runeforge-datahub",
+      "Path": "C:\\RUNEFOGE_PRO\\runeforge-datahub",
+      "Files": 5,
+      "SizeMB": 28.45,
+      "LatestWrite": "2026-04-15T02:10:29.8859261-06:00",
+      "CanonicalHit": false
+    },
+    {
+      "Folder": "memoria-ia",
+      "Path": "C:\\RUNEFOGE_PRO\\memoria-ia",
+      "Files": 2,
+      "SizeMB": 0.0,
+      "LatestWrite": "2026-04-14T12:42:41.0028096-06:00",
+      "CanonicalHit": false
+    },
+    {
+      "Folder": "diagnostico",
+      "Path": "C:\\RUNEFOGE_PRO\\diagnostico",
+      "Files": 2,
+      "SizeMB": 0.01,
+      "LatestWrite": "2026-04-13T07:47:34.1332537-06:00",
+      "CanonicalHit": false
+    },
+    {
+      "Folder": "essential_only",
+      "Path": "C:\\RUNEFOGE_PRO\\essential_only",
+      "Files": 55,
+      "SizeMB": 0.09,
+      "LatestWrite": "2026-03-30T02:09:08.8657016-06:00",
+      "CanonicalHit": false
+    },
+    {
+      "Folder": "runeforge-mvp",
+      "Path": "C:\\RUNEFOGE_PRO\\runeforge-mvp",
+      "Files": 753,
+      "SizeMB": 136.03,
+      "LatestWrite": "2026-03-27T07:04:56-06:00",
+      "CanonicalHit": false
+    },
+    {
+      "Folder": "lab_v1_1_files",
+      "Path": "C:\\RUNEFOGE_PRO\\lab_v1_1_files",
+      "Files": 29,
+      "SizeMB": 0.01,
+      "LatestWrite": "2026-03-16T19:45:30-06:00",
+      "CanonicalHit": false
+    }
+  ]
+}

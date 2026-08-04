@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-06-23T13:23:03.7980342-06:00",
+  "phase": "RF_RELAY_LOCAL_RUNTIME_SMOKE_TEST_CURRENT",
+  "output_policy": "CURRENT_OVERWRITE_WITH_BACKUP",
+  "repo": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\github\\runeforge-relay-clean",
+  "port": 3007,
+  "tests": [
+    {
+      "name": "health",
+      "ok": false,
+      "detail": "NO_RESPONSE"
+    },
+    {
+      "name": "api_commands",
+      "ok": false,
+      "detail": "CATALOG_FAIL"
+    },
+    {
+      "name": "command_schema_blocks_invalid",
+      "ok": false,
+      "detail": "BLOCK_FAIL"
+    },
+    {
+      "name": "command_allowlist_blocks_unknown",
+      "ok": false,
+      "detail": "BLOCK_FAIL"
+    },
+    {
+      "name": "whatsapp_webhook_verify",
+      "ok": false,
+      "detail": "VERIFY_FAIL"
+    }
+  ],
+  "residual_risks": [
+    "SMOKE_TEST_FAILED",
+    "PROCESS_EXITED_EARLY"
+  ],
+  "stdout": "C:\\RUNEFOGE_PRO\\runeforge\\data\\runtime\\relay_smoke\\rf_relay_smoke_stdout_current.log",
+  "stderr": "C:\\RUNEFOGE_PRO\\runeforge\\data\\runtime\\relay_smoke\\rf_relay_smoke_stderr_current.log",
+  "status": "SMOKE_TEST_FAILED",
+  "next": "RF_RELAY_SMOKE_TEST_REPAIR_CURRENT_V1",
+  "current_backup_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\current_overwrite\\relay_smoke_test\\20260623_132247",
+  "write_github": "NO",
+  "write_drive": "NO",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO"
+}

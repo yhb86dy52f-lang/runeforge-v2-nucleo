@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Perimetro_Lote_2</name>
+    <Placemark>
+      <name>Polígono Area</name>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>
+              -101.49927778,20.47486111,0
+              -101.49944444,20.47494444,0
+              -101.49905556,20.47544444,0
+              -101.49819444,20.47480556,0
+              -101.49841667,20.47447222,0
+              -101.49927778,20.47486111,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

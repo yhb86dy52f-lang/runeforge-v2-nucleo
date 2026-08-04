@@ -1,0 +1,29 @@
+{
+  "Timestamp": "2026-05-09 06:32:58",
+  "AuditDir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\openssh_acl_fix_v2_20260509_063258",
+  "HostFixExists": true,
+  "UserFixExists": true,
+  "ConfigBackup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\openssh_acl_fix_v2_20260509_063258\\sshd_config_20260509_063258.bak",
+  "KeysBackup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\openssh_acl_fix_v2_20260509_063258\\administrators_authorized_keys_20260509_063258.bak",
+  "HostFixOk": true,
+  "UserFixOk": true,
+  "AclReinforced": true,
+  "SshdConfigTest": 0,
+  "Restarted": true,
+  "Service": "Running",
+  "Port22": [
+    {
+      "LocalAddress": "::",
+      "LocalPort": 22,
+      "OwningProcess": 8476
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 22,
+      "OwningProcess": 8476
+    }
+  ],
+  "CrashesAfter": null,
+  "Status": "OK_OPENSSH_PERMS_FIX_V2_APPLIED",
+  "Error": null
+}

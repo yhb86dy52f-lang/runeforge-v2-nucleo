@@ -1,0 +1,19 @@
+﻿{
+    "rf_schema":  "rf.whatsapp.meta_messages_test_capture.v1",
+    "created_at":  "2026-06-16T03:06:53.8636464-06:00",
+    "estado":  "RF_WHATSAPP_META_MESSAGES_TEST_CAPTURE_PARTIAL",
+    "local_webhook":  "http://127.0.0.1:3198/webhooks/whatsapp",
+    "field":  "messages",
+    "message_type":  "text",
+    "sample_from":  "16315551181",
+    "sample_body":  "this is a text message",
+    "local_status":  200,
+    "route":  "blocked",
+    "forwarded_to_core":  false,
+    "real_whatsapp_send":  "NO_REAL_SEND",
+    "backend":  "NO_TOCADO",
+    "pm2":  "NO_TOCADO",
+    "firewall":  "NO_TOCADO",
+    "secrets":  "NO_IMPRESOS",
+    "siguiente":  "REVISAR_PUBLIC_EDGE_MESSAGES_ROUTE"
+}

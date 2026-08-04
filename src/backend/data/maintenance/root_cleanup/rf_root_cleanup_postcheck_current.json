@@ -1,0 +1,197 @@
+{
+  "timestamp": "2026-06-09T03:14:13.4076562-06:00",
+  "event": "RF_ROOT_CLEANUP_POSTCHECK_CURRENT_V1",
+  "status": "ROOT_CLEANUP_POSTCHECK_OK",
+  "base": "C:\\RUNEFOGE_PRO",
+  "apply_status": "APPLY_MOVE_OK",
+  "expected_moved": 21,
+  "checked_items": 21,
+  "postcheck_ok": 21,
+  "postcheck_review": 0,
+  "protected_ok": 3,
+  "protected_review": 0,
+  "root_items_count": 31,
+  "accion_real": "POSTCHECK_ONLY_NO_MOVE_NO_DELETE",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "rollback_manifest": "C:\\RUNEFOGE_PRO\\runeforge\\data\\maintenance\\root_cleanup\\rf_root_cleanup_rollback_manifest_current.json",
+  "next": "RF_ROOT_CLEANUP_CLOSE_CURRENT_V1",
+  "protected": [
+    {
+      "Nombre": "runeforge",
+      "Ruta": "C:\\RUNEFOGE_PRO\\runeforge",
+      "Existe": true,
+      "Estado": "PROTEGIDO_PRESENTE"
+    },
+    {
+      "Nombre": ".git",
+      "Ruta": "C:\\RUNEFOGE_PRO\\.git",
+      "Existe": true,
+      "Estado": "PROTEGIDO_PRESENTE"
+    },
+    {
+      "Nombre": ".tmp.driveupload",
+      "Ruta": "C:\\RUNEFOGE_PRO\\.tmp.driveupload",
+      "Existe": true,
+      "Estado": "PROTEGIDO_PRESENTE"
+    }
+  ],
+  "root_items": [
+    {
+      "Nombre": "_archive",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\_archive"
+    },
+    {
+      "Nombre": ".env",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\.env"
+    },
+    {
+      "Nombre": ".env.example",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\.env.example"
+    },
+    {
+      "Nombre": ".git",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\.git"
+    },
+    {
+      "Nombre": ".gitignore",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\.gitignore"
+    },
+    {
+      "Nombre": ".tmp.drivedownload",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\.tmp.drivedownload"
+    },
+    {
+      "Nombre": ".tmp.driveupload",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\.tmp.driveupload"
+    },
+    {
+      "Nombre": "01_INBOX_WEB",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\01_INBOX_WEB"
+    },
+    {
+      "Nombre": "backups",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\backups"
+    },
+    {
+      "Nombre": "forge_ui_nexo_v_0.jsx",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\forge_ui_nexo_v_0.jsx"
+    },
+    {
+      "Nombre": "lab",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\lab"
+    },
+    {
+      "Nombre": "logs",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\logs"
+    },
+    {
+      "Nombre": "node_modules",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\node_modules"
+    },
+    {
+      "Nombre": "package-lock.json",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\package-lock.json"
+    },
+    {
+      "Nombre": "package.json",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\package.json"
+    },
+    {
+      "Nombre": "README.md",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\README.md"
+    },
+    {
+      "Nombre": "rf_temp",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\rf_temp"
+    },
+    {
+      "Nombre": "RUNEFOGE_PRO.zip",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\RUNEFOGE_PRO.zip"
+    },
+    {
+      "Nombre": "runeforge",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\runeforge"
+    },
+    {
+      "Nombre": "RUNEFORGE_KNOWLEDGE",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\RUNEFORGE_KNOWLEDGE"
+    },
+    {
+      "Nombre": "RUNEFORGE_MASTER_FUSIONADO_2026-03-20.zip",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\RUNEFORGE_MASTER_FUSIONADO_2026-03-20.zip"
+    },
+    {
+      "Nombre": "RUNEFORGE_MASTER_FUSIONADO.md",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\RUNEFORGE_MASTER_FUSIONADO.md"
+    },
+    {
+      "Nombre": "RUNEFORGE_MASTER_FUSIONADO1.zip",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\RUNEFORGE_MASTER_FUSIONADO1.zip"
+    },
+    {
+      "Nombre": "runeforge_status_check.txt",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\runeforge_status_check.txt"
+    },
+    {
+      "Nombre": "runeforge-mobile-relay",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\runeforge-mobile-relay"
+    },
+    {
+      "Nombre": "runeforge-mvp.zip",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\runeforge-mvp.zip"
+    },
+    {
+      "Nombre": "runeforge-relay.code-workspace",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\runeforge-relay.code-workspace"
+    },
+    {
+      "Nombre": "scripts",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\scripts"
+    },
+    {
+      "Nombre": "tools",
+      "Tipo": "DIR",
+      "Ruta": "C:\\RUNEFOGE_PRO\\tools"
+    },
+    {
+      "Nombre": "tsconfig.json",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\tsconfig.json"
+    },
+    {
+      "Nombre": "yhb86dy52f-lang.github-devices-2026-03-21T11-40-38-359Z.csv",
+      "Tipo": "FILE",
+      "Ruta": "C:\\RUNEFOGE_PRO\\yhb86dy52f-lang.github-devices-2026-03-21T11-40-38-359Z.csv"
+    }
+  ]
+}

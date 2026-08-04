@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-06-28T13:44:04.9674138-06:00",
+  "phase": "RF_BACKUP_D_AVOID_AND_EXTERNAL_COPY_CURRENT",
+  "status": "D_BLOCKED_EMERGENCY_BACKUP_OK",
+  "drive_d_policy": "BLOCKED_FOR_RUNEFORGE_BACKUPS",
+  "reason": "ERROR_483_HARDWARE_DEVICE_ON_CREATE_DIRECTORY",
+  "emergency_backup": "C:\\RUNEFOGE_PRO\\_SAFE_BACKUPS\\runeforge_emergency_current",
+  "emergency_backup_ok": true,
+  "external_candidates": [
+    {
+      "Name": "E",
+      "Root": "E:\\",
+      "Free": 588394496,
+      "Used": 18726912
+    },
+    {
+      "Name": "G",
+      "Root": "G:\\",
+      "Free": 214271102976,
+      "Used": 785323810816
+    },
+    {
+      "Name": "Temp",
+      "Root": "C:\\Users\\nesth\\AppData\\Local\\Temp\\",
+      "Free": 162600878080,
+      "Used": 336796602368
+    }
+  ],
+  "next": "RF_LOCAL_AI_SMOKE_PANEL_FIX_CURRENT",
+  "backend": "NO_TOCADO",
+  "local_ai": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "drive_d_write": "NO",
+  "copy_real": "NO",
+  "delete": "NO"
+}

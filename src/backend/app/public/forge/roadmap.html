@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runeforge AI: Roadmap de Evolución</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Runeforge Cyberpunk (Dark Violet #0D0211, Neon Green #39FF14, Electric Purple #BD00FF) -->
+    <!-- Application Structure Plan: 
+        1. Dashboard Hero: Resumen del estado actual vs objetivo (v2.0).
+        2. Los 5 Pilares: Sección interactiva de tarjetas para explorar cada mejora técnica con KPIs asociados.
+        3. El Laboratorio de Hiperparámetros: Simulador educativo que explica visualmente cómo afectan Temperature y Top_P al modelo local.
+        4. Análisis de Rendimiento (Benchmarking): Gráficos dinámicos que proyectan el comportamiento esperado en la GTX 1660 SUPER.
+        5. Biblioteca de Roles: Visualizador de los System Prompts propuestos.
+        Se elige esta estructura no lineal para que el usuario pueda saltar directamente a la parte técnica que desea implementar primero (ej. Sliders vs Telemetría).
+    -->
+    <!-- Visualization & Content Choices:
+        - Gráficos de Radar (Chart.js) para comparar modos de inferencia (Creativo vs Técnico).
+        - Gráficos de Barras (Chart.js) para simular latencia vs carga de tokens.
+        - Tarjetas interactivas con estados de hover para los Pilares de Mejora.
+        - Simulador de texto dinámico para parámetros de IA.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&display=swap');
+        
+        :root {
+            --dark-bg: #0D0211;
+            --card-bg: #15051C;
+            --neon-green: #39FF14;
+            --neon-purple: #BD00FF;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #E2D6EE;
+            font-family: 'Fira Code', monospace;
+            overflow-x: hidden;
+        }
+
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+        }
+
+        .purple-glow {
+            text-shadow: 0 0 10px rgba(189, 0, 255, 0.5);
+        }
+
+        .border-neon {
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+        }
+
+        .border-purple {
+            border: 1px solid var(--neon-purple);
+            box-shadow: 0 0 15px rgba(189, 0, 255, 0.1);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(189, 0, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        input[type=range] {
+            accent-color: var(--neon-green);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--neon-purple);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-[#0D0211] leading-relaxed">
+
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-50 bg-[#0D0211]/90 backdrop-blur-md border-b border-purple-900/50 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">⚒️</span>
+                <h1 class="text-neon font-bold tracking-tighter">FORGE IA v2.0 STRATEGY</h1>
+            </div>
+            <div class="hidden md:flex gap-6 text-xs uppercase tracking-widest">
+                <a href="#pilares" class="hover:text-neon transition">Pilares</a>
+                <a href="#lab" class="hover:text-neon transition">Laboratorio</a>
+                <a href="#metrics" class="hover:text-neon transition">Métricas</a>
+                <a href="#prompts" class="hover:text-neon transition">Biblioteca</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="max-w-7xl mx-auto px-6 py-16 text-center">
+        <p class="text-purple-400 text-sm mb-4 font-bold tracking-widest uppercase">Ecosistema Runeforge — Local First</p>
+        <h2 class="text-4xl md:text-6xl font-bold mb-6 neon-glow">De Panel Estático a <br><span class="text-purple-500">Centro de Inferencia</span></h2>
+        <p class="max-w-2xl mx-auto text-gray-400 text-sm md:text-base">
+            Esta es la hoja de ruta interactiva para optimizar el modelo <strong>qwen2.5:1.5b</strong> en tu hardware local. Analiza la propuesta técnica, experimenta con los parámetros y visualiza el impacto de la nueva interfaz.
+        </p>
+        <div class="mt-10 flex flex-wrap justify-center gap-4">
+            <div class="px-6 py-3 border-neon rounded-full bg-black/40 text-xs text-neon">Nivel de Optimización: 45%</div>
+            <div class="px-6 py-3 border-purple rounded-full bg-black/40 text-xs text-purple-400">GPU: GTX 1660 SUPER Ready</div>
+        </div>
+    </header>
+
+    <!-- SECTION: LOS 5 PILARES -->
+    <section id="pilares" class="max-w-7xl mx-auto px-6 py-12">
+        <div class="mb-12">
+            <h3 class="text-2xl font-bold mb-2">🚀 Arquitectura de la Nueva Interfaz</h3>
+            <p class="text-gray-400 text-sm">Explora los pilares fundamentales definidos en la propuesta técnica para mejorar la interacción con la IA.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Pilar 1 -->
+            <div class="pillar-card bg-[#15051C] border border-gray-800 p-6 rounded-xl transition-all cursor-pointer" onclick="showPillarInfo(0)">
+                <div class="text-3xl mb-4">💬</div>
+                <h4 class="text-neon font-bold mb-2">Playground Interactivo</h4>
+                <p class="text-xs text-gray-400">Chat multi-turno con renderizado de código y visualización de tokens en tiempo real.</p>
+                <div class="mt-4 h-1 w-full bg-gray-900 rounded-full overflow-hidden">
+                    <div class="bg-neon-green h-full w-[90%]"></div>
+                </div>
+            </div>
+            <!-- Pilar 2 -->
+            <div class="pillar-card bg-[#15051C] border border-gray-800 p-6 rounded-xl transition-all cursor-pointer" onclick="showPillarInfo(1)">
+                <div class="text-3xl mb-4">🎛️</div>
+                <h4 class="text-purple-500 font-bold mb-2">Control de Parámetros</h4>
+                <p class="text-xs text-gray-400">Sliders visuales para temperatura, Top_P y Top_K. Ajuste fino de la "personalidad" del modelo.</p>
+                <div class="mt-4 h-1 w-full bg-gray-900 rounded-full overflow-hidden">
+                    <div class="bg-purple-500 h-full w-[75%]"></div>
+                </div>
+            </div>
+            <!-- Pilar 3 -->
+            <div class="pillar-card bg-[#15051C] border border-gray-800 p-6 rounded-xl transition-all cursor-pointer" onclick="showPillarInfo(2)">
+                <div class="text-3xl mb-4">📊</div>
+                <h4 class="text-neon font-bold mb-2">IA Metrics</h4>
+                <p class="text-xs text-gray-400">Telemetría de latencia (ms) y tokens por segundo (t/s) para medir el rendimiento de la GPU.</p>
+                <div class="mt-4 h-1 w-full bg-gray-900 rounded-full overflow-hidden">
+                    <div class="bg-neon-green h-full w-[40%]"></div>
+                </div>
+            </div>
+            <!-- Pilar 4 -->
+            <div class="pillar-card bg-[#15051C] border border-gray-800 p-6 rounded-xl transition-all cursor-pointer" onclick="showPillarInfo(3)">
+                <div class="text-3xl mb-4">📚</div>
+                <h4 class="text-purple-500 font-bold mb-2">Prompt Library</h4>
+                <p class="text-xs text-gray-400">Suite de pruebas integradas para ejecutar stress tests y análisis forense en un clic.</p>
+                <div class="mt-4 h-1 w-full bg-gray-900 rounded-full overflow-hidden">
+                    <div class="bg-purple-500 h-full w-[60%]"></div>
+                </div>
+            </div>
+            <!-- Pilar 5 -->
+            <div class="pillar-card bg-[#15051C] border border-gray-800 p-6 rounded-xl transition-all cursor-pointer" onclick="showPillarInfo(4)">
+                <div class="text-3xl mb-4">⚡</div>
+                <h4 class="text-neon font-bold mb-2">WebCommand Suite</h4>
+                <p class="text-xs text-gray-400">Consola integrada para monitorear procesos PM2 y el árbol del proyecto sin salir de la UI.</p>
+                <div class="mt-4 h-1 w-full bg-gray-900 rounded-full overflow-hidden">
+                    <div class="bg-neon-green h-full w-[85%]"></div>
+                </div>
+            </div>
+            <!-- Status Card -->
+            <div class="bg-black/40 border border-purple-900/50 p-6 rounded-xl flex items-center justify-center text-center">
+                <div>
+                    <span class="text-purple-400 text-xs block mb-1">Estado General</span>
+                    <span class="text-2xl font-bold">READY TO DEPLOY</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: LABORATORIO DE PARÁMETROS -->
+    <section id="lab" class="bg-[#05010B] border-y border-purple-900/30 py-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <h3 class="text-3xl font-bold mb-6 purple-glow">El Laboratorio de Ajuste</h3>
+                <p class="text-gray-400 mb-8 text-sm">
+                    Para mejorar tu IA, debes entender cómo sus configuraciones internas alteran la salida. Ajusta los controles para ver cómo cambiaría la respuesta del modelo en tiempo real.
+                </p>
+                
+                <!-- SIMULADOR CONTROLES -->
+                <div class="space-y-6 bg-[#15051C] p-6 rounded-2xl border border-purple-500/20">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <label class="text-xs text-neon uppercase">Temperatura (Creatividad)</label>
+                            <span id="temp-label" class="text-xs font-bold">0.2</span>
+                        </div>
+                        <input type="range" id="temp-sim" min="0" max="1" step="0.1" value="0.2" class="w-full h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer">
+                        <p class="text-[10px] text-gray-500 mt-2">Valores bajos = Precisión técnica. Valores altos = Imaginación / Alucinación.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <label class="text-xs text-purple-400 uppercase">Top P (Probabilidad)</label>
+                            <span id="topp-label" class="text-xs font-bold">0.9</span>
+                        </div>
+                        <input type="range" id="topp-sim" min="0" max="1" step="0.05" value="0.9" class="w-full h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer">
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-800">
+                        <label class="text-xs text-gray-400 block mb-2">Resultado Simulado:</label>
+                        <div id="sim-output" class="bg-black/60 p-4 rounded text-xs min-h-[80px] border border-neon/20 italic">
+                            "El servidor Fastify está escuchando en el puerto 3100. La ruta /api/webcommand está operativa y segura."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="chart-container">
+                    <canvas id="modeChart"></canvas>
+                </div>
+                <p class="text-[11px] text-gray-500 mt-4 text-center">Comparativa de capacidades según el perfil de configuración seleccionado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: MÉTRICAS Y RENDIMIENTO -->
+    <section id="metrics" class="max-w-7xl mx-auto px-6 py-20 text-center">
+        <h3 class="text-2xl font-bold mb-12 neon-glow">Análisis de Desempeño: GTX 1660 SUPER</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="bg-[#15051C] p-6 rounded-2xl border border-gray-800">
+                <h4 class="text-sm font-bold text-gray-400 mb-6 uppercase">Latencia por Carga de Tokens</h4>
+                <div class="chart-container">
+                    <canvas id="latencyChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="flex flex-col justify-center text-left space-y-6">
+                <div class="bg-black/30 p-4 border-l-4 border-neon">
+                    <h5 class="text-neon font-bold text-sm">Optimización de Memoria</h5>
+                    <p class="text-xs text-gray-400 mt-1">Con qwen2.5:1.5b, el uso de VRAM se mantiene bajo los 2.4GB, permitiendo multitarea sin degradación.</p>
+                </div>
+                <div class="bg-black/30 p-4 border-l-4 border-purple-500">
+                    <h5 class="text-purple-400 font-bold text-sm">Inferencia Stream</h5>
+                    <p class="text-xs text-gray-400 mt-1">La nueva interfaz implementará lectura por trozos para reducir la latencia percibida del primer token a < 150ms.</p>
+                </div>
+                <div class="bg-black/30 p-4 border-l-4 border-gray-500">
+                    <h5 class="text-gray-400 font-bold text-sm">Context Window</h5>
+                    <p class="text-xs text-gray-400 mt-1">Límite operativo de 32k tokens. La UI mostrará un medidor visual para evitar el olvido del modelo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: BIBLIOTECA DE PROMPTS -->
+    <section id="prompts" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="border-t border-purple-900/50 pt-12">
+            <h3 class="text-3xl font-bold mb-10 text-center">Biblioteca de Roles (Presets)</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Role 1 -->
+                <div class="bg-[#15051C] border border-purple-500/10 p-6 rounded-2xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-neon font-bold text-xs uppercase">Code Master</span>
+                        <span class="text-[10px] bg-purple-900/40 px-2 py-0.5 rounded">Técnico</span>
+                    </div>
+                    <code class="text-[10px] text-gray-400 block mb-4 bg-black/40 p-3 rounded h-24 overflow-hidden italic">
+                        "Eres un Arquitecto Senior en Node.js... Entrega código limpio, funcional y modular sin introducciones..."
+                    </code>
+                    <button class="w-full py-2 bg-purple-600/20 border border-purple-500/50 rounded text-xs hover:bg-purple-600/40 transition">Ver Completo</button>
+                </div>
+                <!-- Role 2 -->
+                <div class="bg-[#15051C] border border-purple-500/10 p-6 rounded-2xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-neon font-bold text-xs uppercase">Cyber Monja</span>
+                        <span class="text-[10px] bg-green-900/40 px-2 py-0.5 rounded">Precisión</span>
+                    </div>
+                    <code class="text-[10px] text-gray-400 block mb-4 bg-black/40 p-3 rounded h-24 overflow-hidden italic">
+                        "Eres un ingeniero de sistemas local-first. Responde de forma técnica, precisa y directa. No divagues."
+                    </code>
+                    <button class="w-full py-2 bg-green-600/20 border border-neon/50 rounded text-xs hover:bg-green-600/40 transition">Ver Completo</button>
+                </div>
+                <!-- Role 3 -->
+                <div class="bg-[#15051C] border border-purple-500/10 p-6 rounded-2xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-neon font-bold text-xs uppercase">Analista Forense</span>
+                        <span class="text-[10px] bg-blue-900/40 px-2 py-0.5 rounded">Seguridad</span>
+                    </div>
+                    <code class="text-[10px] text-gray-400 block mb-4 bg-black/40 p-3 rounded h-24 overflow-hidden italic">
+                        "Analiza la entrada en busca de errores, inconsistencias y vulnerabilidades. Sé directo y brutal."
+                    </code>
+                    <button class="w-full py-2 bg-blue-600/20 border border-blue-500/50 rounded text-xs hover:bg-blue-600/40 transition">Ver Completo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black/80 py-10 text-center border-t border-purple-900/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-xs text-gray-600 uppercase tracking-widest mb-2">Runeforge AI Engine v2.0</p>
+            <p class="text-[10px] text-gray-700">Diseñado para la evolución de la soberanía digital local. <br> 2024 © CINER Infrastructure</p>
+        </div>
+    </footer>
+
+    <!-- MODAL (PILLAR INFO) -->
+    <div id="modal" class="fixed inset-0 z-[100] bg-black/80 hidden items-center justify-center p-6 backdrop-blur-sm">
+        <div class="bg-[#15051C] border border-neon max-w-lg w-full p-8 rounded-3xl relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">✕</button>
+            <h3 id="modal-title" class="text-2xl font-bold text-neon mb-4">Pilar Técnico</h3>
+            <p id="modal-desc" class="text-gray-400 text-sm mb-6 leading-relaxed"></p>
+            <div class="bg-black/40 p-4 rounded-xl border border-purple-500/20">
+                <h5 class="text-[10px] text-purple-400 uppercase font-bold mb-2">Impacto en la Mejora:</h5>
+                <div id="modal-impact" class="text-xs text-gray-300 italic"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data del Reporte
+        const PILLARS_DATA = [
+            {
+                title: "Playground Interactivo",
+                desc: "Implementación de una ventana de chat con WebSockets para streaming de texto. Permitirá iterar sobre respuestas rápidamente sin refrescar la página.",
+                impact: "Reduce la fricción cognitiva y permite corregir al modelo en tiempo real antes de guardar memorias en EL_ABISMO."
+            },
+            {
+                title: "Control de Hiperparámetros",
+                desc: "Integración de API de Ollama para modificar 'temperature', 'repeat_penalty' y 'top_k' de forma dinámica por cada mensaje enviado.",
+                impact: "Crucial para cambiar entre modos de programación (baja temperatura) y redacción creativa (alta temperatura)."
+            },
+            {
+                title: "IA Metrics Dashboard",
+                desc: "Monitor de recursos integrado que lee la carga de la GPU y el tiempo de respuesta del backend de Fastify.",
+                impact: "Permite detectar cuellos de botella en el hardware 3200G y ajustar el tamaño del batch de inferencia."
+            },
+            {
+                title: "Prompt Test Suite",
+                desc: "Colección de escenarios de prueba predefinidos (unit tests para IA) que evalúan la consistencia de las respuestas.",
+                impact: "Asegura que las actualizaciones del núcleo Runeforge no degraden la calidad del razonamiento del modelo."
+            },
+            {
+                title: "Suite WebCommand",
+                desc: "Puente directo entre la interfaz web y la terminal del sistema para ejecución de scripts PowerShell de mantenimiento.",
+                impact: "Mantiene el ecosistema saludable sin necesidad de usar herramientas externas como SSH o RDP localmente."
+            }
+        ];
+
+        // Charts Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctxMode = document.getElementById('modeChart').getContext('2d');
+            new Chart(ctxMode, {
+                type: 'radar',
+                data: {
+                    labels: ['Precisión', 'Creatividad', 'Velocidad', 'Lógica', 'VRAM Efficiency'],
+                    datasets: [{
+                        label: 'Modo Code Master',
+                        data: [95, 20, 80, 90, 70],
+                        borderColor: '#39FF14',
+                        backgroundColor: 'rgba(57, 255, 20, 0.2)',
+                    }, {
+                        label: 'Modo Creative',
+                        data: [40, 95, 60, 50, 80],
+                        borderColor: '#BD00FF',
+                        backgroundColor: 'rgba(189, 0, 255, 0.2)',
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#333' },
+                            grid: { color: '#333' },
+                            pointLabels: { color: '#aaa', font: { size: 10 } },
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: { legend: { labels: { color: '#eee', font: { size: 10 } } } }
+                }
+            });
+
+            const ctxLatency = document.getElementById('latencyChart').getContext('2d');
+            new Chart(ctxLatency, {
+                type: 'line',
+                data: {
+                    labels: ['50', '250', '500', '1k', '2k', '4k'],
+                    datasets: [{
+                        label: 'Latencia (ms)',
+                        data: [120, 450, 890, 1800, 4200, 9500],
+                        borderColor: '#39FF14',
+                        tension: 0.4,
+                        fill: true,
+                        backgroundColor: 'rgba(57, 255, 20, 0.05)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#666' }, title: { display: true, text: 'Tokens de Contexto', color: '#555', font: { size: 10 } } },
+                        y: { grid: { color: '#222' }, ticks: { color: '#666' } }
+                    }
+                }
+            });
+        });
+
+        // Interactive Lab Simulator
+        const tempSim = document.getElementById('temp-sim');
+        const tempLabel = document.getElementById('temp-label');
+        const simOutput = document.getElementById('sim-output');
+
+        tempSim.addEventListener('input', (e) => {
+            const val = e.target.value;
+            tempLabel.innerText = val;
+            if (val < 0.3) {
+                simOutput.innerText = '"El script de PowerShell para backup se encuentra en C:\\Scripts\\backup.ps1. La integridad es del 100%."';
+                simOutput.style.color = '#39FF14';
+            } else if (val < 0.7) {
+                simOutput.innerText = '"Podemos decir que el servidor está bien, tal vez necesites revisar los logs si algo falla, pero parece estable."';
+                simOutput.style.color = '#E2D6EE';
+            } else {
+                simOutput.innerText = '"Las nubes digitales susurran que el puerto 3100 es una puerta a infinitas dimensiones de datos violetas."';
+                simOutput.style.color = '#BD00FF';
+            }
+        });
+
+        // Modal Functions
+        function showPillarInfo(index) {
+            const data = PILLARS_DATA[index];
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-desc').innerText = data.desc;
+            document.getElementById('modal-impact').innerText = data.impact;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

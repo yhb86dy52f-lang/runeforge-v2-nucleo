@@ -1,0 +1,30 @@
+{
+  "Timestamp": "2026-05-06 02:18:35",
+  "AuditDir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\termius_key_20260506_021835",
+  "AdminKeys": "C:\\ProgramData\\ssh\\administrators_authorized_keys",
+  "Backup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\termius_key_20260506_021835\\administrators_authorized_keys.20260506_021835.bak",
+  "Rollback": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\termius_key_20260506_021835\\rollback-termius-key-20260506_021835.ps1",
+  "KeysInput": 2,
+  "KeysAdded": 1,
+  "KeysAlreadyPresent": 1,
+  "Fingerprints": [
+    "256 SHA256:wBStmjt1GlAIhtpu5hQFHXbJBCYPTso0i9zE/9NuIOg no comment (ED25519)",
+    "256 SHA256:3DIhHKONBPtsnqFTYNPcVE2rwL8e+D+Oer1w5ESK7z4 no comment (ED25519)"
+  ],
+  "SshdConfigTest": "OK",
+  "SshdRestarted": true,
+  "Port22": [
+    {
+      "LocalAddress": "::",
+      "LocalPort": 22,
+      "OwningProcess": 13280
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 22,
+      "OwningProcess": 13280
+    }
+  ],
+  "Status": "OK_TERMIUS_KEYS_INSTALLED",
+  "Error": null
+}

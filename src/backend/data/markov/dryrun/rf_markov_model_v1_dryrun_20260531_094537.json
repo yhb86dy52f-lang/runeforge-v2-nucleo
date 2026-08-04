@@ -1,0 +1,293 @@
+{
+  "schema": "rf.markov.model.v1",
+  "mode": "dryrun",
+  "generated_at": "2026-05-31T09:45:38.5555350-06:00",
+  "source_event_log": "C:\\RUNEFOGE_PRO\\runeforge\\data\\event_model\\events\\rf_events_v1.jsonl",
+  "event_count": 30,
+  "parse_errors": 0,
+  "unique_states": 16,
+  "transitions": 29,
+  "unique_transitions": 27,
+  "policy": {
+    "trace_only": true,
+    "no_shell": true,
+    "no_exec": true,
+    "no_auto_actions": true,
+    "backend_touched": false,
+    "pm2_touched": false,
+    "n8n_touched": false
+  },
+  "states": [
+    {
+      "state": "actions|trace_observed|ok",
+      "count": 7,
+      "frequency": 0.233333
+    },
+    {
+      "state": "n8n|trace_observed|ok",
+      "count": 3,
+      "frequency": 0.1
+    },
+    {
+      "state": "actions|action_execute|ok",
+      "count": 2,
+      "frequency": 0.066667
+    },
+    {
+      "state": "actions|blocked_action|blocked",
+      "count": 2,
+      "frequency": 0.066667
+    },
+    {
+      "state": "actions|memory_written|ok",
+      "count": 2,
+      "frequency": 0.066667
+    },
+    {
+      "state": "actions|patch_applied|ok",
+      "count": 2,
+      "frequency": 0.066667
+    },
+    {
+      "state": "actions|trace_observed|error",
+      "count": 2,
+      "frequency": 0.066667
+    },
+    {
+      "state": "export_cleanup|safe_export_finalized|ok",
+      "count": 2,
+      "frequency": 0.066667
+    },
+    {
+      "state": "event_model|bootstrap_created|ok",
+      "count": 1,
+      "frequency": 0.033333
+    },
+    {
+      "state": "export_cleanup|cleanup_closed|closed",
+      "count": 1,
+      "frequency": 0.033333
+    },
+    {
+      "state": "export_cleanup|cleanup_plan_generated|ok",
+      "count": 1,
+      "frequency": 0.033333
+    },
+    {
+      "state": "export_cleanup|move_to_quarantine|ok",
+      "count": 1,
+      "frequency": 0.033333
+    },
+    {
+      "state": "n8n|memory_written|ok",
+      "count": 1,
+      "frequency": 0.033333
+    },
+    {
+      "state": "n8n|patch_applied|ok",
+      "count": 1,
+      "frequency": 0.033333
+    },
+    {
+      "state": "system|memory_written|ok",
+      "count": 1,
+      "frequency": 0.033333
+    },
+    {
+      "state": "system|patch_applied|ok",
+      "count": 1,
+      "frequency": 0.033333
+    }
+  ],
+  "transition_matrix": [
+    {
+      "from": "actions|memory_written|ok",
+      "to": "actions|trace_observed|ok",
+      "count": 2,
+      "total_from": 2,
+      "probability": 1.0
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|action_execute|ok",
+      "count": 2,
+      "total_from": 7,
+      "probability": 0.285714
+    },
+    {
+      "from": "actions|action_execute|ok",
+      "to": "actions|blocked_action|blocked",
+      "count": 1,
+      "total_from": 2,
+      "probability": 0.5
+    },
+    {
+      "from": "n8n|trace_observed|ok",
+      "to": "n8n|trace_observed|ok",
+      "count": 1,
+      "total_from": 3,
+      "probability": 0.333333
+    },
+    {
+      "from": "n8n|trace_observed|ok",
+      "to": "n8n|patch_applied|ok",
+      "count": 1,
+      "total_from": 3,
+      "probability": 0.333333
+    },
+    {
+      "from": "n8n|trace_observed|ok",
+      "to": "actions|memory_written|ok",
+      "count": 1,
+      "total_from": 3,
+      "probability": 0.333333
+    },
+    {
+      "from": "n8n|patch_applied|ok",
+      "to": "n8n|memory_written|ok",
+      "count": 1,
+      "total_from": 1,
+      "probability": 1.0
+    },
+    {
+      "from": "n8n|memory_written|ok",
+      "to": "actions|trace_observed|ok",
+      "count": 1,
+      "total_from": 1,
+      "probability": 1.0
+    },
+    {
+      "from": "export_cleanup|safe_export_finalized|ok",
+      "to": "export_cleanup|safe_export_finalized|ok",
+      "count": 1,
+      "total_from": 2,
+      "probability": 0.5
+    },
+    {
+      "from": "export_cleanup|safe_export_finalized|ok",
+      "to": "export_cleanup|cleanup_plan_generated|ok",
+      "count": 1,
+      "total_from": 2,
+      "probability": 0.5
+    },
+    {
+      "from": "export_cleanup|move_to_quarantine|ok",
+      "to": "export_cleanup|cleanup_closed|closed",
+      "count": 1,
+      "total_from": 1,
+      "probability": 1.0
+    },
+    {
+      "from": "export_cleanup|cleanup_plan_generated|ok",
+      "to": "export_cleanup|move_to_quarantine|ok",
+      "count": 1,
+      "total_from": 1,
+      "probability": 1.0
+    },
+    {
+      "from": "export_cleanup|cleanup_closed|closed",
+      "to": "event_model|bootstrap_created|ok",
+      "count": 1,
+      "total_from": 1,
+      "probability": 1.0
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "n8n|trace_observed|ok",
+      "count": 1,
+      "total_from": 7,
+      "probability": 0.142857
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|trace_observed|ok",
+      "count": 1,
+      "total_from": 7,
+      "probability": 0.142857
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|trace_observed|error",
+      "count": 1,
+      "total_from": 7,
+      "probability": 0.142857
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|patch_applied|ok",
+      "count": 1,
+      "total_from": 7,
+      "probability": 0.142857
+    },
+    {
+      "from": "actions|trace_observed|ok",
+      "to": "actions|blocked_action|blocked",
+      "count": 1,
+      "total_from": 7,
+      "probability": 0.142857
+    },
+    {
+      "from": "actions|trace_observed|error",
+      "to": "system|patch_applied|ok",
+      "count": 1,
+      "total_from": 2,
+      "probability": 0.5
+    },
+    {
+      "from": "actions|trace_observed|error",
+      "to": "export_cleanup|safe_export_finalized|ok",
+      "count": 1,
+      "total_from": 2,
+      "probability": 0.5
+    },
+    {
+      "from": "actions|patch_applied|ok",
+      "to": "actions|trace_observed|error",
+      "count": 1,
+      "total_from": 2,
+      "probability": 0.5
+    },
+    {
+      "from": "actions|patch_applied|ok",
+      "to": "actions|memory_written|ok",
+      "count": 1,
+      "total_from": 2,
+      "probability": 0.5
+    },
+    {
+      "from": "actions|blocked_action|blocked",
+      "to": "system|memory_written|ok",
+      "count": 1,
+      "total_from": 2,
+      "probability": 0.5
+    },
+    {
+      "from": "actions|blocked_action|blocked",
+      "to": "actions|patch_applied|ok",
+      "count": 1,
+      "total_from": 2,
+      "probability": 0.5
+    },
+    {
+      "from": "actions|action_execute|ok",
+      "to": "actions|trace_observed|ok",
+      "count": 1,
+      "total_from": 2,
+      "probability": 0.5
+    },
+    {
+      "from": "system|memory_written|ok",
+      "to": "actions|trace_observed|ok",
+      "count": 1,
+      "total_from": 1,
+      "probability": 1.0
+    },
+    {
+      "from": "system|patch_applied|ok",
+      "to": "actions|trace_observed|ok",
+      "count": 1,
+      "total_from": 1,
+      "probability": 1.0
+    }
+  ]
+}

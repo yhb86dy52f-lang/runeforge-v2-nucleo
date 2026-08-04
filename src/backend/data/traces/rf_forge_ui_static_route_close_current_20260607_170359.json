@@ -1,0 +1,20 @@
+{
+  "Estado": "RF_FORGE_UI_STATIC_ROUTE_OK",
+  "Fecha": "2026-06-07 17:03:58",
+  "HealthUrl": "http://127.0.0.1:3100/health",
+  "ForgeUrlNoSlash": "http://127.0.0.1:3100/forge",
+  "ForgeUrlSlash": "http://127.0.0.1:3100/forge/",
+  "HealthStatus": 200,
+  "ForgeNoSlashStatus": 200,
+  "ForgeSlashStatus": 200,
+  "ForgeNoSlashLength": 3373,
+  "ForgeSlashLength": 3373,
+  "Pm2Process": "runeforge-mvp",
+  "Pm2Status": "online",
+  "Backend": "VALIDADO_NO_TOCADO_EN_CIERRE",
+  "PM2": "VALIDADO_NO_TOCADO_EN_CIERRE",
+  "Firewall": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "Politica": "CURRENT_OVERWRITE_WITH_BACKUP",
+  "Siguiente": "FORGE_UI_WEBCOMMAND_BINDING_V1"
+}

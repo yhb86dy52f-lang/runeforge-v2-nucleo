@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-05-27T07:33:59.9635638-06:00",
+  "estado": "RF_VISUAL_PROMPT_COMPILER_V1_BOOTSTRAP_DONE",
+  "template_manifest": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\catalogs\\rf_visual_template_factory_manifest_20260527_073015.json",
+  "compiler_script": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\visual_layout_engine\\Compile-RFVisualPrompt-V1.ps1",
+  "example_job": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\jobs\\prompt_compiler\\rf_visual_prompt_job_example_20260527_073358.json",
+  "compiled_md": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\outputs\\compiled_prompts\\compiled_prompt_rf_visual_job_example_20260527_073358_20260527_073359.md",
+  "compiled_json": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\outputs\\compiled_prompts\\compiled_prompt_rf_visual_job_example_20260527_073358_20260527_073359.json",
+  "templates_detected": 3,
+  "backend": "NO_TOCADO",
+  "gdrive": "NO_TOCADO",
+  "siguiente": "RF_VISUAL_GENERATION_GATE_V1"
+}

@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-05-31T18:54:48.8166354-06:00",
+  "event": "RF_FORGE_UI_PRECHECK_CURRENT_V1",
+  "status": "FORGE_UI_PRECHECK_REVIEW_REQUIRED",
+  "root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "app": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+  "health_ok": false,
+  "status_ok": false,
+  "webcommand_ok": false,
+  "actions_v4_ping_ok": false,
+  "app_exists": true,
+  "src_exists": true,
+  "public_exists": true,
+  "app_js_exists": true,
+  "server_js_exists": true,
+  "panel_candidates": [
+    {
+      "path": "C:\\RUNEFOGE_PRO\\runeforge\\data\\webcommand\\panel",
+      "exists": true,
+      "files": 3
+    },
+    {
+      "path": "C:\\RUNEFOGE_PRO\\runeforge\\app\\public",
+      "exists": true,
+      "files": 1
+    },
+    {
+      "path": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\forge",
+      "exists": true,
+      "files": 1
+    },
+    {
+      "path": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\webcommand",
+      "exists": true,
+      "files": 1
+    }
+  ],
+  "backend": "NO_TOCADO_PATCH",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "next": "REVISAR_PRECHECK_UI"
+}

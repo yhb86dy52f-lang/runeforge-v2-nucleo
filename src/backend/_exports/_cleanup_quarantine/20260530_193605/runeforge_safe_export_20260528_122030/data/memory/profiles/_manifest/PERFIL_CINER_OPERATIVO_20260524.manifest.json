@@ -1,0 +1,18 @@
+﻿{
+  "timestamp": "2026-05-24T03:03:40.7536081-06:00",
+  "event": "RF_PROFILE_CINER_VALIDATE_MANIFEST",
+  "status": "PROFILE_CANONICAL_OK",
+  "profile": "PERFIL_CINER_OPERATIVO_20260524",
+  "profile_file": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\profiles\\PERFIL_CINER_OPERATIVO_20260524.md",
+  "obsidian_file": "C:\\Users\\nesth\\Documents\\EL_ABISMO\\RUNEFORGE_OBSIDIAN\\09_MEMORIA_IA\\profiles\\PERFIL_CINER_OPERATIVO_20260524.md",
+  "profile_exists": true,
+  "obsidian_exists": true,
+  "sha256": "72D1D74788FDCB1FF3C8432127BAE7C982AD37373E590AB0DDA72C52F870010C",
+  "obsidian_sha256": "72D1D74788FDCB1FF3C8432127BAE7C982AD37373E590AB0DDA72C52F870010C",
+  "hash_match": true,
+  "contains_identity": true,
+  "contains_runeforge": true,
+  "contains_security": true,
+  "backend": "NO_TOCADO",
+  "next": "USAR_PERFIL_COMO_CONTEXTO_BASE"
+}

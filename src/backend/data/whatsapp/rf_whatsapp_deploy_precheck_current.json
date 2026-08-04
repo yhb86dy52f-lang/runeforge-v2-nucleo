@@ -1,0 +1,80 @@
+﻿{
+    "rf_schema":  "rf.whatsapp.deploy.precheck.v1",
+    "created_at":  "2026-06-15T21:50:55.2406950-06:00",
+    "estado":  "PRECHECK_PENDING_ENV_KEYS",
+    "root":  "C:\\RUNEFOGE_PRO\\runeforge",
+    "root_exists":  true,
+    "app":  "C:\\RUNEFOGE_PRO\\runeforge\\app",
+    "app_exists":  true,
+    "env_exists":  true,
+    "required_env_keys":  [
+                              {
+                                  "key":  "WHATSAPP_ACCESS_TOKEN",
+                                  "present":  true
+                              },
+                              {
+                                  "key":  "WHATSAPP_PHONE_NUMBER_ID",
+                                  "present":  true
+                              },
+                              {
+                                  "key":  "WHATSAPP_WABA_ID",
+                                  "present":  false
+                              },
+                              {
+                                  "key":  "WHATSAPP_VERIFY_TOKEN",
+                                  "present":  true
+                              },
+                              {
+                                  "key":  "WHATSAPP_APP_SECRET",
+                                  "present":  true
+                              },
+                              {
+                                  "key":  "RUNEFORGE_RELAY_SHARED_SECRET",
+                                  "present":  false
+                              },
+                              {
+                                  "key":  "RUNEFORGE_CORE_URL",
+                                  "present":  false
+                              },
+                              {
+                                  "key":  "OLLAMA_MODEL",
+                                  "present":  false
+                              }
+                          ],
+    "missing_env_keys":  [
+                             "WHATSAPP_WABA_ID",
+                             "RUNEFORGE_RELAY_SHARED_SECRET",
+                             "RUNEFORGE_CORE_URL",
+                             "OLLAMA_MODEL"
+                         ],
+    "node_available":  true,
+    "npm_available":  true,
+    "pm2_available":  true,
+    "http_checks":  [
+                        {
+                            "url":  "http://127.0.0.1:3100/health",
+                            "ok":  false,
+                            "status":  "No es posible conectar con el servidor remoto"
+                        },
+                        {
+                            "url":  "http://127.0.0.1:3100/status",
+                            "ok":  false,
+                            "status":  "No es posible conectar con el servidor remoto"
+                        },
+                        {
+                            "url":  "http://127.0.0.1:3100/api/webcommand/health",
+                            "ok":  false,
+                            "status":  "No es posible conectar con el servidor remoto"
+                        },
+                        {
+                            "url":  "http://127.0.0.1:11434/api/tags",
+                            "ok":  true,
+                            "status":  200
+                        }
+                    ],
+    "backend":  "NO_TOCADO",
+    "pm2":  "NO_TOCADO",
+    "firewall":  "NO_TOCADO",
+    "whatsapp_send":  "NO_REAL_SEND",
+    "siguiente":  "AGREGAR_KEYS_ENV_SIN_IMPRIMIR_VALORES"
+}

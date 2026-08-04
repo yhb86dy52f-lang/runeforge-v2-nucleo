@@ -1,0 +1,39 @@
+﻿{
+  "ts": "2026-05-17T01:41:45.1674478-06:00",
+  "node": "DESKTOP-NDFE0B0",
+  "role": "PENDIENTE_CLASIFICAR_PC1_O_PC2",
+  "user": "nesth",
+  "root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "root_exists": true,
+  "vault": "C:\\Users\\nesth\\Documents\\EL_ABISMO\\RUNEFORGE_OBSIDIAN",
+  "vault_exists": true,
+  "obsidian_exe": "C:\\Users\\nesth\\AppData\\Local\\Programs\\Obsidian\\Obsidian.exe",
+  "obsidian_exists": true,
+  "tailscale_ipv4": [
+    "100.111.32.10"
+  ],
+  "tailscale_service": "Running",
+  "ssh_service": "Running",
+  "ssh_listen": true,
+  "ssh_port": 22,
+  "ssh_listeners": [
+    {
+      "LocalAddress": "::",
+      "LocalPort": 22,
+      "State": 2,
+      "OwningProcess": 4392
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 22,
+      "State": 2,
+      "OwningProcess": 4392
+    }
+  ],
+  "ssh_established": [],
+  "runeforge_backend_3100": false,
+  "runeforge_backend_3100_listeners": [],
+  "traccar_8082": false,
+  "traccar_8082_listeners": [],
+  "notes": "Manifest local para unir PC-1, PC-2 e iPhone mediante Tailscale/SSH/Runeforge"
+}

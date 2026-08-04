@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-05-27T07:04:53.6011363-06:00",
+  "module": "RF_VISUAL_LAYOUT_ENGINE_V1",
+  "import": "RF_VISUAL_RESOURCES_IMPORT_V1",
+  "source_zip": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\evidence\\RECURSOS_20260527_065716.zip",
+  "total_files": 56,
+  "categories": {
+    "electrical_sensor_diagram": {
+      "count": 27,
+      "template_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\electrical_sensor_diagram",
+      "status": "SEED_FROM_RECURSOS_ZIP"
+    },
+    "vehicle_blueprint_transport": {
+      "count": 1,
+      "template_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\vehicle_blueprint_transport",
+      "status": "SEED_FROM_RECURSOS_ZIP"
+    },
+    "architectural_site_layout": {
+      "count": 28,
+      "template_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\architectural_site_layout",
+      "status": "SEED_FROM_RECURSOS_ZIP"
+    }
+  }
+}

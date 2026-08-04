@@ -1,0 +1,21 @@
+{
+  "Timestamp": "2026-06-03T22:37:15.9021487-06:00",
+  "ScriptPath": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\telemetria\\Convert-TglTelemetryMarkdown-V1.ps1",
+  "InputMd": "C:\\Users\\nesth\\Downloads\\TELEMETRIA\\KW 519 prueba obsidyan extractor datos.md",
+  "ArchivoDestino": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\telemetria\\Convert-TglTelemetryMarkdown-V1.ps1",
+  "Sobrescribir": true,
+  "Backup": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\telemetria\\Convert-TglTelemetryMarkdown-V1.ps1.backup_tiempoobjectfix_20260603_223715",
+  "Rollback": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\ops\\rollback\\Rollback-TglParser-TiempoObjectFix_20260603_223715.ps1",
+  "ReporteJson": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\rf_tgl_parser_tiempoobjectfix_20260603_223715.json",
+  "ArchivoExiste": true,
+  "ArchivoKB": 15.71,
+  "ArchivoModificado": "2026-06-03T22:37:15.6464989-06:00",
+  "ParserErrores": 0,
+  "RollbackEjecutado": false,
+  "DryRunOk": true,
+  "DryRunError": null,
+  "Backend": "NO_TOCADO",
+  "PM2": "NO_TOCADO",
+  "SQLiteProductivo": "NO_TOCADO",
+  "Impacto": "MODIFICA_ARCHIVOS"
+}

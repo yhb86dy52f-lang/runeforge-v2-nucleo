@@ -1,0 +1,289 @@
+﻿{
+  "ts": "2026-05-18 18:32:36",
+  "app": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+  "backend": "NO_TOCADO",
+  "package": {
+    "name": "runeforge-mvp",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Runeforge MVP local-first backend for Windows + PowerShell 7 + Node.js",
+    "main": "src/server.js",
+    "scripts": {
+      "dev": "nodemon src/server.js",
+      "start": "node src/server.js",
+      "doctor": "node -e \"require('./src/config/env'); console.log('RUNEFORGE_DOCTOR_OK')\""
+    },
+    "keywords": [
+      "runeforge",
+      "local-first",
+      "whatsapp",
+      "automation",
+      "node"
+    ],
+    "author": "Nesthor",
+    "license": "UNLICENSED",
+    "dependencies": {
+      "dotenv": "^16.4.5",
+      "express": "^4.21.2"
+    },
+    "devDependencies": {
+      "nodemon": "^3.1.10"
+    }
+  },
+  "files": [
+    {
+      "file": "src\\adapters\\ai\\ai.client.js",
+      "bytes": 255,
+      "lastWrite": "2026-03-20T00:15:06.0000000-06:00"
+    },
+    {
+      "file": "src\\adapters\\whatsapp\\whatsapp.webhook.routes.js",
+      "bytes": 886,
+      "lastWrite": "2026-03-20T00:15:06.0000000-06:00"
+    },
+    {
+      "file": "src\\config\\env.js",
+      "bytes": 1304,
+      "lastWrite": "2026-04-25T02:57:26.1979227-06:00"
+    },
+    {
+      "file": "src\\core\\command-registry.js",
+      "bytes": 1796,
+      "lastWrite": "2026-03-27T07:04:56.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\beacon\\beacon.routes.js",
+      "bytes": 547,
+      "lastWrite": "2026-03-20T00:15:06.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\chat\\skills\\general.js",
+      "bytes": 505,
+      "lastWrite": "2026-03-27T07:04:54.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\chat\\skills\\system.js",
+      "bytes": 904,
+      "lastWrite": "2026-03-27T07:04:54.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\chat\\skills\\telemetria.js",
+      "bytes": 1947,
+      "lastWrite": "2026-03-27T07:04:54.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\chat\\chat.routes.js",
+      "bytes": 511,
+      "lastWrite": "2026-03-27T00:54:00.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\chat\\chat.service.js",
+      "bytes": 947,
+      "lastWrite": "2026-03-27T00:55:32.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\chat\\chat.trace.js",
+      "bytes": 361,
+      "lastWrite": "2026-03-27T07:04:54.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\chat\\skill-router.js",
+      "bytes": 1199,
+      "lastWrite": "2026-03-27T00:57:16.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\codex\\codex.routes.js",
+      "bytes": 209,
+      "lastWrite": "2026-03-20T00:15:06.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\forge\\forge.routes.js",
+      "bytes": 1742,
+      "lastWrite": "2026-03-20T00:15:06.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\relay\\relay.routes.js",
+      "bytes": 508,
+      "lastWrite": "2026-03-20T00:15:06.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\sentinel\\sentinel.routes.js",
+      "bytes": 221,
+      "lastWrite": "2026-03-20T00:15:06.0000000-06:00"
+    },
+    {
+      "file": "src\\modules\\trace\\trace.middleware.js",
+      "bytes": 389,
+      "lastWrite": "2026-03-20T00:15:06.0000000-06:00"
+    },
+    {
+      "file": "src\\shared\\logger.js",
+      "bytes": 728,
+      "lastWrite": "2026-03-20T00:15:06.0000000-06:00"
+    },
+    {
+      "file": "src\\app.js",
+      "bytes": 1024,
+      "lastWrite": "2026-03-27T00:51:28.0000000-06:00"
+    },
+    {
+      "file": "src\\server.js",
+      "bytes": 736,
+      "lastWrite": "2026-04-25T02:57:27.2797422-06:00"
+    }
+  ],
+  "routes": [
+    {
+      "file": "src\\adapters\\whatsapp\\whatsapp.webhook.routes.js",
+      "line": 7,
+      "text": "router.get('/webhook', (req, res) => {"
+    },
+    {
+      "file": "src\\adapters\\whatsapp\\whatsapp.webhook.routes.js",
+      "line": 23,
+      "text": "router.post('/webhook', (req, res) => {"
+    },
+    {
+      "file": "src\\modules\\beacon\\beacon.routes.js",
+      "line": 6,
+      "text": "router.get('/health', (req, res) => {"
+    },
+    {
+      "file": "src\\modules\\beacon\\beacon.routes.js",
+      "line": 15,
+      "text": "router.get('/status', (req, res) => {"
+    },
+    {
+      "file": "src\\modules\\chat\\skills\\telemetria.js",
+      "line": 2,
+      "text": "const { executeCommand } = require('../../../core/command-registry');"
+    },
+    {
+      "file": "src\\modules\\chat\\chat.routes.js",
+      "line": 6,
+      "text": "router.post('/api/chat', async (req, res) => {"
+    },
+    {
+      "file": "src\\modules\\codex\\codex.routes.js",
+      "line": 5,
+      "text": "router.get('/api/codex', (req, res) => {"
+    },
+    {
+      "file": "src\\modules\\forge\\forge.routes.js",
+      "line": 7,
+      "text": "router.get('/', (req, res) => {"
+    },
+    {
+      "file": "src\\modules\\forge\\forge.routes.js",
+      "line": 34,
+      "text": "<li><code>GET /health</code></li>"
+    },
+    {
+      "file": "src\\modules\\forge\\forge.routes.js",
+      "line": 41,
+      "text": "<li><code>POST /command</code></li>"
+    },
+    {
+      "file": "src\\modules\\forge\\forge.routes.js",
+      "line": 42,
+      "text": "<li><code>GET /api/relay/whatsapp/webhook</code></li>"
+    },
+    {
+      "file": "src\\modules\\forge\\forge.routes.js",
+      "line": 43,
+      "text": "<li><code>POST /api/relay/whatsapp/webhook</code></li>"
+    },
+    {
+      "file": "src\\modules\\forge\\forge.routes.js",
+      "line": 55,
+      "text": "router.get('/api/forge', (req, res) => {"
+    },
+    {
+      "file": "src\\modules\\relay\\relay.routes.js",
+      "line": 2,
+      "text": "const { executeCommand } = require('../../core/command-registry');"
+    },
+    {
+      "file": "src\\modules\\relay\\relay.routes.js",
+      "line": 6,
+      "text": "router.post('/command', (req, res) => {"
+    },
+    {
+      "file": "src\\modules\\sentinel\\sentinel.routes.js",
+      "line": 5,
+      "text": "router.get('/api/sentinel', (req, res) => {"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 3,
+      "text": "const relayRoutes = require('./modules/relay/relay.routes');"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 9,
+      "text": "const { traceRequest } = require('./modules/trace/trace.middleware');"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 13,
+      "text": "app.use(express.json({ limit: '1mb' }));"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 14,
+      "text": "app.use(traceRequest);"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 16,
+      "text": "app.use('/', forgeRoutes);"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 17,
+      "text": "app.use('/', beaconRoutes);"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 18,
+      "text": "app.use('/', relayRoutes);"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 19,
+      "text": "app.use('/', sentinelRoutes);"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 20,
+      "text": "app.use('/', codexRoutes);"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 21,
+      "text": "app.use('/', chatRoutes);"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 22,
+      "text": "app.use('/api/relay/whatsapp', whatsappWebhookRoutes);"
+    },
+    {
+      "file": "src\\app.js",
+      "line": 24,
+      "text": "app.use((req, res) => {"
+    },
+    {
+      "file": "src\\server.js",
+      "line": 6,
+      "text": "app.listen(env.port, env.host, () => {"
+    },
+    {
+      "file": "src\\server.js",
+      "line": 16,
+      "text": "app.post('/api/chat', (req, res) => {"
+    }
+  ],
+  "app_js": "const express = require('express');\nconst beaconRoutes = require('./modules/beacon/beacon.routes');\nconst relayRoutes = require('./modules/relay/relay.routes');\nconst forgeRoutes = require('./modules/forge/forge.routes');\nconst sentinelRoutes = require('./modules/sentinel/sentinel.routes');\nconst codexRoutes = require('./modules/codex/codex.routes');\nconst chatRoutes = require('./modules/chat/chat.routes');\nconst whatsappWebhookRoutes = require('./adapters/whatsapp/whatsapp.webhook.routes');\nconst { traceRequest } = require('./modules/trace/trace.middleware');\n\nconst app = express();\n\napp.use(express.json({ limit: '1mb' }));\napp.use(traceRequest);\n\napp.use('/', forgeRoutes);\napp.use('/', beaconRoutes);\napp.use('/', relayRoutes);\napp.use('/', sentinelRoutes);\napp.use('/', codexRoutes);\napp.use('/', chatRoutes);\napp.use('/api/relay/whatsapp', whatsappWebhookRoutes);\n\napp.use((req, res) => {\n  res.status(404).json({\n    ok: false,\n    error: 'NOT_FOUND',\n    path: req.originalUrl\n  });\n});\n\nmodule.exports = app;",
+  "server_js": "const path = require('path');\r\nconst app = require('./app');\r\nconst env = require('./config/env');\r\nconst logger = require('./shared/logger');\r\n\r\napp.listen(env.port, env.host, () => {\r\n  logger.info('runeforge_started', {\r\n    service: env.appName,\r\n    env: env.nodeEnv,\r\n    port: env.port,\r\n    host: env.host\r\n  });\r\n});\r\n\r\n\napp.post('/api/chat', (req, res) => {\n  const input = String(req.body?.input ?? req.body?.message ?? '').trim();\n\n  const text = input\n    ? 'Runeforge recibió: ' + input\n    : 'Runeforge listo.';\n\n  return res.json({\n    ok: true,\n    input,\n    reply: {\n      text,\n      blocks: [\n        { type: 'text', text }\n      ]\n    },\n    meta: {\n      skill: 'general',\n      mode: 'mvp'\n    }\n  });\n});\r\n\r\n\r\n"
+}

@@ -1,0 +1,20 @@
+﻿[
+  {
+    "Kind": "SELF",
+    "HostName": "DESKTOP-NDFE0B0",
+    "DNSName": "desktop-ndfe0b0.tailad757b.ts.net.",
+    "OS": "windows",
+    "Online": true,
+    "TailscaleIPs": "100.111.32.10,fd7a:115c:a1e0::f3b:200a",
+    "UserID": 1902734181777055
+  },
+  {
+    "Kind": "PEER",
+    "HostName": "rf-iphone-nesth",
+    "DNSName": "rf-iphone-nesth.tailad757b.ts.net.",
+    "OS": "iOS",
+    "Online": true,
+    "TailscaleIPs": "100.97.117.115,fd7a:115c:a1e0::fa3b:7573",
+    "UserID": 1902734181777055
+  }
+]

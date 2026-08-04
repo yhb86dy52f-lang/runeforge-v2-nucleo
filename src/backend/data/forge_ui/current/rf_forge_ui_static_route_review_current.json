@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-06-01T00:25:42.7306905-06:00",
+  "event": "RF_FORGE_UI_STATIC_ROUTE_REVIEW_CURRENT_V1",
+  "status": "BACKEND_DOWN_OR_UNHEALTHY",
+  "listen_3100": false,
+  "health_ok": false,
+  "forge_ok": false,
+  "forge_index_ok": false,
+  "public_root_ok": false,
+  "panel_file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\public\\forge\\index.html",
+  "panel_exists": true,
+  "panel_size": 3377,
+  "app_js_exists": true,
+  "server_js_exists": true,
+  "static_detected_in_app_js": false,
+  "pm2_process_count": 0,
+  "pm2_names": [],
+  "backend": "NO_RESTART_READONLY",
+  "code": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "next": "RF_FORGE_UI_BACKEND_START_STATUS_FIX_CURRENT_V1"
+}

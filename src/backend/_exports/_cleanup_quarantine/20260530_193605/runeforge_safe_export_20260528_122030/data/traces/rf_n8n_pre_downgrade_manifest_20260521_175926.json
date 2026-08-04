@@ -1,0 +1,33 @@
+﻿{
+  "ts": "2026-05-21T17:59:26.5261470-06:00",
+  "event": "RF_N8N_PRE_DOWNGRADE_MANIFEST",
+  "runtime": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\runtime",
+  "backup_valid": true,
+  "backup_path": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\backup_completo_20260521_025747",
+  "packages": [
+    {
+      "Package": "n8n",
+      "Version": "2.21.5",
+      "PackageJson": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\runtime\\node_modules\\n8n\\package.json"
+    },
+    {
+      "Package": "@n8n/agents",
+      "Version": "0.7.0",
+      "PackageJson": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\runtime\\node_modules\\@n8n\\agents\\package.json"
+    },
+    {
+      "Package": "@langchain/core",
+      "Version": "1.1.41",
+      "PackageJson": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\runtime\\node_modules\\@langchain\\core\\package.json"
+    },
+    {
+      "Package": "zod",
+      "Version": "3.25.67",
+      "PackageJson": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\runtime\\node_modules\\zod\\package.json"
+    }
+  ],
+  "port5678": false,
+  "backend": "NO_TOCADO",
+  "node_global": "NO_TOCADO",
+  "next": "DEFINIR_VERSION_DOWNGRADE"
+}

@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-05-27T07:17:39.8564443-06:00",
+  "estado": "RF_GDRIVE_VISUAL_IMPORT_DRYRUN_V1_DONE",
+  "plan_origen": "C:\\RUNEFOGE_PRO\\runeforge\\data\\resource_discovery\\import_plan\\rf_gdrive_import_plan_20260527_071537.json",
+  "visual_candidates": 203,
+  "source_exists": 203,
+  "source_missing": 0,
+  "dryrun_json": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\dryrun\\rf_gdrive_visual_import_dryrun_20260527_071735.json",
+  "dryrun_csv": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\dryrun\\rf_gdrive_visual_import_dryrun_20260527_071735.csv",
+  "report": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\reports\\RF_GDRIVE_VISUAL_IMPORT_DRYRUN_V1_20260527_071735.md",
+  "backend": "NO_TOCADO",
+  "gdrive": "NO_TOCADO",
+  "copy": "NO_COPY_DRYRUN",
+  "siguiente": "RF_GDRIVE_VISUAL_IMPORT_APPLY_V1"
+}

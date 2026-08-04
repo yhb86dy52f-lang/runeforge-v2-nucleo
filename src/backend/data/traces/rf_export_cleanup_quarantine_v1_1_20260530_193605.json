@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-30T19:36:15.3392981-06:00",
+  "event": "RF_EXPORT_CLEANUP_QUARANTINE_V1_1",
+  "status": "QUARANTINE_DONE",
+  "zip_final": "C:\\RUNEFOGE_PRO\\runeforge\\_exports\\runeforge_safe_export_nogit_20260530_012849.zip",
+  "zip_movido": "C:\\RUNEFOGE_PRO\\runeforge\\_exports\\_cleanup_quarantine\\20260530_193605\\runeforge_safe_export_20260528_122030.zip",
+  "accion": "MOVE_ONLY_NO_DELETE",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO"
+}

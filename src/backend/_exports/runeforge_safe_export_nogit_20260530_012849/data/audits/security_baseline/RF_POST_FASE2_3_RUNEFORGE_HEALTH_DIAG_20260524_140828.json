@@ -1,0 +1,81 @@
+{
+  "Timestamp": "2026-05-24T14:08:33.2837096-06:00",
+  "Estado": "RF_POST_FASE2_3_RUNEFORGE_HEALTH_DIAG_DONE",
+  "HealthOk": false,
+  "Health": {
+    "ok": false,
+    "error": "No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión. (127.0.0.1:3100)"
+  },
+  "Puerto3100": null,
+  "Procesos3100": [],
+  "Pm2": [],
+  "RfRules": [
+    {
+      "DisplayName": "RF_ALLOW_SSH_SOLO_TAILSCALE_TCP_22",
+      "Enabled": 1,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 0
+    },
+    {
+      "DisplayName": "RF_ALLOW_TRACCAR_WEB_SOLO_TAILSCALE_TCP_8082",
+      "Enabled": 1,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 0
+    },
+    {
+      "DisplayName": "RF_ALLOW_SUNSHINE_SOLO_TAILSCALE_TCP",
+      "Enabled": 1,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 0
+    },
+    {
+      "DisplayName": "RF_ALLOW_AIRSERVER_SOLO_TAILSCALE_TCP",
+      "Enabled": 1,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 0
+    }
+  ],
+  "SteamRules": [
+    {
+      "DisplayName": "Steam",
+      "Enabled": 2,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 7
+    },
+    {
+      "DisplayName": "Steam",
+      "Enabled": 2,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 7
+    },
+    {
+      "DisplayName": "Steam Web Helper",
+      "Enabled": 2,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 7
+    },
+    {
+      "DisplayName": "Steam Web Helper",
+      "Enabled": 2,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 7
+    }
+  ],
+  "Alertas": [
+    "Runeforge /health no respondió OK.",
+    "No hay listener en 3100.",
+    "PM2 no muestra Runeforge online, o PM2 no respondió."
+  ],
+  "Backend": "NO_TOCADO",
+  "Firewall": "NO_MODIFICADO",
+  "Sistema": "NO_MODIFICADO",
+  "ReporteJson": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\security_baseline\\RF_POST_FASE2_3_RUNEFORGE_HEALTH_DIAG_20260524_140828.json"
+}

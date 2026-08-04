@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-06-28T17:35:41.6805122-06:00",
+  "phase": "RF_RUNEFORGE_COCKPIT_PLAN_REVIEW_CURRENT",
+  "status": "COCKPIT_PLAN_REVIEW_OK",
+  "modules": 8,
+  "endpoints": 10,
+  "security_rules": 8,
+  "missing": [],
+  "next": "RF_RUNEFORGE_COCKPIT_STATIC_MVP_CURRENT",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "drive_d": "NO_TOCADO",
+  "output_policy": "CURRENT_OVERWRITE_WITH_BACKUP"
+}

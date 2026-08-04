@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Runeforge Local AI</title>
+<style>body{margin:0;background:#0d0211;color:#f3eaff;font-family:system-ui,Segoe UI,Arial,sans-serif}main{max-width:960px;margin:auto;padding:24px}.card{background:#16051f;border:1px solid #372146;border-radius:18px;padding:18px;margin-bottom:14px}textarea{width:100%;min-height:130px;background:#09010d;color:#f3eaff;border:1px solid #372146;border-radius:12px;padding:12px;box-sizing:border-box}button{background:#7c3aed;color:white;border:0;border-radius:10px;padding:10px 14px;margin:8px 6px 0 0;font-weight:700;cursor:pointer}pre{background:#070009;border:1px solid #372146;border-radius:12px;padding:14px;white-space:pre-wrap}.muted{color:#a990bd}</style>
+</head>
+<body>
+<main>
+<section class="card"><h1>Runeforge Local AI</h1><div class="muted">Ollama local · qwen2.5:1.5b · shell bloqueado · trace JSONL</div></section>
+<section class="card"><textarea id="prompt" placeholder="Escribe una consulta para Runeforge..."></textarea><br><button onclick="chat()">Enviar</button><button onclick="health()">Health</button><button onclick="smoke()">Smoke</button></section>
+<section class="card"><pre id="out">Listo.</pre></section>
+</main>
+<script>const out=document.getElementById("out");async function health(){out.textContent="Validando health...";const r=await fetch("/api/ai/local/health");out.textContent=JSON.stringify(await r.json(),null,2)}async function smoke(){out.textContent="Validando smoke...";const r=await fetch("/api/ai/local/smoke");out.textContent=JSON.stringify(await r.json(),null,2)}async function chat(){const message=document.getElementById("prompt").value.trim();out.textContent="Procesando...";const r=await fetch("/api/ai/local/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message,num_predict:160,temperature:0.2})});const j=await r.json();out.textContent=j.content||JSON.stringify(j,null,2)}</script>
+</body>
+</html>

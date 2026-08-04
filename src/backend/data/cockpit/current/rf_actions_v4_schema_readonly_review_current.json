@@ -1,0 +1,487 @@
+{
+  "timestamp": "2026-06-28T18:46:35.4385249-06:00",
+  "phase": "RF_ACTIONS_V4_SCHEMA_READONLY_REVIEW_CURRENT",
+  "status": "ACTIONS_V4_SOURCE_FOUND_NO_WORKING_PAYLOAD",
+  "source_hits_count": 17,
+  "route_hints_count": 17,
+  "tests_count": 18,
+  "working_count": 0,
+  "working": [],
+  "tests": [
+    {
+      "name": "/actions/v4/execute_action_ping",
+      "url": "http://127.0.0.1:3100/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "payload": {
+          "source": "schema_review"
+        },
+        "action": "ping"
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2021,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:45:58.396Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/actions/v4/execute_intent_ping",
+      "url": "http://127.0.0.1:3100/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "intent": "ping",
+        "payload": {
+          "message": "ping"
+        },
+        "request_id": "rf-schema-review-intent",
+        "source": "schema_review"
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2022,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:00.452Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/actions/v4/execute_type_ping",
+      "url": "http://127.0.0.1:3100/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "type": "ping",
+        "payload": {
+          "source": "schema_review"
+        }
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2419,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:02.886Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/actions/v4/execute_command_ping",
+      "url": "http://127.0.0.1:3100/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "command": "ping",
+        "payload": {
+          "source": "schema_review"
+        }
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2027,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:04.920Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/actions/v4/execute_name_ping",
+      "url": "http://127.0.0.1:3100/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "name": "ping",
+        "payload": {
+          "source": "schema_review"
+        }
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2019,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:06.951Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/actions/v4/execute_id_ping",
+      "url": "http://127.0.0.1:3100/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "payload": {
+          "source": "schema_review"
+        },
+        "id": "ping"
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2036,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:08.992Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/actions/v4/execute_input_action_ping",
+      "url": "http://127.0.0.1:3100/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "input": {
+          "source": "schema_review",
+          "action": "ping"
+        }
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2050,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:11.048Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/actions/v4/execute_action_payload_text",
+      "url": "http://127.0.0.1:3100/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "payload": {
+          "text": "RUNEFORGE_SCHEMA_REVIEW"
+        },
+        "action": "echo"
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2025,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:13.081Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/actions/v4/execute_intent_payload_message",
+      "url": "http://127.0.0.1:3100/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "intent": "echo",
+        "payload": {
+          "message": "RUNEFORGE_SCHEMA_REVIEW"
+        },
+        "request_id": "rf-schema-review-echo",
+        "source": "schema_review"
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2328,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:15.418Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/api/actions/v4/execute_action_ping",
+      "url": "http://127.0.0.1:3100/api/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "payload": {
+          "source": "schema_review"
+        },
+        "action": "ping"
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2330,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:17.759Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/api/actions/v4/execute_intent_ping",
+      "url": "http://127.0.0.1:3100/api/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "intent": "ping",
+        "payload": {
+          "message": "ping"
+        },
+        "request_id": "rf-schema-review-intent",
+        "source": "schema_review"
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2028,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:19.798Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/api/actions/v4/execute_type_ping",
+      "url": "http://127.0.0.1:3100/api/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "type": "ping",
+        "payload": {
+          "source": "schema_review"
+        }
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2035,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:21.844Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/api/actions/v4/execute_command_ping",
+      "url": "http://127.0.0.1:3100/api/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "command": "ping",
+        "payload": {
+          "source": "schema_review"
+        }
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2026,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:23.883Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/api/actions/v4/execute_name_ping",
+      "url": "http://127.0.0.1:3100/api/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "name": "ping",
+        "payload": {
+          "source": "schema_review"
+        }
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2036,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:25.926Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/api/actions/v4/execute_id_ping",
+      "url": "http://127.0.0.1:3100/api/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "payload": {
+          "source": "schema_review"
+        },
+        "id": "ping"
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2032,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:27.968Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/api/actions/v4/execute_input_action_ping",
+      "url": "http://127.0.0.1:3100/api/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "input": {
+          "source": "schema_review",
+          "action": "ping"
+        }
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2463,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:30.449Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/api/actions/v4/execute_action_payload_text",
+      "url": "http://127.0.0.1:3100/api/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "payload": {
+          "text": "RUNEFORGE_SCHEMA_REVIEW"
+        },
+        "action": "echo"
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2689,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:33.157Z\"}",
+      "error": ""
+    },
+    {
+      "name": "/api/actions/v4/execute_intent_payload_message",
+      "url": "http://127.0.0.1:3100/api/actions/v4/execute",
+      "ok": false,
+      "status_code": 503,
+      "request": {
+        "intent": "echo",
+        "payload": {
+          "message": "RUNEFORGE_SCHEMA_REVIEW"
+        },
+        "request_id": "rf-schema-review-echo",
+        "source": "schema_review"
+      },
+      "response_sample": "{\"ok\":false,\"accepted\":false,\"blocked\":false,\"service\":\"Runeforge\",\"module\":\"RF_ACTIONS_CONTROLADAS_V4\",\"status\":\"POLICY_ROUTER_UNREACHABLE\",\"durationMs\":2026,\"policy_router\":{\"url\":\"http://127.0.0.1:5680/webhook/rf-action-router-v3\",\"error\":\"fetch failed\"},\"traceFile\":\"C:\\\\RUNEFOGE_PRO\\\\runeforge\\\\data\\\\traces\\\\rf_actions_v4_error_20260629.jsonl\",\"backend\":\"RUNEFORGE_CORE\",\"runtime_original\":\"NO_TOCADO\",\"ts\":\"2026-06-29T00:46:35.196Z\"}",
+      "error": ""
+    }
+  ],
+  "source_hits": [
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\adapters\\whatsapp\\whatsapp.webhook.routes.js",
+      "matched": "req.body",
+      "snippet": "L29: body: req.body"
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\channels\\whatsapp\\whatsapp.adapter.stub.js",
+      "matched": "payload",
+      "snippet": "L1: export function normalizeWhatsAppInbound(payload) {"
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\core\\command-registry.js",
+      "matched": "payload",
+      "snippet": [
+        "L3: function executeCommand(name, payload = {}) {",
+        "L34: echo: payload"
+      ]
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\botforce\\botforce.routes.js",
+      "matched": "req.body",
+      "snippet": "L20: const result = service.ingest(req.body || {});"
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\botforce\\botforce.service.js",
+      "matched": "payload",
+      "snippet": [
+        "L71: function ingest(payload) {",
+        "L73: text: payload && payload.text ? String(payload.text) : '',",
+        "L74: title: payload && payload.title ? String(payload.title) : '',",
+        "L75: source: payload && payload.source ? String(payload.source) : 'api',",
+        "L76: meta: payload && payload.meta ? payload.meta : {}"
+      ]
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\botforce\\botforce.store.js",
+      "matched": "payload",
+      "snippet": [
+        "L29: function writeJson(kind, payload) {",
+        "L37: ...payload"
+      ]
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\chat\\skills\\general.js",
+      "matched": "action",
+      "snippet": "L20: allowedActions: []"
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\chat\\skills\\system.js",
+      "matched": "action",
+      "snippet": "L30: allowedActions: []"
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\chat\\skills\\telemetria.js",
+      "matched": "action",
+      "snippet": [
+        "L26: const actionStatus = execution",
+        "L57: type: 'action',",
+        "L58: action: requestedCommand || null,",
+        "L59: status: actionStatus,",
+        "L63: allowedActions: allowedCommands"
+      ]
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\chat\\chat.routes.js",
+      "matched": "req.body",
+      "snippet": "L8: const result = await handleChat(req.body || {});"
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\global_chat\\global_chat.routes.js",
+      "matched": "health_check_request, trace_event, run_powershell, req.body, intent, action, payload",
+      "snippet": [
+        "L42: if (t.includes('borrar') || t.includes('delete') || t.includes('firewall') || t.includes('run_powershell')) return 'medio';",
+        "L60: actions: false,",
+        "L76: const body = req.body && typeof req.body === 'object' ? req.body : {};",
+        "L102: user_intent: kind,",
+        "L111: needs_action: false,",
+        "L117: allowed_actions: ['trace_event', 'memory_write', 'health_check_request'],",
+        "L118: blocked_actions: ['run_powershell', 'shell', 'secrets_read']",
+        "L141: actions_executed: false,",
+        "L147: const body = req.body && typeof req.body === 'object' ? req.body : {};",
+        "L153: payload: body.payload || {},",
+        "L178: event: obj.event || obj.user_intent || obj.schema || null,"
+      ]
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\integrations\\n8n.routes.js",
+      "matched": "actions/v4, api/actions, health_check_request, trace_event, allowlist, req.body, intent, action, payload",
+      "snippet": [
+        "L9: const DEFAULT_N8N_ACTION_ROUTER_URL = 'http://127.0.0.1:5680/webhook/rf-action-router-v3';",
+        "L19: function getActionRouterUrl() {",
+        "L20: return process.env.RF_N8N_ACTION_ROUTER_URL || process.env.N8N_ACTION_ROUTER_URL || DEFAULT_N8N_ACTION_ROUTER_URL;",
+        "L85: const payload = {",
+        "L115: payload.traceFile = traceFile || 'TRACE_WRITE_SKIPPED';",
+        "L117: return res.status(n8nOk ? 200 : 502).json(payload);",
+        "L121: const payload = {",
+        "L149: payload.traceFile = traceFile || 'TRACE_WRITE_SKIPPED';",
+        "L151: return res.status(503).json(payload);",
+        "L160: const body = req.body && typeof req.body === 'object' ? req.body : {};",
+        "L163: intent: body.intent || 'core_task_intake',",
+        "L165: payload: body.payload || body,",
+        "L185: const payload = {",
+        "L217: payload.traceFile = traceFile || 'TRACE_WRITE_SKIPPED';",
+        "L219: return res.status(n8nOk ? 200 : 502).json(payload);",
+        "L223: const payload = {",
+        "L253: payload.traceFile = traceFile || 'TRACE_WRITE_SKIPPED';",
+        "L255: return res.status(503).json(payload);",
+        "L259: async function handleN8nActionRouter(req, res) {",
+        "L261: const url = getActionRouterUrl();",
+        "L264: const body = req.body && typeof req.body === 'object' ? req.body : {};",
+        "L268: intent: body.intent || '',",
+        "L270: payload: body.payload || {},",
+        "L273: bridge: 'RUNEFORGE_CORE_TO_N8N_ACTION_ROUTER_V3',",
+        "L276: policy: 'ALLOWLIST_INTENTS_ONLY_NO_SHELL',",
+        "L290: const n8nBlocked = upstream.httpOk && upstream.data && upstream.data.status === 'INTENT_NOT_ALLOWED';",
+        "L293: const payload = {",
+        "L299: mode: 'action-router-v3',",
+        "L300: status: n8nAccepted ? 'N8N_ACTION_ROUTER_ACCEPTED' : (n8nBlocked ? 'N8N_ACTION_ROUTER_BLOCKED' : 'N8N_ACTION_ROUTER_ERROR'),",
+        "L315: controlled_actions_only: true",
+        "L320: const traceFile = appendTrace('rf_core_n8n_action_router_v3', {",
+        "L322: event: n8nAccepted ? 'RF_CORE_N8N_ACTION_ROUTER_V3_ACCEPTED' : (n8nBlocked ? 'RF_CORE_N8N_ACTION_ROUTER_V3_BLOCKED' : 'RF_CORE_N8N_ACTION_ROUTER_V3_ERROR'),",
+        "L335: payload.traceFile = traceFile || 'TRACE_WRITE_SKIPPED';",
+        "L337: return res.status(ok ? 200 : 502).json(payload);",
+        "L341: const payload = {",
+        "L347: mode: 'action-router-v3',",
+        "L348: status: 'N8N_ACTION_ROUTER_UNREACHABLE',",
+        "L360: const traceFile = appendTrace('rf_core_n8n_action_router_v3', {",
+        "L362: event: 'RF_CORE_N8N_ACTION_ROUTER_V3_EXCEPTION',",
+        "L373: payload.traceFile = traceFile || 'TRACE_WRITE_SKIPPED';",
+        "L375: return res.status(503).json(payload);",
+        "L385: router.post('/integrations/n8n/action-router', handleN8nActionRouter);",
+        "L386: router.post('/api/integrations/n8n/action-router', handleN8nActionRouter);",
+        "L387: router.post('/integrations/n8n/action-router-v3', handleN8nActionRouter);",
+        "L388: router.post('/api/integrations/n8n/action-router-v3', handleN8nActionRouter);",
+        "L391: // === RF_ACTIONS_CONTROLADAS_V4_BEGIN ===",
+        "L392: async function handleActionsV4(req, res) {",
+        "L394: const body = req.body && typeof req.body === 'object' ? req.body : {};",
+        "L395: const requestId = body.request_id || `rf-actions-v4-${Date.now()}`;",
+        "L396: const intent = String(body.intent || '').trim();",
+        "L397: const source = body.source || 'runeforge_core_actions_v4';",
+        "L398: const payload = body.payload && typeof body.payload === 'object' ? body.payload : {};",
+        "L399: const policyUrl = getActionRouterUrl();",
+        "L404: intent,",
+        "L406: payload,",
+        "L409: bridge: 'RUNEFORGE_CORE_ACTIONS_CONTROLADAS_V4',",
+        "L412: policy: 'ALLOWLIST_INTENTS_ONLY_NO_SHELL',",
+        "L426: const traceFile = appendTrace('rf_actions_v4_error', {",
+        "L428: event: 'RF_ACTIONS_V4_POLICY_UNREACHABLE',",
+        "L430: intent,"
+      ]
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\local_ai\\local_ai.routes.js",
+      "matched": "req.body",
+      "snippet": "L28: const result = await localAi.chat(req.body || {});"
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\local_ai\\local_ai.service.js",
+      "matched": "action, payload",
+      "snippet": [
+        "L58: \"Respeta la arquitectura INPUT → ROUTER → SKILL → ACTION → TRACE → RESPONSE.\",",
+        "L67: async function chat(payload) {",
+        "L68: const message = safeString(payload.message || payload.prompt || payload.input || \"\");",
+        "L69: const system = buildSystemPrompt(payload.system || \"\");",
+        "L70: const model = safeString(payload.model || process.env.RF_LOCAL_AI_MODEL || DEFAULT_MODEL, 120) || DEFAULT_MODEL;"
+      ]
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\relay\\relay.routes.js",
+      "matched": "req.body, payload",
+      "snippet": [
+        "L7: const { command, payload } = req.body || {};",
+        "L16: const result = executeCommand(command, payload || {});"
+      ]
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\webcommand\\webcommand.routes.js",
+      "matched": "req.body, action",
+      "snippet": [
+        "L11: const ALLOWED_ACTIONS = new Set([",
+        "L56: allowedActions: Array.from(ALLOWED_ACTIONS)",
+        "L61: const action = String(req.body && req.body.action ? req.body.action : '').trim();",
+        "L63: if (!ALLOWED_ACTIONS.has(action)) {",
+        "L66: error: 'ACTION_NOT_ALLOWED',",
+        "L67: action,",
+        "L68: allowedActions: Array.from(ALLOWED_ACTIONS)",
+        "L73: if (action === 'status') {",
+        "L76: action,",
+        "L90: if (action === 'backend-root') {",
+        "L95: return res.json({ ok: output.ok, action, output });",
+        "L98: if (action === 'package') {",
+        "L102: action,",
+        "L108: if (action === 'src-tree') {",
+        "L113: return res.json({ ok: output.ok, action, output });",
+        "L116: if (action === 'pm2-health') {",
+        "L119: \"$pm2=(Get-Command pm2 -ErrorAction SilentlyContinue); $health=$null; try{$health=Invoke-RestMethod 'http://127.0.0.1:3100/health' -TimeoutSec 5}catch{$health=[pscustomobject]@{error=$_.Exception.Message}}; [pscustomobject]@{pm2Exists=[bool]$pm2; pm2Path=if($pm2){$pm2.Source}else{$null}; health=$health; ts=(Get-Date).ToString('o')} | ConvertTo-Json -Depth 8\"",
+        "L121: return res.json({ ok: output.ok, action, output });",
+        "L124: return res.status(500).json({ ok: false, error: 'UNHANDLED_ACTION', action });",
+        "L128: action,"
+      ]
+    },
+    {
+      "file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\server.js",
+      "matched": "req.body",
+      "snippet": "L17: const input = String(req.body?.input ?? req.body?.message ?? '').trim();"
+    }
+  ],
+  "next": "RF_ACTIONS_V4_SOURCE_CONTRACT_REVIEW_CURRENT",
+  "backend_code": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "drive_d": "NO_TOCADO",
+  "action_probe": "PING_ECHO_SAFE_ONLY",
+  "output_policy": "CURRENT_OVERWRITE_WITH_BACKUP"
+}

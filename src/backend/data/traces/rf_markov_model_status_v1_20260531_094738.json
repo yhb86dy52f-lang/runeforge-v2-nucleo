@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-31T09:47:39.1487255-06:00",
+  "event": "RF_MARKOV_MODEL_STATUS_V1",
+  "status": "MARKOV_MODEL_STATUS_OK",
+  "model": "C:\\RUNEFOGE_PRO\\runeforge\\data\\markov\\dryrun\\rf_markov_model_v1_dryrun_20260531_094537.json",
+  "event_count": 30,
+  "parse_errors": 0,
+  "unique_states": 16,
+  "transitions": 29,
+  "unique_transitions": 27,
+  "policy_ok": true,
+  "counts_ok": true,
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "siguiente": "RF_MARKOV_GRAPH_EXPORT_V1"
+}

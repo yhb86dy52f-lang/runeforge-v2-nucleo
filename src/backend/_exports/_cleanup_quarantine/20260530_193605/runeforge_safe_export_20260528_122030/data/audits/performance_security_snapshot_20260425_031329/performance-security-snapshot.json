@@ -1,0 +1,452 @@
+{
+  "timestamp": "2026-04-25T03:13:32",
+  "mode": "READ_ONLY_PERFORMANCE_SECURITY_SNAPSHOT",
+  "topCpu": [
+    {
+      "ProcessName": "MsMpEng",
+      "Id": 4708,
+      "CPU": 20188.125,
+      "WS": 322887680,
+      "PM": 346214400,
+      "Path": null
+    },
+    {
+      "ProcessName": "dwm",
+      "Id": 1268,
+      "CPU": 17393.984375,
+      "WS": 100196352,
+      "PM": 138280960,
+      "Path": "C:\\Windows\\system32\\dwm.exe"
+    },
+    {
+      "ProcessName": "SmartPSSLite",
+      "Id": 16736,
+      "CPU": 14420.21875,
+      "WS": 160329728,
+      "PM": 252354560,
+      "Path": "C:\\Program Files\\SmartPSSLite\\SmartPSSLite.exe"
+    },
+    {
+      "ProcessName": "System",
+      "Id": 4,
+      "CPU": 8017.609375,
+      "WS": 8818688,
+      "PM": 225280,
+      "Path": null
+    },
+    {
+      "ProcessName": "brave",
+      "Id": 10852,
+      "CPU": 2697.640625,
+      "WS": 649146368,
+      "PM": 547414016,
+      "Path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    },
+    {
+      "ProcessName": "EoAExperiences",
+      "Id": 8636,
+      "CPU": 2696.828125,
+      "WS": 24748032,
+      "PM": 7258112,
+      "Path": "C:\\Windows\\System32\\EoaExperiences.exe"
+    },
+    {
+      "ProcessName": "Rainmeter",
+      "Id": 14080,
+      "CPU": 1698.25,
+      "WS": 55697408,
+      "PM": 28864512,
+      "Path": "C:\\Program Files\\Rainmeter\\Rainmeter.exe"
+    },
+    {
+      "ProcessName": "explorer",
+      "Id": 8656,
+      "CPU": 1326.859375,
+      "WS": 352628736,
+      "PM": 580866048,
+      "Path": "C:\\Windows\\Explorer.EXE"
+    },
+    {
+      "ProcessName": "brave",
+      "Id": 19536,
+      "CPU": 1052.265625,
+      "WS": 318500864,
+      "PM": 403066880,
+      "Path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    },
+    {
+      "ProcessName": "SearchIndexer",
+      "Id": 6428,
+      "CPU": 976.296875,
+      "WS": 103223296,
+      "PM": 109576192,
+      "Path": "C:\\Windows\\system32\\SearchIndexer.exe"
+    },
+    {
+      "ProcessName": "brave",
+      "Id": 832,
+      "CPU": 870.96875,
+      "WS": 884686848,
+      "PM": 804061184,
+      "Path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    },
+    {
+      "ProcessName": "svchost",
+      "Id": 1720,
+      "CPU": 456.921875,
+      "WS": 14536704,
+      "PM": 3457024,
+      "Path": "C:\\Windows\\system32\\svchost.exe"
+    },
+    {
+      "ProcessName": "tailscaled",
+      "Id": 6956,
+      "CPU": 300.109375,
+      "WS": 54087680,
+      "PM": 88014848,
+      "Path": "C:\\Program Files\\Tailscale\\tailscaled.exe"
+    },
+    {
+      "ProcessName": "brave",
+      "Id": 2940,
+      "CPU": 277.53125,
+      "WS": 361807872,
+      "PM": 220856320,
+      "Path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    },
+    {
+      "ProcessName": "csrss",
+      "Id": 684,
+      "CPU": 266.515625,
+      "WS": 6324224,
+      "PM": 3612672,
+      "Path": null
+    },
+    {
+      "ProcessName": "svchost",
+      "Id": 892,
+      "CPU": 249.1875,
+      "WS": 44187648,
+      "PM": 26107904,
+      "Path": "C:\\Windows\\system32\\svchost.exe"
+    },
+    {
+      "ProcessName": "ShareX",
+      "Id": 14660,
+      "CPU": 226.625,
+      "WS": 251580416,
+      "PM": 314798080,
+      "Path": "C:\\Program Files\\ShareX\\ShareX.exe"
+    },
+    {
+      "ProcessName": "AirServer",
+      "Id": 8216,
+      "CPU": 217.75,
+      "WS": 68493312,
+      "PM": 94810112,
+      "Path": "C:\\Program Files\\App Dynamic\\AirServer\\AirServer.exe"
+    },
+    {
+      "ProcessName": "svchost",
+      "Id": 984,
+      "CPU": 214.234375,
+      "WS": 23109632,
+      "PM": 19677184,
+      "Path": "C:\\Windows\\system32\\svchost.exe"
+    },
+    {
+      "ProcessName": "svchost",
+      "Id": 3324,
+      "CPU": 203.96875,
+      "WS": 10244096,
+      "PM": 5107712,
+      "Path": "C:\\Windows\\system32\\svchost.exe"
+    }
+  ],
+  "topMem": [
+    {
+      "ProcessName": "brave",
+      "Id": 832,
+      "CPU": 870.96875,
+      "WS": 884686848,
+      "PM": 804061184,
+      "Path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    },
+    {
+      "ProcessName": "brave",
+      "Id": 10852,
+      "CPU": 2697.65625,
+      "WS": 649146368,
+      "PM": 547414016,
+      "Path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    },
+    {
+      "ProcessName": "brave",
+      "Id": 2940,
+      "CPU": 277.53125,
+      "WS": 361816064,
+      "PM": 220856320,
+      "Path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    },
+    {
+      "ProcessName": "explorer",
+      "Id": 8656,
+      "CPU": 1326.859375,
+      "WS": 352628736,
+      "PM": 580866048,
+      "Path": "C:\\Windows\\Explorer.EXE"
+    },
+    {
+      "ProcessName": "MsMpEng",
+      "Id": 4708,
+      "CPU": 20188.40625,
+      "WS": 322879488,
+      "PM": 346214400,
+      "Path": null
+    },
+    {
+      "ProcessName": "SearchApp",
+      "Id": 10004,
+      "CPU": 133.625,
+      "WS": 320139264,
+      "PM": 275677184,
+      "Path": "C:\\Windows\\SystemApps\\Microsoft.Windows.Search_cw5n1h2txyewy\\SearchApp.exe"
+    },
+    {
+      "ProcessName": "brave",
+      "Id": 19536,
+      "CPU": 1052.28125,
+      "WS": 318500864,
+      "PM": 403066880,
+      "Path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    },
+    {
+      "ProcessName": "pwsh",
+      "Id": 6600,
+      "CPU": 51.984375,
+      "WS": 277508096,
+      "PM": 152080384,
+      "Path": "C:\\Program Files\\PowerShell\\7\\pwsh.exe"
+    },
+    {
+      "ProcessName": "ShareX",
+      "Id": 14660,
+      "CPU": 226.625,
+      "WS": 251580416,
+      "PM": 314798080,
+      "Path": "C:\\Program Files\\ShareX\\ShareX.exe"
+    },
+    {
+      "ProcessName": "Memory Compression",
+      "Id": 1916,
+      "CPU": 58.90625,
+      "WS": 245596160,
+      "PM": 1236992,
+      "Path": null
+    },
+    {
+      "ProcessName": "brave",
+      "Id": 16204,
+      "CPU": 150.484375,
+      "WS": 202358784,
+      "PM": 130994176,
+      "Path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    },
+    {
+      "ProcessName": "Microsoft.Notes",
+      "Id": 3384,
+      "CPU": 35.890625,
+      "WS": 168534016,
+      "PM": 110915584,
+      "Path": "C:\\Program Files\\WindowsApps\\Microsoft.MicrosoftStickyNotes_6.1.4.0_x64__8wekyb3d8bbwe\\Microsoft.Notes.exe"
+    },
+    {
+      "ProcessName": "powershell",
+      "Id": 7080,
+      "CPU": 1.671875,
+      "WS": 167477248,
+      "PM": 142536704,
+      "Path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+    },
+    {
+      "ProcessName": "SmartPSSLite",
+      "Id": 16736,
+      "CPU": 14420.234375,
+      "WS": 160329728,
+      "PM": 252354560,
+      "Path": "C:\\Program Files\\SmartPSSLite\\SmartPSSLite.exe"
+    },
+    {
+      "ProcessName": "PhoneExperienceHost",
+      "Id": 11528,
+      "CPU": 6.921875,
+      "WS": 146096128,
+      "PM": 81821696,
+      "Path": "C:\\Program Files\\WindowsApps\\Microsoft.YourPhone_1.25072.79.0_x64__8wekyb3d8bbwe\\PhoneExperienceHost.exe"
+    },
+    {
+      "ProcessName": "WhatsApp.Root",
+      "Id": 9588,
+      "CPU": 53.9375,
+      "WS": 136863744,
+      "PM": 76943360,
+      "Path": "C:\\Program Files\\WindowsApps\\5319275A.WhatsAppDesktop_2.2613.101.0_x64__cv1g1gvanyjgm\\WhatsApp.Root.exe"
+    },
+    {
+      "ProcessName": "WindowsTerminal",
+      "Id": 20796,
+      "CPU": 56.796875,
+      "WS": 133160960,
+      "PM": 95145984,
+      "Path": "C:\\Program Files\\WindowsApps\\Microsoft.WindowsTerminal_1.24.10921.0_x64__8wekyb3d8bbwe\\WindowsTerminal.exe"
+    },
+    {
+      "ProcessName": "StartMenuExperienceHost",
+      "Id": 9656,
+      "CPU": 44.8125,
+      "WS": 129146880,
+      "PM": 88821760,
+      "Path": "C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe"
+    },
+    {
+      "ProcessName": "ShellExperienceHost",
+      "Id": 2212,
+      "CPU": 59.390625,
+      "WS": 113205248,
+      "PM": 85073920,
+      "Path": "C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe"
+    },
+    {
+      "ProcessName": "brave",
+      "Id": 10580,
+      "CPU": 17.90625,
+      "WS": 112095232,
+      "PM": 71528448,
+      "Path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    }
+  ],
+  "defenderStatus": {
+    "AntivirusEnabled": true,
+    "RealTimeProtectionEnabled": true,
+    "IoavProtectionEnabled": true,
+    "OnAccessProtectionEnabled": true,
+    "BehaviorMonitorEnabled": true,
+    "FullScanAge": 1,
+    "QuickScanAge": 1,
+    "AntivirusSignatureLastUpdated": "2026-04-24T12:49:04-06:00"
+  },
+  "defenderPrefs": {
+    "DisableRealtimeMonitoring": false,
+    "ExclusionPath": [
+      "C:\\RUNEFORGE_PRO",
+      "C:\\scripts",
+      "C:\\Users\\nesth\\Documents\\EL_ABISMO"
+    ],
+    "ExclusionProcess": null,
+    "ExclusionExtension": null,
+    "ScanAvgCPULoadFactor": 50,
+    "ScanScheduleDay": 0,
+    "ScanScheduleTime": {
+      "Ticks": 72000000000,
+      "Days": 0,
+      "Hours": 2,
+      "Milliseconds": 0,
+      "Microseconds": 0,
+      "Nanoseconds": 0,
+      "Minutes": 0,
+      "Seconds": 0,
+      "TotalDays": 0.08333333333333333,
+      "TotalHours": 2.0,
+      "TotalMilliseconds": 7200000.0,
+      "TotalMicroseconds": 7200000000.0,
+      "TotalNanoseconds": 7200000000000.0,
+      "TotalMinutes": 120.0,
+      "TotalSeconds": 7200.0
+    }
+  },
+  "criticalServices": [
+    {
+      "Name": "sshd",
+      "DisplayName": "OpenSSH SSH Server",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "Tailscale",
+      "DisplayName": "Tailscale",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "TermService",
+      "DisplayName": "Servicios de Escritorio remoto",
+      "Status": 1,
+      "StartType": 3
+    },
+    {
+      "Name": "traccar",
+      "DisplayName": "traccar",
+      "Status": 4,
+      "StartType": 2
+    },
+    {
+      "Name": "WinRM",
+      "DisplayName": "Administración remota de Windows (WS-Management)",
+      "Status": 4,
+      "StartType": 2
+    }
+  ],
+  "listeners": [
+    {
+      "LocalAddress": "::",
+      "LocalPort": 8082,
+      "PID": 4608,
+      "Process": "java",
+      "Path": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "AllInterfaces": true
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 5985,
+      "PID": 4,
+      "Process": "System",
+      "Path": null,
+      "AllInterfaces": true
+    },
+    {
+      "LocalAddress": "::",
+      "LocalPort": 22,
+      "PID": 10040,
+      "Process": "sshd",
+      "Path": "C:\\Program Files\\OpenSSH-Win64\\sshd.exe",
+      "AllInterfaces": true
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 47990,
+      "PID": 3724,
+      "Process": "sunshine",
+      "Path": "C:\\Program Files\\Sunshine\\Sunshine.exe",
+      "AllInterfaces": true
+    },
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 3100,
+      "PID": 12016,
+      "Process": "node",
+      "Path": "C:\\Program Files\\nodejs\\node.exe",
+      "AllInterfaces": false
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 22,
+      "PID": 10040,
+      "Process": "sshd",
+      "Path": "C:\\Program Files\\OpenSSH-Win64\\sshd.exe",
+      "AllInterfaces": true
+    }
+  ],
+  "backend": "NO_TOCADO",
+  "defender": "NO_TOCADO",
+  "services": "NO_TOCADO"
+}

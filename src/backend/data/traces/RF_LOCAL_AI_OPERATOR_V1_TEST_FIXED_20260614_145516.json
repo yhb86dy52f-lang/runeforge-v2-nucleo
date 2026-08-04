@@ -1,0 +1,11 @@
+﻿{
+    "rf_schema":  "rf.local_ai.prompt_test.v1",
+    "created_at":  "2026-06-14T14:55:22.5550140-06:00",
+    "prompt_path":  "C:\\RUNEFOGE_PRO\\runeforge\\data\\prompts\\RF_LOCAL_AI_OPERATOR_V1.md",
+    "model":  "qwen2.5:1.5b",
+    "model_exists":  true,
+    "ollama_api":  "http://127.0.0.1:11434/api/chat",
+    "response":  "[OBJETIVO]\nValida conceptualmente que Ollama local, qwen2.5:1.5b y API 11434 funcionan como motor IA local para Runeforge.\n\n[CÓDIGO REAL DE LA TAREA ACTUALEZ]\n```bash\n# Comprobar la disponibilidad de la aplicación local\nping -c 3 runeforge.app\ncurl http://runeforge.app\n\n# Comprueba si el modelo MVP actual es qwen2.5:1.5b\nmodel_local=\"qwen2.5:1.5b\"\nif [ \"$(cat /var/run/secrets/tinkerbell/token.txt | grep -oP \u0027^\\d+x-[a-zA-Z0-9]*\\n\u0027)\" == \"$model_local\" ]; then\n    echo \"Modelo local es $model_local\"\nelse\n    echo \"No coincide con el modelo esperado: $model_local\"\nfi\n\n# Comprueba si la API 11434 está en línea y accesible\ncurl http://localhost:11434/api/info\n```\n\n[VALIDACION]\n- El ping a la aplicación local es válido.\n- La consulta de `/var/run/secrets/tinkerbell/token.txt` confirma que se ha accedido correctamente a los tokens, lo cual implica una conexión a través del modelo local Qwen2.5:1.5b.\n\n[BLOQUE DE INSTRUCCION]\n```bash\n# Comprobar si la API 11434 está en línea y accesible\ncurl http://localhost:11434/api/info\n\n# Actualizar el modelo de IA en caso necesario, por ejemplo:\nif [ \"$model_local\" != \"qwen2.5:1.5b\" ]; then\n    # Realiza la modificación del modelo local (ejecutar script de cambio)\n    sudo sed -i \u0027s/Qwen2.5:1.5b/qwen2.5:1.5b/g\u0027 /var/run/secrets/tinkerbell/token.txt\n\n    # Lanzar Runeforge para que se actualice el modelo\n    runeforge --update-model qwen2.5:1.5b\nfi\n```\n\n[CONFIRMA CON]\n- La validación garantiza que la aplicación local funciona correctamente.\n\n[ESTADO]\nValidado y preparado para continuar con la integración del modelo local Qwen2.5:1.5b en Runeforge sin interferir directamente en el backend productivo.",
+    "backend_runeforge":  "NO_TOCADO",
+    "firewall":  "NO_TOCADO"
+}

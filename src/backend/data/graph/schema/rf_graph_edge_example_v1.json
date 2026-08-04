@@ -1,0 +1,12 @@
+{
+  "edge_id": "edge_evt_sample_to_domain_actions",
+  "from_node": "evt_sample",
+  "to_node": "node_domain_actions",
+  "relation": "pertenece_a_dominio",
+  "confidence": 1.0,
+  "created_at": "2026-05-30T20:28:15.0926522-06:00",
+  "evidence_event_id": "evt_sample",
+  "metadata": {
+    "source": "rf_events_v1.jsonl"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "template_id": "tpl_croquis_to_blueprint_v1",
+  "tipo_visual": "croquis_to_blueprint",
+  "objective": "Convertir croquis, satélite o imagen base en plano técnico limpio con sectores, bordes, rutas y etiquetas.",
+  "style": "croquis_clean_blueprint",
+  "input_required": [
+    "prompt_original",
+    "metadata_extraida",
+    "layout_spec",
+    "referencias",
+    "objetivo_usuario"
+  ],
+  "required_layers": [
+    "source_trace",
+    "clean_boundaries",
+    "zones",
+    "routes",
+    "labels",
+    "scale_notes"
+  ],
+  "output_required": [
+    "prompt_compilado",
+    "layout_spec",
+    "checklist",
+    "negative_rules",
+    "version"
+  ],
+  "policy": {
+    "no_random_generation": true,
+    "require_evidence": true,
+    "require_metadata": true,
+    "require_checklist": true,
+    "require_version": true
+  },
+  "canonical_examples": [
+    {
+      "visual_id": "rfvis_0004",
+      "file_name": "tula.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "UNIQUE_CONTENT",
+      "duplicate_count": 1,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\croquis_to_blueprint\\tula.png",
+      "sha256": "B486866CA557AF92DE3ED3BC5B315FFE41622138DFFFCB6F4746AB06E8451932"
+    },
+    {
+      "visual_id": "rfvis_0001",
+      "file_name": "abasolo satelite.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "UNIQUE_CONTENT",
+      "duplicate_count": 1,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\croquis_to_blueprint\\abasolo satelite.png",
+      "sha256": "A0CC15FA50CF74DC75F9B81AACCDCE4E6A9A41F8C44DAE2C4ED5B5AAAA444465"
+    },
+    {
+      "visual_id": "rfvis_0003",
+      "file_name": "tienda.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "UNIQUE_CONTENT",
+      "duplicate_count": 1,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\croquis_to_blueprint\\tienda.png",
+      "sha256": "36790F6F009E0A4290AFD8360F650D020C7EE809FCB8A6FA76C2E3479BDE271F"
+    },
+    {
+      "visual_id": "rfvis_0002",
+      "file_name": "abasolo.png",
+      "extension": ".png",
+      "quality_tag": "OK_VISUAL_REFERENCE",
+      "content_status": "UNIQUE_CONTENT",
+      "duplicate_count": 1,
+      "destino": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\imports\\gdrive_zod\\visual_direct\\croquis_to_blueprint\\abasolo.png",
+      "sha256": "A38B6CCBFB983A4D2F5F36DDFC15560587EB9229CC1334C3C138C2928D1A9362"
+    }
+  ]
+}

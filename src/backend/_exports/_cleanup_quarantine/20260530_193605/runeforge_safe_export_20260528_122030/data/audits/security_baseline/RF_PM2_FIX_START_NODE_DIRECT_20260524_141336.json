@@ -1,0 +1,22 @@
+{
+  "Timestamp": "2026-05-24T14:13:46.4799546-06:00",
+  "Estado": "RF_PM2_FIX_START_NODE_DIRECT_DONE",
+  "HealthOk": true,
+  "Port3100": true,
+  "Health": {
+    "ok": true,
+    "service": "Runeforge",
+    "env": "development",
+    "uptimeSec": 7
+  },
+  "Pm2List": "┌────┬──────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐\r\n│ id │ name             │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │\r\n├────┼──────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤\r\n│ 0  │ runeforge-mvp    │ default     │ 0.1.0   │ fork    │ 4664     │ 7s     │ 0    │ online    │ 0%       │ 66.8mb   │ nesth    │ disabled │\r\n└────┴──────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘\r\n",
+  "Alertas": [
+    "Backend recuperado: /health OK."
+  ],
+  "Backend": "PM2_FIX_NODE_DIRECT",
+  "Firewall": "NO_TOCADO",
+  "Steam": "NO_TOCADO",
+  "Tailscale": "NO_TOCADO",
+  "Traccar": "NO_TOCADO",
+  "ReporteJson": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\security_baseline\\RF_PM2_FIX_START_NODE_DIRECT_20260524_141336.json"
+}

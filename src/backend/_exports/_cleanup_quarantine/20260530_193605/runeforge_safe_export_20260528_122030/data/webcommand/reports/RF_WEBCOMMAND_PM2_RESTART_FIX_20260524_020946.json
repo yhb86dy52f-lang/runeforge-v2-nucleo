@@ -1,0 +1,36 @@
+{
+  "BaseHealth": {
+    "ok": true,
+    "service": "Runeforge",
+    "env": "development",
+    "uptimeSec": 4
+  },
+  "WebCommandHealth": {
+    "ok": true,
+    "service": "Runeforge WebCommand",
+    "mode": "safe-readonly",
+    "allowedActions": [
+      "status",
+      "backend-root",
+      "package",
+      "src-tree",
+      "pm2-health"
+    ]
+  },
+  "WebCommandStatus": {
+    "ok": true,
+    "action": "status",
+    "result": {
+      "root": "C:\\RUNEFOGE_PRO\\runeforge",
+      "app": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+      "rootExists": true,
+      "appExists": true,
+      "packageJsonExists": true,
+      "serverJsExists": true,
+      "appJsExists": true,
+      "timestamp": "2026-05-24T08:09:46.077Z"
+    }
+  },
+  "Report": "C:\\RUNEFOGE_PRO\\runeforge\\data\\webcommand\\reports\\RF_WEBCOMMAND_PM2_RESTART_FIX_20260524_020946.json",
+  "GeneratedAt": "2026-05-24T02:09:46.1144010-06:00"
+}

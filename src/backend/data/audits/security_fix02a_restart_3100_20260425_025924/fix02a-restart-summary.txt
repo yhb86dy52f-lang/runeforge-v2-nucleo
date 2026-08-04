@@ -1,0 +1,29 @@
+RUNEFORGE_SECURITY_FIX02A_RESTART_SUMMARY
+timestamp=2026-04-25T02:59:34
+mode=FIX02A_RESTART_PM2_NO_JSON_PARSE
+root=C:\RUNEFOGE_PRO\runeforge
+backend=C:\RUNEFOGE_PRO\runeforge\app
+
+server_has_host_listen=True
+env_has_host=True
+
+restart_log:
+cwd=C:\RUNEFOGE_PRO\runeforge\app
+pm2 restart runeforge exit=0
+
+health_ok=True
+health_service=Runeforge
+health_env=development
+
+listeners_3100=1
+all_interface_3100=0
+expected_all_interface_3100=0
+
+backend=RUNTIME_RESTART_ONLY
+firewall=NO_TOCADO
+defender=NO_TOCADO
+env_file=NO_LEIDO
+
+NEXT_REQUIRED_RESULT:
+Pega aquí el contenido completo de:
+C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix02a_restart_3100_20260425_025924\fix02a-restart-summary.txt

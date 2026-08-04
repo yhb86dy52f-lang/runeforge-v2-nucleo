@@ -1,0 +1,21 @@
+{
+  "Timestamp": "2026-05-24T14:10:17.4050637-06:00",
+  "Estado": "RF_RECUPERAR_BACKEND_3100_DONE",
+  "Accion": "PM2_START_NPM_START",
+  "HealthOk": false,
+  "Health": {
+    "ok": false,
+    "error": "No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión. (127.0.0.1:3100)"
+  },
+  "Port3100": false,
+  "Puerto3100": null,
+  "Pm2RowsInicial": [],
+  "Alertas": [
+    "Runeforge sigue sin responder /health.",
+    "Sigue sin listener en 3100."
+  ],
+  "Firewall": "NO_TOCADO",
+  "Steam": "NO_TOCADO",
+  "Tailscale": "NO_TOCADO",
+  "ReporteJson": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\security_baseline\\RF_RECUPERAR_BACKEND_3100_20260524_141004.json"
+}

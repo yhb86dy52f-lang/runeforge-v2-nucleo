@@ -1,0 +1,25 @@
+RUNEFORGE_SECURITY_FIX03C_SSH_FIREWALL_PREFLIGHT_SUMMARY
+timestamp=2026-04-25T03:24:11
+mode=READ_ONLY_SSH_FIREWALL_PREFLIGHT
+root=C:\RUNEFOGE_PRO\runeforge
+
+tailscale_ip=100.111.32.10
+intended_remote_address=100.64.0.0/10
+ssh_22_listeners=2
+ssh_22_all_interfaces=2
+ssh_firewall_rules=5
+
+outputs:
+- C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03c_ssh_firewall_preflight_20260425_032406\fix03c-ssh-firewall-preflight.json
+- C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03c_ssh_firewall_preflight_20260425_032406\fix03c-ssh-firewall-preflight.md
+- C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03c_ssh_firewall_preflight_20260425_032406\fix03c-ssh-firewall-preflight-summary.txt
+
+backend=NO_TOCADO
+sshd_config=NO_TOCADO
+ssh_service=NO_TOCADO
+firewall=NO_TOCADO
+tailscale=NO_TOCADO
+
+NEXT_REQUIRED_RESULT:
+Pega aquí el contenido completo de:
+C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03c_ssh_firewall_preflight_20260425_032406\fix03c-ssh-firewall-preflight.md

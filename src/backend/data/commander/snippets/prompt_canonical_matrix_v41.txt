@@ -1,0 +1,17 @@
+[CANONICAL_MATRIX_VALIDATION_V41]
+Valida la siguiente información contra el estado canónico de Runeforge.
+
+Reglas de validación:
+1. La raíz válida es C:\RUNEFOGE_PRO\runeforge.
+2. El backend válido es C:\RUNEFOGE_PRO\runeforge\app.
+3. C:\RUNEFORGE_PRO no debe usarse como raíz activa.
+4. No se permiten exclusiones amplias de Defender.
+5. Tailscale es la vía remota segura.
+6. Backend primero, UI después.
+7. Toda acción debe mapear a INPUT → ROUTER → SKILL → ACTION → TRACE → RESPONSE.
+
+Entrega:
+- Confirmado
+- Conflicto
+- PENDIENTE
+- Acción recomendada

@@ -1,0 +1,13 @@
+﻿# RF_WHATSAPP_PUBLIC_EDGE_SCAFFOLD_CURRENT
+
+- Fecha: 2026-06-15 22:29:00
+- Estado: RF_WHATSAPP_RELAY_PUBLIC_EDGE_SCAFFOLD_CREATED
+- EdgeDir: C:\RUNEFOGE_PRO\runeforge\relay\whatsapp-public-edge
+- Node check: OK
+- Real WhatsApp send: NO_REAL_SEND
+- Backend: NO_TOCADO
+- PM2: NO_TOCADO
+- Firewall: NO_TOCADO
+
+## Siguiente
+- RF_WHATSAPP_PUBLIC_EDGE_LOCAL_TEST_V1

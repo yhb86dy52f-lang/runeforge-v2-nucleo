@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-05-31T09:45:38.8484696-06:00",
+  "event": "RF_MARKOV_TRAIN_DRYRUN_V1",
+  "status": "MARKOV_TRAIN_DRYRUN_DONE",
+  "model": "C:\\RUNEFOGE_PRO\\runeforge\\data\\markov\\dryrun\\rf_markov_model_v1_dryrun_20260531_094537.json",
+  "states_csv": "C:\\RUNEFOGE_PRO\\runeforge\\data\\markov\\dryrun\\rf_markov_states_v1_dryrun_20260531_094537.csv",
+  "transitions_csv": "C:\\RUNEFOGE_PRO\\runeforge\\data\\markov\\dryrun\\rf_markov_transitions_v1_dryrun_20260531_094537.csv",
+  "report": "C:\\RUNEFOGE_PRO\\runeforge\\data\\reports\\markov\\RF_MARKOV_TRAIN_DRYRUN_V1_20260531_094537.md",
+  "events": 30,
+  "parse_errors": 0,
+  "unique_states": 16,
+  "transitions": 29,
+  "unique_transitions": 27,
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "next": "RF_MARKOV_MODEL_STATUS_V1"
+}

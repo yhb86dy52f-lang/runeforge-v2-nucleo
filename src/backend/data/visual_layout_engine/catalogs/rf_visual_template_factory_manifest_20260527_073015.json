@@ -1,0 +1,38 @@
+[
+  {
+    "tipo_visual": "cctv_coverage_map",
+    "total_candidates": 193,
+    "canonical_examples": 12,
+    "template_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\cctv_coverage_map",
+    "prompt_template": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\cctv_coverage_map\\prompt_template.md",
+    "layout_spec_template": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\cctv_coverage_map\\layout_spec.template.json",
+    "checklist": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\cctv_coverage_map\\checklist.md",
+    "negative_rules": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\cctv_coverage_map\\negative_rules.md",
+    "examples": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\cctv_coverage_map\\canonical_examples.json",
+    "status": "TEMPLATE_READY"
+  },
+  {
+    "tipo_visual": "croquis_to_blueprint",
+    "total_candidates": 4,
+    "canonical_examples": 4,
+    "template_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\croquis_to_blueprint",
+    "prompt_template": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\croquis_to_blueprint\\prompt_template.md",
+    "layout_spec_template": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\croquis_to_blueprint\\layout_spec.template.json",
+    "checklist": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\croquis_to_blueprint\\checklist.md",
+    "negative_rules": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\croquis_to_blueprint\\negative_rules.md",
+    "examples": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\croquis_to_blueprint\\canonical_examples.json",
+    "status": "TEMPLATE_READY"
+  },
+  {
+    "tipo_visual": "geo_route_or_sector_map",
+    "total_candidates": 4,
+    "canonical_examples": 4,
+    "template_dir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\geo_route_or_sector_map",
+    "prompt_template": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\geo_route_or_sector_map\\prompt_template.md",
+    "layout_spec_template": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\geo_route_or_sector_map\\layout_spec.template.json",
+    "checklist": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\geo_route_or_sector_map\\checklist.md",
+    "negative_rules": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\geo_route_or_sector_map\\negative_rules.md",
+    "examples": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\templates\\geo_route_or_sector_map\\canonical_examples.json",
+    "status": "TEMPLATE_READY"
+  }
+]

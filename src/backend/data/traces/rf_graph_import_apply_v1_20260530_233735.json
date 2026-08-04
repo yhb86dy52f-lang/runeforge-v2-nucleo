@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-05-30T23:37:38.1655975-06:00",
+  "event": "RF_GRAPH_IMPORT_APPLY_V1",
+  "status": "APPLY_DONE",
+  "nodes_entrada": 81,
+  "edges_entrada": 150,
+  "nodes_nuevos": 81,
+  "edges_nuevos": 150,
+  "nodes_duplicados": 0,
+  "edges_duplicados": 0,
+  "invalid_edges": 0,
+  "nodes_log": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\nodes\\rf_graph_nodes_v1.jsonl",
+  "edges_log": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\edges\\rf_graph_edges_v1.jsonl",
+  "node_snapshot": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\snapshots\\rf_graph_nodes_import_snapshot_20260530_233735.json",
+  "edge_snapshot": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph\\snapshots\\rf_graph_edges_import_snapshot_20260530_233735.json",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "siguiente": "RF_GRAPH_MODEL_STATUS_V1"
+}

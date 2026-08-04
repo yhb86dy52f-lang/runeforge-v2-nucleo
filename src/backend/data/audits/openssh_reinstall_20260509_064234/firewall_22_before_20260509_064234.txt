@@ -1,0 +1,32 @@
+[
+  {
+    "DisplayName": "Runeforge SSH Tailscale Only",
+    "Name": "{bf4d8171-2837-4b08-b7b1-2a3da5e0e5a4}",
+    "Action": "Allow",
+    "Profile": "Any",
+    "Protocol": "TCP",
+    "LocalPort": "22",
+    "RemoteAddress": "100.64.0.0/255.192.0.0",
+    "Program": "C:\\Program Files\\OpenSSH-Win64\\sshd.exe"
+  },
+  {
+    "DisplayName": "OpenSSH SSH Server (sshd)",
+    "Name": "OpenSSH-Server-In-TCP",
+    "Action": "Allow",
+    "Profile": "Any",
+    "Protocol": "TCP",
+    "LocalPort": "22",
+    "RemoteAddress": "Any",
+    "Program": "%SystemRoot%\\system32\\OpenSSH\\sshd.exe"
+  },
+  {
+    "DisplayName": "Runeforge SSH Tailscale Only Native",
+    "Name": "{e2c401cb-47b1-4c9a-9783-9dc4d22a170d}",
+    "Action": "Allow",
+    "Profile": "Any",
+    "Protocol": "TCP",
+    "LocalPort": "22",
+    "RemoteAddress": "100.64.0.0/255.192.0.0",
+    "Program": "C:\\Windows\\System32\\OpenSSH\\sshd.exe"
+  }
+]

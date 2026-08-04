@@ -1,0 +1,13 @@
+{
+  "ts": "2026-05-22T19:37:05.1449975-06:00",
+  "event": "RF_N8N_ACTIVE_PING_IMPORT_FIX_BOM_V2",
+  "workflow_file": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\workflows\\RF_N8N_ACTIVE_PING_V1.workflow.json",
+  "import_log": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\logs\\n8n_import_active_ping_fix_bom_v2_20260522_193640.log",
+  "import_exit_code": 1,
+  "list_exit_code": 0,
+  "json_valid": true,
+  "has_bom": false,
+  "backend": "NO_TOCADO",
+  "runtime_original": "NO_TOCADO",
+  "n8n_db": "TOCADO_CANARY"
+}

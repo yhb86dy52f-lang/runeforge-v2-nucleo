@@ -1,0 +1,30 @@
+{
+  "schema": "rf.event.v1",
+  "required": [
+    "event_id",
+    "ts",
+    "domain",
+    "source",
+    "actor",
+    "entity_type",
+    "entity_id",
+    "action",
+    "status",
+    "risk"
+  ],
+  "fields": {
+    "event_id": "string unique id",
+    "ts": "ISO8601 timestamp",
+    "domain": "system area: export_cleanup/actions_v4/n8n/webcommand/visual/memory/security",
+    "source": "origin: powershell/node/n8n/obsidian/iphone",
+    "actor": "human or system actor",
+    "entity_type": "zip_export/action/workflow/report/device/unit/etc",
+    "entity_id": "specific entity identifier",
+    "action": "what happened",
+    "status": "ok|blocked|error|pending|closed",
+    "risk": "low|medium|high",
+    "trace_path": "optional local trace path",
+    "evidence_path": "optional report/evidence path",
+    "metadata": "optional object"
+  }
+}

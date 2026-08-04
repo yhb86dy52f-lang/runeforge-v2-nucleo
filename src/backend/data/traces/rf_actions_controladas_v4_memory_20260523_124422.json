@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-05-23T12:44:23.3826485-06:00",
+  "event": "RF_ACTIONS_CONTROLADAS_V4_MEMORY",
+  "status": "HITO_CERRADO",
+  "progress_global": "90%",
+  "progress_n8n": "100%",
+  "progress_core": "94%",
+  "root": "C:\\RUNEFOGE_PRO\\runeforge",
+  "backend_pm2_name": "runeforge-mvp",
+  "core_route_file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\integrations\\n8n.routes.js",
+  "endpoints": {
+    "actions_v4": "POST http://127.0.0.1:3100/actions/v4/execute",
+    "actions_v4_api_alias": "POST http://127.0.0.1:3100/api/actions/v4/execute",
+    "policy_router": "POST http://127.0.0.1:5680/webhook/rf-action-router-v3"
+  },
+  "allowed_actions": [
+    "ping",
+    "echo",
+    "trace_event",
+    "health_check_request"
+  ],
+  "blocked_test": "run_powershell",
+  "validation": {
+    "health_ok": true,
+    "v4_ping_ok": true,
+    "v4_echo_ok": true,
+    "v4_trace_ok": true,
+    "v4_health_action_ok": true,
+    "v4_block_shell_ok": true
+  },
+  "security_policy": {
+    "shell": "BLOQUEADO",
+    "filesystem_write": "TRACE_ONLY",
+    "external_network": "BLOQUEADO",
+    "controlled_actions_only": true
+  },
+  "traces": {
+    "patch_trace": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_controladas_v4_patch_safe_20260523_123833.json",
+    "execute_trace": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v4_execute_20260523.jsonl",
+    "blocked_trace": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces\\rf_actions_v4_blocked_20260523.jsonl",
+    "backup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\rf_actions_controladas_v4\\n8n.routes.js.20260523_123833.bak"
+  },
+  "backend_code": "TOCADO_N8N_ROUTE_ONLY",
+  "n8n_runtime": "NO_TOCADO",
+  "next": "DISEÑAR_ACTIONS_V5_MINIMAS_REALES"
+}

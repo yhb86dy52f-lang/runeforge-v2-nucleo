@@ -1,0 +1,17 @@
+{
+  "ts": "2026-05-23T10:42:39.8561814-06:00",
+  "event": "RF_CORE_N8N_TASK_INTAKE_ENDPOINT_PATCH_V1",
+  "route_file": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\modules\\integrations\\n8n.routes.js",
+  "route_backup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\core_n8n_task_intake_endpoint_patch_v1\\n8n.routes.js.20260523_104229.bak",
+  "parser_route": 0,
+  "parser_app": 0,
+  "parser_server": 0,
+  "pm2_restart_exit_code": 0,
+  "health_ok": true,
+  "n8n_task_direct_ok": true,
+  "core_task_intake_ok": true,
+  "core_task_intake_alias_ok": true,
+  "backend_code": "TOCADO_N8N_ROUTE_ONLY",
+  "n8n_runtime": "NO_TOCADO",
+  "next": "CERRAR_HITO_CORE_TASK_INTAKE"
+}

@@ -1,0 +1,31 @@
+RUNEFORGE_SECURITY_FIX02A_SUMMARY
+timestamp=2026-04-25T02:57:34
+mode=FIX02A_LOCALHOST_BIND
+root=C:\RUNEFOGE_PRO\runeforge
+backend=C:\RUNEFOGE_PRO\runeforge\app
+
+server_backup=C:\RUNEFOGE_PRO\runeforge\backups\security\server.js.20260425_025723.fix02a.bak
+env_backup=C:\RUNEFOGE_PRO\runeforge\backups\security\env.js.20260425_025723.fix02a.bak
+env_example_status=UPDATED
+rollback=C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix02a_localhost_bind_20260425_025723\rollback-fix02a.ps1
+
+pm2_restart=PM2_RESTART_ERROR:Cannot convert the JSON string because it contains keys with different casing. Please use the -AsHashTable switch instead. The key that was attempted to be added to the existing key 'username' was 'USERNAME'.
+health_ok=True
+health_service=Runeforge
+health_env=development
+
+listeners_3100=1
+all_interface_3100=1
+expected_all_interface_3100=0
+
+backend=TOCADO_SERVER_ENV_ONLY
+firewall=NO_TOCADO
+defender=NO_TOCADO
+env_file=NO_LEIDO
+
+NEXT_REQUIRED_RESULT:
+Pega aquí el contenido completo de:
+C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix02a_localhost_bind_20260425_025723\fix02a-summary.txt
+
+VALIDATION:
+Get-NetTCPConnection -State Listen -LocalPort 3100

@@ -1,0 +1,36 @@
+{
+  "Timestamp": "2026-05-09 09:37:00",
+  "AuditDir": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\openssh_pin_983_20260509_093700",
+  "TargetTag": "v9.8.3.0p2-Preview",
+  "CurrentDir": "C:\\Program Files\\OpenSSH-Win64",
+  "BrokenDir": "C:\\Program Files\\OpenSSH-Win64_BROKEN10_20260509_093700",
+  "ProgramDataBackup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\openssh_pin_983_20260509_093700\\ProgramData_ssh_backup_20260509_093700",
+  "DownloadUrl": "https://github.com/PowerShell/Win32-OpenSSH/releases/download/v9.8.3.0p2-Preview/OpenSSH-Win64.zip",
+  "Downloaded": true,
+  "ZipSHA256": "0CA131F3A78F404DC819A6336606CAEC0DB1663A692CCC3AF1E90232706ADA54",
+  "ExtractedSource": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\openssh_pin_983_20260509_093700\\extract\\OpenSSH-Win64",
+  "OldFolderMoved": true,
+  "NewCopied": true,
+  "ConfigRestored": true,
+  "ConfigUpdated": true,
+  "AclFixed": true,
+  "SshdConfigTest": 0,
+  "ServiceStatus": "Running",
+  "ServicePath": "\"C:\\Program Files\\OpenSSH-Win64\\sshd.exe\"",
+  "SshdVersion": "9.8.3.0 / OpenSSH_9.8p2 for Windows",
+  "Port22": [
+    {
+      "LocalAddress": "::",
+      "LocalPort": 22,
+      "OwningProcess": 10296
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 22,
+      "OwningProcess": 10296
+    }
+  ],
+  "RecentCrashes": null,
+  "Status": "OK_OPENSSH_PIN_983_APPLIED",
+  "Error": null
+}

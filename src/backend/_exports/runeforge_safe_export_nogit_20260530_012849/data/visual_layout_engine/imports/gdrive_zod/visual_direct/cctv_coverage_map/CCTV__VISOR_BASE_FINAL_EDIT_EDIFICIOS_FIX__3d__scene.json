@@ -1,0 +1,28 @@
+{
+  "units": "meters-ish (escala relativa)",
+  "notes": "Edificios base (solo 2) alineados a la imagen. Si cambias la escala/posición del suelo, ajusta x/z/w/d.",
+  "buildings": [
+    {
+      "name": "Nave principal",
+      "type": "box",
+      "w": 76.0,
+      "d": 46.0,
+      "h": 7.0,
+      "x": 8.8,
+      "z": -20.5,
+      "color": "#dfe6ea"
+    },
+    {
+      "name": "Oficinas (aprox)",
+      "type": "box",
+      "w": 26.0,
+      "d": 72.0,
+      "h": 5.5,
+      "x": -48.8,
+      "z": 27.5,
+      "color": "#cfd8dd"
+    }
+  ],
+  "zonesRect": [],
+  "cameras": []
+}

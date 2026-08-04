@@ -1,0 +1,28 @@
+{
+  "Timestamp": "2026-05-09 06:46:48",
+  "Dir": "C:\\Program Files\\OpenSSH-Win64",
+  "Sshd": "C:\\Program Files\\OpenSSH-Win64\\sshd.exe",
+  "Sftp": "C:\\Program Files\\OpenSSH-Win64\\sftp-server.exe",
+  "Unblocked": true,
+  "AclFixed": true,
+  "SshdExists": true,
+  "SftpExists": true,
+  "SshdConfigTest": 0,
+  "ServiceStatus": "Running",
+  "ServicePath": "\"C:\\Program Files\\OpenSSH-Win64\\sshd.exe\"",
+  "Port22": [
+    {
+      "LocalAddress": "::",
+      "LocalPort": 22,
+      "OwningProcess": 15340
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 22,
+      "OwningProcess": 15340
+    }
+  ],
+  "RecentCrashes": null,
+  "Status": "OK_OPENSSH_EXE_ACCESS_REPAIRED",
+  "Error": null
+}

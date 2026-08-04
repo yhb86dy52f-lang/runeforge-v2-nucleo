@@ -1,0 +1,9 @@
+﻿{
+  "ts": "2026-05-20T21:08:17.0152957-06:00",
+  "event": "RF_MEMORY_SEARCH_V1",
+  "query": "CINER",
+  "index": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\index\\rf_memory_index_v1_20260520_192251.json",
+  "results": 5,
+  "backend": "NO_TOCADO",
+  "next": "VALIDAR_BUSQUEDA_Y_CREAR_SQLITE_DESPUES"
+}

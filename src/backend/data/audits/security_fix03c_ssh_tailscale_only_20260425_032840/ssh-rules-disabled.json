@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "AllowSSH",
+    "DisplayName": "Allow SSH",
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "Any"
+  },
+  {
+    "Name": "{7ad679b3-5b60-4217-9340-3b32c945602e}",
+    "DisplayName": "Runeforge SSH 22",
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "Any"
+  },
+  {
+    "Name": "sshd",
+    "DisplayName": "OpenSSH Server",
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "Any"
+  },
+  {
+    "Name": "{689beeb7-6c7d-4d5c-afcf-ae0b219f47e5}",
+    "DisplayName": "OpenSSH Server",
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "Any"
+  },
+  {
+    "Name": "{48399a75-acfc-4dd2-a3c2-aa091c9e6e8e}",
+    "DisplayName": "OpenSSH Server",
+    "LocalPort": "22",
+    "Protocol": "TCP",
+    "RemoteAddress": "Any"
+  }
+]

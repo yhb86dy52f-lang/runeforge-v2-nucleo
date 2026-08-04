@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-31T15:00:26.2980157-06:00",
+  "event": "RF_SESSION_BRIEF_GENERATOR_V1",
+  "status": "DONE",
+  "brief_current": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\session_brief\\RF_SESSION_BRIEF_CURRENT.md",
+  "brief_version": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\session_brief\\RF_SESSION_BRIEF_20260531_150026.md",
+  "profile": "PENDIENTE",
+  "markov_current": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory\\markov\\RF_MARKOV_V1_CURRENT_STATUS.md",
+  "event_count": 30,
+  "node_count": 81,
+  "edge_count": 150,
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "next": "RF_EVENT_ACCUMULATION_PLAN_V1"
+}

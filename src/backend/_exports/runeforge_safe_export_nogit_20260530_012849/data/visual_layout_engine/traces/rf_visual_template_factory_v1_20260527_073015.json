@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-05-27T07:30:17.6633503-06:00",
+  "estado": "RF_VISUAL_TEMPLATE_FACTORY_V1_DONE",
+  "index_origen": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\indexes\\rf_visual_imported_metadata_index_20260527_072200.json",
+  "total_index_items": 203,
+  "template_candidates": 201,
+  "templates_created": 3,
+  "manifest_json": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\catalogs\\rf_visual_template_factory_manifest_20260527_073015.json",
+  "manifest_csv": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\catalogs\\rf_visual_template_factory_manifest_20260527_073015.csv",
+  "report": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\reports\\RF_VISUAL_TEMPLATE_FACTORY_V1_20260527_073015.md",
+  "backend": "NO_TOCADO",
+  "gdrive": "NO_TOCADO",
+  "siguiente": "RF_VISUAL_PROMPT_COMPILER_V1"
+}

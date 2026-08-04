@@ -1,0 +1,12 @@
+RF_GITHUB_PRECOMMIT_SAFE_AUDIT
+Fecha=2026-05-27 11:25:51
+Raiz=C:\RUNEFOGE_PRO\runeforge
+Commit=NO
+Push=NO
+TotalStatus=23
+TotalArchivosCandidatos=8
+TotalRiesgo=0
+EnvIgnorado=True
+EnvExampleIgnorado=True
+
+REPORT_JSON=C:\RUNEFOGE_PRO\runeforge\data\reports\github\rf_github_precommit_safe_audit_20260527_112551.json

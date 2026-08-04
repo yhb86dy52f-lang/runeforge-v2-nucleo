@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-05-27T06:57:17.1811197-06:00",
+  "estado": "RF_VISUAL_IMAGE_DEVELOPMENT_FOCUS_V1_SET",
+  "modulo": "RF_VISUAL_LAYOUT_ENGINE_V1",
+  "enfoque_actual": [
+    "vehicle_blueprint_transport",
+    "electrical_sensor_diagram",
+    "maintenance_technical_diagram",
+    "architectural_site_layout",
+    "security_route_map",
+    "sector_distribution_map",
+    "parking_distribution_layout",
+    "croquis_to_blueprint",
+    "cctv_coverage_map"
+  ],
+  "pipeline": [
+    "entrada_previa",
+    "extraccion_de_reglas",
+    "layout_spec_json",
+    "plantilla_reutilizable",
+    "biblioteca_creciente",
+    "generacion_mas_consistente"
+  ],
+  "registro_por_caso": [
+    "prompt_original",
+    "metadata_extraida",
+    "layout_spec",
+    "checklist",
+    "resultado",
+    "version"
+  ],
+  "paquete_recursos": {
+    "nombre": "RECURSOS .zip",
+    "copia_local": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine\\evidence\\RECURSOS_20260527_065716.zip",
+    "sha256": "EBA3E41F5CC3119EFA255AB106C5443BD30446C8B26B047103FE7742ABFE0BDE"
+  },
+  "politica": {
+    "no_generacion_aleatoria": true,
+    "no_secretos": true,
+    "no_mapas_sensibles_publicos": true,
+    "usar_evidencia_y_plantillas": true
+  },
+  "backend": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "siguiente": "RF_VISUAL_RESOURCES_IMPORT_V1"
+}

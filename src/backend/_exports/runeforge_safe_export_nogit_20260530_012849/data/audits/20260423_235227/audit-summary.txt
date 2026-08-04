@@ -1,0 +1,33 @@
+RUNEFORGE_AUDIT_SUMMARY
+timestamp=20260423_235227
+mode=AUDIT_ONLY_NO_RENAME_NO_FIREWALL_CHANGE
+canonical_root=C:\RUNEFOGE_PRO\runeforge
+backend=C:\RUNEFOGE_PRO\runeforge\app
+is_admin=True
+
+risk_critical=0
+risk_high=9
+risk_medium=269
+risk_low=1
+
+root_exists=True
+backend_exists=True
+legacy_wrong_root_exists=True
+
+secret_indicators=217
+env_files=5
+listening_ports=283
+all_interface_ports=273
+defender_runeforge_exclusions=3
+
+outputs:
+- C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\runeforge_audit_full.json
+- C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\runeforge_audit_report.md
+- C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\security-findings.md
+- C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\normalization-plan.md
+- C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\RUNEFORGE_CURRENT_STATE_MEMORY.md
+- C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\PROMPT_ESTADO_ACTUAL_RUNEFORGE.txt
+
+NEXT_REQUIRED_RESULT:
+Pega aquí el contenido completo de:
+C:\RUNEFOGE_PRO\runeforge\data\audits\20260423_235227\audit-summary.txt

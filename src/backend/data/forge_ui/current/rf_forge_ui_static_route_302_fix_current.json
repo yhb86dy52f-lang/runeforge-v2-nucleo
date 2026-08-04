@@ -1,0 +1,18 @@
+{
+  "Estado": "RF_FORGE_UI_STATIC_ROUTE_302_FIX_OK",
+  "Fecha": "2026-06-07 16:58:17",
+  "AppJs": "C:\\RUNEFOGE_PRO\\runeforge\\app\\src\\app.js",
+  "Backup": "C:\\RUNEFOGE_PRO\\runeforge\\data\\backups\\forge_ui_static_302_fix\\20260607_165817\\app.js.before_302_fix.20260607_165817.bak",
+  "Rollback": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\ops\\rollback\\Rollback-RF-ForgeUiStatic302Fix-20260607_165817.ps1",
+  "HealthOk": true,
+  "HealthError": "",
+  "ForgeNoSlashOk": true,
+  "ForgeNoSlashError": "",
+  "ForgeSlashOk": true,
+  "ForgeSlashError": "",
+  "ForgeUrl": "http://127.0.0.1:3100/forge/",
+  "Backend": "TOCADO_APPJS_302_FIX",
+  "PM2": "RESTARTED_AFTER_NODE_CHECK",
+  "Firewall": "NO_TOCADO",
+  "n8n": "NO_TOCADO"
+}

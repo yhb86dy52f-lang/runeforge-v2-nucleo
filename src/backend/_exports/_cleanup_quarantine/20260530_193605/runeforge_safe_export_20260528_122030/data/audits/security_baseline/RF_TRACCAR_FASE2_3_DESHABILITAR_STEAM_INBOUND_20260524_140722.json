@@ -1,0 +1,113 @@
+{
+  "Timestamp": "2026-05-24T14:07:27.8423351-06:00",
+  "Estado": "RF_TRACCAR_FASE2_3_DESHABILITAR_STEAM_INBOUND_DONE",
+  "RuneforgeOk": false,
+  "ReglasSteamAntes": [
+    {
+      "Nombre": "Steam",
+      "ReglaInterna": "{62B44E8B-ED83-44E4-96E6-9BB75D82CF63}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\steam.exe",
+      "Protocolo": "TCP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    },
+    {
+      "Nombre": "Steam",
+      "ReglaInterna": "{BCA42BC4-D71D-4A57-B642-D672F0BA69F4}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\steam.exe",
+      "Protocolo": "UDP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    },
+    {
+      "Nombre": "Steam Web Helper",
+      "ReglaInterna": "{42D0F354-D692-4571-9318-3C3CF3CA6BE7}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "Protocolo": "TCP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    },
+    {
+      "Nombre": "Steam Web Helper",
+      "ReglaInterna": "{FBA98861-54D0-4B44-B6B1-0093B5AEE095}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "Protocolo": "UDP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    }
+  ],
+  "ReglasApagadas": [
+    {
+      "Nombre": "Steam",
+      "ReglaInterna": "{62B44E8B-ED83-44E4-96E6-9BB75D82CF63}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\steam.exe",
+      "Protocolo": "TCP",
+      "Accion": "DESHABILITADA",
+      "Motivo": "Steam inbound Any/Any no necesario para Runeforge/Traccar"
+    },
+    {
+      "Nombre": "Steam",
+      "ReglaInterna": "{BCA42BC4-D71D-4A57-B642-D672F0BA69F4}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\steam.exe",
+      "Protocolo": "UDP",
+      "Accion": "DESHABILITADA",
+      "Motivo": "Steam inbound Any/Any no necesario para Runeforge/Traccar"
+    },
+    {
+      "Nombre": "Steam Web Helper",
+      "ReglaInterna": "{42D0F354-D692-4571-9318-3C3CF3CA6BE7}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "Protocolo": "TCP",
+      "Accion": "DESHABILITADA",
+      "Motivo": "Steam inbound Any/Any no necesario para Runeforge/Traccar"
+    },
+    {
+      "Nombre": "Steam Web Helper",
+      "ReglaInterna": "{FBA98861-54D0-4B44-B6B1-0093B5AEE095}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "Protocolo": "UDP",
+      "Accion": "DESHABILITADA",
+      "Motivo": "Steam inbound Any/Any no necesario para Runeforge/Traccar"
+    }
+  ],
+  "ReglasSteamRestantes": [],
+  "ReglasTailscaleActivas": [
+    {
+      "DisplayName": "Tailscale-Process",
+      "Enabled": 1,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 0
+    },
+    {
+      "DisplayName": "Tailscale-In",
+      "Enabled": 1,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 3
+    },
+    {
+      "DisplayName": "Tailscale-In",
+      "Enabled": 1,
+      "Action": 2,
+      "Direction": 1,
+      "Profile": 3
+    }
+  ],
+  "Alertas": [
+    "Runeforge /health falló después de Fase 2.3."
+  ],
+  "BackupFirewall": "C:\\RUNEFOGE_PRO\\runeforge\\backups\\firewall\\FIREWALL_BACKUP_ANTES_FASE2_3_STEAM_20260524_140722.wfw",
+  "RollbackScript": "C:\\RUNEFOGE_PRO\\runeforge\\backups\\firewall\\ROLLBACK_FIREWALL_FASE2_3_STEAM_20260524_140722.ps1",
+  "Backend": "VALIDADO_NO_MODIFICADO",
+  "Firewall": "MODIFICADO_STEAM_INBOUND",
+  "Sistema": "FIREWALL_MODIFICADO",
+  "Tailscale": "NO_TOCADO",
+  "Traccar": "NO_TOCADO",
+  "ReporteJson": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\security_baseline\\RF_TRACCAR_FASE2_3_DESHABILITAR_STEAM_INBOUND_20260524_140722.json",
+  "ReporteMd": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\security_baseline\\RF_TRACCAR_FASE2_3_DESHABILITAR_STEAM_INBOUND_20260524_140722.md"
+}

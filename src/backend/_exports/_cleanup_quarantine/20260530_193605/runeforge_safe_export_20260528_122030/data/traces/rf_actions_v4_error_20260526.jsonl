@@ -1,0 +1,2 @@
+{"timestamp":"2026-05-26T19:10:43.842Z","event":"RF_ACTIONS_V4_POLICY_UNREACHABLE","request_id":"rf-markov-fresh-event-canary-20260526_131040","intent":"ping","source":"rf_markov_fresh_event_canary_v1","error":"fetch failed","backend":"RUNEFORGE_CORE","runtime_original":"NO_TOCADO"}
+{"timestamp":"2026-05-26T19:17:27.797Z","event":"RF_ACTIONS_V4_POLICY_UNREACHABLE","request_id":"rf-actions-v4-router-liveness-20260526_131719","intent":"ping","source":"rf_n8n_action_router_v3_liveness_check","error":"fetch failed","backend":"RUNEFORGE_CORE","runtime_original":"NO_TOCADO"}

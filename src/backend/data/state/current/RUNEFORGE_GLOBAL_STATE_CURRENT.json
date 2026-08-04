@@ -1,0 +1,405 @@
+{
+  "schema": "rf.runeforge.global_state.current.v1",
+  "generated_at": "2026-06-07T20:55:00-06:00",
+  "generated_by": "GPT-5.5 Thinking",
+  "language": "es-MX",
+  "project": {
+    "name": "Runeforge",
+    "status": "ACTIVO_CONSOLIDACION",
+    "phase": "RF-FASE-06_PREP / FORGE_UI_OPERATIVA_EN_PROGRESO",
+    "operating_principle": "local-first / backend-first / trace-first",
+    "canonical_flow": [
+      "INPUT",
+      "ROUTER",
+      "SKILL",
+      "ACTION",
+      "TRACE",
+      "MEMORY",
+      "RESPONSE"
+    ],
+    "direction_lock": "Todo puede rodear a Runeforge; nada debe reemplazar el Core sin razón brutal."
+  },
+  "operator_profile": {
+    "preferred_name": "Nesthor",
+    "profile": "CINER Maestro / Ingeniero Tinkerbell",
+    "domain": [
+      "seguridad electrónica",
+      "CCTV Dahua/Hikvision/EPCOM/Ajax",
+      "telemetría GPS CalAmp LMU/TTU",
+      "Wialon laboral",
+      "Traccar/Ruptela personal",
+      "sensores Escort TD-600/500",
+      "automatización PowerShell/Node/TypeScript/Python/SQLite"
+    ],
+    "response_style_required": "español directo, técnico, accionable, sin relleno, con bloques copiables"
+  },
+  "canonical_paths": {
+    "base": "C:\\RUNEFOGE_PRO",
+    "root": "C:\\RUNEFOGE_PRO\\runeforge",
+    "backend_app": "C:\\RUNEFOGE_PRO\\runeforge\\app",
+    "scripts": "C:\\RUNEFOGE_PRO\\runeforge\\scripts",
+    "scripts_ops": "C:\\RUNEFOGE_PRO\\runeforge\\scripts\\ops",
+    "data": "C:\\RUNEFOGE_PRO\\runeforge\\data",
+    "traces": "C:\\RUNEFOGE_PRO\\runeforge\\data\\traces",
+    "reports": "C:\\RUNEFOGE_PRO\\runeforge\\data\\reports",
+    "memory": "C:\\RUNEFOGE_PRO\\runeforge\\data\\memory",
+    "event_model": "C:\\RUNEFOGE_PRO\\runeforge\\data\\event_model",
+    "graph": "C:\\RUNEFOGE_PRO\\runeforge\\data\\graph",
+    "markov": "C:\\RUNEFOGE_PRO\\runeforge\\data\\markov",
+    "visual_layout_engine": "C:\\RUNEFOGE_PRO\\runeforge\\data\\visual_layout_engine",
+    "resource_discovery": "C:\\RUNEFOGE_PRO\\runeforge\\data\\resource_discovery",
+    "forge_ui_current": "C:\\RUNEFOGE_PRO\\runeforge\\data\\forge_ui\\current",
+    "n8n_lab": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n",
+    "n8n_canary_runtime": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\runtime_canary_2_20_12",
+    "n8n_canary_user_folder": "C:\\RUNEFOGE_PRO\\runeforge\\data\\n8n_canary_2_20_12",
+    "obsidian_vault": "C:\\Users\\nesth\\Documents\\EL_ABISMO\\RUNEFORGE_OBSIDIAN",
+    "obsidian_center": "C:\\Users\\nesth\\Documents\\EL_ABISMO\\RUNEFORGE_CENTRO",
+    "exports": "C:\\RUNEFOGE_PRO\\runeforge\\_exports",
+    "state_current": "C:\\RUNEFOGE_PRO\\runeforge\\data\\state\\current",
+    "state_history": "C:\\RUNEFOGE_PRO\\runeforge\\data\\state\\history"
+  },
+  "runtime": {
+    "os": "Windows",
+    "shell": "PowerShell 7 Admin",
+    "backend_runtime": "Node.js / Fastify o Express según rama",
+    "process_manager": "PM2",
+    "backend_port_expected": "127.0.0.1:3100",
+    "pm2_start_rule": "pm2 start src/server.js --name runeforge-mvp --interpreter node",
+    "pm2_forbidden_rule": "No usar pm2 start npm para Runeforge en Windows salvo justificación explícita",
+    "secure_transport": "Tailscale + OpenSSH",
+    "secrets_policy": ".env nunca se imprime; solo se listan llaves"
+  },
+  "modules": [
+    {
+      "id": "RUNEFORGE_CORE",
+      "layer": "core",
+      "status": "NUCLEO_CANONICO",
+      "role": "backend, router, seguridad, trace, endpoints",
+      "paths": [
+        "C:\\RUNEFOGE_PRO\\runeforge\\app"
+      ],
+      "notes": "Debe sobrevivir aunque n8n, UI o iPhone fallen."
+    },
+    {
+      "id": "RF_ACTION_ROUTER_V3",
+      "layer": "integration",
+      "status": "CERRADO_OPERATIVO",
+      "role": "Core consume n8n Action Router con allowlist y bloqueo de run_powershell",
+      "security": [
+        "ALLOWLIST_OK",
+        "BLOCK_RUN_POWERSHELL_OK",
+        "NO_SHELL_LIBRE"
+      ]
+    },
+    {
+      "id": "RF_ACTIONS_CONTROLADAS_V4",
+      "layer": "actions",
+      "status": "CERRADO_OPERATIVO",
+      "allowed_actions": [
+        "ping",
+        "echo",
+        "trace_event",
+        "health_check_request"
+      ],
+      "blocked_actions": [
+        "run_powershell",
+        "shell libre",
+        "filesystem libre",
+        "external network libre"
+      ],
+      "writes": "TRACE_ONLY"
+    },
+    {
+      "id": "RF_WEBCOMMAND",
+      "layer": "interface/backend_adapter",
+      "status": "ACTIVO_PREVIAMENTE_VALIDADO / REQUIERE_VALIDACION_ACTUAL_DEL_BACKEND",
+      "endpoint": "POST http://127.0.0.1:3100/api/webcommand",
+      "mode": "safe-readonly",
+      "notes": "Panel web debe usar same-origin para evitar CORS/file://."
+    },
+    {
+      "id": "RF_FORGE_UI",
+      "layer": "interface",
+      "status": "EN_PROGRESO",
+      "current_known_state": "Panel existe; último estado reportado: backend/PM2 posiblemente abajo, requiere validación antes de parchear.",
+      "path": "C:\\RUNEFOGE_PRO\\runeforge\\app\\public\\forge\\index.html",
+      "next": "RF_FORGE_UI_BACKEND_START_STATUS_FIX_CURRENT_V1"
+    },
+    {
+      "id": "RF_N8N_CANARY",
+      "layer": "orchestration",
+      "status": "OPERATIVO_CANARY_PREVIAMENTE_VALIDADO",
+      "url": "http://127.0.0.1:5680",
+      "role": "orquestador visual reemplazable, no núcleo",
+      "runtime": "C:\\RUNEFOGE_PRO\\runeforge\\lab\\n8n\\runtime_canary_2_20_12",
+      "user_folder": "C:\\RUNEFOGE_PRO\\runeforge\\data\\n8n_canary_2_20_12"
+    },
+    {
+      "id": "RF_EVENT_MODEL_V1",
+      "layer": "memory/analytics",
+      "status": "BASE_INICIAL_CERRADA",
+      "known_metrics": {
+        "events_official": 30,
+        "parse_errors": 0,
+        "duplicates": 0
+      },
+      "notes": "Base canónica para grafo y Markov; objetivo siguiente histórico: 100+ eventos."
+    },
+    {
+      "id": "RF_GRAPH_MODEL_V1",
+      "layer": "analytics",
+      "status": "OK_BASE_INICIAL",
+      "known_metrics": {
+        "nodes": 81,
+        "edges": 150,
+        "parse_errors": 0,
+        "invalid_edges": 0,
+        "orphan_edges": 0
+      },
+      "notes": "Grafo útil para relaciones y validación; no meter Neo4j todavía."
+    },
+    {
+      "id": "RF_MARKOV_V1",
+      "layer": "analytics",
+      "status": "VALIDATION_ONLY",
+      "known_metrics": {
+        "events": 30,
+        "states": 16,
+        "transitions": 29,
+        "unique_transitions": 27
+      },
+      "policy": [
+        "TRACE_ONLY",
+        "NO_SHELL",
+        "NO_EXEC",
+        "NO_AUTONOMOUS_ACTIONS"
+      ],
+      "notes": "Modelo de validación, no decisión operativa fuerte. Esperar 100+ eventos para interpretar patrones."
+    },
+    {
+      "id": "RF_VISUAL_LAYOUT_ENGINE_V1",
+      "layer": "visual/data",
+      "status": "ACTIVO_COMO_BANCO_DE_CASOS",
+      "role": "plantillas visuales, layout_spec, checklist, metadata",
+      "notes": "No generar imágenes sin prompt real y gate autorizado."
+    },
+    {
+      "id": "RF_RESOURCE_DISCOVERY_GDRIVE_ZOD",
+      "layer": "resources",
+      "status": "TRIAGE_E_IMPORT_PLAN_VALIDADO_PREVIAMENTE",
+      "known_metrics": {
+        "total_items": 5245,
+        "visual_direct": 203,
+        "memory_direct": 84
+      },
+      "notes": "No copiar masivo sin dry-run."
+    },
+    {
+      "id": "RF_SHORTCUTS_CORE",
+      "layer": "iphone",
+      "status": "ACTIVO_FUNCIONAL_PARCIAL",
+      "current_shortcut": "RF-SC-002 — RF_STORAGE_CORE",
+      "storage": [
+        "Data Jar",
+        "JSON",
+        "iCloud Drive"
+      ],
+      "pending": "Generación y guardado definitivo de JSON persistente."
+    },
+    {
+      "id": "RF_OBSIDIAN_BRIDGE",
+      "layer": "memory/documentation",
+      "status": "FUNCIONAL_PREVIAMENTE_VALIDADO",
+      "role": "memoria documental, bitácora, evidencia y navegación humana",
+      "not_backend": true
+    },
+    {
+      "id": "RF_TELEMETRIA_OBSIDIAN_EXTRACTOR",
+      "layer": "telemetry/data",
+      "status": "DRYRUN_OK_EN_KW519 / APPLY_PENDIENTE_SEGUN_FLUJO",
+      "notes": "Captura de tabla real desde Web Clipper; falta normalización Apply cuando se pida."
+    }
+  ],
+  "iphone_environment": {
+    "role": "consola ligera y nodo operativo local-first",
+    "apps_validated_or_in_use": {
+      "Termius": "SSH hacia PC por Tailscale; comandos PowerShell en una sola línea.",
+      "Shortcuts": "orquestación visual; formularios, llamadas API, Data Jar, NFC.",
+      "Data Jar": "persistencia local de estado y runtime.",
+      "a-Shell/a-Shell mini": "motor local Python/Shell dentro de ~/Documents/runeforge.",
+      "iCloud Drive": "filesystem compartido para JSON/evidencia/shortcuts exportados.",
+      "Obsidian iOS": "consulta documental, no ejecución.",
+      "Tailscale": "canal seguro."
+    },
+    "runeforge_mobile_paths": {
+      "ashell_root": "~/Documents/runeforge",
+      "ashell_subdirs": [
+        "bin",
+        "lib",
+        "data",
+        "config",
+        "temp"
+      ],
+      "icloud_shortcuts_root": "iCloud Drive/Shortcuts/RUNEFORGE/"
+    },
+    "execution_rules": [
+      "iPhone vía Termius: una sola línea, sin saltos, sin here-strings, sin indentación.",
+      "iPhone local a-Shell: preferir comandos compactos; si aparece >>> estás en Python REPL y debes salir con exit().",
+      "Shortcuts: separar Acción / Campo / Valor; no inventar nombres de acciones.",
+      "Atajos offline-first/híbridos con modos ONLINE, LAN, OFFLINE, SYNC_PENDING."
+    ]
+  },
+  "execution_rules": {
+    "global": [
+      "No avanzar con comandos encadenados sin validar la salida previa.",
+      "Diagnóstico solo lectura por defecto salvo EJECUTAR/APLICAR/MODIFICAR explícito.",
+      "Antes de comandos: validar sintaxis, comillas, paréntesis, llaves, variables, rutas, impacto y rollback si aplica.",
+      "Si aparece prompt secundario >>: CTRL+C, esperar prompt normal, no pegar nada más.",
+      "No imprimir secretos ni valores de .env."
+    ],
+    "powerShell_response_format": [
+      "[OBJETIVO]",
+      "[VALIDACIÓN GPT]",
+      "[BLOQUE DE INSTRUCCIÓN]",
+      "[CONFIRMA CON]",
+      "[ESTADO]"
+    ],
+    "impact_levels": [
+      "SOLO_LECTURA",
+      "MODIFICA_ARCHIVOS",
+      "MODIFICA_FIREWALL",
+      "MODIFICA_BACKEND",
+      "MODIFICA_SERVICIOS"
+    ],
+    "critical_modification_requirements": [
+      "PRECHECK obligatorio",
+      "backup previo obligatorio",
+      "rollback obligatorio si toca firewall, servicios, PM2, rutas críticas o configuración",
+      "validación posterior obligatoria",
+      "abrir carpeta si crea reportes/archivos"
+    ],
+    "firewall": [
+      "Nunca usar Remove-NetFirewallRule salvo petición explícita.",
+      "Preferir Disable-NetFirewallRule.",
+      "Exportar backup .wfw antes de cambios.",
+      "No borrar Tailscale.",
+      "No tocar RF_ALLOW_* salvo objetivo explícito."
+    ]
+  },
+  "persistence_policy": {
+    "id": "RF_CURRENT_OVERWRITE_POLICY_V1",
+    "goal": "evitar múltiples archivos repetidos de la misma temática y mantener un CURRENT actualizado",
+    "default": {
+      "current_file": "sobrescribir archivo CURRENT con backup timestamp previo si existe",
+      "history_file": "crear histórico versionado solo para hitos, auditorías, dry-run/apply importantes o evidencia forense",
+      "backup_before_overwrite": true,
+      "open_folder_after_write": true
+    },
+    "recommended_layout": {
+      "current": "C:\\RUNEFOGE_PRO\\runeforge\\data\\state\\current",
+      "history": "C:\\RUNEFOGE_PRO\\runeforge\\data\\state\\history",
+      "backups": "C:\\RUNEFOGE_PRO\\runeforge\\data\\state\\_backups",
+      "manifest": "C:\\RUNEFOGE_PRO\\runeforge\\data\\state\\current\\RUNEFORGE_STATE_MANIFEST.json"
+    },
+    "safe_overwrite_rules": [
+      "Si el destino existe, copiarlo primero a _backups\\<timestamp>.",
+      "Después escribir con -Force.",
+      "Registrar tamaño, fecha y SHA256 cuando aplique.",
+      "Nunca sobrescribir .env, DB productiva, backups, firewall export, scripts críticos o código fuente sin precheck y rollback específico.",
+      "Para reportes de estado recurrentes usar nombres CURRENT fijos.",
+      "Para cierres de hito conservar también versión timestamp."
+    ],
+    "current_files_suggested": [
+      "RUNEFORGE_GLOBAL_STATE_CURRENT.json",
+      "RUNEFORGE_GLOBAL_STATE_CURRENT.md",
+      "RUNEFORGE_GLOBAL_INDEX_CURRENT.xlsx"
+    ]
+  },
+  "security_policy": {
+    "core": [
+      ".env fuera de Git y nunca expuesto.",
+      "GitHub versiona, no guarda secretos.",
+      "Google Drive respalda/documenta, no es base viva.",
+      "Obsidian documenta, no ejecuta.",
+      "n8n orquesta, no gobierna.",
+      "PowerShell solo por acciones controladas; nada de shell libre.",
+      "Markov/Grafos analizan, no ejecutan."
+    ],
+    "blocked_patterns": [
+      "run_powershell desde IA",
+      "Invoke-Expression",
+      "exec arbitrario",
+      "n8n Execute Command libre",
+      "automatización crítica sin trace",
+      "Drive/GitHub como verdad viva",
+      "agentes autónomos sin policy router"
+    ]
+  },
+  "current_risks": [
+    {
+      "risk": "Expansión modular excesiva",
+      "impact": "Frankenstein modular",
+      "control": "Congelar nuevas herramientas y cerrar flujo canónico completo."
+    },
+    {
+      "risk": "Backend 3100/PM2 puede estar abajo en el último corte de Forge UI",
+      "impact": "UI no valida aunque el panel exista",
+      "control": "Primero diagnóstico/read-only y arranque con node directo, sin patch."
+    },
+    {
+      "risk": "Markov con muestra baja",
+      "impact": "Falsas conclusiones probabilísticas",
+      "control": "Mantener VALIDATION_ONLY hasta 100+ eventos canónicos."
+    },
+    {
+      "risk": "Memoria acumulada sin estructura",
+      "impact": "Fósiles digitales no reutilizables",
+      "control": "Todo evento con tipo, fecha, origen, evidencia, trace y relación."
+    }
+  ],
+  "recommended_next_steps": [
+    {
+      "order": 1,
+      "id": "RF_FORGE_UI_BACKEND_START_STATUS_FIX_CURRENT_V1",
+      "action": "validar/levantar backend sin patch si PM2 está vacío",
+      "impact": "MODIFICA_SERVICIOS si se ejecuta; requiere precheck y validación posterior",
+      "why": "Forge UI depende de backend vivo en 127.0.0.1:3100."
+    },
+    {
+      "order": 2,
+      "id": "RF_EVENT_ACCUMULATION_APPLY_CURRENT_V1",
+      "action": "subir eventos oficiales de 30 a 100 usando candidatos revisados",
+      "impact": "MODIFICA_ARCHIVOS",
+      "why": "Markov necesita mayor volumen antes de interpretar patrones."
+    },
+    {
+      "order": 3,
+      "id": "RF_STATE_CURRENT_INSTALL_V1",
+      "action": "instalar este paquete como estado CURRENT con backup previo",
+      "impact": "MODIFICA_ARCHIVOS",
+      "why": "Dejar memoria global portable y actualizable sin duplicación."
+    }
+  ],
+  "pending": [
+    "Confirmar estado real actual de PM2 y puerto 3100 en PC.",
+    "Confirmar si backend actual corre Express, Fastify o coexistencia de ramas.",
+    "Confirmar ruta final de instalación del paquete CURRENT.",
+    "Confirmar si se quiere aplicar este estado a Obsidian también."
+  ],
+  "source_files": [
+    {
+      "name": "Pegado text.txt",
+      "sandbox_path": "/mnt/data/Pegado text.txt",
+      "sha256": "58d9d65a385117f127643583cadc18216640e4492b1d4e0844f73d4e02712bca",
+      "size_bytes": 14052,
+      "role": "prompt/context source uploaded in this turn"
+    },
+    {
+      "name": "Texto pegado (2).txt",
+      "sandbox_path": "/mnt/data/Texto pegado (2).txt",
+      "sha256": "3206528dff2d000a62980cd2d9fcf8e896077cdd8005e3110ea8f5d9ab33f83b",
+      "size_bytes": 19306,
+      "role": "prompt/context source uploaded in this turn"
+    }
+  ]
+}

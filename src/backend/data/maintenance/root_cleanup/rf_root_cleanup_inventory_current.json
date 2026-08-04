@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-06-06T23:04:17.7487726-06:00",
+  "event": "RF_ROOT_CLEANUP_INVENTORY_CURRENT_V1",
+  "status": "INVENTORY_DONE_NO_MOVE",
+  "base": "C:\\RUNEFOGE_PRO",
+  "core": "C:\\RUNEFOGE_PRO\\runeforge",
+  "total_items": 28,
+  "dirs": 18,
+  "files": 10,
+  "no_tocar": 1,
+  "conservar": 4,
+  "proponer_archivo": 7,
+  "revisar": 14,
+  "accion_real": "NO_MOVE_NO_DELETE",
+  "backend": "NO_TOCADO",
+  "pm2": "NO_TOCADO",
+  "n8n": "NO_TOCADO",
+  "next": "RF_ROOT_CLEANUP_MOVE_PLAN_CURRENT_V1"
+}

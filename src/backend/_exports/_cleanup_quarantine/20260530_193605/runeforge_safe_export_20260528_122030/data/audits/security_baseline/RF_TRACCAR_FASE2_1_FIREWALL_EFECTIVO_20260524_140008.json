@@ -1,0 +1,97 @@
+{
+  "Timestamp": "2026-05-24T14:00:11.1666826-06:00",
+  "Estado": "RF_TRACCAR_FASE2_1_FIREWALL_EFECTIVO_DONE",
+  "ConexionesGpsActivas": null,
+  "ReglasAllowGps": [
+    {
+      "Nombre": "Tailscale-Process",
+      "ReglaInterna": "{B73B3874-E5D0-49E3-82B2-A1AF3A7A8FDE}",
+      "Programa": "C:\\Program Files\\Tailscale\\tailscaled.exe",
+      "Protocolo": "UDP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 0
+    },
+    {
+      "Nombre": "Tailscale-In",
+      "ReglaInterna": "{9BE71F79-71F4-4813-B121-33F2F10E8F00}",
+      "Programa": "Any",
+      "Protocolo": "Any",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 3
+    },
+    {
+      "Nombre": "Tailscale-In",
+      "ReglaInterna": "{6E15A7E7-2250-4A3C-8C32-841CD45FA9A8}",
+      "Programa": "Any",
+      "Protocolo": "Any",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 3
+    },
+    {
+      "Nombre": "Steam",
+      "ReglaInterna": "{62B44E8B-ED83-44E4-96E6-9BB75D82CF63}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\steam.exe",
+      "Protocolo": "TCP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    },
+    {
+      "Nombre": "Steam",
+      "ReglaInterna": "{BCA42BC4-D71D-4A57-B642-D672F0BA69F4}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\steam.exe",
+      "Protocolo": "UDP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    },
+    {
+      "Nombre": "Steam Web Helper",
+      "ReglaInterna": "{42D0F354-D692-4571-9318-3C3CF3CA6BE7}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "Protocolo": "TCP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    },
+    {
+      "Nombre": "Steam Web Helper",
+      "ReglaInterna": "{FBA98861-54D0-4B44-B6B1-0093B5AEE095}",
+      "Programa": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "Protocolo": "UDP",
+      "PuertoLocal": "Any",
+      "DireccionRemota": "Any",
+      "Perfil": 7
+    }
+  ],
+  "ListenersResumen": [
+    {
+      "PID": 900,
+      "Proceso": "svchost.exe",
+      "Ruta": "C:\\Windows\\system32\\svchost.exe",
+      "Puertos": 1,
+      "PrimerPuerto": 5040,
+      "UltimoPuerto": 5040
+    },
+    {
+      "PID": 4420,
+      "Proceso": "java.exe",
+      "Ruta": "C:\\Program Files\\Traccar\\jre\\bin\\java.exe",
+      "Puertos": 238,
+      "PrimerPuerto": 5001,
+      "UltimoPuerto": 5262
+    }
+  ],
+  "ReglasAmplias": 7,
+  "ConexionesRemotas": 0,
+  "Alertas": [
+    "Hay reglas Allow amplias que pueden abrir el rango GPS."
+  ],
+  "Backend": "NO_TOCADO",
+  "Firewall": "NO_MODIFICADO",
+  "Sistema": "NO_MODIFICADO",
+  "ReporteJson": "C:\\RUNEFOGE_PRO\\runeforge\\data\\audits\\security_baseline\\RF_TRACCAR_FASE2_1_FIREWALL_EFECTIVO_20260524_140008.json"
+}

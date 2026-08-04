@@ -1,0 +1,115 @@
+{
+  "resumen": {
+    "Timestamp": "2026-05-27T11:25:52.6727430-06:00",
+    "Raiz": "C:\\RUNEFOGE_PRO\\runeforge",
+    "TotalStatus": 23,
+    "TotalArchivosCandidatos": 8,
+    "TotalRiesgo": 0,
+    "EnvIgnorado": true,
+    "EnvExampleIgnorado": true,
+    "Commit": "NO",
+    "Push": "NO"
+  },
+  "ignorados": [
+    {
+      "Ruta": ".env",
+      "Ignorado": true,
+      "Regla": ".gitignore:3:.env\t.env"
+    },
+    {
+      "Ruta": ".env.local",
+      "Ignorado": true,
+      "Regla": ".gitignore:4:.env.*\t.env.local"
+    },
+    {
+      "Ruta": ".env.production",
+      "Ignorado": true,
+      "Regla": ".gitignore:4:.env.*\t.env.production"
+    },
+    {
+      "Ruta": ".env.development",
+      "Ignorado": true,
+      "Regla": ".gitignore:4:.env.*\t.env.development"
+    },
+    {
+      "Ruta": ".env.example",
+      "Ignorado": true,
+      "Regla": ".gitignore:5:!.env.example\t.env.example"
+    },
+    {
+      "Ruta": "node_modules",
+      "Ignorado": false,
+      "Regla": null
+    },
+    {
+      "Ruta": "data\\traces",
+      "Ignorado": false,
+      "Regla": null
+    },
+    {
+      "Ruta": "data\\reports",
+      "Ignorado": false,
+      "Regla": null
+    },
+    {
+      "Ruta": "*.db",
+      "Ignorado": true,
+      "Regla": ".gitignore:30:*.db\t*.db"
+    },
+    {
+      "Ruta": "*.sqlite",
+      "Ignorado": true,
+      "Regla": ".gitignore:31:*.sqlite\t*.sqlite"
+    }
+  ],
+  "candidatos": [
+    {
+      "Estado": "??",
+      "Ruta": ".gitignore",
+      "Bytes": 559,
+      "Riesgo": false
+    },
+    {
+      "Estado": "??",
+      "Ruta": "README_ESTRUCTURA.txt",
+      "Bytes": 400,
+      "Riesgo": false
+    },
+    {
+      "Estado": "??",
+      "Ruta": "RUNEFORGE_PANEL.cmd",
+      "Bytes": 122,
+      "Riesgo": false
+    },
+    {
+      "Estado": "??",
+      "Ruta": "RUNEFORGE_PANEL_MINI.cmd",
+      "Bytes": 134,
+      "Riesgo": false
+    },
+    {
+      "Estado": "??",
+      "Ruta": "Runeforge_Tactical_Playbook.pptx",
+      "Bytes": 19202343,
+      "Riesgo": false
+    },
+    {
+      "Estado": "??",
+      "Ruta": "data.zip",
+      "Bytes": 36441960,
+      "Riesgo": false
+    },
+    {
+      "Estado": "??",
+      "Ruta": "estructura_cerrada.json",
+      "Bytes": 416,
+      "Riesgo": false
+    },
+    {
+      "Estado": "??",
+      "Ruta": "package-lock.json",
+      "Bytes": 88,
+      "Riesgo": false
+    }
+  ]
+}

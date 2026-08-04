@@ -1,0 +1,23 @@
+﻿{
+    "rf_schema":  "rf.whatsapp.quick_tunnel.dns_resolve_test.v1",
+    "created_at":  "2026-06-16T00:48:49.8958991-06:00",
+    "estado":  "RF_WHATSAPP_QUICK_TUNNEL_DNS_RESOLVE_OK",
+    "public_url":  "https://revolution-elsewhere-pmid-players.trycloudflare.com",
+    "callback_url":  "https://revolution-elsewhere-pmid-players.trycloudflare.com/webhooks/whatsapp",
+    "hostname":  "revolution-elsewhere-pmid-players.trycloudflare.com",
+    "system_dns_ok":  false,
+    "system_dns_ip":  "NO_RESUELTO",
+    "cloudflare_dns_ok":  true,
+    "cloudflare_dns_ip":  "104.16.231.132",
+    "curl_mode":  "CURL_RESOLVE_1_1_1_1",
+    "health_status":  200,
+    "verify_status":  200,
+    "challenge":  "RF_PUBLIC_EDGE_CHALLENGE_OK",
+    "backend":  "NO_TOCADO",
+    "pm2":  "NO_TOCADO",
+    "firewall":  "NO_TOCADO",
+    "router_ports":  "NO_ABRIR",
+    "secrets":  "NO_IMPRESOS",
+    "real_whatsapp_send":  "NO_REAL_SEND",
+    "siguiente":  "USAR_CALLBACK_URL_EN_META_O_CREAR_TUNNEL_NOMBRADO"
+}

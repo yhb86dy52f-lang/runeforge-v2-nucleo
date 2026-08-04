@@ -1,0 +1,61 @@
+# RF_ROOT_CLEANUP_INVENTORY_CURRENT
+
+Fecha actualización: 2026-06-06 22:59:14
+
+## Resultado
+- Estado: INVENTORY_DONE_NO_MOVE
+- Base: C:\RUNEFOGE_PRO
+- Core protegido: C:\RUNEFOGE_PRO\runeforge
+- Total items: 28
+- Carpetas: 18
+- Archivos: 10
+- Acción real: NO_MOVE_NO_DELETE
+
+## Clasificación
+- ARCHIVO_SUELTO: 9
+- PROYECTO_LEGADO_CANDIDATO: 7
+- CARPETA_CANONICA_UTIL: 4
+- MEMORIA_CANDIDATA: 3
+- BACKUP_O_EXPORT: 1
+- GIT_SUELTO_EN_RAIZ: 1
+- NUCLEO_ACTIVO: 1
+- PENDIENTE_REVISION: 1
+- PIPELINE_VIDEO: 1
+
+## Candidatos
+- video_clean_perrito | DIR | PIPELINE_VIDEO | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\lab\video\video_clean_perrito
+- USB_BACKUPS | DIR | BACKUP_O_EXPORT | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\_archive\old_backups\USB_BACKUPS
+- tools | DIR | CARPETA_CANONICA_UTIL | CONSERVAR | C:\RUNEFOGE_PRO\tools
+- runeforge-v2-ready | DIR | PROYECTO_LEGADO_CANDIDATO | PROPONER_ARCHIVO | C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-v2-ready
+- runeforge-mvp | DIR | PROYECTO_LEGADO_CANDIDATO | PROPONER_ARCHIVO | C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-mvp
+- runeforge-datahub | DIR | PROYECTO_LEGADO_CANDIDATO | PROPONER_ARCHIVO | C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-datahub
+- RUNEFORGE_KNOWLEDGE | DIR | CARPETA_CANONICA_UTIL | CONSERVAR | C:\RUNEFOGE_PRO\RUNEFORGE_KNOWLEDGE
+- runeforge | DIR | NUCLEO_ACTIVO | NO_TOCAR | C:\RUNEFOGE_PRO\runeforge
+- memoria-ia-pack | DIR | MEMORIA_CANDIDATA | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\RUNEFORGE_KNOWLEDGE\memoria-ia-pack
+- memoria-ia | DIR | MEMORIA_CANDIDATA | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\RUNEFORGE_KNOWLEDGE\memoria-ia
+- lab_v1_1_files | DIR | PROYECTO_LEGADO_CANDIDATO | PROPONER_ARCHIVO | C:\RUNEFOGE_PRO\_archive\legacy_projects\lab_v1_1_files
+- lab | DIR | CARPETA_CANONICA_UTIL | CONSERVAR | C:\RUNEFOGE_PRO\lab
+- essential_only | DIR | PROYECTO_LEGADO_CANDIDATO | PROPONER_ARCHIVO | C:\RUNEFOGE_PRO\_archive\legacy_projects\essential_only
+- diagnostico | DIR | PROYECTO_LEGADO_CANDIDATO | PROPONER_ARCHIVO | C:\RUNEFOGE_PRO\_archive\legacy_projects\diagnostico
+- core | DIR | PROYECTO_LEGADO_CANDIDATO | PROPONER_ARCHIVO | C:\RUNEFOGE_PRO\_archive\legacy_projects\core
+- backups | DIR | CARPETA_CANONICA_UTIL | CONSERVAR | C:\RUNEFOGE_PRO\backups
+- .tmp.driveupload | DIR | PENDIENTE_REVISION | NO_MOVER | PENDIENTE
+- .git | DIR | GIT_SUELTO_EN_RAIZ | NO_MOVER_HASTA_VALIDAR | C:\RUNEFOGE_PRO\_archive\git_root_legacy\.git
+- Runeforge V2 Scaffold Base.pdf | FILE | ARCHIVO_SUELTO | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\_archive\misc_unsorted\Runeforge V2 Scaffold Base.pdf
+- Runeforge V2 Scaffold Base (1).pdf | FILE | ARCHIVO_SUELTO | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\_archive\misc_unsorted\Runeforge V2 Scaffold Base (1).pdf
+- Runeforge V2 — Bitácora Operativa.pdf | FILE | ARCHIVO_SUELTO | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\_archive\misc_unsorted\Runeforge V2 — Bitácora Operativa.pdf
+- Runeforge V2 — Bitácora Operativa (1).pdf | FILE | ARCHIVO_SUELTO | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\_archive\misc_unsorted\Runeforge V2 — Bitácora Operativa (1).pdf
+- Prompt Codex Runeforge Final.pdf | FILE | ARCHIVO_SUELTO | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\_archive\misc_unsorted\Prompt Codex Runeforge Final.pdf
+- netfix_pre_20260505_214746.txt | FILE | ARCHIVO_SUELTO | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\_archive\misc_unsorted\netfix_pre_20260505_214746.txt
+- MEMORIA RUNEGORGE.txt | FILE | MEMORIA_CANDIDATA | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\RUNEFORGE_KNOWLEDGE\MEMORIA RUNEGORGE.txt
+- inventario_20260524_032705.csv | FILE | ARCHIVO_SUELTO | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\_archive\misc_unsorted\inventario_20260524_032705.csv
+- gpu_info.txt | FILE | ARCHIVO_SUELTO | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\_archive\misc_unsorted\gpu_info.txt
+- dxdiag.txt | FILE | ARCHIVO_SUELTO | REVISAR_ANTES_DE_MOVER | C:\RUNEFOGE_PRO\_archive\misc_unsorted\dxdiag.txt
+
+## Impacto
+- Backend: NO_TOCADO
+- PM2: NO_TOCADO
+- n8n: NO_TOCADO
+
+## Siguiente
+- RF_ROOT_CLEANUP_MOVE_PLAN_CURRENT_V1
