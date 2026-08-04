@@ -62,3 +62,11 @@ README.mdg
 **/ssh_host_*_key.pub
 **/authorized_keys
 **/sshd_config.bak_*
+# Sufijos de respaldo de codigo
+*.pre_fix_backup
+*.reubicacion_backup*
+**/backup_probe_current/
+**/_broken_backups/
+**/rf_backup_*
+**/rf_drive_d_backup_*
+src/backend/data/
