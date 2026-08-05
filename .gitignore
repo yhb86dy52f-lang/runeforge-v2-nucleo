@@ -70,3 +70,8 @@ README.mdg
 **/rf_backup_*
 **/rf_drive_d_backup_*
 src/backend/data/
+
+# v2.4 fix - exports nunca en git
+**/_exports/
+**/Nueva carpeta*/
+

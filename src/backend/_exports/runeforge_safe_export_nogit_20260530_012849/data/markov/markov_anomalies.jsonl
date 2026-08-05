@@ -1,1 +1,0 @@
-{"ts":"2026-05-26 10:35:36","secuencia_ok":false,"log_likelihood":-20.0,"transiciones":[{"desde":"rf_action_router_v3:n8n.workflow.started","hacia":"rf_task_intake_v2:n8n.node.started","prob":0.0,"diagnostico":"PROHIBIDA_NUNCA_VISTA"},{"desde":"rf_task_intake_v2:n8n.node.started","hacia":"rf_action_router_v3:n8n.node.finished","prob":0.0,"diagnostico":"PROHIBIDA_NUNCA_VISTA"}]}
