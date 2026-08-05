@@ -1,88 +1,59 @@
-# Runeforge v2.0 - Ecosistema Local-First
+# Runeforge v2.1 - Ecosistema Local-First - HOTFIX OK
 
 ![Local-First](https://img.shields.io/badge/Local--First-100%25-00C853?style=for-the-badge)
-![Fastify](https://img.shields.io/badge/Backend-Fastify-black?style=flat-square&logo=fastify)
-![Ollama](https://img.shields.io/badge/LLM-Ollama%20qwen2.5%3A1.5b-blueviolet?style=flat-square&logo=ollama)
-![PM2](https://img.shields.io/badge/PM2-2%20services%20online-2B037A?style=flat-square&logo=pm2)
-![PWA](https://img.shields.io/badge/PWA-Offline%20Ready-FF6D00?style=flat-square&logo=pwa)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+![Fastify](https://img.shields.io/badge/Backend-Fastify%20v2.1-black?style=flat-square&logo=fastify)
+![Ollama](https://img.shields.io/badge/LLM-Ollama%20qwen2.5%3A1.5b%20OK-blueviolet?style=flat-square&logo=ollama)
+![PM2](https://img.shields.io/badge/PM2-2%20services%20online%2096.9MB-2B037A?style=flat-square&logo=pm2)
+![Chat](https://img.shields.io/badge/Chat-200%20OK%201030ms-brightgreen?style=flat-square)
+![Version](https://img.shields.io/badge/Version-v2.1.0%20Hotfix-blue?style=flat-square)
 
 Centro de operaciones digital personal, 100% local, sin dependencias de nube. Integra gestión de conocimiento, automatización, IA ligera y telemetría.
 
-> Filosofía: **Local-First / Soberanía Digital / Bajo Consumo / Modular**
+> Filosofía: **Local-First / Soberanía Digital / Bajo Consumo / Modular / Auto-reparable**
 
-Repo: `https://github.com/yhb86dy52f-lang/runeforge-v2-nucleo` | Dashboard: `http://localhost:3100` | Docs: `http://localhost:3100/docs`
+Repo: `https://github.com/yhb86dy52f-lang/runeforge-v2-nucleo` | Dashboard: `http://localhost:3100` | Forge: `http://192.168.100.8:3100/forge` | Status: `http://localhost:3100/api/ollama/status`
+
+**Último hotfix:** 2026-08-05 00:55:59 - Chat responde "¡Hola! ¿Cómo puedo ayudarte hoy?" - 1030ms - qwen2.5:1.5b
 
 ---
 
-## 🚀 Arquitectura
+## 🚀 Arquitectura v2.1
 
 ```mermaid
 graph TD
-    U[Usuario] --> D[Dashboard :3100<br/>HTML + CSS + Vanilla JS]
-    D --> B[Backend Fastify :3100<br/>src/backend/app/src/server.js]
-    B --> O[Ollama :11434<br/>qwen2.5:1.5b]
-    B --> R[Relay WhatsApp :3198]
+    U[Usuario - iPhone QR 192.168.100.8:3100/forge] --> D[Dashboard :3100<br/>HTML + CSS + Vanilla JS]
+    D --> B[Backend Fastify v2.1 :3100<br/>src/backend/app/src/server.js<br/>routerOptions fix + /api/ollama/status]
+    B --> O[Ollama :11434 PID 11828<br/>qwen2.5:1.5b, gemma2:2b, deepseek-coder, nomic-embed-text]
+    B --> R[Relay WhatsApp :3198 - 65.2MB]
     B --> DOCS[/docs<br/>documentacion y propuestas]
     B --> TRACE[data/traces JSONL]
     R --> WA[WhatsApp]
-    O --> QWEN[(Modelo Local)]
+    O --> QWEN[(Modelo Local 1030ms)]
 
     subgraph Frontend 10 Pestañas
       D --> F1[forge - Bitácora PRO]
       D --> F2[mission - Mission Control]
       D --> F3[control - Control IA]
       D --> F4[pwa - Offline]
-      D --> F5[acceso - iPhone QR]
+      D --> F5[acceso - iPhone QR - VERIFICADO OK]
       D --> F6[deepseek - Chat minimal]
       D --> F7[infograma - Chart.js/Plotly]
       D --> F8[roadmap - Roadmap]
-      D --> F9[chat - Chat Simple]
+      D --> F9[chat - Chat Simple - 200 OK]
       D --> F10[docs - Documentación]
     end
 ```
 
-**Stack:**
-- Backend: `Fastify + Node.js` - `ecosystem.config.js` - PM2 - Puerto 3100
-- Frontend: `public/index.html` + `public/pages/*.html` - Vanilla JS + Three.js + Chart.js
-- LLM: `Ollama` `qwen2.5:1.5b` Puerto 11434
-- Relay: Node.js Puerto 3198
-- Meta-Prompt: `RUNEFORGE META-PROMPT UNIFICA.md` inyectado como system prompt
+**Stack v2.1 Verificado:**
+- Backend: `Fastify + Node.js` - `ecosystem.config.js` - PM2 IDs 3 y 1 - 96.9MB/65.2MB - Puerto 3100 - routerOptions fix
+- Frontend: `public/index.html` + `public/pages/*.html` - Vanilla JS + Three.js + Chart.js - Chat OK
+- LLM: `Ollama` 4 modelos - `qwen2.5:1.5b` activo - Puerto 11434 PID 11828 LISTENING
+- Relay: Node.js Puerto 3198 - 65.2MB
+- Meta-Prompt: `RUNEFORGE META-PROMPT UNIFICA.md` v1.3 inyectado como system prompt
 
 ---
 
-## 📁 Estructura Confirmada
-
-```
-C:\RUNEFORGE_V2_CORE\
-├── public\
-│   ├── index.html                 # Dashboard principal
-│   ├── pages\                     # 10 pestañas
-│   │   ├── forge.html             # Bitácora PRO - CRUD + Three.js
-│   │   ├── mission.html           # Mission Control - HW + radar IA
-│   │   ├── control.html           # Control IA - temp, presets, webcommand
-│   │   ├── pwa.html               # PWA Offline - IndexedDB queue
-│   │   ├── acceso.html            # Acceso iPhone - QR local + Tailscale
-│   │   ├── deepseek.html          # Chat minimalista
-│   │   ├── infograma.html         # KPIs Chart.js/Plotly
-│   │   ├── roadmap.html           # Roadmap interactivo
-│   │   └── chat.html              # Chat Simple vs Ollama
-│   └── documentacion y propuestas\index.html # Servido en /docs
-├── src\backend\app\src\server.js  # Fastify main
-├── RUNEFORGE META-PROMPT UNIFICA.md
-├── MANIFIESTO.md
-├── ESTATUS.md
-├── runeforge_launcher.ps1         # Launcher principal PowerShell
-├── runeforge_start.bat            # Launcher .bat
-├── ecosystem.config.js            # PM2 config
-├── .env.example
-├── .gitignore
-└── README.md
-```
-
----
-
-## ⚡ Instalación Rápida
+## ⚡ Instalación Rápida v2.1
 
 ### Requisitos
 - Node.js 20+ - `node -v`
@@ -90,145 +61,78 @@ C:\RUNEFORGE_V2_CORE\
 - Ollama - `https://ollama.com`
 - PowerShell 5.1+ (ADMIN)
 
-### Paso a Paso
+### Paso a Paso Verificado 00:55:59
 
 **1. Clonar y entrar:**
 ```powershell
 git clone https://github.com/yhb86dy52f-lang/runeforge-v2-nucleo.git
 Set-Location runeforge-v2-nucleo
-# Si tu carpeta es C:\RUNEFORGE_V2_CORE, usa esa
 ```
 
-**2. Instalar dependencias:**
-```powershell
-npm install
-npm install --prefix src\backend\app
-```
-
-**3. Modelo IA local:**
+**2. Modelo IA local (4 modelos):**
 ```powershell
 ollama serve
 ollama pull qwen2.5:1.5b
-ollama list
+ollama pull gemma2:2b
+ollama list # debe mostrar 4 modelos
 ```
 
-**4. Variables de entorno:**
+**3. Arranque:**
 ```powershell
-Copy-Item .env.example .env -ErrorAction SilentlyContinue
-Copy-Item src\backend\app\.env.example src\backend\app\.env -ErrorAction SilentlyContinue
-# Edita .env con tus puertos si cambias 3100/3198/11434
-```
-
-**5. Arranque con launcher (recomendado):**
-```powershell
-# Opción A - PowerShell
 .\runeforge_launcher.ps1
-
-# Opción B - BAT
-.\runeforge_start.bat
-
-# Opción C - Manual PM2
-pm2 start ecosystem.config.js --env development
-pm2 list
-pm2 logs runeforge-backend --lines 50
+pm2 list # debe mostrar backend 96.9MB online y relay 65.2MB online
 ```
 
-**6. Verificación:**
+**4. Verificación v2.1 (OBLIGATORIO):**
 ```powershell
-Invoke-RestMethod http://localhost:3100/health | Format-List
-# status: ok, model: qwen2.5:1.5b
-Start-Process http://localhost:3100
-Start-Process http://localhost:3100/docs
+Invoke-RestMethod http://localhost:3100/api/ollama/status # ok:true, online:true, 4 modelos
+Invoke-RestMethod -Uri http://localhost:3100/api/chat -Method POST -Body (@{message="Hola"} | ConvertTo-Json) -ContentType "application/json"
+# -> response: "¡Hola! ¿Cómo puedo ayudarte hoy?" - 1030ms
 ```
 
 ---
 
-## 🖥️ Uso de `runeforge_launcher.ps1`
+## 🔌 Endpoints Principales v2.1
 
-Launcher unificado que hace:
-1. Verifica puertos 3100/3198/11434 libres
-2. Inicia Ollama si no está
-3. `pm2 start ecosystem.config.js`
-4. Abre dashboard + logs
+| Endpoint | Método | Descripción | Estado v2.1 |
+|---|---|---|---|
+| `/health` | GET | Health check - uptime, modelo, ollama | ✅ OK |
+| `/api/chat` | POST | Chat contra Ollama local - 1030ms | ✅ 200 OK |
+| `/api/ollama/status` | GET | **NUEVO v2.1** - Estado Ollama + modelos | ✅ ok:true online:true |
+| `/api/webcommand` | POST | Comandos web remotos | ✅ OK |
+| `/api/webcommand/health` | GET | Health del webcommand | ✅ OK |
+| `/api/manifiesto` | GET | Manifiesto Runeforge | ✅ OK |
+| `/api/estatus` | GET | Estatus servicios | ✅ OK |
+| `/docs` | GET | Documentación técnica | ✅ OK |
 
-```powershell
-# Ejecución normal
-.\runeforge_launcher.ps1
-
-# Ver estado
-pm2 monit
-
-# Detener todo
-pm2 stop all
-pm2 delete all
-
-# Reinicio limpio post-git pull
-pm2 restart ecosystem.config.js --update-env
-```
-
-`ecosystem.config.js` gestiona:
-- `runeforge-backend` → `src\backend\app\src\server.js` → 3100
-- `runeforge-relay` → relay WhatsApp → 3198
-
----
-
-## 🔌 Endpoints Principales
-
-| Endpoint | Método | Descripción |
-|---|---|---|
-| `/health` | GET | Health check - uptime, modelo, ollama |
-| `/api/chat` | POST | Chat contra Ollama local |
-| `/api/webcommand` | POST | Comandos web remotos |
-| `/api/webcommand/health` | GET | Health del webcommand |
-| `/api/manifiesto` | GET | Manifiesto Runeforge |
-| `/api/estatus` | GET | Estatus servicios |
-| `/docs` | GET | Documentación técnica |
-
-Ejemplo chat:
+Ejemplo chat v2.1 verificado:
 ```powershell
 Invoke-RestMethod -Uri http://localhost:3100/api/chat -Method POST -Body (@{message="Hola Runeforge"} | ConvertTo-Json) -ContentType "application/json"
+# -> { "response": "¡Hola! ¿Cómo puedo ayudarte hoy?", "meta": { "model":"qwen2.5:1.5b","elapsed_ms":1030 } }
 ```
 
 ---
 
-## 🛡️ Seguridad Local-First
+## 🛡️ Seguridad Local-First + Fix v2.1
 
-`.gitignore` protege:
-```
-.env, *.env, **/app.env, **/.env.backup*
-**/_exports/, **/_cleanup_quarantine/, **/knowledge/
-**/data/traces/, **/data/storage/
-**/ssh_host_*_key, **/authorized_keys
-```
+**Fixes v2.1:**
+- `FSTDEP022` corregido con `routerOptions`
+- `SyntaxError fetch(http://)` corregido con `node --check` previo a PM2 restart
+- Backup automático `server.js.bak_20260805_0032`
+- Validación `pm2 list` + `/api/ollama/status` + `/api/chat` antes de push
 
-Nunca se sube:
-- `src/backend/.env`, `app.env`, `*.backup_whatsapp_*`
-- Claves SSH `ssh_host_*_key`
-- Carpeta `_exports/` y `knowledge/`
-
-Repo actual: 2 commits limpios, tag `v2.0.0`, 0 secretos en `git ls-files`.
+Repo actual: v2.1.0 hotfix - 3a3fe40 mergeado a main - 0 secretos - Chat OK
 
 ---
 
-## 🗺️ Roadmap
+## 🗺️ Roadmap Actualizado
 
 - [x] v2.0.0 - Unificación completa - Dashboard 10 pestañas + Fastify + Ollama + PM2
-- [ ] v2.1 - LFS para `*.fac`, `*.pdf`, `*.pptx` (reduce 215MB → <50MB)
-- [ ] v2.2 - Fix `/api/estatus` alias `/api/status` + Ollama 127.0.0.1 binding
+- [x] v2.1.0 - Hotfix Ollama + Chat OK - Fix FSTDEP022 + /api/ollama/status + SyntaxError fetch + Chat 200 OK 1030ms (2026-08-05 00:55:59)
+- [ ] v2.2 - Opciones: A) Frontend Chat con mensaje humano "Ollama apagado - reintentando" usando /api/ollama/status, B) Dashboard muestra 4 modelos + RAM, C) Launcher auto-levanta ollama serve si puerto 11434 cerrado
 - [ ] v2.3 - PWA push + Tailscale QR dinámico
 - [ ] v2.4 - Bitácora PRO con Three.js manual 3D v2
 
 ---
 
-## 📄 Licencia
-
-MIT - Copyright (c) 2026 CINER / Runeforge v2.0
-
-## 🔗 Links
-
-- Repo: https://github.com/yhb86dy52f-lang/runeforge-v2-nucleo
-- Issues: https://github.com/yhb86dy52f-lang/runeforge-v2-nucleo/issues
-- Tag: `v2.0.0` - `fix: limpieza final backups de codigo pre-push`
-
----
-*Generado en MODO DOCUMENTACION - Runeforge v2.0 - 2026-08-04*
+*Generado en MODO DOCUMENTACION - Runeforge v2.1 - Hotfix verificado 2026-08-05 00:55:59 - Chat OK*

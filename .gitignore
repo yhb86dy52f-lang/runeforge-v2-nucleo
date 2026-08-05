@@ -75,3 +75,10 @@ src/backend/data/
 **/_exports/
 **/Nueva carpeta*/
 
+
+# Drive sync basura
+.tmp.driveupload/
+.tmp.drivedownload/
+node_modules/
+logs/
+
