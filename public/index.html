@@ -15,6 +15,21 @@
     </style>
 </head>
 <body>
+<!-- v2.2 Dashboard Ollama Real -->
+<div id="ollama-models-v22" style="margin:10px;padding:10px;background:#0a0a0a;border:1px solid #00ff88;border-radius:8px;font-family:monospace;font-size:12px;">
+  <b>🧠 Ollama v2.2:</b> <span id="ollama-status-v22">verificando...</span><br/>
+  <div id="ollama-list-v22"></div>
+  <div id="pm2-mem-v22"></div>
+</div>
+<script>
+(async()=>{
+  try{
+    const r=await fetch('/api/ollama/status'); const j=await r.json();
+    document.getElementById('ollama-status-v22').innerText=j.online?`ONLINE ${j.models.length} modelos`:'OFFLINE - auto-reparando v2.2';
+    document.getElementById('ollama-list-v22').innerText=(j.models||[]).join(' | ');
+  }catch(e){document.getElementById('ollama-status-v22').innerText='Error status'}
+})();
+</script>
     <div id="nav">
         <button class="active" onclick="switchPage('forge')">Bitácora PRO</button>
         <button onclick="switchPage('mission')">Mission Control</button>
@@ -44,3 +59,4 @@
     </script>
 </body>
 </html>
+
