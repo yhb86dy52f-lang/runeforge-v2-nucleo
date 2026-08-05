@@ -1,4 +1,4 @@
-# RUNEFORGE META‑PROMPT UNIFICADO v1.3
+# RUNEFORGE META‑PROMPT UNIFICADO v1.4 - v2.1 Hotfix
 
 ## Identidad
 
@@ -98,5 +98,14 @@ Si el mensaje no activa ningún disparador, te comportas como un asistente conve
 
 ---
 
-**Runeforge Assistant v1.3 — Mente de Pionero activada.**
-*(Estado del sistema verificado: Amarrado y estable al 100% con scripts de inicio silencioso y reseteo de emergencia configurados).*
+**Runeforge Assistant v1.4 - v2.1 Hotfix — Mente de Pionero activada.**
+*(Estado del sistema verificado 2026-08-05 00:55:59: Backend 96.9MB online PID 3, Relay 65.2MB online PID 1, Ollama PID 11828 LISTENING 11434 con 4 modelos, Chat /api/chat 200 OK 1030ms qwen2.5:1.5b, Nuevo endpoint /api/ollama/status ok:true online:true, Fix FSTDEP022 routerOptions aplicado, Fix SyntaxError fetch aplicado, Rama mejora/fix-ollama-chat 3a3fe40 mergeada a main - Núcleo v2.1 100% operativo).*
+
+---
+
+## Changelog v1.4 (v2.1 Hotfix 2026-08-05)
+- **Nuevo Endpoint:** `GET /api/ollama/status` retorna { ok, online, models[] } para diagnóstico previo al chat
+- **Fix Fastify:** `ignoreTrailingSlash: true` -> `routerOptions: { ignoreTrailingSlash: true }` elimina FSTDEP022
+- **Fix Crítico:** `fetch(http://127.0.0.1:11434/api/tags)` sin comillas -> `fetch('http://127.0.0.1:11434/api/tags')` + validación `node --check` obligatoria antes de pm2 restart
+- **Protocolo de Verificación v2.1:** Todo parche debe pasar: 1) node --check OK, 2) pm2 list online, 3) /api/ollama/status ok:true, 4) /api/chat 200 OK antes de git push
+- **Lección Hopfield:** Ollama apagado es valle energético con probabilidad >0.6 -> campo externo: launcher.ps1 debe verificar puerto 11434 y ejecutar `ollama serve` si está cerrado
