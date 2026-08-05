@@ -242,3 +242,4 @@ app.get('/api/ollama/status', async (req, reply) => {
     return { ok: false, online: false, hint: 'ollama serve apagado' };
   }
 });
+
