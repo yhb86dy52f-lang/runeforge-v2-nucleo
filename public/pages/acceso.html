@@ -24,7 +24,31 @@
                 <a href="http://100.111.32.10:3100/" target="_blank" class="text-xs text-[#39FF14] underline break-all mt-3 font-mono font-bold">http://100.111.32.10:3100/forge</a>
             </div>        </div>
     </div>
+<!-- v2.3 QR Dinamico -->
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<div id="qr-v23" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;">
+  <div><h3>📱 WiFi Local (Auto)</h3><div id="qrcode-local"></div><p id="url-local"></p></div>
+  <div><h3>🌐 Tailscale VPN (Auto)</h3><div id="qrcode-ts"></div><p id="url-ts"></p></div>
+</div>
+<script>
+(async()=>{
+  try{
+    const r=await fetch('/api/network'); const j=await r.json();
+    const localUrl=j.forge_local || `http://${location.hostname}:3100/forge`;
+    const tsUrl=j.forge_tailscale || localUrl;
+    document.getElementById('url-local').innerText=localUrl;
+    document.getElementById('url-ts').innerText=tsUrl;
+    new QRCode(document.getElementById('qrcode-local'),{text:localUrl,width:180,height:180});
+    new QRCode(document.getElementById('qrcode-ts'),{text:tsUrl,width:180,height:180});
+  }catch(e){
+    console.log('v2.3 QR fallback',e);
+    const fallback=`http://${location.hostname}:3100/forge`;
+    new QRCode(document.getElementById('qrcode-local'),{text:fallback,width:180,height:180});
+  }
+})();
+</script>
 </body>
 </html>
+
 
 

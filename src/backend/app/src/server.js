@@ -232,6 +232,20 @@ const start = async () => {
 start();
 
 
+app.get('/api/network', async (req, reply) => {
+  try {
+    const os = require('os');
+    const nets = os.networkInterfaces();
+    const ips = [];
+    for (const name of Object.keys(nets)) {
+      for (const net of nets[name]) {
+        if (net.family === 'IPv4' &&!net.internal) ips.push({ iface: name, ip: net.address });
+      }
+    }
+    return { ok: true, local: ips.find(i=>i.ip.startsWith('192.168.'))?.ip || '192.168.100.8', tailscale: ips.find(i=>i.ip.startsWith('100.'))?.ip || '100.111.32.10', all: ips, forge_local: `http://${ips.find(i=>i.ip.startsWith('192.168.'))?.ip || '192.168.100.8'}:3100/forge`, forge_tailscale: `http://${ips.find(i=>i.ip.startsWith('100.'))?.ip || '100.111.32.10'}:3100/forge` };
+  } catch (e) { return { ok: false, error: e.message }; }
+});
+
 app.get('/api/ollama/status', async (req, reply) => {
   try {
     const ollamaUrl = config.OLLAMA_URL || 'http://127.0.0.1:11434';
@@ -242,4 +256,5 @@ app.get('/api/ollama/status', async (req, reply) => {
     return { ok: false, online: false, hint: 'ollama serve apagado' };
   }
 });
+
 
