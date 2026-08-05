@@ -58,7 +58,7 @@ const app = Fastify({
       }
     })
   },
-  ignoreTrailingSlash: true,
+  routerOptions: { ignoreTrailingSlash: true },
   bodyLimit: 1048576,
   trustProxy: true,
   ajv: { customOptions: { removeAdditional: 'all' } }
@@ -230,3 +230,15 @@ const start = async () => {
   }
 };
 start();
+
+
+app.get('/api/ollama/status', async (req, reply) => {
+  try {
+    const ollamaUrl = config.OLLAMA_URL || 'http://127.0.0.1:11434';
+    const r = await fetch(ollamaUrl + '/api/tags', { signal: AbortSignal.timeout(3000) });
+    const d = await r.json();
+    return { ok: true, online: true, models: d.models?.map(m=>m.name) || [] };
+  } catch {
+    return { ok: false, online: false, hint: 'ollama serve apagado' };
+  }
+});
