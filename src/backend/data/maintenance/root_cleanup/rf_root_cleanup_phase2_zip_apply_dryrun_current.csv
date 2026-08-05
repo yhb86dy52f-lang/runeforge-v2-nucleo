@@ -1,4 +1,3 @@
-"Nombre","Origen","OrigenExiste","Destino","DestinoExiste","DestinoPadre","DestinoPadreExiste","Sha256","SizeMB","EntryCount","CanMove","Bloqueo","AccionFutura"
-"RUNEFOGE_PRO.zip","C:\RUNEFOGE_PRO\RUNEFOGE_PRO.zip","True","C:\RUNEFOGE_PRO\_archive\zip_triage\RUNEFOGE_PRO.zip","False","C:\RUNEFOGE_PRO\_archive\zip_triage","False","281014FFFE1BCA88113246BC37BBD862E9F3DEB1481F570B2B6E6F4483F3CF82","0.03","42","True","OK_PARA_APPLY_MOVE","MOVE_ITEM"
-"RUNEFORGE_MASTER_FUSIONADO_2026-03-20.zip","C:\RUNEFOGE_PRO\RUNEFORGE_MASTER_FUSIONADO_2026-03-20.zip","True","C:\RUNEFOGE_PRO\_archive\zip_triage\RUNEFORGE_MASTER_FUSIONADO_2026-03-20.zip","False","C:\RUNEFOGE_PRO\_archive\zip_triage","False","ADA3AA788A318F26B59702492F93D3563C1B9D5517B001090899446AB2EDED19","0.047","63","True","OK_PARA_APPLY_MOVE","MOVE_ITEM"
-"runeforge-mvp.zip","C:\RUNEFOGE_PRO\runeforge-mvp.zip","True","C:\RUNEFOGE_PRO\_archive\zip_triage\runeforge-mvp.zip","False","C:\RUNEFOGE_PRO\_archive\zip_triage","False","47D74CD1A8834D2AD3AB36EA7CD6A88A6E21823954812EBE19DE723EAF9A2191","0.012","37","True","OK_PARA_APPLY_MOVE","MOVE_ITEM"
+version https://git-lfs.github.com/spec/v1
+oid sha256:718db59982173ffcf1b6ab9804687b15da8f05814736bc3fba1ec6fd76794216
+size 1112

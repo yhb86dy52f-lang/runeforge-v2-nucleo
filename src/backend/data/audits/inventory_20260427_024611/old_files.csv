@@ -1,6 +1,3 @@
-"Name","Extension","Category","FullPath","RelativePath","Directory","SizeBytes","SizeMB","Created","LastWrite","AgeDays","IsOld","IsCanonical","Hash"
-"router.ts",".ts","MemoriaIA","C:\RUNEFOGE_PRO\essential_only\essential_only\src\relay\whatsapp\router.ts","essential_only\essential_only\src\relay\whatsapp\router.ts","C:\RUNEFOGE_PRO\essential_only\essential_only\src\relay\whatsapp","1265","0.001","27/04/2026 01:02:18 a. m.","22/02/2026 04:09:46 p. m.","63.4","True","False",""
-"types.ts",".ts","MemoriaIA","C:\RUNEFOGE_PRO\essential_only\essential_only\src\relay\whatsapp\types.ts","essential_only\essential_only\src\relay\whatsapp\types.ts","C:\RUNEFOGE_PRO\essential_only\essential_only\src\relay\whatsapp","178","0","27/04/2026 01:02:18 a. m.","22/02/2026 04:10:38 p. m.","63.4","True","False",""
-"index.ts",".ts","MemoriaIA","C:\RUNEFOGE_PRO\essential_only\essential_only\src\relay\index.ts","essential_only\essential_only\src\relay\index.ts","C:\RUNEFOGE_PRO\essential_only\essential_only\src\relay","101","0","27/04/2026 01:02:18 a. m.","22/02/2026 04:11:34 p. m.","63.4","True","False","2986BB4D78111D89E25041E419A1443AAAF9FF2ABFC3252C87C605EDC42F0477"
-"index.ts.bak",".bak","MemoriaIA","C:\RUNEFOGE_PRO\essential_only\essential_only\src\index.ts.bak","essential_only\essential_only\src\index.ts.bak","C:\RUNEFOGE_PRO\essential_only\essential_only\src","775","0.001","27/04/2026 01:02:18 a. m.","22/02/2026 04:16:32 p. m.","63.4","True","False",""
-"launch.json",".json","MemoriaIA","C:\RUNEFOGE_PRO\essential_only\essential_only\.vscode\launch.json","essential_only\essential_only\.vscode\launch.json","C:\RUNEFOGE_PRO\essential_only\essential_only\.vscode","1207","0.001","27/04/2026 01:02:14 a. m.","23/02/2026 09:12:52 p. m.","62.2","True","False",""
+version https://git-lfs.github.com/spec/v1
+oid sha256:62e6b52944d393e25643d4d61562bb89862e814293e7020c6d61d8ea9ee224c7
+size 1771

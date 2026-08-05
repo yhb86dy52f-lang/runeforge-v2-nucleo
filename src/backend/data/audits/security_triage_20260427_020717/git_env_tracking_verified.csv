@@ -1,7 +1,3 @@
-"Root","EnvExists","GitignoreExists","GitignoreProtectsEnv","GitTrackedEnv"
-"C:\RUNEFOGE_PRO\runeforge\app","True","True","True","NO_GIT"
-"C:\RUNEFOGE_PRO\runeforge\runeforge\app","True","True","True","NO_GIT"
-"C:\RUNEFOGE_PRO\runeforge-v2-ready\runeforge-v2","True","False","False","NO_GIT"
-"C:\RUNEFOGE_PRO\RUNEFOGE_PRO\runeforge-v2-ready\runeforge-v2","True","False","False","NO_GIT"
-"C:\RUNEFOGE_PRO\essential_only\essential_only","True","True","True","NOT_TRACKED"
-"C:\RUNEFOGE_PRO\runeforge-mvp\runeforge-mvp\runeforge-mvp","True","True","True","NO_GIT"
+version https://git-lfs.github.com/spec/v1
+oid sha256:5e8bb19d2060d04addc0de00ed874ee066ea00d370e56640de681efd7bd5cd76
+size 567

@@ -1,7 +1,3 @@
-"EnvFile","Parent","GitTopLevel","GitTrackedEnv","GitIgnoreStatus"
-"C:\RUNEFOGE_PRO\runeforge-v2-ready\runeforge-v2\.env","C:\RUNEFOGE_PRO\runeforge-v2-ready\runeforge-v2",,"NO_REPO","UNKNOWN"
-"C:\RUNEFOGE_PRO\runeforge-mvp\runeforge-mvp\runeforge-mvp\.env","C:\RUNEFOGE_PRO\runeforge-mvp\runeforge-mvp\runeforge-mvp",,"NO_REPO","UNKNOWN"
-"C:\RUNEFOGE_PRO\runeforge\runeforge\app\.env","C:\RUNEFOGE_PRO\runeforge\runeforge\app",,"NO_REPO","UNKNOWN"
-"C:\RUNEFOGE_PRO\runeforge\app\.env","C:\RUNEFOGE_PRO\runeforge\app",,"NO_REPO","UNKNOWN"
-"C:\RUNEFOGE_PRO\RUNEFOGE_PRO\runeforge-v2-ready\runeforge-v2\.env","C:\RUNEFOGE_PRO\RUNEFOGE_PRO\runeforge-v2-ready\runeforge-v2",,"NO_REPO","UNKNOWN"
-"C:\RUNEFOGE_PRO\essential_only\essential_only\.env","C:\RUNEFOGE_PRO\essential_only\essential_only","C:/RUNEFOGE_PRO/essential_only/essential_only","NOT_TRACKED","IGNORED"
+version https://git-lfs.github.com/spec/v1
+oid sha256:a1e082f2093dd28cedb1ef9a257d9c8fe3f31f913259af24740a2d86548c9626
+size 871

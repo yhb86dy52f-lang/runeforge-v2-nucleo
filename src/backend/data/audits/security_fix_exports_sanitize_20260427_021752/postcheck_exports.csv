@@ -1,13 +1,3 @@
-"File","Pattern","StillMatches"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\capture_fix02a_source_read_20260425_025605.txt","TOKEN_ASSIGNMENT","True"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\capture_fix02a_source_read_20260425_025605.txt","BEARER_TOKEN","False"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\capture_fix02a_source_read_20260425_025605.txt","OPENAI_GENERIC_KEY","False"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\capture_fix02a_source_read_20260425_025605.txt","JWT","False"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\latest-terminal-export.clean.txt","TOKEN_ASSIGNMENT","True"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\latest-terminal-export.clean.txt","BEARER_TOKEN","False"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\latest-terminal-export.clean.txt","OPENAI_GENERIC_KEY","False"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\latest-terminal-export.clean.txt","JWT","False"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\latest-terminal-export.txt","TOKEN_ASSIGNMENT","True"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\latest-terminal-export.txt","BEARER_TOKEN","False"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\latest-terminal-export.txt","OPENAI_GENERIC_KEY","False"
-"C:\RUNEFOGE_PRO\runeforge\data\commander\exports\latest-terminal-export.txt","JWT","False"
+version https://git-lfs.github.com/spec/v1
+oid sha256:30d74eebfd682412a0618da0ab61620e5660f7ef081777a55908fe8472756d4a
+size 1361

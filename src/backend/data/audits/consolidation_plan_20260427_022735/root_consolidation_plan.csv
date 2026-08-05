@@ -1,10 +1,3 @@
-"Folder","Path","Files","SizeMB","LatestWrite","CanonicalHit","Decision"
-"runeforge","C:\RUNEFOGE_PRO\runeforge","2556","618.1","27/04/2026 01:58:50 a. m.","True","ACTIVE_ROOT_KEEP"
-"RUNEFOGE_PRO","C:\RUNEFOGE_PRO\RUNEFOGE_PRO","80","146.65","19/04/2026 07:38:22 p. m.","False","LEGACY_REVIEW_NO_DELETE"
-"runeforge-v2-ready","C:\RUNEFOGE_PRO\runeforge-v2-ready","33","0.1","19/04/2026 07:38:22 p. m.","False","LEGACY_REVIEW_NO_DELETE"
-"runeforge-datahub","C:\RUNEFOGE_PRO\runeforge-datahub","5","28.45","15/04/2026 02:10:29 a. m.","False","REFERENCE_OR_LAB_REVIEW"
-"memoria-ia","C:\RUNEFOGE_PRO\memoria-ia","2","0","14/04/2026 12:42:41 p. m.","False","REFERENCE_OR_LAB_REVIEW"
-"diagnostico","C:\RUNEFOGE_PRO\diagnostico","2","0.01","13/04/2026 07:47:34 a. m.","False","REFERENCE_OR_LAB_REVIEW"
-"essential_only","C:\RUNEFOGE_PRO\essential_only","55","0.09","30/03/2026 02:09:08 a. m.","False","LEGACY_REVIEW_NO_DELETE"
-"runeforge-mvp","C:\RUNEFOGE_PRO\runeforge-mvp","754","136.03","27/03/2026 07:04:56 a. m.","False","LEGACY_REVIEW_NO_DELETE"
-"lab_v1_1_files","C:\RUNEFOGE_PRO\lab_v1_1_files","29","0.01","16/03/2026 07:45:30 p. m.","False","REFERENCE_OR_LAB_REVIEW"
+version https://git-lfs.github.com/spec/v1
+oid sha256:98665801f8d20fb9043bb5f6e2d680071e5ee397080bc63bede016950e7f744f
+size 1177

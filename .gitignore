@@ -82,3 +82,12 @@ src/backend/data/
 node_modules/
 logs/
 
+
+# v2.4 LFS + clean
+*.log
+*.tmp
+.tmp.*/
+node_modules/
+logs/
+data/traces/
+
