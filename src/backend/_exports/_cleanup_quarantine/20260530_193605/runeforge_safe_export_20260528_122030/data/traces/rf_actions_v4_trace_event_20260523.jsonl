@@ -1,1 +1,0 @@
-{"timestamp":"2026-05-23T18:42:56.241Z","event":"RF_ACTIONS_V4_RETEST_TRACE","request_id":"rf-v4-retest-trace","source":"runeforge_v4_retest","payload":{"message":"validacion retest trace_event","event":"RF_ACTIONS_V4_RETEST_TRACE"},"action":"trace_event","backend":"RUNEFORGE_CORE","runtime_original":"NO_TOCADO","module":"RF_ACTIONS_CONTROLADAS_V4"}
