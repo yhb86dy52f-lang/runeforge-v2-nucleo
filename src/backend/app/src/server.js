@@ -234,10 +234,11 @@ start();
 
 app.get('/api/ollama/status', async (req, reply) => {
   try {
-    const res = await fetch(${"${config.OLLAMA_URL}"}/api/tags, { signal: AbortSignal.timeout(3000) });
-    const data = await res.json();
-    return reply.send({ ok: true, online: true, models: data.models?.map(m=>m.name) || [], url: config.OLLAMA_URL });
+    const ollamaUrl = config.OLLAMA_URL || 'http://127.0.0.1:11434';
+    const r = await fetch(ollamaUrl + '/api/tags', { signal: AbortSignal.timeout(3000) });
+    const d = await r.json();
+    return { ok: true, online: true, models: d.models?.map(m=>m.name) || [] };
   } catch {
-    return reply.send({ ok: false, online: false, url: config.OLLAMA_URL, hint: 'Ejecuta: ollama serve' });
+    return { ok: false, online: false, hint: 'ollama serve apagado' };
   }
 });
