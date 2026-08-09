@@ -1,0 +1,1109 @@
+# INFORME DE AUDITORÍA - RUNEFORGE
+Fecha de ejecución: 2026-07-31 00:57:01
+Host: DESKTOP-NDFE0B0
+---
+## 1. Información del Sistema
+- **Sistema Operativo**: Microsoft Windows 10 Pro (2009)
+- **Arquitectura**: 64 bits
+- **Memoria RAM total**: 0 GB
+
+## 2. Estructura de C:\RUNEFOGE_PRO
+- **Carpetas**: 122469
+- **Archivos**: 702664
+- **Tamaño total**: 17425.42 MB
+### Tamaño por carpeta (primer nivel)
+- **runeforge**: 10618.9 MB
+- **lab**: 2437.17 MB
+- **.git**: 2213.27 MB
+- **tools**: 1597.67 MB
+- **_archive**: 284.92 MB
+- **_SAFE_BACKUPS**: 93 MB
+- **runeforge-relay**: 87.61 MB
+- **node_modules**: 44.51 MB
+- **runeforge-mobile-relay**: 14.36 MB
+- **autonomo_workspace**: 2.61 MB
+- **QUARANTINE_MIGRATION**: 1.91 MB
+- **RUNEFORGE_KNOWLEDGE**: 0.04 MB
+- **backups**: 0.01 MB
+- **logs**: 0 MB
+- **scripts**: 0 MB
+- **output**: 0 MB
+- **rf_temp**: 0 MB
+- **_ARCHIVE_DUP_ENV**: 0 MB
+- **01_INBOX_WEB**: 0 MB
+
+### Extensiones de archivo más frecuentes
+- **.ts**: 218689 archivos
+- **.js**: 211866 archivos
+- **.map**: 147645 archivos
+- ****: 47318 archivos
+- **.json**: 17609 archivos
+- **.cjs**: 12437 archivos
+- **.md**: 12186 archivos
+- **.cts**: 9327 archivos
+- **.mjs**: 4712 archivos
+- **.png**: 2180 archivos
+- **.bcmap**: 1848 archivos
+- **.mts**: 1548 archivos
+- **.ps1**: 1376 archivos
+- **.svg**: 1266 archivos
+- **.yml**: 1149 archivos
+
+## 3. Versiones de Software
+- **Node.js**: v20.11.1
+- **npm**: 10.2.4
+- **PowerShell**: 7.6.3
+- **Tailscale**: 1.98.10   tailscale commit: 0ee734d3089846b27bc6ebcddd3d6ee5ec13e04d   long version: 1.98.10-t0ee734d30-g6b4108809   other commit: 6b4108809f6395c897bc1d4f5eb82ad882133989   go version: go1.26.5 (tailscale/go 63ae404c82)
+- **OpenSSH Server**: OpenSSH_7.7p1 for Windows
+### Dependencias de package.json
+**Archivo**: C:\RUNEFOGE_PRO\QUARANTINE_MIGRATION\QUARANTINE_MIGRATION\QUARANTINE_MIGRATION\package.json
+#### dependencies
+- **axios**: ^1.13.6
+- **dotenv**: ^16.6.1
+- **express**: ^4.22.1
+- **zod**: ^3.23.8
+#### devDependencies
+- **@types/express**: ^4.17.21
+- **@types/node**: ^20.14.10
+- **tsx**: ^4.16.2
+- **typescript**: ^5.5.4
+
+## 4. Servicios y Procesos Clave
+- **Servicio SSH (sshd)**: Stopped
+- **Servicio Tailscale**: Running
+### Procesos ejecutando gateway.ps1
+No se detectaron procesos con gateway.ps1
+
+## 5. Firewall (reglas relevantes)
+- **Node.js JavaScript Runtime**
+  - Habilitada: False
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: Any, Puerto Remoto: Any
+- **Node.js JavaScript Runtime**
+  - Habilitada: False
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: UDP, Puerto Local: Any, Puerto Remoto: Any
+- **RUNEFORGE_N8N_CANARY_5680_BLOCK_REMOTE**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Block
+  - Protocolo: TCP, Puerto Local: 5680, Puerto Remoto: Any
+- **RF_ALLOW_SSH_SOLO_TAILSCALE_TCP_22**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 22, Puerto Remoto: Any
+- **RF_ALLOW_TRACCAR_WEB_SOLO_TAILSCALE_TCP_8082**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 8082, Puerto Remoto: Any
+- **RF_ALLOW_SUNSHINE_SOLO_TAILSCALE_TCP**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 47984 47989 47990 48010, Puerto Remoto: Any
+- **RF_ALLOW_AIRSERVER_SOLO_TAILSCALE_TCP**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 5021 7000 7100 8008 8009 8100, Puerto Remoto: Any
+- **Escucha HTTPS de réplica de Hyper-V (TCP de entrada)**
+  - Habilitada: False
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 443, Puerto Remoto: Any
+- **RDP-Runeforge**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 3389, Puerto Remoto: Any
+- **Node.js JavaScript Runtime**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: Any, Puerto Remoto: Any
+- **Node.js JavaScript Runtime**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: UDP, Puerto Local: Any, Puerto Remoto: Any
+- **Node.js JavaScript Runtime**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Block
+  - Protocolo: UDP, Puerto Local: Any, Puerto Remoto: Any
+- **Node.js JavaScript Runtime**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Block
+  - Protocolo: TCP, Puerto Local: Any, Puerto Remoto: Any
+- **SSH Port 22**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 22, Puerto Remoto: Any
+- **Runeforge SSH 22**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 22, Puerto Remoto: Any
+- **RUNEFORGE_DAEMON_22**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 22, Puerto Remoto: Any
+- **RUNEFORGE_DAEMON_22**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 22, Puerto Remoto: Any
+- **RUNEFORGE_DAEMON_22**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 22, Puerto Remoto: Any
+- **OpenSSH Server (Port 22)**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 22, Puerto Remoto: Any
+- **OpenSSH SSH Server (sshd)**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: TCP, Puerto Local: 22, Puerto Remoto: Any
+- **Tailscale-Process**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: UDP, Puerto Local: Any, Puerto Remoto: Any
+- **Tailscale-In**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: Any, Puerto Local: Any, Puerto Remoto: Any
+- **Tailscale-In**
+  - Habilitada: True
+  - Dirección: Inbound, Acción: Allow
+  - Protocolo: Any, Puerto Local: Any, Puerto Remoto: Any
+
+## 6. Archivos de Backup e Integridad Básica
+- **index.ts.bak**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\essential_only\essential_only\src\index.ts.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Sunshine-master.zip**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-mvp\runeforge-mvp\_archive\source-zips\Sunshine-master.zip
+  - Tamaño: 28.93 MB
+  - Integridad: OK (606 entradas)
+- **PPSSPPWindowsARM64.zip**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-mvp\runeforge-mvp\retro\_downloads\PPSSPPWindowsARM64.zip
+  - Tamaño: 18.42 MB
+  - Integridad: OK (196 entradas)
+- **PS2dumperV2_bin.7z**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-mvp\runeforge-mvp\retro\tools\ps2-bios-dumper\PS2dumperV2_bin.7z
+  - Tamaño: 0.28 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PS2dumperV2_iso.7z**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-mvp\runeforge-mvp\retro\tools\ps2-bios-dumper\PS2dumperV2_iso.7z
+  - Tamaño: 0.43 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **tools-bios-dumper-v2.tar.gz**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-mvp\runeforge-mvp\retro\tools\ps2-bios-dumper\tools-bios-dumper-v2.tar.gz
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **tools-bios-dumper-v2.zip**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-mvp\runeforge-mvp\retro\tools\ps2-bios-dumper\tools-bios-dumper-v2.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (2 entradas)
+- **tools-tests-pad.tar.gz**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-mvp\runeforge-mvp\retro\tools\ps2-bios-dumper\tools-tests-pad.tar.gz
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **tools-tests-pad.zip**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-mvp\runeforge-mvp\retro\tools\ps2-bios-dumper\tools-tests-pad.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (2 entradas)
+- **invalid.tar**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-v2-ready\runeforge-v2\node_modules\tar-fs\test\fixtures\invalid.tar
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **test-package.zip**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-v2-ready\runeforge-v2\node_modules\thread-stream\test\dir with spaces\test-package.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (1 entradas)
+- **ts-commonjs-default-export.zip**
+  - Ruta: C:\RUNEFOGE_PRO\_archive\legacy_projects\runeforge-v2-ready\runeforge-v2\node_modules\thread-stream\test\ts-commonjs-default-export.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (1 entradas)
+- **ScreenWalls.20260509_231755.lnk.bak**
+  - Ruta: C:\RUNEFOGE_PRO\backups\screenwalls\ScreenWalls.20260509_231755.lnk.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Microsoft.PowerShell_profile.ps1.bak**
+  - Ruta: C:\RUNEFOGE_PRO\backups\terminal_optimizer\20260509_180456\Microsoft.PowerShell_profile.ps1.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **settings.json.bak**
+  - Ruta: C:\RUNEFOGE_PRO\backups\terminal_optimizer\20260509_180456\settings.json.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RuneforgeWindowGrid_20260520_235916.ahk.bak**
+  - Ruta: C:\RUNEFOGE_PRO\backups\windowgrid\RuneforgeWindowGrid_20260520_235916.ahk.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RuneforgeWindowGrid_20260521_000049.ahk.bak**
+  - Ruta: C:\RUNEFOGE_PRO\backups\windowgrid\RuneforgeWindowGrid_20260521_000049.ahk.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **invalid.tar**
+  - Ruta: C:\RUNEFOGE_PRO\lab\PROYEC-APP\backend\node_modules\tar-fs\test\fixtures\invalid.tar
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **test-package.zip**
+  - Ruta: C:\RUNEFOGE_PRO\lab\PROYEC-APP\backend\node_modules\thread-stream\test\dir with spaces\test-package.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (1 entradas)
+- **ts-commonjs-default-export.zip**
+  - Ruta: C:\RUNEFOGE_PRO\lab\PROYEC-APP\backend\node_modules\thread-stream\test\ts-commonjs-default-export.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (1 entradas)
+- **MPLUSRounded1c-Regular.typeface.json.zip**
+  - Ruta: C:\RUNEFOGE_PRO\lab\PROYEC-APP\world-builder\node_modules\three\examples\fonts\MPLUSRounded1c\MPLUSRounded1c-Regular.typeface.json.zip
+  - Tamaño: 4.31 MB
+  - Integridad: OK (2 entradas)
+- **app.js.20260518_183627.botforce.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\backups\botforce\app.js.20260518_183627.botforce.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.20260518_190033.botforce.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\backups\botforce\app.js.20260518_190033.botforce.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260425_022710.v43_6_1_callbackfix.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\backups\commander\RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260425_022710.v43_6_1_callbackfix.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Shell.ps1.20260425_022710.v43_6_1_panelcmds.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\backups\commander\Start-Runeforge-Shell.ps1.20260425_022710.v43_6_1_panelcmds.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys_20260509_053958.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\openssh_acl_fix_20260509_053958\administrators_authorized_keys_20260509_053958.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config_20260509_053958.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\openssh_acl_fix_20260509_053958\sshd_config_20260509_053958.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys_20260509_063258.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\openssh_acl_fix_v2_20260509_063258\administrators_authorized_keys_20260509_063258.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config_20260509_063258.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\openssh_acl_fix_v2_20260509_063258\sshd_config_20260509_063258.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_024251.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\openssh_native_20260506_024251\administrators_authorized_keys.20260506_024251.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.20260506_024251.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\openssh_native_20260506_024251\sshd_config.20260506_024251.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.corrupt.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\openssh_pin_983_20260509_093700\ProgramData_ssh_backup_20260509_093700\sshd_config.corrupt.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.corrupt.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\openssh_reinstall_20260509_064234\ProgramData_ssh_backup_20260509_064234\sshd_config.corrupt.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.before_rollback.20260506_022521.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\rollback_sshid_20260506_022521\administrators_authorized_keys.before_rollback.20260506_022521.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260425_040222.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\security_fix03e_install_generated_termius_key_20260425_040222\administrators_authorized_keys.20260425_040222.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **authorized_keys.20260425_040222.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\security_fix03e_install_generated_termius_key_20260425_040222\authorized_keys.20260425_040222.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.20260425_041611.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\security_fix03f_disable_ssh_password_20260425_041611\sshd_config.20260425_041611.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_012842.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\ssh_iphone_fix_20260506_012842\administrators_authorized_keys.20260506_012842.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **user_authorized_keys.20260506_012842.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\ssh_iphone_fix_20260506_012842\user_authorized_keys.20260506_012842.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_021835.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\termius_key_20260506_021835\administrators_authorized_keys.20260506_021835.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_023232.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\audits\termius_key_v2_20260506_023232\administrators_authorized_keys.20260506_023232.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_030532.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_030532.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_030920.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_030920.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_031014.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_031014.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_031333.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_031333.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_002058.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\lab\n8n\scripts\Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_002058.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_003129.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\lab\n8n\scripts\Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_003129.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-RF-N8N-Lab-V1.ps1.before_local_runtime_20260521_010334.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\_cleanup_quarantine\20260530_193605\runeforge_safe_export_20260528_122030\lab\n8n\scripts\Start-RF-N8N-Lab-V1.ps1.before_local_runtime_20260521_010334.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys_20260509_053958.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\openssh_acl_fix_20260509_053958\administrators_authorized_keys_20260509_053958.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config_20260509_053958.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\openssh_acl_fix_20260509_053958\sshd_config_20260509_053958.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys_20260509_063258.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\openssh_acl_fix_v2_20260509_063258\administrators_authorized_keys_20260509_063258.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config_20260509_063258.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\openssh_acl_fix_v2_20260509_063258\sshd_config_20260509_063258.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_024251.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\openssh_native_20260506_024251\administrators_authorized_keys.20260506_024251.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.20260506_024251.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\openssh_native_20260506_024251\sshd_config.20260506_024251.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.corrupt.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\openssh_pin_983_20260509_093700\ProgramData_ssh_backup_20260509_093700\sshd_config.corrupt.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.corrupt.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\openssh_reinstall_20260509_064234\ProgramData_ssh_backup_20260509_064234\sshd_config.corrupt.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.before_rollback.20260506_022521.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\rollback_sshid_20260506_022521\administrators_authorized_keys.before_rollback.20260506_022521.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260425_040222.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\security_fix03e_install_generated_termius_key_20260425_040222\administrators_authorized_keys.20260425_040222.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **authorized_keys.20260425_040222.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\security_fix03e_install_generated_termius_key_20260425_040222\authorized_keys.20260425_040222.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.20260425_041611.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\security_fix03f_disable_ssh_password_20260425_041611\sshd_config.20260425_041611.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_012842.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\ssh_iphone_fix_20260506_012842\administrators_authorized_keys.20260506_012842.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **user_authorized_keys.20260506_012842.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\ssh_iphone_fix_20260506_012842\user_authorized_keys.20260506_012842.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_021835.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\termius_key_20260506_021835\administrators_authorized_keys.20260506_021835.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_023232.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\audits\termius_key_v2_20260506_023232\administrators_authorized_keys.20260506_023232.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_030532.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_030532.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_030920.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_030920.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_031014.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_031014.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_031333.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_031333.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_002058.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\lab\n8n\scripts\Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_002058.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_003129.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\lab\n8n\scripts\Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_003129.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-RF-N8N-Lab-V1.ps1.before_local_runtime_20260521_010334.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\_exports\runeforge_safe_export_nogit_20260530_012849\lab\n8n\scripts\Start-RF-N8N-Lab-V1.ps1.before_local_runtime_20260521_010334.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PS2dumperV2_bin.7z**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\app\retro\tools\ps2-bios-dumper\PS2dumperV2_bin.7z
+  - Tamaño: 0.28 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PS2dumperV2_iso.7z**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\app\retro\tools\ps2-bios-dumper\PS2dumperV2_iso.7z
+  - Tamaño: 0.43 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **tools-bios-dumper-v2.tar.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\app\retro\tools\ps2-bios-dumper\tools-bios-dumper-v2.tar.gz
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **tools-bios-dumper-v2.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\app\retro\tools\ps2-bios-dumper\tools-bios-dumper-v2.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (2 entradas)
+- **tools-tests-pad.tar.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\app\retro\tools\ps2-bios-dumper\tools-tests-pad.tar.gz
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **tools-tests-pad.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\app\retro\tools\ps2-bios-dumper\tools-tests-pad.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (2 entradas)
+- **Sunshine-master.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\app\_archive\source-zips\Sunshine-master.zip
+  - Tamaño: 28.93 MB
+  - Integridad: OK (606 entradas)
+- **PPSSPPWindowsARM64.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\app\retro\_downloads\PPSSPPWindowsARM64.zip
+  - Tamaño: 18.42 MB
+  - Integridad: OK (196 entradas)
+- **server.js.20260419_045136.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\api_chat\server.js.20260419_045136.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260419_051124.normalize_input.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\api_chat\server.js.20260419_051124.normalize_input.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260419_051159.normalize_input.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\api_chat\server.js.20260419_051159.normalize_input.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260419_051220.normalize_input.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\api_chat\server.js.20260419_051220.normalize_input.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260419_051251.normalize_input.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\api_chat\server.js.20260419_051251.normalize_input.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260424_194631.ui_patch.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\commander\RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260424_194631.ui_patch.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260424_194700.ui_patch.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\commander\RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260424_194700.ui_patch.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Commander-V43_5.ps1.20260424_194815.launcherfix.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\commander\Start-Runeforge-Commander-V43_5.ps1.20260424_194815.launcherfix.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Shell.ps1.20260425_022402.rf_panel_fix.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\commander\Start-Runeforge-Shell.ps1.20260425_022402.rf_panel_fix.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.20260419_054947.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\forge_ui\index.20260419_054947.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.20260419_055019.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\forge_ui\index.20260419_055019.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.full.20260419_055216.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\forge_ui\index.full.20260419_055216.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.full.20260419_055418.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\forge_ui\index.full.20260419_055418.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260419_041725.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\forge_ui\server.js.20260419_041725.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **.env.example.20260425_025723.fix02a.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\security\.env.example.20260425_025723.fix02a.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **.gitignore.20260425_024057.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\security\.gitignore.20260425_024057.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **env.js.20260425_025723.fix02a.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\security\env.js.20260425_025723.fix02a.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260425_025723.fix02a.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\security\server.js.20260425_025723.fix02a.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Import-LatestTerminalExport.ps1.20260424_185454.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\v43\Import-LatestTerminalExport.ps1.20260424_185454.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Shell.ps1.20260424_185328.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\v43\Start-Runeforge-Shell.ps1.20260424_185328.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Shell.ps1.20260424_185724.v43_2.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\v43\Start-Runeforge-Shell.ps1.20260424_185724.v43_2.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Shell.ps1.20260424_190207.v43_3.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\backups\v43\Start-Runeforge-Shell.ps1.20260424_190207.v43_3.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Sunshine-master.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\runeforge\app\_archive\source-zips\Sunshine-master.zip
+  - Tamaño: 28.93 MB
+  - Integridad: OK (606 entradas)
+- **PPSSPPWindowsARM64.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\runeforge\app\retro\_downloads\PPSSPPWindowsARM64.zip
+  - Tamaño: 18.42 MB
+  - Integridad: OK (196 entradas)
+- **server.js.20260419_051159.normalize_input.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\runeforge\backups\api_chat\server.js.20260419_051159.normalize_input.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260419_051220.normalize_input.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\runeforge\backups\api_chat\server.js.20260419_051220.normalize_input.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260419_051251.normalize_input.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\runeforge\backups\api_chat\server.js.20260419_051251.normalize_input.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.full.20260419_055418.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\runeforge\backups\forge_ui\index.full.20260419_055418.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260419_041725.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\duplicates_legacy_20260427_023023\runeforge\runeforge\backups\forge_ui\server.js.20260419_041725.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PS2dumperV2_bin.7z**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\nested_app_legacy_20260427_032452\app\retro\tools\ps2-bios-dumper\PS2dumperV2_bin.7z
+  - Tamaño: 0.28 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PS2dumperV2_iso.7z**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\nested_app_legacy_20260427_032452\app\retro\tools\ps2-bios-dumper\PS2dumperV2_iso.7z
+  - Tamaño: 0.43 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **tools-bios-dumper-v2.tar.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\nested_app_legacy_20260427_032452\app\retro\tools\ps2-bios-dumper\tools-bios-dumper-v2.tar.gz
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **tools-bios-dumper-v2.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\nested_app_legacy_20260427_032452\app\retro\tools\ps2-bios-dumper\tools-bios-dumper-v2.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (2 entradas)
+- **tools-tests-pad.tar.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\nested_app_legacy_20260427_032452\app\retro\tools\ps2-bios-dumper\tools-tests-pad.tar.gz
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **tools-tests-pad.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\archive\nested_app_legacy_20260427_032452\app\retro\tools\ps2-bios-dumper\tools-tests-pad.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (2 entradas)
+- **Pack_FxSound_Retumbe_Generos_Situaciones.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\audio\Pack_FxSound_Retumbe_Generos_Situaciones.zip
+  - Tamaño: 0.01 MB
+  - Integridad: OK (12 entradas)
+- **app.js.20260518_183627.botforce.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\backups\botforce\app.js.20260518_183627.botforce.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.20260518_190033.botforce.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\backups\botforce\app.js.20260518_190033.botforce.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260425_022710.v43_6_1_callbackfix.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\backups\commander\RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260425_022710.v43_6_1_callbackfix.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Shell.ps1.20260425_022710.v43_6_1_panelcmds.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\backups\commander\Start-Runeforge-Shell.ps1.20260425_022710.v43_6_1_panelcmds.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **backups.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\backups\backups.zip
+  - Tamaño: 0.09 MB
+  - Integridad: OK (59 entradas)
+- **administrators_authorized_keys_20260509_053958.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\openssh_acl_fix_20260509_053958\administrators_authorized_keys_20260509_053958.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config_20260509_053958.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\openssh_acl_fix_20260509_053958\sshd_config_20260509_053958.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys_20260509_063258.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\openssh_acl_fix_v2_20260509_063258\administrators_authorized_keys_20260509_063258.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config_20260509_063258.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\openssh_acl_fix_v2_20260509_063258\sshd_config_20260509_063258.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_024251.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\openssh_native_20260506_024251\administrators_authorized_keys.20260506_024251.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.20260506_024251.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\openssh_native_20260506_024251\sshd_config.20260506_024251.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.corrupt.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\openssh_pin_983_20260509_093700\ProgramData_ssh_backup_20260509_093700\sshd_config.corrupt.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **OpenSSH-Win64-v9.8.3.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\openssh_pin_983_20260509_093700\OpenSSH-Win64-v9.8.3.zip
+  - Tamaño: 4.86 MB
+  - Integridad: OK (33 entradas)
+- **sshd_config.corrupt.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\openssh_reinstall_20260509_064234\ProgramData_ssh_backup_20260509_064234\sshd_config.corrupt.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **OpenSSH-Win64.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\openssh_reinstall_20260509_064234\OpenSSH-Win64.zip
+  - Tamaño: 5.44 MB
+  - Integridad: OK (34 entradas)
+- **administrators_authorized_keys.before_rollback.20260506_022521.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\rollback_sshid_20260506_022521\administrators_authorized_keys.before_rollback.20260506_022521.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260425_040222.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03e_install_generated_termius_key_20260425_040222\administrators_authorized_keys.20260425_040222.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **authorized_keys.20260425_040222.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03e_install_generated_termius_key_20260425_040222\authorized_keys.20260425_040222.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **sshd_config.20260425_041611.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\security_fix03f_disable_ssh_password_20260425_041611\sshd_config.20260425_041611.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_012842.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\ssh_iphone_fix_20260506_012842\administrators_authorized_keys.20260506_012842.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **user_authorized_keys.20260506_012842.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\ssh_iphone_fix_20260506_012842\user_authorized_keys.20260506_012842.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_021835.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\termius_key_20260506_021835\administrators_authorized_keys.20260506_021835.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **administrators_authorized_keys.20260506_023232.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\audits\termius_key_v2_20260506_023232\administrators_authorized_keys.20260506_023232.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **ai-controller.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\binding_20260728_222031\ai-controller.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **ai-controller.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\binding_20260728_222149\ai-controller.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **n8n.routes.js.20260523_111534.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\core_n8n_action_router_v3_endpoint_patch\n8n.routes.js.20260523_111534.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.20260523_095552.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\core_n8n_endpoint_patch_v1\app.js.20260523_095552.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.20260523_100534.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\core_n8n_endpoint_patch_v1\app.js.20260523_100534.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **n8n.routes.js.20260523_100534.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\core_n8n_endpoint_patch_v1\n8n.routes.js.20260523_100534.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **n8n.routes.js.20260523_104229.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\core_n8n_task_intake_endpoint_patch_v1\n8n.routes.js.20260523_104229.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **rf_backup_d_events_review_current.json.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\backup_d_events_review\20260628_042113\rf_backup_d_events_review_current.json.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RF_BACKUP_D_EVENTS_REVIEW_CURRENT.md.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\backup_d_events_review\20260628_042113\RF_BACKUP_D_EVENTS_REVIEW_CURRENT.md.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **cockpit.html.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\cockpit_endpoint_bind_repair\20260628_182503\cockpit.html.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RF_DISK_D_HEALTH_READONLY_CURRENT.md.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\disk_d_health_flat\20260628_040728\RF_DISK_D_HEALTH_READONLY_CURRENT.md.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_endpoint_autonomous\20260628_031128\app.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **local-ai.html.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_panel_static_fix\20260628_140053\local-ai.html.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **local-ai.html.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_panel_static_fix\20260628_140243\local-ai.html.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **rf_local_ai_panel_static_fix_current.json.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_panel_static_fix\20260628_140243\rf_local_ai_panel_static_fix_current.json.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RF_LOCAL_AI_PANEL_STATIC_FIX_CURRENT.md.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_panel_static_fix\20260628_140243\RF_LOCAL_AI_PANEL_STATIC_FIX_CURRENT.md.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_route_before_404_fix\20260628_141026\app.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **local_ai.routes.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_route_before_404_fix\20260628_141026\local_ai.routes.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **local-ai.html.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_route_before_404_fix\20260628_141026\local-ai.html.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_route_before_404_fix\20260628_150050\app.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **local_ai.routes.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_route_before_404_fix\20260628_150050\local_ai.routes.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **local-ai.html.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_route_before_404_fix\20260628_150050\local-ai.html.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **rf_local_ai_route_before_404_fix_current.json.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_route_before_404_fix\20260628_150050\rf_local_ai_route_before_404_fix_current.json.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RF_LOCAL_AI_ROUTE_BEFORE_404_FIX_CURRENT.md.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_route_before_404_fix\20260628_150050\RF_LOCAL_AI_ROUTE_BEFORE_404_FIX_CURRENT.md.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_smoke_panel_fix\20260628_135600\app.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **local_ai.routes.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_smoke_panel_fix\20260628_135600\local_ai.routes.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **local-ai.html.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_smoke_panel_fix\20260628_135600\local-ai.html.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_smoke_panel_repair\20260628_135842\app.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **local_ai.routes.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_smoke_panel_repair\20260628_135842\local_ai.routes.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **local-ai.html.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\current_overwrite\local_ai_smoke_panel_repair\20260628_135842\local-ai.html.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.html.before_action_buttons.20260608_024230.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\forge_ui_action_buttons\20260608_024230\index.html.before_action_buttons.20260608_024230.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.before_302_fix.20260607_165817.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\forge_ui_static_302_fix\20260607_165817\app.js.before_302_fix.20260607_165817.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.20260607_165043.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\forge_ui_static_route\20260607_165043\app.js.20260607_165043.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.corrupt.20260607_165417.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\forge_ui_static_route_repair\20260607_165417\app.js.corrupt.20260607_165417.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.ts.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\relay_build_repair_current\20260623_131851\index.ts.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **.env.example.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\relay_security_patch\20260622_023936\.env.example.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **catalog.ts.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\relay_security_patch\20260622_023936\catalog.ts.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **env.ts.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\relay_security_patch\20260622_023936\env.ts.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.ts.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\relay_security_patch\20260622_023936\index.ts.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **n8n.routes.js.20260523_123833.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\rf_actions_controladas_v4\n8n.routes.js.20260523_123833.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **n8n.routes.js.20260523_183102.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\rf_actions_v5_endpoint\n8n.routes.js.20260523_183102.bak
+  - Tamaño: 0.02 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **app.js.20260526_044300.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\rf_global_chat_core_v1\app.js.20260526_044300.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\backups\server_v13_zero_20260727_180201\server.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **rf_events_v1_before_phase05_close_20260531_182802.jsonl.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\event_model\backups\rf_events_v1_before_phase05_close_20260531_182802.jsonl.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **forensic_PROYEC_APP_20260520_061334.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\exports\forensic_PROYEC_APP_20260520_061334.zip
+  - Tamaño: 0.02 MB
+  - Integridad: OK (3 entradas)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_030532.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_030532.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_030920.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_030920.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **PERFIL_CINER_OPERATIVO_20260524.md.20260524_031014.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\memory\profiles\_backups\PERFIL_CINER_OPERATIVO_20260524.md.20260524_031014.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RECURSOS_20260527_065716.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\visual_layout_engine\evidence\RECURSOS_20260527_065716.zip
+  - Tamaño: 106.19 MB
+  - Integridad: OK (59 entradas)
+- **app.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\webcommand\backups\20260524_011040\app.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **webcommand.routes.js.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\data\webcommand\backups\20260524_032353\webcommand.routes.js.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **docs.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\docs\docs.zip
+  - Tamaño: 0.01 MB
+  - Integridad: OK (8 entradas)
+- **node-v22.22.3-win-x64.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\downloads\node-v22.22.3-win-x64.zip
+  - Tamaño: 34.02 MB
+  - Integridad: OK (2540 entradas)
+- **README.md.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\backup_20260521_023537\node_modules\@getzep\zep-cloud\node_modules\form-data\README.md.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **README.md.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\backup_completo_20260521_025747\node_modules\@getzep\zep-cloud\node_modules\form-data\README.md.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **bcrypt.min.js.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\backup_completo_20260521_025747\node_modules\bcryptjs\dist\bcrypt.min.js.gz
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **empty.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\backup_completo_20260521_025747\node_modules\mammoth\test\test-data\empty.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (0 entradas)
+- **hello.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\backup_completo_20260521_025747\node_modules\mammoth\test\test-data\hello.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (1 entradas)
+- **sqlite-autoconf-3440200.tar.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\backup_completo_20260521_025747\node_modules\sqlite3\deps\sqlite-autoconf-3440200.tar.gz
+  - Tamaño: 3.06 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **invalid.tar**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\backup_completo_20260521_025747\node_modules\tar-fs\test\fixtures\invalid.tar
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **96dc75-sqlite3-v5.1.7-napi-v6-win32-x64.tar.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\npm-cache\_prebuilds\96dc75-sqlite3-v5.1.7-napi-v6-win32-x64.tar.gz
+  - Tamaño: 0.96 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **96dc75-sqlite3-v5.1.7-napi-v6-win32-x64.tar.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\npm-cache-canary\_prebuilds\96dc75-sqlite3-v5.1.7-napi-v6-win32-x64.tar.gz
+  - Tamaño: 0.96 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **README.md.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\runtime_canary_2_20_12\node_modules\@getzep\zep-cloud\node_modules\form-data\README.md.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **bcrypt.min.js.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\runtime_canary_2_20_12\node_modules\bcryptjs\dist\bcrypt.min.js.gz
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **empty.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\runtime_canary_2_20_12\node_modules\mammoth\test\test-data\empty.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (0 entradas)
+- **hello.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\runtime_canary_2_20_12\node_modules\mammoth\test\test-data\hello.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (1 entradas)
+- **sqlite-autoconf-3440200.tar.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\runtime_canary_2_20_12\node_modules\sqlite3\deps\sqlite-autoconf-3440200.tar.gz
+  - Tamaño: 3.06 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **invalid.tar**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\runtime_canary_2_20_12\node_modules\tar-fs\test\fixtures\invalid.tar
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_002058.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\scripts\Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_002058.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_003129.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\scripts\Start-RF-N8N-Lab-V1.ps1.bad_nodehome_20260521_003129.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-RF-N8N-Lab-V1.ps1.before_local_runtime_20260521_010334.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\lab\n8n\scripts\Start-RF-N8N-Lab-V1.ps1.before_local_runtime_20260521_010334.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **.env.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\relay\whatsapp-public-edge\.env.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260419_045136.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\api_chat\server.js.20260419_045136.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **server.js.20260419_051124.normalize_input.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\api_chat\server.js.20260419_051124.normalize_input.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260424_194631.ui_patch.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\commander\RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260424_194631.ui_patch.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260424_194700.ui_patch.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\commander\RUNEFORGE_COMMANDER_V43_5_CLEAN_OPS_FUSION.ahk.20260424_194700.ui_patch.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Commander-V43_5.ps1.20260424_194815.launcherfix.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\commander\Start-Runeforge-Commander-V43_5.ps1.20260424_194815.launcherfix.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.20260419_054947.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\forge_ui\index.20260419_054947.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.20260419_055019.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\forge_ui\index.20260419_055019.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.full.20260419_055216.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\forge_ui\index.full.20260419_055216.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Import-LatestTerminalExport.ps1.20260424_185454.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\v43\Import-LatestTerminalExport.ps1.20260424_185454.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Shell.ps1.20260424_185328.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\v43\Start-Runeforge-Shell.ps1.20260424_185328.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Shell.ps1.20260424_185724.v43_2.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\v43\Start-Runeforge-Shell.ps1.20260424_185724.v43_2.bak
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **Start-Runeforge-Shell.ps1.20260424_190207.v43_3.bak**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge\runeforge\backups\v43\Start-Runeforge-Shell.ps1.20260424_190207.v43_3.bak
+  - Tamaño: 0.01 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **runeforge_memory_consolidated_20260519.zip**
+  - Ruta: C:\RUNEFOGE_PRO\RUNEFORGE_KNOWLEDGE\memoria-ia-pack\00_raw_imports\runeforge_memory_consolidated_20260519.zip
+  - Tamaño: 0.01 MB
+  - Integridad: OK (6 entradas)
+- **invalid.tar**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge-mobile-relay\node_modules\tar-fs\test\fixtures\invalid.tar
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **index.html.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge-relay\node_modules\@fastify\static\test\static-pre-compressed\dir-gz\index.html.gz
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **all-three.html.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge-relay\node_modules\@fastify\static\test\static-pre-compressed\all-three.html.gz
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **gzip-only.html.gz**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge-relay\node_modules\@fastify\static\test\static-pre-compressed\gzip-only.html.gz
+  - Tamaño: 0 MB
+  - Integridad: Tamaño > 0 (no verificado)
+- **test-package.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge-relay\node_modules\thread-stream\test\dir with spaces\test-package.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (1 entradas)
+- **ts-commonjs-default-export.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge-relay\node_modules\thread-stream\test\ts-commonjs-default-export.zip
+  - Tamaño: 0 MB
+  - Integridad: OK (1 entradas)
+- **RUNEFOGE_PRO.zip**
+  - Ruta: C:\RUNEFOGE_PRO\RUNEFOGE_PRO.zip
+  - Tamaño: 0.03 MB
+  - Integridad: OK (42 entradas)
+- **RUNEFORGE_MASTER_FUSIONADO_2026-03-20.zip**
+  - Ruta: C:\RUNEFOGE_PRO\RUNEFORGE_MASTER_FUSIONADO_2026-03-20.zip
+  - Tamaño: 0.05 MB
+  - Integridad: OK (63 entradas)
+- **RUNEFORGE_MASTER_FUSIONADO1.zip**
+  - Ruta: C:\RUNEFOGE_PRO\RUNEFORGE_MASTER_FUSIONADO1.zip
+  - Tamaño: 0.08 MB
+  - Integridad: CORRUPTO
+- **runeforge-mvp.zip**
+  - Ruta: C:\RUNEFOGE_PRO\runeforge-mvp.zip
+  - Tamaño: 0.01 MB
+  - Integridad: OK (37 entradas)
+
+---
+**Tiempo de ejecución del script:** 1391.0896021 segundos.
+**Script ejecutado por:** nesth en DESKTOP-NDFE0B0
+**ATENCIÓN:** Este archivo contiene datos crudos. No se ha realizado ningún análisis ni recomendación.
+
