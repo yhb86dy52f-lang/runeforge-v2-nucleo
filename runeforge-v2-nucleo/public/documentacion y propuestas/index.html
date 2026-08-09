@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Runeforge Forge UI</title>
+<style>
+:root{--bg:#0d0211;--card:#160020;--line:#39ff14;--accent:#bc00ff;--text:#e9ffe9;--muted:#9aff9a;}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Consolas,monospace;padding:20px;}
+header{border:1px solid var(--line);padding:14px;margin-bottom:14px;background:#110018;}
+h1{margin:0;color:var(--line);font-size:22px;} .sub{color:var(--muted);font-size:13px;margin-top:6px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:14px;}
+.card{border:1px solid var(--accent);background:var(--card);padding:12px;min-height:90px;}
+.label{color:var(--muted);font-size:12px;margin-bottom:8px;} .value{color:var(--line);font-size:15px;word-break:break-word;}
+button{width:100%;background:#050008;color:var(--line);border:1px solid var(--line);padding:12px;margin:5px 0;cursor:pointer;font-family:Consolas,monospace;}
+button:hover{background:#102010;}
+#log{white-space:pre-wrap;border:1px solid var(--line);background:#020402;color:var(--line);padding:12px;min-height:260px;overflow:auto;}
+.danger{color:#ff7070}.ok{color:var(--line)}
+</style>
+</head>
+<body>
+<header>
+<h1>⚒️ Runeforge Forge UI</h1>
+<div class="sub">Core local-first / WebCommand safe-readonly / 127.0.0.1:3100</div>
+</header>
+<section class="grid">
+<div class="card"><div class="label">Backend</div><div class="value" id="backendState">PENDIENTE</div></div>
+<div class="card"><div class="label">WebCommand</div><div class="value" id="webState">PENDIENTE</div></div>
+<div class="card"><div class="label">Modo</div><div class="value">safe-readonly</div></div>
+</section>
+<section class="grid">
+<div class="card"><div class="label">Core</div><button onclick="callHealth()">Health</button><button onclick="callAction('status')">Status</button></div>
+<div class="card"><div class="label">Proyecto</div><button onclick="callAction('backend-root')">Backend Root</button><button onclick="callAction('package')">Package</button></div>
+<div class="card"><div class="label">Operación</div><button onclick="callAction('src-tree')">SRC Tree</button><button onclick="callAction('pm2-health')">PM2 Health</button></div>
+</section>
+<section class="card">
+<div class="label">Trace visual</div>
+<pre id="log">Listo. Usa un botón para consultar Runeforge.</pre>
+</section>
+<script>
+const log=document.getElementById("log");
+const backendState=document.getElementById("backendState");
+const webState=document.getElementById("webState");
+function print(title,obj){log.textContent="["+new Date().toISOString()+"] "+title+"\n"+JSON.stringify(obj,null,2);}
+async function callHealth(){
+  try{
+    const r=await fetch("/api/webcommand/health");
+    const j=await r.json();
+    webState.textContent=j.ok ? "OK" : "ERROR";
+    backendState.textContent="ONLINE";
+    print("WEBCOMMAND_HEALTH",j);
+  }catch(e){
+    webState.textContent="ERROR";
+    print("ERROR_HEALTH",{error:String(e)});
+  }
+}
+async function callAction(action){
+  try{
+    const r=await fetch("/api/webcommand",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action})});
+    const j=await r.json();
+    backendState.textContent=j.ok ? "ONLINE" : "ERROR";
+    print("ACTION_"+action,j);
+  }catch(e){
+    backendState.textContent="ERROR";
+    print("ERROR_ACTION_"+action,{error:String(e)});
+  }
+}
+callHealth();
+</script>
+</body>
+</html>

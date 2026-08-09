@@ -1,1 +1,0 @@
-{"timestamp":"2026-05-24T00:31:23.701Z","event":"RF_V5_CORE_MEMORY_TEST","request_id":"rf-core-v5-memory","source":"runeforge_core_v5_test","payload":{"message":"append desde Core V5","event":"RF_V5_CORE_MEMORY_TEST"},"backend":"RUNEFORGE_CORE","runtime_original":"NO_TOCADO","module":"RF_ACTIONS_V5"}

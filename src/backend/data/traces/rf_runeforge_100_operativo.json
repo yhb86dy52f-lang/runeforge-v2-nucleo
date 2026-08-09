@@ -1,8 +1,0 @@
-{
-  "Timestamp": "2026-07-31 04:15:12",
-  "FastifyCore": "PASS (200 OK)",
-  "LocalAiHealth": "PASS (qwen2.5:1.5b)",
-  "ChatInference": "PASS",
-  "CockpitWeb": "PASS (200 OK)",
-  "StatusGlobal": "RUNEFORGE_100%_OPERATIVO"
-}

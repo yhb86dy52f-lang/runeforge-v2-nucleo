@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Bitácora Pro | CINER Ecosistema</title>
+  <style>
+    :root { --bg: #080a0f; --card: #141a26; --border: #263246; --accent: #00ff88; --text: #eaf0f8; --muted: #7e8ca3; --danger: #ff4d6d; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body { background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; padding-bottom: 90px; }
+    .header { padding: 16px 20px; background: var(--card); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+    .brand-title { color: var(--accent); font-size: 16px; font-weight: 800; }
+    .brand-sub { color: var(--muted); font-size: 11px; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 16px 20px; }
+    .s-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px; text-align: center; }
+    .s-card b { color: var(--accent); font-size: 20px; display: block; }
+    .s-card small { color: var(--muted); font-size: 11px; text-transform: uppercase; }
+    .form { margin: 0 20px 20px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .f-g { display: flex; flex-direction: column; gap: 4px; }
+    .f-g label { font-size: 10px; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+    .f-g input, .f-g textarea, .f-g select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px; color: var(--text); font-size: 14px; outline: none; }
+    .btn-primary { width: 100%; background: var(--accent); color: #000; border: 0; border-radius: 12px; padding: 14px; font-weight: 800; font-size: 15px; cursor: pointer; }
+    .timeline { margin: 0 20px; display: flex; flex-direction: column; gap: 12px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; }
+    .canon-box { font-family: monospace; font-size: 11px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px; white-space: pre-wrap; margin: 8px 0; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div>
+      <div class="brand-title">⚡ BITÁCORA PRO CINER</div>
+      <div class="brand-sub">Sistema Local Offline</div>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="s-card"><b id="cTotal">0</b><small>Total</small></div>
+    <div class="s-card"><b id="cHoy">0</b><small>Hoy</small></div>
+    <div class="s-card"><b id="cLive">0</b><small>Pendientes</small></div>
+  </div>
+
+  <div class="form">
+    <div class="f-g"><label>Unidad / ID</label><input id="fUnidad" placeholder="Ej: 547_R"></div>
+    <div class="f-g"><label>Motivo</label><input id="fMotivo" placeholder="Ej: Mantenimiento preventivo"></div>
+    <div class="f-g"><label>Procedimiento</label><textarea id="fProc" rows="2" placeholder="Detalle técnico..."></textarea></div>
+    <button class="btn-primary" onclick="saveRecord()">✓ Guardar Registro</button>
+  </div>
+
+  <div class="timeline" id="viewTimeline"></div>
+
+  <script>
+    let db, orders = [];
+    const idb = indexedDB.open('BitacoraMasterDB', 1);
+    idb.onupgradeneeded = e => e.target.result.createObjectStore('logs', { keyPath: 'id' });
+    idb.onsuccess = e => { db = e.target.result; loadOrders(); };
+
+    function saveRecord() {
+      const asset = document.getElementById('fUnidad').value.trim().toUpperCase();
+      const reason = document.getElementById('fMotivo').value.trim();
+      const proc = document.getElementById('fProc').value.trim();
+      if(!asset || !reason) return alert('Faltan datos obligatorios');
+
+      const rec = { id: Date.now(), asset_id: asset, reason, procedure_log: proc, ts: Date.now() };
+      const tx = db.transaction('logs', 'readwrite');
+      tx.objectStore('logs').put(rec);
+      tx.oncomplete = () => {
+        document.getElementById('fUnidad').value = '';
+        document.getElementById('fMotivo').value = '';
+        document.getElementById('fProc').value = '';
+        loadOrders();
+      };
+    }
+
+    function loadOrders() {
+      const tx = db.transaction('logs').objectStore('logs').getAll();
+      tx.onsuccess = () => {
+        orders = tx.result.sort((a,b) => b.ts - a.ts);
+        document.getElementById('cTotal').innerText = orders.length;
+        const timeline = document.getElementById('viewTimeline');
+        timeline.innerHTML = orders.map(o => `
+          <div class="card">
+            <b>${o.asset_id}</b>
+            <div class="canon-box">Unidad: ${o.asset_id}\nMotivo: ${o.reason}\nProcedimiento: ${o.procedure_log}</div>
+          </div>
+        `).join('');
+      };
+    }
+  </script>
+</body>
+</html>

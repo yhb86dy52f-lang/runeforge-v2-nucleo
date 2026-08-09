@@ -1,0 +1,31 @@
+{
+  "name": "runeforge-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Runeforge MVP local-first backend for Windows + PowerShell 7 + Node.js",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "doctor": "node -e \"require('./src/config/env'); console.log('RUNEFORGE_DOCTOR_OK')\""
+  },
+  "keywords": [
+    "runeforge",
+    "local-first",
+    "whatsapp",
+    "automation",
+    "node"
+  ],
+  "author": "Nesthor",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@fastify/static": "^10.1.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "fastify": "^5.11.0",
+    "ollama": "^0.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

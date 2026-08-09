@@ -1,8 +1,0 @@
-{
-  "timestamp": "2026-07-31T05:24:39.9806990-06:00",
-  "event": "TEST_FIELD_SENTINEL_SUCCESS",
-  "status": "VERIFY_NODE_STATE_PASSED",
-  "backend": "ONLINE",
-  "ai_model": "qwen2.5:1.5b",
-  "note": "Prueba de campo TEST-FIELD-01 completada y validada por el motor local."
-}
