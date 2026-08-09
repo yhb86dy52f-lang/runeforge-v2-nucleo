@@ -2,7 +2,7 @@ import { StateGraph, START, END } from "@langchain/langgraph";
 import { Ollama } from "@langchain/ollama";
 
 const supervisor = new Ollama({ model: "qwen2.5:1.5b", baseUrl: "http://localhost:11434", temperature: 0.1 });
-const coder = new Ollama({ model: "deepseek-coder:1.5b", baseUrl: "http://localhost:11434", temperature: 0.1 });
+const coder = new Ollama({ model: "deepseek-coder", baseUrl: "http://localhost:11434", temperature: 0.1 });
 
 const graphState = {
     messages: { value: (x, y) => x.concat(y), default: () => [] },
