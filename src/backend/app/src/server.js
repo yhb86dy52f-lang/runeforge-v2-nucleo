@@ -1,5 +1,5 @@
 // ================================================================
-// RUNEFORGE — BACKEND OPTIMIZADO CON WEBCOMMAND Y HEALTH
+// RUNEFORGE — BACKEND OPTIMIZADO CON WEBCOMMAND, SWARM Y HEALTH
 // ================================================================
 const Fastify = require('fastify');
 const fs = require('fs');
@@ -65,16 +65,19 @@ const app = Fastify({
 });
 
 // ============================================================
-// REGISTRO DE ARCHIVOS ESTÁTICOS (DASHBOARD MAESTRO)
+// REGISTRO DE ARCHIVOS ESTÁTICOS Y UI SWARM
 // ============================================================
 app.register(fastifyStatic, {
   root: 'C:/RUNEFORGE_V2_CORE/public',
   decorateReply: false
 });
 
-// ============================================================
-// REGISTRO DE DOCUMENTACIÓN EN /docs
-// ============================================================
+app.register(fastifyStatic, {
+  root: 'C:/RUNEFORGE_V2_CORE/public/forge/swarm',
+  prefix: '/forge/swarm',
+  decorateReply: false
+});
+
 app.register(fastifyStatic, {
   root: 'C:/RUNEFORGE_V2_CORE/public/documentacion y propuestas',
   prefix: '/docs',
@@ -112,6 +115,17 @@ app.get('/health', async (request, reply) => {
   });
 });
 
+app.get('/api/ollama/status', async (req, reply) => {
+  try {
+    const ollamaUrl = config.OLLAMA_URL || 'http://127.0.0.1:11434';
+    const r = await fetch(ollamaUrl + '/api/tags', { signal: AbortSignal.timeout(3000) });
+    const d = await r.json();
+    return { ok: true, online: true, models: d.models?.map(m=>m.name) || [] };
+  } catch {
+    return { ok: false, online: false, hint: 'ollama serve apagado' };
+  }
+});
+
 app.post('/api/chat', { handlerTimeout: 30000 }, async (request, reply) => {
   const start = Date.now();
   const { message } = request.body || {};
@@ -123,7 +137,7 @@ app.post('/api/chat', { handlerTimeout: 30000 }, async (request, reply) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: config.OLLAMA_MODEL,
-        system: SYSTEM_PROMPT,   // <--- META-PROMPT INYECTADO
+        system: SYSTEM_PROMPT,
         prompt: message,
         stream: false,
         options: { temperature: 0.2, num_predict: 220, top_k: 40, top_p: 0.9 }
@@ -195,11 +209,7 @@ app.post('/api/webcommand', async (req, reply) => {
 });
 
 // ============================================================
-// MANEJADOR 404 (FINAL)
-// ============================================================
-
-// ============================================================
-// ENDPOINT /api/orders (FALLBACK BITÁCORA PRO)
+// MANEJADOR 404 Y FALLBACKS
 // ============================================================
 app.get('/api/orders', async (req, reply) => {
   return { total: 0, data: [] };
@@ -212,7 +222,7 @@ app.post('/api/orders', async (req, reply) => {
 app.setNotFoundHandler((request, reply) => {
   reply.status(404).send({
     error: 'Not Found',
-    message: `Ruta ${request.url} no encontrada`,
+    message: `Ruta ${request.url} not found`,
     statusCode: 404
   });
 });
@@ -230,31 +240,3 @@ const start = async () => {
   }
 };
 start();
-
-
-app.get('/api/network', async (req, reply) => {
-  try {
-    const os = require('os');
-    const nets = os.networkInterfaces();
-    const ips = [];
-    for (const name of Object.keys(nets)) {
-      for (const net of nets[name]) {
-        if (net.family === 'IPv4' &&!net.internal) ips.push({ iface: name, ip: net.address });
-      }
-    }
-    return { ok: true, local: ips.find(i=>i.ip.startsWith('192.168.'))?.ip || '192.168.100.8', tailscale: ips.find(i=>i.ip.startsWith('100.'))?.ip || '100.111.32.10', all: ips, forge_local: `http://${ips.find(i=>i.ip.startsWith('192.168.'))?.ip || '192.168.100.8'}:3100/forge`, forge_tailscale: `http://${ips.find(i=>i.ip.startsWith('100.'))?.ip || '100.111.32.10'}:3100/forge` };
-  } catch (e) { return { ok: false, error: e.message }; }
-});
-
-app.get('/api/ollama/status', async (req, reply) => {
-  try {
-    const ollamaUrl = config.OLLAMA_URL || 'http://127.0.0.1:11434';
-    const r = await fetch(ollamaUrl + '/api/tags', { signal: AbortSignal.timeout(3000) });
-    const d = await r.json();
-    return { ok: true, online: true, models: d.models?.map(m=>m.name) || [] };
-  } catch {
-    return { ok: false, online: false, hint: 'ollama serve apagado' };
-  }
-});
-
-
