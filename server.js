@@ -1,4 +1,4 @@
-﻿const fastify = require('fastify')({ logger: true });
+const fastify = require('fastify')({ logger: true });
 const path = require('path');
 
 fastify.register(require('@fastify/static'), {
@@ -28,7 +28,7 @@ fastify.post('/api/chat/stream', async (request, reply) => {
     reply.raw.setHeader('X-Accel-Buffering', 'no');
 
     try {
-        const ollamaRes = await fetch('http://127.0.0.1:11434/api/generate', {
+        const ollamaRes = await fetch('http://0.0.0.0:11434/api/generate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ model: 'qwen2.5:1.5b', prompt, stream: true })

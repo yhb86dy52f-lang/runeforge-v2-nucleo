@@ -1,0 +1,77 @@
+const Fastify = require('fastify');
+const path = require('path');
+const fs = require('fs');
+
+const app = Fastify({
+  logger: false,
+  ignoreTrailingSlash: true,
+  bodyLimit: 1048576 // 1MB
+});
+
+// ========== SERVIDOR DE ARCHIVOS ESTÁTICOS ==========
+const publicDir = path.join(__dirname, '../../frontend');
+if (fs.existsSync(publicDir)) {
+  app.register(require('@fastify/static'), {
+    root: publicDir,
+    prefix: '/',
+    decorateReply: false
+  });
+  console.log('[STATIC] Sirviendo desde:', publicDir);
+} else {
+  console.warn('[STATIC] No se encontró la carpeta frontend, solo API disponible.');
+}
+
+// ========== RUTA DE CHAT CON OLLAMA ==========
+app.post('/api/chat', async (request, reply) => {
+  try {
+    const { message } = request.body;
+    
+    if (!message || typeof message !== 'string') {
+      return reply.status(400).send({ error: 'Mensaje inválido.' });
+    }
+
+    // Llamada a Ollama
+    const ollamaResponse = await fetch('http://localhost:11434/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'qwen2.5:1.5b',
+        prompt: message,
+        stream: false,
+        options: { temperature: 0.2, num_predict: 220 }
+      })
+    });
+
+    if (!ollamaResponse.ok) {
+      const errorText = await ollamaResponse.text();
+      throw new Error(`Ollama error: ${errorText}`);
+    }
+
+    const data = await ollamaResponse.json();
+    return reply.send({ response: data.response });
+
+  } catch (error) {
+    console.error('[CHAT ERROR]', error);
+    return reply.status(500).send({
+      error: 'Error procesando la solicitud',
+      detail: error.message
+    });
+  }
+});
+
+// ========== RUTA DE SALUD ==========
+app.get('/health', async (request, reply) => {
+  return reply.send({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// ========== INICIO DEL SERVIDOR ==========
+const PORT = process.env.PORT || 3100;
+const HOST = '0.0.0.0';
+
+app.listen({ port: PORT, host: HOST }, (err, address) => {
+  if (err) {
+    console.error('[ERROR]', err);
+    process.exit(1);
+  }
+  console.log([RUNEFORGE-CORE] SOBERANÍA ACTIVA EN );
+});
