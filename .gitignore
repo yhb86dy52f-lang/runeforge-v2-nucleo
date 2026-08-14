@@ -54,3 +54,5 @@ runeforge_verified_context.json
 start_services.ps1
 swarm_core/
 yhb86dy52f-lang.github-devices-*.csv
+runeforge_memory_consolidated_*.zip
+scripts/
