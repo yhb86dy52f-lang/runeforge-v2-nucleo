@@ -1,8 +1,9 @@
 ﻿node_modules/
 logs/
 .tmp.driveupload/
-data/db.json
-data/exec_status.json
+data/
+.env
+.env.*
 desktop.ini
 *.log
 *.tmp
