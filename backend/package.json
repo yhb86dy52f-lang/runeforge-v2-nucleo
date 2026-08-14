@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "@fastify/static": "^10.1.2"
-  }
-}

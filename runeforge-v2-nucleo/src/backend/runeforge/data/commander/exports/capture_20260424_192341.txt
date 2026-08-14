@@ -1,9 +1,0 @@
-# RUNEFORGE DIRECT COMMAND CAPTURE
-timestamp=2026-04-24T19:23:41
-command= Get-ChildItem "C:\RUNEFOGE_PRO\runeforge\data\commander\exports" -File | Select-Object Name,Length,LastWriteTime 
-
---- OUTPUT ---
-Name                        Length LastWriteTime
-----                        ------ -------------
-latest-terminal-export.json    530 24/04/2026 0…
-latest-terminal-export.txt    2417 24/04/2026 0…
