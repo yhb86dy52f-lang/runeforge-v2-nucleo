@@ -1,1 +1,4 @@
-﻿var http=require('http'); var PORT=3198; http.createServer(function(req,res){res.writeHead(200,{'Content-Type':'application/json','Access-Control-Allow-Origin':'*'}); res.end(JSON.stringify({ok:true,service:'relay',port:PORT,status:'online',ts:new Date().toISOString()}));}).listen(PORT,'0.0.0.0',function(){console.log('RELAY V2.5 OK '+PORT);});
+const fastify = require('fastify')({ logger: true });
+fastify.register(require('@fastify/cors'), { origin: true });
+fastify.get('/', async () => ({ ok:true, service:'relay', port:3198, status:'online', ts:new Date().toISOString() }));
+fastify.listen({ port:3198, host:'0.0.0.0' }, (err, addr) => { if(err){ console.error(err); process.exit(1);} console.log('RELAY OK '+addr); });

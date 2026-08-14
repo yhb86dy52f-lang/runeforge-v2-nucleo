@@ -1,9 +1,0 @@
-{
-  "CpuThresholdPercent": 15,
-  "MemoryThresholdMB": 400,
-  "MaxSuspendedProcesses": 5,
-  "IdleThresholdSeconds": 180,
-  "NetworkThresholdKBps": 500,
-  "CooldownAfterResume": 60,
-  "PollingIntervalSeconds": 10
-}
