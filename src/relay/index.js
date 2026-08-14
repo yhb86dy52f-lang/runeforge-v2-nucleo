@@ -1,0 +1,1 @@
+﻿var http=require('http'); var PORT=3198; http.createServer(function(req,res){res.writeHead(200,{'Content-Type':'application/json','Access-Control-Allow-Origin':'*'}); res.end(JSON.stringify({ok:true,service:'relay',port:PORT,status:'online',ts:new Date().toISOString()}));}).listen(PORT,'0.0.0.0',function(){console.log('RELAY V2.5 OK '+PORT);});

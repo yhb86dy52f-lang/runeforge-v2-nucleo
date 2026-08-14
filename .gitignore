@@ -1,40 +1,9 @@
-# Dependencias Node.js
 node_modules/
-.pnpm-store/
-package-lock.json
-
-# Logs
-logs/
-*.log
-npm-debug.log*
-backend-err.log
-backend-out.log
-relay-err.log
-
-# Python / ML
-__pycache__/
-*.pyc
-*.pkl
-*.bin
-*.index
-faiss_index.bin
-chunks.pkl
-
-# Backups y temporales
-*.bak
-*.tmp
-*.swp
-server.log
-
-# Variables de entorno
 .env
-.env.local
-.env.*.local
-
-# Build artifacts
-dist/
-build/
-*.map
-
-# Directorio de datos persistentes (se genera localmente)
-data/
+data/traces/
+*.log
+.pm2/
+_legacy_quarantine/
+daemon/
+public.zip
+STATUS_FINAL.txt
