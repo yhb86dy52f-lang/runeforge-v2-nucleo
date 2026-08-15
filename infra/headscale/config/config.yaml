@@ -1,0 +1,29 @@
+server_url: http://192.168.100.12:8080
+listen_addr: 0.0.0.0:8080
+metrics_listen_addr: 0.0.0.0:9090
+grpc_listen_addr: 0.0.0.0:50443
+grpc_allow_insecure: true
+private_key_path: /etc/headscale/data/private.key
+noise:
+  private_key_path: /etc/headscale/data/noise_private.key
+ip_prefixes:
+    - 100.64.0.0/10
+derp:
+  server:
+    enabled: true
+    region_id: 999
+    region_code: runeforge
+    region_name: Runeforge DERP
+    stun_listen_addr: "0.0.0.0:3478"
+disable_check_updates: true
+db_type: sqlite3
+db_path: /etc/headscale/data/db.sqlite
+acme_url: https://acme-v02.api.letsencrypt.org/directory
+acme_email: ""
+tls_letsencrypt_hostname: ""
+tls_letsencrypt_cache_dir: /etc/headscale/cache
+tls_letsencrypt_challenge_type: HTTP-01
+log_level: info
+log_format: text
+policy:
+  path: ""
