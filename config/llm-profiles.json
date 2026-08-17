@@ -1,0 +1,19 @@
+{
+  "version": "2.4",
+  "default_provider": "ollama",
+  "profiles": {
+    "ollama": {
+      "provider": "ollama",
+      "enabled": true,
+      "endpoint": "${OLLAMA_HOST:-http://127.0.0.1:11434}",
+      "models": { "default": "${OLLAMA_MODEL:-qwen2.5:1.5b}", "chat": "qwen2.5:1.5b", "code": "deepseek-coder:latest", "embed": "nomic-embed-text:latest", "vision": "gemma2:2b", "small": "qwen2.5:1.5b" },
+      "params": { "temperature": 0.7, "top_p": 0.9, "top_k": 40, "num_ctx": 4096, "num_predict": 512, "keep_alive": "${OLLAMA_KEEP_ALIVE:-10m}", "repeat_penalty": 1.1, "seed": -1 },
+      "limits": { "max_loaded_models": "${OLLAMA_MAX_LOADED_MODELS:-1}", "num_parallel": "${OLLAMA_NUM_PARALLEL:-1}", "vram_total_mb": 6144, "vram_used_mb": 2768, "vram_free_mb": 3376, "benchmark_tps": 110.8, "prompt_eval_tps": 239.74 },
+      "fallback_order": ["ollama", "deepseek", "gemini", "meta"]
+    },
+    "deepseek": { "provider": "openai_compatible", "enabled": false, "endpoint": "${DEEPSEEK_BASE_URL:-https://api.deepseek.com}", "api_key": "${DEEPSEEK_API_KEY}", "models": { "default": "deepseek-chat", "code": "deepseek-coder", "chat": "deepseek-chat" }, "params": { "temperature": 0.2, "max_tokens": 2048, "top_p": 0.95 } },
+    "gemini": { "provider": "gemini", "enabled": false, "endpoint": "${GEMINI_BASE_URL:-https://generativelanguage.googleapis.com}", "api_key": "${GEMINI_API_KEY}", "models": { "default": "${GEMINI_MODEL:-gemini-1.5-flash}", "chat": "gemini-1.5-flash", "vision": "gemini-1.5-pro", "embed": "text-embedding-004" }, "params": { "temperature": 0.7, "maxOutputTokens": 1024, "topP": 0.9, "topK": 40 } },
+    "meta": { "provider": "openai_compatible", "enabled": false, "endpoint": "${META_BASE_URL:-http://127.0.0.1:11434}", "api_key": "${META_API_KEY:-ollama}", "models": { "default": "llama3.1:8b", "chat": "llama3.1:8b", "code": "codellama:latest" }, "params": { "temperature": 0.7, "num_ctx": 8192 } }
+  },
+  "routing": { "strategy": "local_first", "local_only": ["chat", "embed"], "cloud_fallback": ["code", "vision"], "health_check": "/api/ollama/status", "chat_check": "/api/chat" }
+}

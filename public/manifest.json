@@ -1,0 +1,16 @@
+{
+  "name": "Runeforge Core v2",
+  "short_name": "Runeforge",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0211",
+  "theme_color": "#39FF14",
+  "description": "Runeforge Local-First Inference & Telemetry Center",
+  "icons": [
+    {
+      "src": "https://api.iconify.design/mdi:anvil.svg?color=%2339FF14",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
