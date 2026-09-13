@@ -1,0 +1,248 @@
+{
+  "wsl": {
+    "sshd_running": 0,
+    "tailscale_ip": "100.111.32.10",
+    "portproxy": "\nEscuchar en ipv4:       Conectar a ipv4:\n\nDirección       Puerto      Dirección       Puerto\n--------------- ----------  --------------- ----------\n0.0.0.0         2222        127.0.0.1       2222\n",
+    "ssh_2222_open": true,
+    "tailscale_status": "# Health check:\n#     - Unable to connect to the Tailscale coordination server to synchronize the state of your tailnet. Peer reachability might degrade over time.\n#     - Tailscale is starting. Please wait.\n\nunexpected state: NoState",
+    "distro_list": " \u0000 \u0000N\u0000A\u0000M\u0000E\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000S\u0000T\u0000A\u0000T\u0000E\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000V\u0000E\u0000R\u0000S\u0000I\u0000O\u0000N\u0000\n\u0000\n\u0000*\u0000 \u0000U\u0000b\u0000u\u0000n\u0000t\u0000u\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000S\u0000t\u0000o\u0000p\u0000p\u0000e\u0000d\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u00002\u0000\n\u0000\n\u0000 \u0000 \u0000d\u0000o\u0000c\u0000k\u0000e\u0000r\u0000-\u0000d\u0000e\u0000s\u0000k\u0000t\u0000o\u0000p\u0000 \u0000 \u0000 \u0000 \u0000S\u0000t\u0000o\u0000p\u0000p\u0000e\u0000d\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u00002\u0000\n\u0000\n\u0000"
+  },
+  "flotakw": {
+    "STOCK_R_PB705": [
+      "780901807724529",
+      "780901807724837",
+      "780901807724435",
+      "780901807726520",
+      "780901807723806",
+      "780901807724455",
+      "780901807724374"
+    ],
+    "STOCK_R_T2101N": [
+      "BDVA-5277 (11)",
+      "BDVA-3606 (12)",
+      "BDVA-4393 (13)",
+      "BDVA-3358 (14)",
+      "BDVA-7011 (15)",
+      "BDVA-5234 (16)",
+      "BDVA-5366 (17)"
+    ],
+    "KW_CERRADO": [
+      "KW 751 IMEI 780901807725431",
+      "KW 752 IMEI 780901807725961",
+      "KW 759 IMEI 780901807725665",
+      "KW 761 IMEI 780901807725203"
+    ]
+  },
+  "fecha": "2026-09-06 03:21:16",
+  "backups": [
+    "C:\\LargeFilesReport.txt",
+    "C:\\RuneforgeOptimizer.log"
+  ],
+  "timeline": [
+    {
+      "Fecha": "2026-05-22 03:04",
+      "Fase": "GENESIS",
+      "Desc": "Prueba inicial de forge",
+      "Nombre": "RUNEFOGETEST"
+    },
+    {
+      "Fecha": "2026-05-24 14:43",
+      "Fase": "DEPENDENCIAS",
+      "Desc": "Python en raiz - riesgo soberano",
+      "Nombre": "DLLs/Lib"
+    },
+    {
+      "Fecha": "2026-05-31 23:42",
+      "Fase": "DRIVERS",
+      "Desc": "Infra hardware",
+      "Nombre": "AMD"
+    },
+    {
+      "Fecha": "2026-08-02 01:27",
+      "Fase": "FORGE_V1",
+      "Desc": "Primer forge estable",
+      "Nombre": "RUNEFORGE"
+    },
+    {
+      "Fecha": "2026-08-16 00:10",
+      "Fase": "AUTOMATIZACION",
+      "Desc": "Scripts de optimizacion",
+      "Nombre": "scripts"
+    },
+    {
+      "Fecha": "2026-08-29 00:40",
+      "Fase": "STAGING",
+      "Desc": "Entorno de despliegue",
+      "Nombre": "BuzzStage"
+    },
+    {
+      "Fecha": "2026-08-29 03:39",
+      "Fase": "PRO_TYPO",
+      "Desc": "Typo, dos verdades paralelas",
+      "Nombre": "RUNEFOGE_PRO"
+    },
+    {
+      "Fecha": "2026-09-03 07:01",
+      "Fase": "REBRAND_V2",
+      "Desc": "Core paralelo",
+      "Nombre": "RUNE_V2_CORE"
+    },
+    {
+      "Fecha": "2026-09-03 07:03",
+      "Fase": "LAB",
+      "Desc": "Simplificacion + lab experimental",
+      "Nombre": "RUNE / TGL-LAB"
+    },
+    {
+      "Fecha": "2026-09-06 01:33",
+      "Fase": "BLINDAJE",
+      "Desc": "Primer backup real + voz a texto",
+      "Nombre": "RUNEFORGE_BACKUPS / WhisperCLI"
+    },
+    {
+      "Fecha": "2026-09-06 02:01",
+      "Fase": "SOBERANO",
+      "Desc": "Core vivo actual - fuente de verdad",
+      "Nombre": "RUNEFORGE_V2_CORE"
+    }
+  ],
+  "transformacion": {
+    "riesgo": "Python/DLLs/Lib en C:\\ raiz, dos cores paralelos, typo PRO",
+    "soberania": "85% - Falta consolidar backup y mover venv a core",
+    "de": "RUNEFOGETEST (22/05) -> RUNEFORGE (02/08) -> RUNEFOGE_PRO typo (29/08) -> RUNE + RUNE_V2_CORE paralelos (03/09)",
+    "a": "RUNEFORGE_V2_CORE (06/09) + RUNEFORGE_BACKUPS + WhisperCLI/WhisperTools + BuzzStage + TGL-LAB",
+    "patron": "De pruebas dispersas a nucleo soberano con blindaje y voz a texto"
+  },
+  "modo": "AUTONOMO",
+  "core": {
+    "total_archivos": 4135,
+    "reports": true,
+    "path": "C:\\RUNEFORGE_V2_CORE",
+    "node_modules": true,
+    "src_relay": true,
+    "public_baks": 5,
+    "knowledge": true,
+    "src_frontend": false,
+    "package_json": true,
+    "existe": true,
+    "src_backend": true
+  },
+  "root_items": [
+    {
+      "Name": "$Recycle.Bin",
+      "LastWriteTime": "2026-08-28T23:15:29.3768365-06:00"
+    },
+    {
+      "Name": "AMD",
+      "LastWriteTime": "2026-05-31T23:42:21.15151-06:00"
+    },
+    {
+      "Name": "BuzzStage",
+      "LastWriteTime": "2026-08-29T00:40:11.2202668-06:00"
+    },
+    {
+      "Name": "CalAmp",
+      "LastWriteTime": "2026-04-05T05:08:42.681702-06:00"
+    },
+    {
+      "Name": "DLLs",
+      "LastWriteTime": "2026-05-24T14:43:58.481823-06:00"
+    },
+    {
+      "Name": "Emulacion",
+      "LastWriteTime": "2026-03-30T03:58:47.0074207-06:00"
+    },
+    {
+      "Name": "ISO",
+      "LastWriteTime": "2026-04-09T03:00:10.6119876-06:00"
+    },
+    {
+      "Name": "Lib",
+      "LastWriteTime": "2026-05-24T14:43:58.4228201-06:00"
+    },
+    {
+      "Name": "OneDriveTemp",
+      "LastWriteTime": "2026-03-30T14:58:41.7778502-06:00"
+    },
+    {
+      "Name": "Program Files",
+      "LastWriteTime": "2026-09-06T02:02:17.0035773-06:00"
+    },
+    {
+      "Name": "Program Files (x86)",
+      "LastWriteTime": "2026-09-06T01:33:16.0164574-06:00"
+    },
+    {
+      "Name": "ProgramData",
+      "LastWriteTime": "2026-09-06T01:33:21.95683-06:00"
+    },
+    {
+      "Name": "Recovery",
+      "LastWriteTime": "2026-03-29T14:47:50.5972397-06:00"
+    },
+    {
+      "Name": "RUNE",
+      "LastWriteTime": "2026-09-03T07:03:12.2819848-06:00"
+    },
+    {
+      "Name": "RUNE_V2_CORE",
+      "LastWriteTime": "2026-09-03T07:01:36.4412515-06:00"
+    },
+    {
+      "Name": "RUNEFOGE_PRO",
+      "LastWriteTime": "2026-08-29T03:39:49.7188325-06:00"
+    },
+    {
+      "Name": "RUNEFOGETEST",
+      "LastWriteTime": "2026-05-22T03:04:33.4208653-06:00"
+    },
+    {
+      "Name": "RUNEFORGE",
+      "LastWriteTime": "2026-08-02T01:27:35.5648461-06:00"
+    },
+    {
+      "Name": "RUNEFORGE_BACKUPS",
+      "LastWriteTime": "2026-09-06T01:33:21.9618311-06:00"
+    },
+    {
+      "Name": "RUNEFORGE_PRO",
+      "LastWriteTime": "2026-08-27T20:28:31.9272707-06:00"
+    },
+    {
+      "Name": "RUNEFORGE_V2_CORE",
+      "LastWriteTime": "2026-09-06T02:01:27.3163329-06:00"
+    },
+    {
+      "Name": "scripts",
+      "LastWriteTime": "2026-08-16T00:10:35.0180392-06:00"
+    },
+    {
+      "Name": "System Volume Information",
+      "LastWriteTime": "2026-09-06T01:33:21.9628317-06:00"
+    },
+    {
+      "Name": "Temp",
+      "LastWriteTime": "2026-08-14T01:54:11.2968254-06:00"
+    },
+    {
+      "Name": "TGL-LAB",
+      "LastWriteTime": "2026-09-03T07:03:12.2899834-06:00"
+    },
+    {
+      "Name": "Users",
+      "LastWriteTime": "2026-09-06T01:33:15.8794597-06:00"
+    },
+    {
+      "Name": "WhisperCLI",
+      "LastWriteTime": "2026-09-06T03:12:53.624399-06:00"
+    },
+    {
+      "Name": "WhisperTools",
+      "LastWriteTime": "2026-09-06T01:33:21.9668311-06:00"
+    },
+    {
+      "Name": "Windows",
+      "LastWriteTime": "2026-09-06T01:49:38.982698-06:00"
+    }
+  ]
+}

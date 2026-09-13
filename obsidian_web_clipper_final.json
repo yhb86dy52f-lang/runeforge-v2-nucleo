@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "TGL Fleet Intelligence - Runeforge Pro",
+  "behavior": "create",
+  "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\npublished: \"{{published}}\"\ncreated: \"{{date:YYYY-MM-DD HH:mm:ss}}\"\nunit: \"{{unit}}\"\nesn: \"{{esn}}\"\ngroup: \"{{group}}\"\ntrama: \"{{trama}}\"\nnivel: {{nivel}}\nraw_escort: {{raw_escort}}\ncomandos: \"{{comandos}}\"\ncomando_calamp: \"{{comando_calamp}}\"\nlocation: \"{{location}}\"\nstatus: \"{{status}}\"\ntags: [runeforge/clipping, tgl-lab, fleet/intelligence, telemetry]\nobsidian_link: \"{{obsidianUrl}}\"\n---\n\n# 🚚 {{title}}\n\n**Fuente:** [{{url}}]({{url}})  \n**Capturado:** {{date:YYYY-MM-DD HH:mm:ss}}  \n**Estado:** {{status}}\n\n---\n\n## 📡 Telemetría Crítica\n\n| Parámetro | Valor |\n|-----------|-------|\n| **Unidad** | {{unit}} |\n| **ESN** | {{esn}} |\n| **Grupo Operativo** | {{group}} |\n| **Trama** | {{trama}} |\n| **Nivel (L)** | {{nivel}} |\n| **Raw Escort** | {{raw_escort}} |\n| **Comandos CalAmp** | {{comandos}} |\n| **Comando Esp.** | {{comando_calamp}} |\n| **Ubicación** | {{location}} |\n\n---\n\n## 📋 Contenido Capturado\n\n{{content}}\n\n---\n\n## 🧠 Análisis y Check-list (Runeforge)\n\n- [ ] Verificar trama en base de datos\n- [ ] Revisar sensor de combustible\n- [ ] Programar mantenimiento preventivo\n- [ ] Sincronizar con servidor central (Tailscale)",
+  "noteNameFormat": "UNIDAD-{{unit}}-{{date:YYYYMMDD}}",
+  "path": "Runeforge/Fleet_Intel",
+  "properties": [],
+  "triggers": ["https://rastreo.tgarzaleal.com/*"]
+}

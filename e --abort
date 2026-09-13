@@ -1,0 +1,5 @@
+[33me13fb4b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m v2.4 - fix .env.template + env factory 0.0.0.0->11434 + WebKit 60% 76.8GB + NoState 100.74.51.118
+[33m0d9e232[m v2.4 - LLM factory + AGENTS + fix NoState 100.74.51.118 + keep_alive 10m 110.80 tok/s + WebKit 60% quota 76.8GB + Soberania 90%->100% Headscale
+[33m2bf55ca[m[33m ([m[1;33mtag: [m[1;33mv2.6.1-verde-total[m[33m)[m security: saca .env y data/ de git - blindaje final
+[33md23e4dc[m V2.6.1 VERDE TOTAL - 1.3GB->101MB - 611k lineas borradas - backend 51mb relay 49mb - sin PPSSPP/Sunshine/FAC
+[33m518c0ee[m V2.6 TODO VERDE REAL - Backend /health /api/estatus /api/ollama/status /api/chat + Relay 3198 OK

@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGL LAB V5 PRO - AI Hyper-Suite & Telemetry Calibration</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Dexie.js for IndexedDB offline storage -->
+    <script src="https://unpkg.com/dexie@4/dist/dexie.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#06070a',
+                        cardbg: '#0f1118',
+                        cardborder: '#1e2333',
+                        neon: '#22ff66',
+                        cyberCyan: '#00f0ff',
+                        cyberPurple: '#a855f7',
+                        cyberPink: '#ec4899',
+                        cyberGold: '#fbbf24'
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #06070a; }
+        ::-webkit-scrollbar-thumb { background: #1e2333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+        .neon-glow { box-shadow: 0 0 20px rgba(34, 255, 102, 0.15); }
+        .cyan-glow { box-shadow: 0 0 20px rgba(0, 240, 255, 0.15); }
+        .purple-glow { box-shadow: 0 0 20px rgba(168, 85, 247, 0.15); }
+        .neon-text-glow { text-shadow: 0 0 10px rgba(34, 255, 102, 0.6); }
+        .cyan-text-glow { text-shadow: 0 0 10px rgba(0, 240, 255, 0.6); }
+        canvas { touch-action: none; }
+        @keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .animate-pulse-slow { animation: pulse-slow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 font-mono min-h-screen flex flex-col antialiased selection:bg-cyberCyan selection:text-black">
+
+    <header class="border-b border-cardborder bg-cardbg/90 backdrop-blur sticky top-0 z-50 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyberCyan opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-cyberCyan"></span>
+                </div>
+                <h1 class="font-black text-lg sm:text-xl tracking-wider text-neon neon-text-glow flex items-center gap-2">
+                    <i class="fa-solid fa-microchip text-cyberCyan"></i> TGL LAB V5 PRO <span class="text-xs px-2 py-0.5 rounded bg-cyberCyan/10 text-cyberCyan border border-cyberCyan/30 font-bold">AI HYPER-SUITE</span>
+                </h1>
+                <span class="hidden md:inline-flex text-[11px] bg-emerald-950/80 text-neon border border-neon/30 px-2.5 py-0.5 rounded-full font-semibold">
+                    OFFLINE READY • GEMINI 3.1 READY
+                </span>
+            </div>
+
+            <div class="flex items-center gap-2 text-xs">
+                <div id="aiEngineStatus" class="flex items-center gap-1.5 bg-slate-900 border border-cyberCyan/40 text-cyberCyan px-3 py-1 rounded-lg">
+                    <i class="fa-solid fa-brain animate-pulse"></i> Gemini 3 Flash Active
+                </div>
+                <button onclick="cargarEjemplo()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1 rounded-lg transition border border-slate-600 flex items-center gap-1">
+                    <i class="fa-solid fa-rotate-left text-xs"></i> Trama Ejemplo
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+        <!-- LEFT COLUMN: INPUTS & CALIBRATION (5 Cols) -->
+        <section class="lg:col-span-5 flex flex-col gap-5">
+            
+            <!-- ENTRADA TRAMA CARD -->
+            <div class="bg-cardbg border border-cardborder rounded-2xl p-4 sm:p-5 space-y-4 shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 w-28 h-28 bg-cyberCyan/5 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="flex items-center justify-between border-b border-cardborder/60 pb-3">
+                    <h2 class="text-xs uppercase tracking-widest text-slate-400 font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-terminal text-neon"></i> Decodificador & Calibración
+                    </h2>
+                    <span class="text-[10px] text-slate-500">TD600 / Escort Standard</span>
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">ESN Dispositivo</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-hashtag absolute left-3 top-3 text-slate-500 text-sm"></i>
+                            <input id="esn" type="text" value="4672073067" placeholder="Ej. 4672073067" class="w-full bg-slate-950 border border-cardborder rounded-xl py-2.5 pl-9 pr-3 text-sm text-neon font-bold focus:outline-none focus:border-neon transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Trama Hexadecimal Raw</label>
+                        <textarea id="trama" rows="3" placeholder="Pegue la trama Hex..." class="w-full bg-slate-950 border border-cardborder rounded-xl p-3 text-xs text-slate-200 font-mono focus:outline-none focus:border-neon transition resize-none uppercase">!E4672073067FFFFFF0100006A9083546A9083540F39E338C24A52B70000000000D015020014FFAD8F060600FFFF040000312900000FEC0000024400000292</textarea>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">RAW Escort Actual</label>
+                            <input id="escort_raw" type="number" value="40858" placeholder="Ej. 40858" class="w-full bg-slate-950 border border-cardborder rounded-xl py-2 px-3 text-sm text-amber-400 font-bold focus:outline-none focus:border-amber-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Target Nivel (0-1000)</label>
+                            <input id="escort_target" type="number" value="900" placeholder="900" class="w-full bg-slate-950 border border-cardborder rounded-xl py-2 px-3 text-sm text-cyberCyan font-bold focus:outline-none focus:border-cyberCyan">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                        <button onclick="decodificar()" class="bg-neon text-black font-black py-3 px-3 rounded-xl hover:bg-emerald-300 transition duration-150 shadow-lg shadow-neon/20 flex items-center justify-center gap-2 text-xs">
+                            <i class="fa-solid fa-calculator"></i> DECODIFICAR (62K)
+                        </button>
+                        <button onclick="analizarConIA()" class="bg-gradient-to-r from-cyberCyan to-blue-600 text-black font-black py-3 px-3 rounded-xl hover:brightness-110 transition duration-150 shadow-lg shadow-cyberCyan/20 flex items-center justify-center gap-2 text-xs">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> DIAGNÓSTICO IA
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMMAND GENERATOR CARD -->
+            <div class="bg-cardbg border border-cardborder rounded-2xl p-4 sm:p-5 space-y-3">
+                <div class="flex items-center justify-between border-b border-cardborder/60 pb-2">
+                    <h3 class="text-xs uppercase tracking-widest text-slate-400 font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-code text-cyberCyan"></i> Comandos de Calibración 62K
+                    </h3>
+                    <span class="text-[10px] text-slate-500">Click para copiar</span>
+                </div>
+
+                <div id="calc62k" class="bg-slate-950 border border-dashed border-neon/40 rounded-xl p-3.5 text-xs font-mono space-y-3">
+                    <div class="text-slate-400 italic text-[11px]">Ejecute una decodificación para calcular los comandos correspondientes.</div>
+                </div>
+
+                <div id="diagCard" class="bg-slate-950/80 border border-cardborder rounded-xl p-3 text-xs flex items-center justify-between">
+                    <span class="text-slate-400">Diagnóstico Escort:</span>
+                    <span id="diag" class="font-bold text-slate-300">Esperando datos...</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- RIGHT/CENTER COLUMN: TELEMETRY & GRAPH (7 Cols) -->
+        <section class="lg:col-span-7 flex flex-col gap-5">
+            
+            <!-- TELEMETRY KPIS & FUEL BAR CARD -->
+            <div class="bg-cardbg border border-cardborder rounded-2xl p-4 sm:p-5 space-y-4">
+                <div class="flex items-center justify-between border-b border-cardborder/60 pb-3">
+                    <h2 class="text-xs uppercase tracking-widest text-slate-400 font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-gauge-high text-neon"></i> Telemetría en Tiempo Real
+                    </h2>
+                    <span class="text-xs text-slate-400">ESN: <strong id="kpiEsnDisplay" class="text-neon">---</strong></span>
+                </div>
+
+                <!-- 4 KPI CARDS -->
+                <div id="kpis" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="bg-slate-950 border border-cardborder rounded-xl p-3 text-center">
+                        <span class="text-[10px] text-slate-400 font-sans block uppercase">V0 (Voltaje Principal)</span>
+                        <span id="kpiV0" class="text-xl font-bold text-neon">0.000V</span>
+                    </div>
+                    <div class="bg-slate-950 border border-cardborder rounded-xl p-3 text-center">
+                        <span class="text-[10px] text-slate-400 font-sans block uppercase">V1 (Secundario)</span>
+                        <span id="kpiV1" class="text-xl font-bold text-cyberCyan">0.000V</span>
+                    </div>
+                    <div class="bg-slate-950 border border-cardborder rounded-xl p-3 text-center">
+                        <span class="text-[10px] text-slate-400 font-sans block uppercase">T1 (Sensor Temp 1)</span>
+                        <span id="kpiT1" class="text-xl font-bold text-cyberGold">0.0°C</span>
+                    </div>
+                    <div class="bg-slate-950 border border-cardborder rounded-xl p-3 text-center">
+                        <span class="text-[10px] text-slate-400 font-sans block uppercase">T2 (Sensor Temp 2)</span>
+                        <span id="kpiT2" class="text-xl font-bold text-cyberPurple">0.0°C</span>
+                    </div>
+                </div>
+
+                <!-- FUEL LEVEL GAUGE -->
+                <div class="bg-slate-950 border border-cardborder rounded-xl p-3 space-y-1.5">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-slate-400">Nivel de Combustible Calculado (Tabla 62K)</span>
+                        <span id="levelLabel" class="font-bold text-neon">0 / 1000</span>
+                    </div>
+                    <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden border border-slate-800 relative">
+                        <div id="levelBar" class="bg-gradient-to-r from-emerald-500 to-neon h-full w-0 transition-all duration-500 rounded-full"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-slate-400 font-semibold">Histórico Voltamperométrico (V0 Trend)</span>
+                        <button onclick="limpiarGrafica()" class="text-[10px] text-slate-500 hover:text-slate-300">Limpiar Histórico</button>
+                    </div>
+                    <div class="relative bg-slate-950 border-2 border-neon/60 rounded-xl p-1 overflow-hidden">
+                        <canvas id="chart" class="w-full h-52 block rounded-lg"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OBSIDIAN RUNEFORGE MARKDOWN CLIPPING CARD -->
+            <div class="bg-cardbg border border-cardborder rounded-2xl p-4 sm:p-5 space-y-3">
+                <div class="flex items-center justify-between border-b border-cardborder/60 pb-2">
+                    <h3 class="text-xs uppercase tracking-widest text-slate-400 font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-file-lines text-cyberPurple"></i> Obsidian Runeforge Clipping Preview
+                    </h3>
+                    <div class="flex gap-2">
+                        <button onclick="copiarClipping()" class="bg-purple-950 text-purple-200 border border-purple-800 hover:bg-purple-900 px-2.5 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1">
+                            <i class="fa-solid fa-copy"></i> Copiar MD
+                        </button>
+                        <button onclick="guardarClippingAuto()" class="bg-emerald-950 text-neon border border-neon/40 hover:bg-emerald-900 px-2.5 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1">
+                            <i class="fa-solid fa-floppy-disk"></i> Guardar Clipping
+                        </button>
+                    </div>
+                </div>
+
+                <pre id="bitacora" class="bg-slate-950 border border-cardborder rounded-xl p-3 text-[11px] text-emerald-400 overflow-x-auto max-h-48 whitespace-pre-wrap font-mono">---
+title: "TGL LAB V5 PRO AI"
+source: "http://localhost:3001/"
+created: "2026-08-30T07:40:00Z"
+esn: "4672073067"
+trama: ""
+nivel: "0/1000"
+raw_escort: "0"
+comandos: ""
+estado: "pendiente"
+tags: [runeforge/clipping, tgl-lab, telemetry, calibracion, gemini-ai]
+---
+# TGL LAB - Esperando decodificación...</pre>
+            </div>
+
+        </section>
+
+        <!-- GEMINI AI POWERED HYPER-SUITE (Full 12 Columns) -->
+        <section class="lg:col-span-12">
+            <div class="bg-cardbg border border-cyberCyan/40 rounded-2xl p-4 sm:p-6 space-y-6 shadow-2xl cyan-glow relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-cyberCyan/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-cardborder pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyberCyan/20 to-cyberPurple/20 border border-cyberCyan/50 flex items-center justify-center text-cyberCyan text-lg">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-sm sm:text-base font-black uppercase tracking-wider text-slate-100 flex items-center gap-2">
+                                Gemini AI Telemetry & Diagnostic Intelligence Lab
+                            </h2>
+                            <p class="text-xs text-slate-400">Modelos Gemini 3 Flash • Grounding con Google Search • Síntesis TTS Vocal • Esquemas de Hardware</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-2">
+                        <button onclick="analizarConIA(true)" class="bg-slate-800 hover:bg-slate-700 text-cyberCyan border border-cyberCyan/40 px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-globe"></i> Diagnóstico + Google Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3 CARDS LAYOUT FOR AI FEATURES -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+                    <!-- CARD 1: DIAGNOSTIC & COPILOT REPORT (gemini-3-flash-preview) -->
+                    <div class="lg:col-span-1 bg-slate-950 border border-cardborder rounded-xl p-4 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b border-cardborder/60 pb-2">
+                                <h3 class="text-xs font-bold text-cyberCyan uppercase tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-robot"></i> Copiloto Técnico IA
+                                </h3>
+                                <span class="text-[10px] bg-cyberCyan/10 text-cyberCyan px-2 py-0.5 rounded border border-cyberCyan/30">gemini-3-flash</span>
+                            </div>
+
+                            <p class="text-[11px] text-slate-400">Seleccione un análisis especializado para los datos de telemetría actuales:</p>
+
+                            <div class="space-y-1.5">
+                                <button onclick="ejecutarPromptIA('diagnostico_completo')" class="w-full text-left bg-slate-900 hover:bg-slate-800 text-slate-200 border border-cardborder p-2 rounded-lg text-xs flex items-center justify-between transition group">
+                                    <span><i class="fa-solid fa-stethoscope text-emerald-400 mr-1.5"></i> Auditoría Completa de Sensores</span>
+                                    <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 group-hover:text-cyberCyan"></i>
+                                </button>
+                                <button onclick="ejecutarPromptIA('diagnostico_voltaje')" class="w-full text-left bg-slate-900 hover:bg-slate-800 text-slate-200 border border-cardborder p-2 rounded-lg text-xs flex items-center justify-between transition group">
+                                    <span><i class="fa-solid fa-bolt text-amber-400 mr-1.5"></i> Análisis de Alternador y Batería</span>
+                                    <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 group-hover:text-cyberCyan"></i>
+                                </button>
+                                <button onclick="ejecutarPromptIA('busqueda_manuales')" class="w-full text-left bg-slate-900 hover:bg-slate-800 text-slate-200 border border-cardborder p-2 rounded-lg text-xs flex items-center justify-between transition group">
+                                    <span><i class="fa-solid fa-magnifying-glass-location text-sky-400 mr-1.5"></i> Buscar Manuales TD600 / Escort (Web)</span>
+                                    <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 group-hover:text-cyberCyan"></i>
+                                </button>
+                            </div>
+
+                            <!-- Custom prompt input -->
+                            <div class="pt-2">
+                                <label class="block text-[10px] text-slate-400 mb-1">Consulta Personalizada al Copiloto:</label>
+                                <div class="flex gap-2">
+                                    <input id="aiCustomQuery" type="text" placeholder="Ej. ¿Qué causa fluctuaciones en V0?" class="flex-1 bg-slate-900 border border-cardborder rounded-lg px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-cyberCyan">
+                                    <button onclick="ejecutarPromptPersonalizado()" class="bg-cyberCyan text-black font-bold px-3 py-1.5 rounded-lg text-xs hover:bg-cyan-300 transition">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- GROUNDING SOURCES CONTAINER -->
+                        <div id="groundingSources" class="hidden bg-slate-900/90 border border-cardborder rounded-lg p-2.5 text-[11px] space-y-1">
+                            <span class="text-[10px] text-slate-400 font-bold block uppercase"><i class="fa-solid fa-link text-cyberCyan"></i> Fuentes Web Grounded:</span>
+                            <ul id="sourcesList" class="list-disc list-inside text-slate-300 space-y-0.5 max-h-24 overflow-y-auto"></ul>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: DIAGNOSTIC OUTPUT & AUDIO TTS BRIEFING STUDIO -->
+                    <div class="lg:col-span-1 bg-slate-950 border border-cardborder rounded-xl p-4 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b border-cardborder/60 pb-2">
+                                <h3 class="text-xs font-bold text-neon uppercase tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-[#22ff66] fa-file-waveform"></i> Informe & Reporte Vocal TTS
+                                </h3>
+                                <span class="text-[10px] bg-emerald-950 text-neon px-2 py-0.5 rounded border border-neon/30">gemini-2.5-tts</span>
+                            </div>
+
+                            <!-- DIAGNOSTIC OUTPUT CONTAINER -->
+                            <div id="aiOutputBox" class="bg-slate-900 border border-cardborder rounded-xl p-3 text-xs text-slate-300 min-h-[140px] max-h-[180px] overflow-y-auto font-mono leading-relaxed space-y-2">
+                                <p class="text-slate-500 italic">Haga clic en "Diagnóstico IA" o seleccione una consulta rápida para generar el informe inteligente del sensor.</p>
+                            </div>
+
+                            <!-- TTS SPEECH GENERATOR STUDIO -->
+                            <div class="bg-slate-900/80 border border-cardborder rounded-xl p-3 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-volume-high text-cyberCyan"></i> Generador de Briefing Vocal
+                                    </span>
+                                    <select id="ttsVoiceSelect" class="bg-slate-950 border border-cardborder rounded text-[10px] text-slate-300 px-2 py-0.5 focus:outline-none focus:border-cyberCyan">
+                                        <option value="Kore">Voz: Kore (Firme)</option>
+                                        <option value="Zephyr">Voz: Zephyr (Brillante)</option>
+                                        <option value="Puck">Voz: Puck (Animado)</option>
+                                        <option value="Sulafat">Voz: Sulafat (Cálido)</option>
+                                        <option value="Fenrir">Voz: Fenrir (Enérgico)</option>
+                                    </select>
+                                </div>
+
+                                <button onclick="generarAudioIA()" id="btnGenerateTTS" class="w-full bg-emerald-950 hover:bg-emerald-900 border border-neon/40 text-neon font-bold py-2 rounded-lg text-xs transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-play"></i> Sintetizar Audio Briefing (TTS)
+                                </button>
+
+                                <div id="audioPlayerContainer" class="hidden space-y-1.5 pt-1">
+                                    <audio id="audioPlayer" controls class="w-full h-8 rounded-lg bg-slate-950 border border-cardborder"></audio>
+                                    <span class="text-[10px] text-slate-400 block text-center">Audio sintetizado vía PCM16 / WAV container</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: AI HARDWARE SCHEMATICS & DIAGRAMS (gemini-3.1-flash-image) -->
+                    <div class="lg:col-span-1 bg-slate-950 border border-cardborder rounded-xl p-4 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b border-cardborder/60 pb-2">
+                                <h3 class="text-xs font-bold text-cyberPurple uppercase tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-diagram-project"></i> Generador de Esquemas IA
+                                </h3>
+                                <span class="text-[10px] bg-purple-950 text-cyberPurple px-2 py-0.5 rounded border border-cyberPurple/30">gemini-3.1-image</span>
+                            </div>
+
+                            <p class="text-[11px] text-slate-400">Genere esquemas técnicos, pinouts y guías visuales de instalación:</p>
+
+                            <div>
+                                <label class="block text-[10px] text-slate-400 mb-1">Preset de Diagrama:</label>
+                                <select id="diagramPreset" class="w-full bg-slate-900 border border-cardborder rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-cyberPurple">
+                                    <option value="escort_pinout">Diagrama de Pinout Escort TD600 a GPS (RS485 / Análogo)</option>
+                                    <option value="rod_cutting">Guía de Corte y Calibración de Varilla Capacitiva</option>
+                                    <option value="voltage_filter">Filtro Antiruido para Alimentación V0 (12V/24V)</option>
+                                    <option value="custom">Prompt Personalizado...</option>
+                                </select>
+                            </div>
+
+                            <div id="customDiagramPromptDiv" class="hidden">
+                                <input id="customDiagramPrompt" type="text" placeholder="Ej. Diagrama de fusible y relé de corte..." class="w-full bg-slate-900 border border-cardborder rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-cyberPurple">
+                            </div>
+
+                            <button onclick="generarDiagramaIA()" id="btnGenerateDiagram" class="w-full bg-purple-950 hover:bg-purple-900 border border-cyberPurple/50 text-purple-200 font-bold py-2.5 rounded-lg text-xs transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-image"></i> Generar Esquema Técnico (IA)
+                            </button>
+                        </div>
+
+                        <!-- DIAGRAM DISPLAY / PREVIEW -->
+                        <div id="diagramContainer" class="bg-slate-900 border border-cardborder rounded-lg p-2 flex flex-col items-center justify-center min-h-[130px] relative overflow-hidden">
+                            <span id="diagramPlaceholder" class="text-slate-500 text-[11px] italic text-center">Presione "Generar Esquema" para crear la imagen técnica.</span>
+                            <img id="diagramImage" class="hidden w-full h-auto rounded border border-cardborder object-contain max-h-44 shadow-lg" alt="Esquema Generado por IA">
+                            <button id="btnDownloadDiagram" onclick="descargarDiagrama()" class="hidden absolute bottom-2 right-2 bg-slate-950/90 text-cyberCyan border border-cyberCyan/50 px-2 py-1 rounded text-[10px] hover:bg-slate-900 font-bold">
+                                <i class="fa-solid fa-download"></i> Descargar
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- BOTTOM FULL-WIDTH: INDEXEDDB LOCAL FLEET DATABASE & AI FLEET ANALYZER -->
+        <section class="lg:col-span-12">
+            <div class="bg-cardbg border border-cardborder rounded-2xl p-4 sm:p-5 space-y-4 shadow-xl">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-cardborder/60 pb-3">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-database text-cyberGold"></i>
+                        <h2 class="text-xs uppercase tracking-widest text-slate-400 font-bold">
+                            Flota Local (IndexedDB Dexie)
+                        </h2>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <input id="dbSearch" type="text" oninput="cargarTabla()" placeholder="Buscar por ESN..." class="bg-slate-950 border border-cardborder rounded-lg px-3 py-1 text-xs text-slate-200 focus:outline-none focus:border-neon">
+                        <button onclick="analizarFlotaConIA()" class="bg-gradient-to-r from-amber-500 to-cyberGold text-black font-bold px-3 py-1 rounded-lg text-xs transition flex items-center gap-1 hover:brightness-110">
+                            <i class="fa-solid fa-brain"></i> Analizar Flota con IA
+                        </button>
+                        <button onclick="exportarCSV()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1 rounded-lg text-xs border border-slate-600 transition flex items-center gap-1">
+                            <i class="fa-solid fa-file-csv"></i> Exportar CSV
+                        </button>
+                        <button onclick="limpiarDB()" class="bg-rose-950 hover:bg-rose-900 text-rose-300 px-3 py-1 rounded-lg text-xs border border-rose-800 transition flex items-center gap-1">
+                            <i class="fa-solid fa-trash"></i> Borrar Caché
+                        </button>
+                    </div>
+                </div>
+
+                <!-- FLEET AI INSIGHT CONTAINER -->
+                <div id="fleetAiReport" class="hidden bg-slate-950 border border-cyberGold/40 rounded-xl p-4 space-y-2 text-xs text-amber-200">
+                    <div class="flex items-center justify-between border-b border-amber-900/50 pb-1.5">
+                        <span class="font-bold text-cyberGold flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line"></i> Informe de Salud de la Flota (Estructurado por Gemini IA)
+                        </span>
+                        <button onclick="document.getElementById('fleetAiReport').classList.add('hidden')" class="text-slate-400 hover:text-slate-200">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div id="fleetAiContent" class="space-y-2 font-mono text-[11px]"></div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="border-b border-cardborder text-slate-500">
+                                <th class="p-2">Fecha/Hora</th>
+                                <th class="p-2">ESN</th>
+                                <th class="p-2">V0</th>
+                                <th class="p-2">V1</th>
+                                <th class="p-2">RAW Escort</th>
+                                <th class="p-2">Target/Nivel</th>
+                                <th class="p-2">Trama Raw</th>
+                                <th class="p-2">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaBody" class="divide-y divide-cardborder/40 text-slate-300">
+                            <tr>
+                                <td colspan="8" class="p-4 text-center text-slate-500 italic">Cargando registros locales...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-950 border border-neon text-neon px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 font-mono text-xs">
+        <i class="fa-solid fa-circle-check text-base"></i>
+        <span id="toastMsg">Notificación</span>
+    </div>
+
+    <script>
+        // Dexie IndexedDB Initialization
+        const db = new Dexie("TGLLabDB_V5");
+        db.version(1).stores({
+            telemetria: '++id, esn, v0, v1, raw_escort, nivel, trama, timestamp, sync',
+            tramas_raw: '++id, esn, trama, timestamp, sync'
+        });
+
+        // Application Global State
+        let currentDecodedData = null;
+        let lastGeneratedDiagramUrl = null;
+
+        // Dynamic diagram preset handler
+        document.getElementById('diagramPreset').addEventListener('change', function(e) {
+            const customDiv = document.getElementById('customDiagramPromptDiv');
+            if (e.target.value === 'custom') {
+                customDiv.classList.remove('hidden');
+            } else {
+                customDiv.classList.add('hidden');
+            }
+        });
+
+
+        /**
+         * Generic Exponential Backoff Fetch Helper for Gemini API Calls
+         */
+        async function fetchWithBackoff(url, payload, maxRetries = 3) {
+            let delay = 1000;
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (response.status === 429 || response.status >= 500) {
+                        if (i === maxRetries - 1) throw new Error(`Status de API HTTP ${response.status}`);
+                        await new Promise(r => setTimeout(r, delay));
+                        delay *= 2;
+                        continue;
+                    }
+                    if (!response.ok) {
+                        const errJson = await response.json().catch(() => ({}));
+                        throw new Error(errJson.error?.message || `Status HTTP ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (err) {
+                    if (i === maxRetries - 1) throw err;
+                    await new Promise(r => setTimeout(r, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        /**
+         * Calls gemini-3-flash-preview for text generation & diagnosis (with optional search grounding)
+         */
+        async function callGeminiText(prompt, systemInstruction, useSearch = false) {
+            const apiKey = "AQ.Ab8RN6JLRaNL94uxwONbmWaNy6ojQa59SiavijSyMBI_ngENqA"; // Canvas runtime automatically supplies API key when empty string
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined
+            };
+
+            if (useSearch) {
+                payload.tools = [{ "google_search": {} }];
+            }
+
+            const result = await fetchWithBackoff(apiUrl, payload);
+            const candidate = result.candidates?.[0];
+            
+            const text = candidate?.content?.parts?.[0]?.text || "No se obtuvo respuesta del modelo.";
+            let sources = [];
+            
+            const groundingMetadata = candidate?.groundingMetadata;
+            if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                sources = groundingMetadata.groundingAttributions
+                    .map(att => ({ uri: att.web?.uri, title: att.web?.title }))
+                    .filter(s => s.uri && s.title);
+            }
+
+            return { text, sources };
+        }
+
+        /**
+         * Calls gemini-3-flash-preview with JSON schema for structured responses
+         */
+        async function callGeminiStructured(prompt, schema, systemInstruction) {
+            const apiKey = "AQ.Ab8RN6JLRaNL94uxwONbmWaNy6ojQa59SiavijSyMBI_ngENqA";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: schema
+                },
+                systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined
+            };
+
+            const result = await fetchWithBackoff(apiUrl, payload);
+            const jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!jsonText) throw new Error("Estructura JSON no retornada por el modelo.");
+            return JSON.parse(jsonText);
+        }
+
+        /**
+         * Calls gemini-3.1-flash-image for generating hardware diagrams & schematics
+         */
+        async function callGeminiImage(prompt, aspectRatio = "1:1") {
+            const apiKey = "AQ.Ab8RN6JLRaNL94uxwONbmWaNy6ojQa59SiavijSyMBI_ngENqA";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ role: 'user', parts: [{ text: prompt }] }],
+                generationConfig: {
+                    responseModalities: ['IMAGE'],
+                    imageConfig: { aspectRatio: aspectRatio }
+                }
+            };
+
+            const res = await fetchWithBackoff(apiUrl, payload);
+            const part = res?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+            if (part && part.inlineData?.data) {
+                return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+            }
+            throw new Error("No se recibió la imagen del modelo.");
+        }
+
+        /**
+         * STREAMING_CHUNK:Defining Gemini TTS Audio Synthesis helper...
+         */
+        /**
+         * Calls gemini-2.5-flash-preview-tts for TTS speech synthesis
+         */
+        async function callGeminiTTS(text, voiceName = "Kore") {
+            const apiKey = "AQ.Ab8RN6JLRaNL94uxwONbmWaNy6ojQa59SiavijSyMBI_ngENqA";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: text }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: voiceName }
+                        }
+                    }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            const result = await fetchWithBackoff(apiUrl, payload);
+            const part = result?.candidates?.[0]?.content?.parts?.[0];
+            const audioData = part?.inlineData?.data;
+            const mimeType = part?.inlineData?.mimeType;
+
+            if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                const rateMatch = mimeType.match(/rate=(\d+)/);
+                const sampleRate = rateMatch ? parseInt(rateMatch[1], 10) : 24000;
+                const pcmData = base64ToArrayBuffer(audioData);
+                const pcm16 = new Int16Array(pcmData);
+                const wavBlob = pcmToWav(pcm16, sampleRate);
+                return URL.createObjectURL(wavBlob);
+            }
+            throw new Error("No se pudo decodificar el formato de audio retornado por Gemini TTS.");
+        }
+
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16Array, sampleRate) {
+            const numChannels = 1;
+            const bytesPerSample = 2;
+            const byteRate = sampleRate * numChannels * bytesPerSample;
+            const blockAlign = numChannels * bytesPerSample;
+            const dataSize = pcm16Array.length * bytesPerSample;
+            const buffer = new ArrayBuffer(44 + dataSize);
+            const view = new DataView(buffer);
+
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + dataSize, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, byteRate, true);
+            view.setUint16(32, blockAlign, true);
+            view.setUint16(34, 16, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, dataSize, true);
+
+            let offset = 44;
+            for (let i = 0; i < pcm16Array.length; i++, offset += 2) {
+                view.setInt16(offset, pcm16Array[i], true);
+            }
+
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+
+        /**
+         * Decodes telemetry hexadecimal string pattern matching 040000[0-9A-F]{16}
+         */
+        function parseLast32(s) {
+            let m = s.match(/040000([0-9A-F]{4})0000([0-9A-F]{4})0000([0-9A-F]{4})0000([0-9A-F]{4})/i);
+            if (!m) return null;
+
+            const toV = h => parseInt(h, 16) / 1000;
+            const toT = h => {
+                let v = parseInt(h, 16);
+                if (v & 0x8000) v -= 0x10000;
+                return v / 16;
+            };
+
+            return {
+                v0: toV(m[1]),
+                h0: m[1],
+                v1: toV(m[2]),
+                h1: m[2],
+                t1: toT(m[3]),
+                ht1: m[3],
+                t2: toT(m[4]),
+                ht2: m[4],
+                hex: m[0]
+            };
+        }
+
+        /**
+         * Draws voltage trace curve on dynamic HTML5 Canvas
+         */
+        function drawChart(latestV0) {
+            const c = document.getElementById('chart');
+            if (!c) return;
+            const ctx = c.getContext('2d');
+            
+            const dpr = window.devicePixelRatio || 1;
+            const rect = c.getBoundingClientRect();
+            c.width = rect.width * dpr;
+            c.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            const width = rect.width;
+            const height = rect.height;
+
+            ctx.fillStyle = '#06070a';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.strokeStyle = '#121624';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 6; i++) {
+                let y = (height / 6) * i;
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+            for (let j = 0; j < 10; j++) {
+                let x = (width / 10) * j;
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+
+            let hist = JSON.parse(localStorage.getItem('tgl_hist') || '[]');
+            if (hist.length === 0 && latestV0) {
+                hist = [{ v0: latestV0 }];
+            }
+            if (hist.length === 0) {
+                ctx.fillStyle = '#64748b';
+                ctx.font = '12px monospace';
+                ctx.fillText('Sin datos históricos en gráfica', 20, height / 2);
+                return;
+            }
+
+            hist = hist.slice(0, 25).reverse();
+            const minV = Math.max(0, Math.min(...hist.map(x => x.v0)) - 0.5);
+            const maxV = Math.max(...hist.map(x => x.v0)) + 0.5;
+
+            const mapX = i => (i / (hist.length - 1 || 1)) * (width - 40) + 20;
+            const mapY = v => height - 20 - ((v - minV) / (maxV - minV || 1)) * (height - 40);
+
+            ctx.beginPath();
+            hist.forEach((h, i) => {
+                let x = mapX(i), y = mapY(h.v0);
+                if (i === 0) ctx.moveTo(x, height - 20);
+                ctx.lineTo(x, y);
+            });
+            ctx.lineTo(mapX(hist.length - 1), height - 20);
+            ctx.closePath();
+            let grad = ctx.createLinearGradient(0, 0, 0, height);
+            grad.addColorStop(0, 'rgba(34, 255, 102, 0.25)');
+            grad.addColorStop(1, 'rgba(34, 255, 102, 0.0)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#22ff66';
+            ctx.lineWidth = 2.5;
+            hist.forEach((h, i) => {
+                let x = mapX(i), y = mapY(h.v0);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+
+            hist.forEach((h, i) => {
+                let x = mapX(i), y = mapY(h.v0);
+                ctx.fillStyle = '#22ff66';
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#06070a';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            });
+
+            const lastVal = hist[hist.length - 1]?.v0 || 0;
+            ctx.fillStyle = '#22ff66';
+            ctx.font = 'bold 12px monospace';
+            ctx.fillText(`V0 Actual: ${lastVal.toFixed(3)}V | Max: ${maxV.toFixed(2)}V Min: ${minV.toFixed(2)}V`, 15, 20);
+        }
+
+
+        /**
+         * Decodes input hex string and calculates Escort 62K parameters
+         */
+        async function decodificar() {
+            const trama = document.getElementById('trama').value.toUpperCase().trim();
+            const esn = document.getElementById('esn').value.trim();
+            const rawEscort = parseInt(document.getElementById('escort_raw').value) || 0;
+            const target = parseInt(document.getElementById('escort_target').value) || 900;
+
+            if (!trama) {
+                showToast('Por favor ingrese una trama válida', 'error');
+                return;
+            }
+
+            const mf = trama.match(/040000[0-9A-F]{4}0000[0-9A-F]{4}0000[0-9A-F]{4}0000[0-9A-F]{4}/i);
+            if (!mf) {
+                showToast('Error: No se encontró patrón 040000 en la trama', 'error');
+                return;
+            }
+
+            const d = parseLast32(mf[0]);
+            if (!d) {
+                showToast('Error al procesar parámetros de la trama', 'error');
+                return;
+            }
+
+            const VACIO = 34355;
+            const LLENO_NUEVO = Math.round(VACIO + (rawEscort - VACIO) / (target / 1000));
+            const LLENO_REAL = 62000;
+            const nivelActual = Math.round((rawEscort - VACIO) / (LLENO_REAL - VACIO) * 1000);
+            const nivelConstrained = Math.max(0, Math.min(1000, nivelActual));
+
+            document.getElementById('kpiEsnDisplay').textContent = esn;
+            document.getElementById('kpiV0').textContent = d.v0.toFixed(3) + 'V';
+            document.getElementById('kpiV1').textContent = d.v1.toFixed(3) + 'V';
+            document.getElementById('kpiT1').textContent = d.t1.toFixed(1) + '°C';
+            document.getElementById('kpiT2').textContent = d.t2.toFixed(1) + '°C';
+
+            document.getElementById('levelLabel').textContent = `${nivelConstrained} / 1000`;
+            document.getElementById('levelBar').style.width = `${Math.min(100, Math.max(0, nivelConstrained / 10))}%`;
+
+            const cmdTarget = `!r3,62,${VACIO}\n!r3,63,${LLENO_NUEVO}`;
+            const cmd62k = `!r3,62,${VACIO}\n!r3,63,62000\n!r0`;
+            const allCmds = `${cmdTarget} | ${cmd62k.replace(/\n/g, ' | ')}`;
+
+            document.getElementById('calc62k').innerHTML = `
+                <div class="text-slate-300">RAW Actual: <strong class="text-amber-400">${rawEscort}</strong> | Nivel con Tabla 62K: <strong class="text-neon">${nivelConstrained}/1000</strong></div>
+                <div class="mt-2 text-slate-400">Comandos para forzar target (${target}):</div>
+                <div class="flex items-center justify-between bg-slate-900 border border-emerald-900 p-2 rounded-lg text-neon cursor-pointer hover:bg-slate-800" onclick="copiarTexto('${cmdTarget}')">
+                    <code>!r3,62,${VACIO}<br>!r3,63,${LLENO_NUEVO}</code>
+                    <i class="fa-solid fa-copy text-xs text-slate-400"></i>
+                </div>
+                <div class="mt-2 text-slate-400">Tabla 62K Definitiva:</div>
+                <div class="flex items-center justify-between bg-slate-900 border border-purple-900 p-2 rounded-lg text-purple-300 cursor-pointer hover:bg-slate-800" onclick="copiarTexto('${cmd62k}')">
+                    <code>!r3,62,${VACIO}<br>!r3,63,62000<br>!r0</code>
+                    <i class="fa-solid fa-copy text-xs text-slate-400"></i>
+                </div>
+            `;
+
+            const diagEl = document.getElementById('diag');
+            if (rawEscort < 50000) {
+                diagEl.innerHTML = '<span class="text-rose-400 font-bold"><i class="fa-solid fa-triangle-exclamation"></i> RAW BAJO - CALIBRAR ESCORT EN RANGO 1-1023</span>';
+            } else {
+                diagEl.innerHTML = '<span class="text-neon font-bold"><i class="fa-solid fa-circle-check"></i> RAW OK (&gt;60K)</span>';
+            }
+
+            let hist = JSON.parse(localStorage.getItem('tgl_hist') || '[]');
+            hist.unshift({ esn, v0: d.v0, t: new Date().toLocaleTimeString() });
+            localStorage.setItem('tgl_hist', JSON.stringify(hist.slice(0, 30)));
+            drawChart(d.v0);
+
+            const nowIso = new Date().toISOString();
+            const bitacoraContent = `---
+title: "TGL LAB V5 PRO AI"
+source: "http://localhost:3001/"
+created: "${nowIso}"
+esn: "${esn}"
+trama: "${trama}"
+nivel: "${nivelConstrained}/1000"
+raw_escort: "${rawEscort}"
+comandos: "${allCmds}"
+estado: "calibrado"
+tags: [runeforge/clipping, tgl-lab, telemetry, calibracion, gemini-ai]
+---
+
+# TGL LAB - ${esn}
+
+*RAW:* ${rawEscort} | *Nivel:* ${nivelConstrained}/1000 | *Target:* ${target}
+
+## Comandos para forzar ${target}
+!r3,62,${VACIO}
+!r3,63,${LLENO_NUEVO}
+
+## Tabla 62K definitiva
+!r3,62,${VACIO}
+!r3,63,62000
+!r0
+
+## Trama Raw
+${trama}`;
+
+            document.getElementById('bitacora').textContent = bitacoraContent;
+            currentDecodedData = { esn, rawEscort, target, nivelConstrained, bitacoraContent, v0: d.v0, v1: d.v1, t1: d.t1, t2: d.t2, trama };
+
+            try {
+                await db.telemetria.add({
+                    esn: esn,
+                    v0: d.v0,
+                    v1: d.v1,
+                    raw_escort: rawEscort,
+                    nivel: `${nivelConstrained}/1000`,
+                    trama: trama,
+                    timestamp: new Date(),
+                    sync: 1
+                });
+
+                await db.tramas_raw.add({
+                    esn: esn,
+                    trama: trama,
+                    timestamp: new Date(),
+                    sync: 1
+                });
+                
+                cargarTabla();
+                showToast('Telemetría procesada y guardada en BD');
+            } catch (err) {
+                console.error('Error guardando en Dexie:', err);
+            }
+        }
+
+
+        /**
+         * Runs Gemini 3 Flash Diagnosis on telemetry data
+         */
+        async function analizarConIA(useSearch = false) {
+            if (!currentDecodedData) {
+                await decodificar();
+            }
+            if (!currentDecodedData) return;
+
+            const outBox = document.getElementById('aiOutputBox');
+            const sourcesBox = document.getElementById('groundingSources');
+            const sourcesList = document.getElementById('sourcesList');
+
+            outBox.innerHTML = '<div class="flex items-center gap-2 text-cyberCyan animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Generando diagnóstico avanzado con Gemini IA...</div>';
+            sourcesBox.classList.add('hidden');
+
+            const systemInstruction = "Eres un ingeniero senior experto en telemetría vehicular, GPS de flotas y calibración de sensores capacitivos de combustible (Escort TD-600, Teltonika, Ruptela). Ofrece diagnósticos concisos, profesionales y con viñetas en español.";
+            
+            const prompt = `Analiza la siguiente telemetría extraída de un dispositivo vehicular:
+- ESN Dispositivo: ${currentDecodedData.esn}
+- Voltaje Principal V0: ${currentDecodedData.v0.toFixed(3)} V
+- Voltaje Secundario V1: ${currentDecodedData.v1.toFixed(3)} V
+- Temp Sensor T1: ${currentDecodedData.t1.toFixed(1)} °C
+- Temp Sensor T2: ${currentDecodedData.t2.toFixed(1)} °C
+- RAW Escort Actual: ${currentDecodedData.rawEscort}
+- Nivel de Combustible Calculado: ${currentDecodedData.nivelConstrained} / 1000 (Tabla 62K)
+- Trama HEX Payload: ${currentDecodedData.trama}
+
+Evalúa:
+1. Salud de la línea eléctrica (alternador/batería).
+2. Estado de calibración del sensor de combustible Escort (¿RAW es normal o bajo?).
+3. Temperatura de trabajo de los sensores.
+4. Recomendación técnica inmediata de calibración o taller.`;
+
+            try {
+                const res = await callGeminiText(prompt, systemInstruction, useSearch);
+                outBox.innerHTML = formatMarkdownToHTML(res.text);
+
+                if (res.sources && res.sources.length > 0) {
+                    sourcesList.innerHTML = res.sources.map(s => `<li><a href="${s.uri}" target="_blank" class="text-cyberCyan underline hover:text-cyan-200">${s.title}</a></li>`).join('');
+                    sourcesBox.classList.remove('hidden');
+                }
+
+                showToast('✓ Diagnóstico IA completado');
+            } catch (err) {
+                outBox.innerHTML = `<span class="text-rose-400 font-bold"><i class="fa-solid fa-circle-exclamation"></i> Error de Gemini IA: ${err.message}</span>`;
+                showToast('Error en servicio de IA', 'error');
+            }
+        }
+
+        /**
+         * Executes quick preset prompts for the AI Copilot
+         */
+        async function ejecutarPromptIA(tipo) {
+            if (!currentDecodedData) await decodificar();
+            if (!currentDecodedData) return;
+
+            const outBox = document.getElementById('aiOutputBox');
+            outBox.innerHTML = '<div class="flex items-center gap-2 text-cyberCyan animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Procesando consulta técnica...</div>';
+
+            let prompt = "";
+            let useSearch = false;
+
+            if (tipo === 'diagnostico_completo') {
+                prompt = `Realiza una auditoría técnica completa de los datos del sensor ESN ${currentDecodedData.esn} (V0=${currentDecodedData.v0}V, RAW=${currentDecodedData.rawEscort}). Da recomendaciones paso a paso.`;
+            } else if (tipo === 'diagnostico_voltaje') {
+                prompt = `Determina el estado del alternador y batería considerando V0=${currentDecodedData.v0}V y V1=${currentDecodedData.v1}V. ¿Es un vehículo de 12V o 24V y hay riesgo de sobrevoltaje o caída de tensión durante arranque?`;
+            } else if (tipo === 'busqueda_manuales') {
+                prompt = `Busca información técnica sobre especificaciones del sensor de nivel de combustible Escort TD600 y comúnmente cuáles son los comandos de calibración vacio/lleno y códigos de error.`;
+                useSearch = true;
+            }
+
+            try {
+                const res = await callGeminiText(prompt, "Eres un asistente técnico experto en GPS y telemetría.", useSearch);
+                outBox.innerHTML = formatMarkdownToHTML(res.text);
+                showToast('✓ Consulta IA finalizada');
+            } catch (err) {
+                outBox.innerHTML = `<span class="text-rose-400 font-bold">Error: ${err.message}</span>`;
+            }
+        }
+
+        async function ejecutarPromptPersonalizado() {
+            const query = document.getElementById('aiCustomQuery').value.trim();
+            if (!query) return;
+            
+            const outBox = document.getElementById('aiOutputBox');
+            outBox.innerHTML = '<div class="flex items-center gap-2 text-cyberCyan animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Consultando a Gemini...</div>';
+
+            try {
+                const res = await callGeminiText(`Telemetría actual ESN ${currentDecodedData?.esn || '4672073067'}: V0=${currentDecodedData?.v0 || 12.5}V, RAW=${currentDecodedData?.rawEscort || 40858}.\nPregunta: ${query}`, "Asistente experto en telemetría");
+                outBox.innerHTML = formatMarkdownToHTML(res.text);
+            } catch (err) {
+                outBox.innerHTML = `<span class="text-rose-400 font-bold">Error: ${err.message}</span>`;
+            }
+        }
+
+
+        /**
+         * Generates spoken audio diagnostic report using Gemini TTS API
+         */
+        async function generarAudioIA() {
+            if (!currentDecodedData) await decodificar();
+            
+            const btn = document.getElementById('btnGenerateTTS');
+            const playerContainer = document.getElementById('audioPlayerContainer');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const voice = document.getElementById('ttsVoiceSelect').value;
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sintetizando Voz...';
+
+            const summaryText = `Atención técnico de flota. Reporte de telemetría para el dispositivo ESN ${currentDecodedData.esn}. Voltaje principal en ${currentDecodedData.v0.toFixed(2)} voltios. Sensor de combustible Escort con valor crudo RAW en ${currentDecodedData.rawEscort}, equivalente a nivel calculado de ${currentDecodedData.nivelConstrained} sobre 1000 en tabla 62K. ${currentDecodedData.rawEscort < 50000 ? 'Advertencia: El valor RAW de combustible es bajo. Se requiere calibrar en rango 1 a 1023.' : 'Estado de lectura dentro de parámetros nominales.'}`;
+
+            try {
+                const audioUrl = await callGeminiTTS(summaryText, voice);
+                audioPlayer.src = audioUrl;
+                playerContainer.classList.remove('hidden');
+                audioPlayer.play();
+                showToast('✓ Audio Briefing sintetizado exitosamente');
+            } catch (err) {
+                showToast(`Error al generar audio: ${err.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-play"></i> Sintetizar Audio Briefing (TTS)';
+            }
+        }
+
+
+        /**
+         * Generates hardware diagrams & schematics using gemini-3.1-flash-image
+         */
+        async function generarDiagramaIA() {
+            const preset = document.getElementById('diagramPreset').value;
+            const btn = document.getElementById('btnGenerateDiagram');
+            const imgEl = document.getElementById('diagramImage');
+            const placeholder = document.getElementById('diagramPlaceholder');
+            const downloadBtn = document.getElementById('btnDownloadDiagram');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generando Diagrama con IA...';
+            placeholder.textContent = 'Renderizando esquema técnico... Esto puede tomar unos segundos.';
+            placeholder.classList.remove('hidden');
+            imgEl.classList.add('hidden');
+            downloadBtn.classList.add('hidden');
+
+            let prompt = "";
+            if (preset === 'escort_pinout') {
+                prompt = "A high quality clean technical electrical wiring diagram showing how to connect an Escort TD-600 capacitive fuel sensor to a fleet GPS tracker. Labels for VCC (+12V/24V red wire), GND (black wire), RS-485 A (green wire), RS-485 B (yellow wire), labeled clearly on a dark technical schematic background.";
+            } else if (preset === 'rod_cutting') {
+                prompt = "A step-by-step technical illustration diagram for cutting and calibrating a capacitive fuel sensor rod. Shows measuring the tank height, cutting the aluminum tubes, inserting the insulating cap, and setting empty/full calibration points.";
+            } else if (preset === 'voltage_filter') {
+                prompt = "A clean electronic schematic showing an LC noise filter circuit between vehicle alternator supply V0 and a sensitive GPS tracking device, including capacitors and choke inductors to stabilize voltage spikes.";
+            } else {
+                prompt = document.getElementById('customDiagramPrompt').value.trim() || "Technical schematic diagram of vehicle telemetry wiring.";
+            }
+
+            try {
+                const imageUrl = await callGeminiImage(prompt, "16:9");
+                lastGeneratedDiagramUrl = imageUrl;
+                imgEl.src = imageUrl;
+                imgEl.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                downloadBtn.classList.remove('hidden');
+                showToast('✓ Esquema técnico generado por Gemini');
+            } catch (err) {
+                placeholder.textContent = `Error al generar esquema: ${err.message}`;
+                showToast('Error en generación de imagen', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-image"></i> Generar Esquema Técnico (IA)';
+            }
+        }
+
+        function descargarDiagrama() {
+            if (!lastGeneratedDiagramUrl) return;
+            const a = document.createElement('a');
+            a.href = lastGeneratedDiagramUrl;
+            a.download = `tgl_lab_diagrama_${Date.now()}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+
+        /**
+         * Analyzes IndexedDB fleet data with Structured Gemini JSON Schema
+         */
+        async function analizarFlotaConIA() {
+            const fleetReportDiv = document.getElementById('fleetAiReport');
+            const fleetReportContent = document.getElementById('fleetAiContent');
+
+            fleetReportDiv.classList.remove('hidden');
+            fleetReportContent.innerHTML = '<div class="text-cyberGold animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Leyendo IndexedDB y procesando estructura de flota con IA...</div>';
+
+            const records = await db.telemetria.reverse().limit(15).toArray();
+
+            if (records.length === 0) {
+                fleetReportContent.innerHTML = '<span class="text-slate-400">No hay registros almacenados en la base de datos local para analizar.</span>';
+                return;
+            }
+
+            const prompt = `Analiza los siguientes registros de telemetría histórica de la flota:
+${JSON.stringify(records.map(r => ({ esn: r.esn, v0: r.v0, v1: r.v1, raw_escort: r.raw_escort, nivel: r.nivel, fecha: r.timestamp })))}
+
+Devuelve un resumen estructurado.`;
+
+            const schema = {
+                type: "OBJECT",
+                properties: {
+                    total_analizados: { type: "NUMBER" },
+                    diagnostico_general: { type: "STRING" },
+                    alertas_criticas: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                esn: { type: "STRING" },
+                                severidad: { type: "STRING" },
+                                motivo: { type: "STRING" }
+                            },
+                            required: ["esn", "severidad", "motivo"]
+                        }
+                    },
+                    recomendacion_mantenimiento: { type: "STRING" }
+                },
+                required: ["total_analizados", "diagnostico_general", "alertas_criticas", "recomendacion_mantenimiento"]
+            };
+
+            try {
+                const res = await callGeminiStructured(prompt, schema, "Eres un director de mantenimiento de flotas e inteligencia de telemetría.");
+                
+                let html = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2">
+                        <div class="bg-slate-900 p-2 rounded border border-cardborder">
+                            <span class="text-slate-400 block text-[10px]">Vehículos Evaluados:</span>
+                            <span class="text-neon font-bold text-sm">${res.total_analizados}</span>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded border border-cardborder">
+                            <span class="text-slate-400 block text-[10px]">Diagnóstico Global:</span>
+                            <span class="text-slate-200">${res.diagnostico_general}</span>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="font-bold text-rose-400 block text-[10px] uppercase">Alertas de Atención Inmediata:</span>
+                `;
+
+                if (res.alertas_criticas.length === 0) {
+                    html += `<div class="text-emerald-400">✓ No se detectaron anomalías críticas en los vehículos registrados.</div>`;
+                } else {
+                    res.alertas_criticas.forEach(a => {
+                        html += `
+                            <div class="bg-rose-950/60 border border-rose-800 p-1.5 rounded flex items-center justify-between">
+                                <span><strong>ESN ${a.esn}</strong>: ${a.motivo}</span>
+                                <span class="bg-rose-900 text-rose-200 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase">${a.severidad}</span>
+                            </div>
+                        `;
+                    });
+                }
+
+                html += `
+                    </div>
+                    <div class="pt-1 text-slate-300">
+                        <strong class="text-cyberGold">Acción Sugerida:</strong> ${res.recomendacion_mantenimiento}
+                    </div>
+                `;
+
+                fleetReportContent.innerHTML = html;
+                showToast('✓ Análisis de flota con IA completado');
+            } catch (err) {
+                fleetReportContent.innerHTML = `<span class="text-rose-400">Error en análisis estructurado: ${err.message}</span>`;
+            }
+        }
+
+
+        /**
+         * Loads and filters telemetry records from IndexedDB into HTML Table
+         */
+        async function cargarTabla() {
+            const query = (document.getElementById('dbSearch')?.value || '').toLowerCase().trim();
+            const tbody = document.getElementById('tablaBody');
+
+            try {
+                let rows = await db.telemetria.reverse().limit(30).toArray();
+                if (query) {
+                    rows = rows.filter(r => (r.esn || '').toLowerCase().includes(query) || (r.trama || '').toLowerCase().includes(query));
+                }
+
+                if (rows.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-slate-500 italic">No hay registros guardados en la flota local.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = rows.map(r => `
+                    <tr class="hover:bg-slate-900/60 transition">
+                        <td class="p-2 text-slate-400 text-[11px]">${new Date(r.timestamp).toLocaleTimeString()}</td>
+                        <td class="p-2 font-bold text-neon">${r.esn}</td>
+                        <td class="p-2 font-mono text-emerald-400">${r.v0.toFixed(3)}V</td>
+                        <td class="p-2 font-mono text-cyberCyan">${r.v1.toFixed(3)}V</td>
+                        <td class="p-2 font-bold text-amber-400">${r.raw_escort}</td>
+                        <td class="p-2">${r.nivel}</td>
+                        <td class="p-2 font-mono text-[10px] text-slate-400 truncate max-w-[150px]" title="${r.trama}">${r.trama}</td>
+                        <td class="p-2">
+                            <span class="bg-emerald-950 text-neon border border-neon/30 text-[10px] px-2 py-0.5 rounded-full">OK</span>
+                        </td>
+                    </tr>
+                `).join('');
+
+            } catch (err) {
+                console.error('Error al leer de Dexie:', err);
+            }
+        }
+
+        function formatMarkdownToHTML(md) {
+            return md
+                .replace(/^### (.*$)/gim, '<h3 class="font-bold text-cyberCyan text-xs mt-2 mb-1">$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2 class="font-bold text-neon text-xs mt-2 mb-1">$1</h2>')
+                .replace(/^# (.*$)/gim, '<h1 class="font-bold text-slate-100 text-sm mt-2 mb-1">$1</h1>')
+                .replace(/\*\*(.* vast?)\*\*/gim, '<strong class="text-neon">$1</strong>')
+                .replace(/\*\*(.*?)\*\*/gim, '<strong class="text-slate-100">$1</strong>')
+                .replace(/^\* (.*$)/gim, '• $1<br>')
+                .replace(/`(.*?)`/gim, '<code class="bg-slate-950 px-1 py-0.5 rounded text-cyberCyan border border-cardborder">$1</code>')
+                .replace(/\n/g, '<br>');
+        }
+
+        function copiarTexto(txt) {
+            const textArea = document.createElement("textarea");
+            textArea.value = txt;
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast('Copiado al portapapeles');
+            } catch (err) {
+                console.error('Error al copiar: ', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function copiarClipping() {
+            const content = document.getElementById('bitacora').textContent;
+            copiarTexto(content);
+        }
+
+        async function guardarClippingAuto() {
+            if (!currentDecodedData) await decodificar();
+            if (!currentDecodedData) return;
+            showToast('✓ Runeforge Clipping guardado exitosamente');
+        }
+
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = msg;
+
+            if (type === 'error') {
+                toast.className = 'fixed bottom-5 right-5 z-50 bg-rose-950 border border-rose-500 text-rose-200 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 font-mono text-xs';
+            } else {
+                toast.className = 'fixed bottom-5 right-5 z-50 bg-emerald-950 border border-neon text-neon px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 font-mono text-xs';
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function cargarEjemplo() {
+            document.getElementById('esn').value = "4672073067";
+            document.getElementById('trama').value = "!E4672073067FFFFFF0100006A9083546A9083540F39E338C24A52B70000000000D015020014FFAD8F060600FFFF040000312900000FEC0000024400000292";
+            document.getElementById('escort_raw').value = "40858";
+            document.getElementById('escort_target').value = "900";
+            decodificar();
+        }
+
+        async function limpiarDB() {
+            localStorage.removeItem('tgl_hist');
+            await db.telemetria.clear();
+            await db.tramas_raw.clear();
+            drawChart(12.585);
+            cargarTabla();
+            showToast('Caché y Base de Datos limpios');
+        }
+
+        function limpiarGrafica() {
+            localStorage.removeItem('tgl_hist');
+            drawChart();
+            showToast('Gráfica reiniciada');
+        }
+
+        async function exportarCSV() {
+            const rows = await db.telemetria.toArray();
+            if (rows.length === 0) {
+                showToast('No hay datos para exportar', 'error');
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,Fecha,ESN,V0,V1,RAW_Escort,Nivel,Trama\n";
+            rows.forEach(r => {
+                csvContent += `"${new Date(r.timestamp).toISOString()}","${r.esn}",${r.v0},${r.v1},${r.raw_escort},"${r.nivel}","${r.trama}"\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `tgl_telemetria_${Date.now()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast('CSV exportado correctamente');
+        }
+
+        window.onload = function() {
+            decodificar();
+            cargarTabla();
+            window.addEventListener('resize', () => drawChart());
+        };
+    </script>
+</body>
+</html>
+

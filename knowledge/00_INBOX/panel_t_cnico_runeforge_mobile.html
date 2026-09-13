@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runeforge Mobile Core - Dashboard Técnico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Industrial (Neutros cálidos, Slate, Amber y White para claridad técnica) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        :root {
+            --bg-primary: #f8fafc;
+            --accent-primary: #d97706;
+            --text-main: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            scroll-behavior: smooth;
+        }
+
+        .code-font { font-family: 'Fira Code', monospace; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: transform 0.2s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            border-bottom: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Application Structure Plan: 
+        1. Dashboard de Resumen: Métricas clave de hardware y entorno.
+        2. Comparador de Núcleos: Interfaz de pestañas para a-Shell e iSH, analizando rendimiento y uso.
+        3. Ecosistema de Integración: Mapa interactivo y tarjetas de aplicaciones complementarias.
+        4. Repositorio de Scripts: Visores de código con opción de copia rápida para implementación single-line.
+        5. Matriz Técnica: Tabla dinámica de capacidades.
+        La estructura se elige para facilitar la transición entre la teoría de la investigación y la ejecución técnica en el iPhone.
+    -->
+
+    <!-- Visualization & Content Choices:
+        - Dashboard Stats: Para impacto inmediato sobre hardware (A16, 6GB RAM).
+        - Bar Chart (Chart.js): Comparación de rendimiento Nativo vs Emulado para justificar el uso de a-Shell.
+        - Polar Area Chart (Chart.js): Distribución de capacidades por aplicación.
+        - Bloques de Código: Para scripts de auditoría y configuración con resaltado visual.
+        - Diagrama ASCII: Representación de la topología de red Tailscale para claridad estructural.
+        - Confirmación: NO se usan SVG ni Mermaid JS. Todo visual es CSS, Canvas o Unicode.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="sticky top-0 z-50 bg-white/90 border-b border-slate-200 px-6 py-4 flex justify-between items-center backdrop-blur-md">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-amber-600 rounded flex items-center justify-center text-white font-bold">R</div>
+            <span class="text-xl font-bold tracking-tight text-slate-800 uppercase">Runeforge <span class="text-amber-600">Mobile</span></span>
+        </div>
+        <div class="hidden md:flex space-x-6 text-sm font-semibold">
+            <a href="#summary" class="nav-link">RESUMEN</a>
+            <a href="#cores" class="nav-link">NÚCLEOS</a>
+            <a href="#integration" class="nav-link">ECOSISTEMA</a>
+            <a href="#scripts" class="nav-link">SCRIPTS</a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+
+        <!-- SECCIÓN: RESUMEN EJECUTIVO -->
+        <section id="summary" class="mb-16">
+            <div class="mb-8 border-l-4 border-amber-500 pl-4">
+                <h2 class="text-3xl font-bold text-slate-800">Resumen de Arquitectura iOS 27.0</h2>
+                <p class="text-slate-600 mt-2">Esta sección describe la base operativa sobre la cual se asienta el ecosistema "local-first" en el iPhone 14 Pro (iPhone15,2). El objetivo es maximizar el hardware A16 Bionic evitando las restricciones del sandbox sin recurrir al jailbreak.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="glass-card p-6 rounded-xl shadow-sm">
+                    <div class="text-amber-600 text-xs font-bold uppercase mb-1">Hardware</div>
+                    <div class="text-2xl font-bold text-slate-800">A16 Bionic</div>
+                    <div class="text-sm text-slate-500">6GB RAM Unificada</div>
+                </div>
+                <div class="glass-card p-6 rounded-xl shadow-sm">
+                    <div class="text-amber-600 text-xs font-bold uppercase mb-1">Red Segura</div>
+                    <div class="text-2xl font-bold text-slate-800">Tailscale Mesh</div>
+                    <div class="text-sm text-slate-500">IP: 100.97.117.115</div>
+                </div>
+                <div class="glass-card p-6 rounded-xl shadow-sm">
+                    <div class="text-amber-600 text-xs font-bold uppercase mb-1">Almacenamiento</div>
+                    <div class="text-2xl font-bold text-slate-800">256GB NVMe</div>
+                    <div class="text-sm text-slate-500">Files.app Integration</div>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <span class="mr-2">📊</span> Comparativa de Rendimiento de Ejecución
+                </h3>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+                <p class="text-xs text-slate-400 mt-4 text-center italic">Nota: Los valores en a-Shell son nativos ARM64, mientras que iSH incurre en penalización por emulación x86.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: NÚCLEOS OPERATIVOS -->
+        <section id="cores" class="mb-16">
+            <div class="mb-8 border-l-4 border-slate-800 pl-4">
+                <h2 class="text-3xl font-bold text-slate-800">Núcleos Duales: a-Shell vs iSH</h2>
+                <p class="text-slate-600 mt-2">Análisis de los dos entornos principales. a-Shell actúa como el cerebro táctico para operaciones de alta velocidad, mientras que iSH proporciona compatibilidad Linux completa para herramientas que no existen en el entorno nativo de iOS.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- a-Shell -->
+                <div class="flex-1 glass-card rounded-2xl p-8 border-t-4 border-amber-600">
+                    <h3 class="text-2xl font-bold mb-4">a-Shell (Holzschuch)</h3>
+                    <p class="text-sm text-slate-600 mb-6">Ejecución nativa ARM64. Ideal para orquestación de tareas, Python 3.13 avanzado y gestión de red SSH rápida.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start text-sm">
+                            <span class="text-green-500 mr-2">✔</span> 
+                            <span>Acceso nativo a Python (Numpy/Scipy incluido)</span>
+                        </li>
+                        <li class="flex items-start text-sm">
+                            <span class="text-green-500 mr-2">✔</span> 
+                            <span>Soporte Shortcuts (In-Extension/In-App)</span>
+                        </li>
+                        <li class="flex items-start text-sm">
+                            <span class="text-amber-500 mr-2">⚠</span> 
+                            <span>Sandbox estricto: Acceso solo a ~/Documents</span>
+                        </li>
+                    </ul>
+                    <div class="bg-slate-900 rounded-lg p-4 text-amber-400 text-xs code-font overflow-x-auto">
+                        # Comando de Orquestación<br>
+                        ssh nesthor@100.111.32.10 'powershell.exe'
+                    </div>
+                </div>
+
+                <!-- iSH -->
+                <div class="flex-1 glass-card rounded-2xl p-8 border-t-4 border-slate-400">
+                    <h3 class="text-2xl font-bold mb-4">iSH (Alpine Linux)</h3>
+                    <p class="text-sm text-slate-600 mb-6">Emulación x86 en espacio de usuario. Proporciona un entorno Alpine completo con gestor de paquetes apk.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start text-sm">
+                            <span class="text-green-500 mr-2">✔</span> 
+                            <span>Gestor de paquetes 'apk' completo</span>
+                        </li>
+                        <li class="flex items-start text-sm">
+                            <span class="text-green-500 mr-2">✔</span> 
+                            <span>Truco /dev/location para segundo plano</span>
+                        </li>
+                        <li class="flex items-start text-sm">
+                            <span class="text-red-500 mr-2">✖</span> 
+                            <span>Rendimiento bajo (3x-5x más lento)</span>
+                        </li>
+                    </ul>
+                    <div class="bg-slate-900 rounded-lg p-4 text-slate-300 text-xs code-font overflow-x-auto">
+                        # Instalación de herramientas<br>
+                        apk add nmap gcc make git
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: ECOSISTEMA DE INTEGRACIÓN -->
+        <section id="integration" class="mb-16">
+            <div class="mb-8 border-l-4 border-amber-500 pl-4">
+                <h2 class="text-3xl font-bold text-slate-800">Mapa de Integración Runeforge</h2>
+                <p class="text-slate-600 mt-2">El iPhone no es una isla. Aquí se muestra cómo se interconectan las aplicaciones mediante APIs de iOS, File Providers y el túnel Tailscale para crear un flujo de trabajo continuo entre el móvil y la PC.</p>
+            </div>
+
+            <div class="bg-slate-800 rounded-2xl p-6 md:p-10 mb-10 overflow-x-auto">
+                <pre class="text-amber-400 text-xs md:text-sm leading-relaxed text-center font-mono">
+[ PC CENTRAL: 100.111.32.10 ]             [ IPHONE RUNE: 100.97.117.115 ]
+          |                                          |
+          | <--- ( Tailscale WireGuard Tunnel ) ---> |
+          |                                          |
+[ RUNEFORGE CORE ]                         [ a-Shell / iSH ]
+(Backups & Scripts)                       (Consola y Control)
+          |                                          |
+          | <------ ( SFTP / Secure ShellFish ) ---- |
+          |                                          |
+ [ D:\BACKUPS ] <======== ( iOS Files.app ) ======= [ Archivos ]
+                                                     |
+                                            [ Scriptable Widgets ]
+                </pre>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-4 bg-white border border-slate-200 rounded-lg text-center">
+                    <div class="text-2xl mb-2">🐚</div>
+                    <h4 class="font-bold text-sm">Secure ShellFish</h4>
+                    <p class="text-xs text-slate-500">Mapeo de D: como disco local en iOS.</p>
+                </div>
+                <div class="p-4 bg-white border border-slate-200 rounded-lg text-center">
+                    <div class="text-2xl mb-2">📝</div>
+                    <h4 class="font-bold text-sm">Textastic</h4>
+                    <p class="text-xs text-slate-500">Edición de scripts con resaltado real.</p>
+                </div>
+                <div class="p-4 bg-white border border-slate-200 rounded-lg text-center">
+                    <div class="text-2xl mb-2">📊</div>
+                    <h4 class="font-bold text-sm">Scriptable</h4>
+                    <p class="text-xs text-slate-500">Widgets de telemetría basados en JSON.</p>
+                </div>
+                <div class="p-4 bg-white border border-slate-200 rounded-lg text-center">
+                    <div class="text-2xl mb-2">🌿</div>
+                    <h4 class="font-bold text-sm">Working Copy</h4>
+                    <p class="text-xs text-slate-500">Gestión Git visual de alto nivel.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: SCRIPTS Y AUTOMATIZACIÓN -->
+        <section id="scripts" class="mb-16">
+            <div class="mb-8 border-l-4 border-slate-800 pl-4">
+                <h2 class="text-3xl font-bold text-slate-800">Laboratorio de Scripts</h2>
+                <p class="text-slate-600 mt-2">Implementaciones tácticas listas para usar. Estos scripts han sido optimizados para evitar errores de interpretación en el portapapeles de iOS mediante sintaxis "single-line" y manejo de rutas locales del sandbox.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- SCRIPT 1 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <span class="font-bold text-slate-700 text-sm">1. Auditoría del Nodo RUNE (a-Shell)</span>
+                        <button onclick="copyScript('script1')" class="bg-amber-600 text-white text-xs px-3 py-1 rounded hover:bg-amber-700">COPIAR</button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-slate-600 mb-4">Genera un reporte forense en JSON con IP de Tailscale y espacio libre, dejándolo en el portapapeles de iOS.</p>
+                        <pre id="script1" class="bg-slate-900 text-amber-400 p-4 rounded text-xs overflow-x-auto code-font">echo '#!/bin/sh' > ~/Documents/RUNEFORGE_BASES/scripts/audit_rune.sh && echo 'IP=$(ifconfig | grep inet | grep "100." | awk "{print \$2}")' >> ~/Documents/RUNEFORGE_BASES/scripts/audit_rune.sh && echo 'SPACE=$(df -h | grep /private/var | awk "{print \$4}")' >> ~/Documents/RUNEFORGE_BASES/scripts/audit_rune.sh && echo 'echo "{\"ip\":\"$IP\", \"space\":\"$SPACE\"}" > ~/Documents/RUNEFORGE_BASES/output/audit.json' >> ~/Documents/RUNEFORGE_BASES/scripts/audit_rune.sh && chmod +x ~/Documents/RUNEFORGE_BASES/scripts/audit_rune.sh</pre>
+                    </div>
+                </div>
+
+                <!-- SCRIPT 2 -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <span class="font-bold text-slate-700 text-sm">2. Sincronización Segura (iSH Rsync)</span>
+                        <button onclick="copyScript('script2')" class="bg-amber-600 text-white text-xs px-3 py-1 rounded hover:bg-amber-700">COPIAR</button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-slate-600 mb-4">Utiliza el montaje 'ios-unsafe' para prevenir bloqueos de File Provider durante transferencias masivas.</p>
+                        <pre id="script2" class="bg-slate-900 text-slate-300 p-4 rounded text-xs overflow-x-auto code-font">#!/bin/sh
+trap 'umount /mnt/shared 2>/dev/null' EXIT
+mkdir -p /mnt/shared
+mount -t ios-unsafe . /mnt/shared
+rsync -rtP /mnt/shared/logs/ nesthor@100.111.32.10:D:/BACKUPS/</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: MATRIZ TÉCNICA -->
+        <section id="matrix" class="mb-16">
+            <h3 class="text-xl font-bold mb-6">Matriz Comparativa de Capacidades</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm border-collapse">
+                    <thead class="bg-slate-100 text-slate-700">
+                        <tr>
+                            <th class="p-3 border">Capacidad</th>
+                            <th class="p-3 border">a-Shell</th>
+                            <th class="p-3 border">iSH Shell</th>
+                            <th class="p-3 border">Scriptable</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-600">
+                        <tr>
+                            <td class="p-3 border font-bold">Lenguaje</td>
+                            <td class="p-3 border">Python 3.13, C, Lua</td>
+                            <td class="p-3 border">Alpine (C, Node, Ruby)</td>
+                            <td class="p-3 border">JavaScript (ES6)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border font-bold">Rendimiento</td>
+                            <td class="p-3 border text-green-600">Nativo (Excelente)</td>
+                            <td class="p-3 border text-red-600">Emulado (Lento)</td>
+                            <td class="p-3 border text-green-600">Nativo (Bueno)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border font-bold">Backgroud</td>
+                            <td class="p-3 border">Limitado</td>
+                            <td class="p-3 border text-amber-600">Hacked (/dev/location)</td>
+                            <td class="p-3 border">Restringido</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border font-bold">Paquetes</td>
+                            <td class="p-3 border">Pip, WASM</td>
+                            <td class="p-3 border">apk (Full Linux)</td>
+                            <td class="p-3 border">JS Modules</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <div class="text-white font-bold mb-2">RUNEFOGE MOBILE CORE 2026</div>
+                <div class="text-xs">Diseñado para Néstor (Tinkerbell) - Entorno iOS 27.0 Stable</div>
+            </div>
+            <div class="mt-6 md:mt-0 text-xs flex space-x-4">
+                <span>[2026-07-20 08:00 UTC-6]</span>
+                <span class="text-amber-500">Status: Operational</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Inicialización de Gráficos
+        function initCharts() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Compilación C', 'Scripts Python', 'Operaciones E/S', 'Auditoría Red'],
+                    datasets: [{
+                        label: 'a-Shell (Nativo ARM64)',
+                        data: [95, 90, 85, 92],
+                        backgroundColor: '#d97706',
+                        borderRadius: 6,
+                    }, {
+                        label: 'iSH (Emulación x86)',
+                        data: [15, 20, 35, 45],
+                        backgroundColor: '#94a3b8',
+                        borderRadius: 6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: 'Eficiencia %' }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Función para copiar scripts
+        function copyScript(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Script copiado al portapapeles. ¡Listo para pegar en tu terminal!");
+            });
+        }
+
+        // Navigation Active State
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Carga inicial
+        document.addEventListener('DOMContentLoaded', initCharts);
+    </script>
+</body>
+</html>

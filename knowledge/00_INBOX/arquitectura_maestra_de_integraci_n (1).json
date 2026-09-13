@@ -1,0 +1,84 @@
+{
+  "project_name": "RUNEFORGE BITÁCORA PRO & TELEMETRÍA",
+  "version": "12.6 ULTIMATE CO-PILOT HYBRID",
+  "repository": {
+    "url": "https://github.com/yhb86dy52f-lang/runeforge-v2-nucleo.git",
+    "branch": "main",
+    "engine": "PowerShell Core / Termux Bash"
+  },
+  "environment": {
+    "device_model": "Motorola Moto G9",
+    "operating_system": "Android 11 (Termux Node 24/26 LTS)",
+    "storage_capacity_free_gb": 16.0,
+    "available_ram_mb": 1500,
+    "local_ip": "192.168.100.20",
+    "tailscale_ip": "100.91.237.97",
+    "server_port": 8080,
+    "tmux_session_name": "runeforge"
+  },
+  "technician_profile": {
+    "full_name": "Néstor Corchado Valenzuela",
+    "title": "Técnico Especialista en Telemetría y GPS",
+    "company": "SEPCOLGPS",
+    "is_sole_technician": true
+  },
+  "labor_rules": {
+    "weekly_cycle": "Wednesday to Tuesday",
+    "regular_daily_hours": 8.0,
+    "regular_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "overtime_rule_weekdays": "hours > 8.0 = overtime",
+    "sunday_rule": "100% overtime (all hours worked)"
+  },
+  "verified_api_endpoints": [
+    {
+      "method": "GET",
+      "route": "/",
+      "description": "Servir cliente PWA desde index.html"
+    },
+    {
+      "method": "GET",
+      "route": "/api/system/status",
+      "returns": "{ ramFree: '1.5G', storageFree: '16G', ip: '192.168.100.20', port: 8080, server: 'tmux runeforge', technician: 'Néstor Corchado Valenzuela' }"
+    },
+    {
+      "method": "GET",
+      "route": "/api/orders",
+      "returns": "Registros de bitácora almacenados en db.json"
+    },
+    {
+      "method": "POST",
+      "route": "/api/orders",
+      "description": "Guardar o actualizar orden individual con fotos Base64"
+    },
+    {
+      "method": "POST",
+      "route": "/api/orders/bulk",
+      "description": "Importación masiva enviada por el parser de WhatsApp"
+    },
+    {
+      "method": "GET",
+      "route": "/api/fichajes",
+      "returns": "Registros de fichajes y horas extras"
+    },
+    {
+      "method": "POST",
+      "route": "/api/fichajes",
+      "description": "Registrar jornada laboral con cálculo automático"
+    }
+  ],
+  "telemetry_integration": {
+    "sensor_model": "ESCORT TD-BLE",
+    "serial_number": "260463959191",
+    "mac_address": "D1:6D:2A:5B:BE:07",
+    "firmware_compatible_version": "1.3.9",
+    "firmware_restriction_note": "CRÍTICO: No actualizar a v1.4.0 (Riesgo de bloqueo irreversible)",
+    "advertising_interval_ms": 3000,
+    "peg_script_configuration": {
+      "target_mac": "D1:6D:2A:5B:BE:07",
+      "byte_offset": 2,
+      "byte_size": 2,
+      "adc_valid_range": "1 - 4095",
+      "optimization": "Set_Fuel_Level_1 sin llamadas excesivas a Send_Record_Now()"
+    }
+  }
+}

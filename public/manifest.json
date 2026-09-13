@@ -1,0 +1,13 @@
+{
+  "name": "TGL LAB V5 PRO",
+  "short_name": "TGL LAB",
+  "start_url": "/lab-v5-pro.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00ff88",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/forge/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/forge/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
