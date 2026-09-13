@@ -1,0 +1,217 @@
+{
+  "general_settings": {
+    "betaFeatures": false,
+    "legacyMode": false,
+    "openBehavior": "popup",
+    "saveBehavior": "saveFile",
+    "showMoreActionsButton": true,
+    "silentOpen": false
+  },
+  "highlighter_settings": {
+    "alwaysShowHighlights": true,
+    "highlightBehavior": "highlight-inline",
+    "highlighterEnabled": true
+  },
+  "interpreter_settings": {
+    "defaultPromptContext": "Actúa como el extractor de conocimiento técnico de Runeforge (Local-First). Analiza el contenido capturado, extrae especificaciones de hardware, sensores, comandos, protocolos de red (GPS/M2M/LoRaWAN/CCTV) y formatea la salida con Frontmatter YAML compatible con MIF Level 3.",
+    "interpreterAutoRun": false,
+    "interpreterEnabled": false,
+    "interpreterModel": "",
+    "models": [],
+    "providers": []
+  },
+  "migrationVersion": 1,
+  "property_types": [
+    {
+      "defaultValue": "{{title}}",
+      "name": "title",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{url}}",
+      "name": "source",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{author|split:\", \"|wikilink|join}}",
+      "name": "author",
+      "type": "multitext"
+    },
+    {
+      "defaultValue": "{{published}}",
+      "name": "published",
+      "type": "date"
+    },
+    {
+      "defaultValue": "{{date}}",
+      "name": "created",
+      "type": "date"
+    },
+    {
+      "defaultValue": "{{description}}",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "defaultValue": "clippings",
+      "name": "tags",
+      "type": "multitext"
+    }
+  ],
+  "reader_settings": {
+    "appearance": "auto",
+    "autoScroll": true,
+    "blendImages": true,
+    "colorLinks": false,
+    "customCss": "",
+    "darkTheme": "same",
+    "defaultFont": "",
+    "followLinks": true,
+    "fontSize": 16,
+    "fonts": [],
+    "highlightActiveLine": true,
+    "lightTheme": "default",
+    "lineHeight": 1.6,
+    "maxWidth": 42,
+    "pinPlayer": true
+  },
+  "schema": "rf.webclip.extract.v3",
+  "stats": {
+    "addToObsidian": 1,
+    "copyToClipboard": 96,
+    "saveFile": 8,
+    "share": 0
+  },
+  "status": "actualizado_runeforge_canonical",
+  "template_1785197301067gx4d38hpr": {
+    "id": "1785197301067gx4d38hpr",
+    "name": "Predeterminado",
+    "behavior": "create",
+    "noteNameFormat": "{{title}}",
+    "path": "Clippings",
+    "noteContentFormat": "{{content}}",
+    "context": "",
+    "properties": [
+      {
+        "id": "17851973010671h6sjoyk4",
+        "name": "title",
+        "value": "{{title}}"
+      },
+      {
+        "id": "17851973010671brgkqkl5",
+        "name": "source",
+        "value": "{{url}}"
+      },
+      {
+        "id": "17851973010670wlhk4kfm",
+        "name": "author",
+        "value": "{{author|split:\", \"|wikilink|join}}"
+      },
+      {
+        "id": "17851973010675ubf1dwtt",
+        "name": "published",
+        "value": "{{published}}"
+      },
+      {
+        "id": "1785197301067pfc04wwky",
+        "name": "created",
+        "value": "{{date}}"
+      },
+      {
+        "id": "1785197301067hsv1d5hf8",
+        "name": "description",
+        "value": "{{description}}"
+      },
+      {
+        "id": "1785197301067xsgsk5evq",
+        "name": "tags",
+        "value": "clippings"
+      }
+    ],
+    "triggers": []
+  },
+  "template_list": [
+    "1785197301067gx4d38hpr",
+    "rf_tech_hardware_spec_v1",
+    "rf_telemetry_log_v1",
+    "rf_general_clipper_v1"
+  ],
+  "templates": [
+    {
+      "behavior": "create",
+      "id": "rf_tech_hardware_spec_v1",
+      "name": "ᚱ Runeforge - Extracción Técnica y Telemetría (Hardware)",
+      "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\ndate_captured: \"{{date:YYYY-MM-DD HH:mm:ss}}\"\ntags:\n  - runeforge/clipping\n  - hardware/spec\n  - local-first\ncategory: \"Telemetría / Hardware\"\nstatus: \"INGESTED\"\n---\n\n# ᚱ {{title}}\n\n> **Fuente:** [{{url}}]({{url}})\n> **Fecha de Ingesta:** {{date:YYYY-MM-DD HH:mm:ss}}\n\n--- \n\n## 🛠️ Resumen de Ficha Técnica / Especificaciones\n\n{{content}}\n\n--- \n\n## 🧬 Notas de Integración Local-First\n- **Impacto en Núcleo Runeforge:** Nulo (Capa Periférica / Adaptador).\n- **Compatibilidad de Red:** Tailscale / Red Local (`127.0.0.1`).\n- **Observaciones:** Transferido automáticamente a la Memoria Táctica de Obsidian.",
+      "noteNameFormat": "CLIP-{{date:YYYYMMDD_HHmmss}}-{{title|slugify}}",
+      "path": "09_MEMORIA_IA/Clippings",
+      "properties": [
+        {
+          "id": "prop_title_01",
+          "name": "title",
+          "value": "{{title}}"
+        },
+        {
+          "id": "prop_source_02",
+          "name": "source",
+          "value": "{{url}}"
+        },
+        {
+          "id": "prop_captured_03",
+          "name": "captured",
+          "value": "{{date:YYYY-MM-DD HH:mm:ss}}"
+        },
+        {
+          "id": "prop_system_04",
+          "name": "system",
+          "value": "RUNEFORGE_CORE"
+        }
+      ]
+    },
+    {
+      "behavior": "create",
+      "id": "rf_telemetry_log_v1",
+      "name": "ᚱ Runeforge - Log de Telemetría (CINER)",
+      "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\ndate_captured: \"{{date:YYYY-MM-DD HH:mm:ss}}\"\ntags:\n  - runeforge/telemetry\n  - ciner/log\nstatus: \"PENDING\"\n---\n\n# ᚱ Telemetría: {{title}}\n\n**Fecha:** {{date:YYYY-MM-DD HH:mm:ss}}\n**Fuente:** [{{url}}]({{url}})\n\n## Datos Extraídos\n\n{{content}}\n\n---\n\n## Interpretación Runeforge\n- **Tipo:** Telemetría CINER\n- **Prioridad:** Media\n- **Acción requerida:** Revisar y clasificar en bitácora.",
+      "noteNameFormat": "TELE-{{date:YYYYMMDD_HHmmss}}-{{title|slugify}}",
+      "path": "01_MEMORIAS/Telemetria",
+      "properties": [
+        {
+          "id": "prop_tel_title",
+          "name": "title",
+          "value": "{{title}}"
+        },
+        {
+          "id": "prop_tel_source",
+          "name": "source",
+          "value": "{{url}}"
+        },
+        {
+          "id": "prop_tel_captured",
+          "name": "captured",
+          "value": "{{date:YYYY-MM-DD HH:mm:ss}}"
+        }
+      ]
+    },
+    {
+      "behavior": "create",
+      "id": "rf_general_clipper_v1",
+      "name": "📜 Runeforge - Nota Rápida / Captura General",
+      "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\ndate: \"{{date:YYYY-MM-DD}}\"\ntags:\n  - runeforge/quicknote\n---\n\n# {{title}}\n\n{{content}}",
+      "noteNameFormat": "NOTE-{{date:YYYYMMDD}}-{{title|slugify}}",
+      "path": "01_MEMORIAS/Capturas",
+      "properties": [
+        {
+          "id": "prop_gen_title",
+          "name": "title",
+          "value": "{{title}}"
+        },
+        {
+          "id": "prop_gen_url",
+          "name": "url",
+          "value": "{{url}}"
+        }
+      ]
+    }
+  ],
+  "vaults": []
+}

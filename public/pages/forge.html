@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BITÁCORA PRO - Sistema de Gestión de Telemetría</title>
+  <link rel="manifest" href="/manifest.json">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg-card: #161b22;
+      --bg-input: #0d1117;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #2ea043;
+      --accent-hover: #3fb950;
+      --accent-purple: #8957e5;
+      --accent-blue: #388bfd;
+      --danger: #f85149;
+      --warning: #d29922;
+      --radius: 12px;
+      --shadow: 0 4px 16px rgba(0,0,0,0.5);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    [data-theme="light"] {
+      --bg: #f6f8fa;
+      --bg-card: #ffffff;
+      --bg-input: #f6f8fa;
+      --border: #d0d7de;
+      --text: #24292f;
+      --text-muted: #57606a;
+      --accent: #1a7f37;
+      --accent-hover: #2ea043;
+      --accent-purple: #6639ba;
+      --accent-blue: #0969da;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+      padding: 12px;
+      padding-bottom: calc(84px + var(--safe-bottom));
+      min-height: 100vh;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      margin-top: 20px;
+    }
+    .header-title {
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.5px;
+    }
+    .header-title span { color: var(--accent); }
+    .header-actions { display: flex; gap: 8px; }
+    .btn-icon {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .btn-icon:hover { color: var(--text); border-color: var(--accent); }
+    .btn-icon:active { transform: scale(0.9); }
+
+    .view-container { display: none; }
+    .view-container.active { display: block; animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .stats-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+    }
+    .stats-row::-webkit-scrollbar { display: none; }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      text-align: center;
+      flex: 1;
+      min-width: 90px;
+      box-shadow: var(--shadow);
+    }
+    .stat-num { font-size: 22px; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.2s;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+    .card-header button {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+    .form-control {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus { outline: none; border-color: var(--accent); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.1s ease, background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--accent); color: #050d07; }
+    .btn-primary:active { background: var(--accent-hover); }
+    .btn-purple { background: var(--accent-purple); color: #fff; }
+    .btn-purple:active { opacity: 0.85; }
+    .btn-more {
+      margin-top: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    #timeline { display: flex; flex-direction: column; gap: 12px; }
+    .order-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+    .order-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 6px;
+    }
+    .order-actions button {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+    .order-actions button:hover { color: var(--text); border-color: var(--accent); }
+
+    .order-header { display: flex; justify-content: space-between; margin-bottom: 6px; padding-right: 70px; }
+    .order-unit { font-weight: 800; color: var(--accent); font-size: 16px; }
+    .order-meta { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+    .order-reason { font-weight: 600; margin-bottom: 6px; font-size: 14px; color: var(--text); }
+    .order-procedure { font-size: 13px; color: var(--text-muted); line-height: 1.4; background: var(--bg-input); padding: 8px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 8px; }
+    .order-footer { display: flex; justify-content: space-between; align-items: center; }
+    .order-tech { font-size: 12px; color: var(--accent-purple); font-weight: 600; }
+    .status-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(46,160,67,0.15);
+      color: var(--accent);
+      border: 1px solid rgba(46,160,67,0.3);
+    }
+    .status-pending { background: rgba(210,153,34,0.15); color: var(--warning); border-color: rgba(210,153,34,0.3); }
+
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+    .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(13,17,23,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 calc(8px + var(--safe-bottom));
+      z-index: 100;
+    }
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 4px 12px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .nav-btn .icon { font-size: 20px; }
+    .nav-btn.active { color: var(--accent); }
+
+    .toast-container {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      pointer-events: none;
+      width: 90%;
+      max-width: 380px;
+    }
+    .toast-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: auto;
+      font-size: 13px;
+    }
+    .toast-item.show { opacity: 1; transform: translateY(0); }
+    .toast-item.success { border-left: 4px solid var(--accent); }
+    .toast-item.error { border-left: 4px solid var(--danger); }
+
+    /* Custom Confirmation Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      max-width: 360px;
+      width: 100%;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .modal-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; color: var(--text); }
+    .modal-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4; }
+    .modal-actions { display: flex; gap: 10px; }
+
+    .skeleton-wrapper { display: flex; flex-direction: column; gap: 12px; }
+    .skeleton-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      height: 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .skeleton-line {
+      height: 12px;
+      background: var(--bg-input);
+      border-radius: 4px;
+      margin-bottom: 8px;
+      width: 80%;
+    }
+    .skeleton-line.w60 { width: 60%; }
+    .skeleton-line.w40 { width: 40%; }
+    .skeleton-shimmer {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+    .filters-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .filters-row::-webkit-scrollbar { display: none; }
+    .filter-select {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      flex: 1;
+      min-width: 90px;
+    }
+
+    /* Manual styling */
+    .manual-card {
+      background: #0f172a;
+      border: 1px solid #1e3a8a;
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: 0 0 15px rgba(30,58,138,0.2);
+    }
+    .manual-title { color: #60a5fa; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .manual-badge { background: #1e3a8a; color: #bfdbfe; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+    #canvas-container {
+      width: 100%;
+      height: 280px;
+      background: #020617;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+      position: relative;
+      overflow: hidden;
+      touch-action: none;
+    }
+    #loading-3d {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #60a5fa;
+      font-size: 13px;
+      background: #020617;
+      font-weight: 600;
+    }
+    .manual-alert {
+      background: rgba(127, 29, 29, 0.4);
+      border-left: 4px solid #dc2626;
+      padding: 12px;
+      border-radius: 8px;
+      color: #fca5a5;
+      margin-bottom: 16px;
+    }
+
+    #connectionStatus {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      padding: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      z-index: 999;
+      transition: background 0.3s;
+    }
+    .online { background: var(--accent); color: #000; }
+    .offline { background: var(--danger); color: #fff; }
+
+    .save-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: rgba(46,160,67,0.1);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .save-indicator .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+    .save-indicator.saved .dot { animation: none; background: var(--accent); }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<div id="connectionStatus" class="online">🟢 Conectado al servidor</div>
+
+<header class="header">
+  <div class="header-title">⚡ <span>BITÁCORA</span> PRO</div>
+  <div class="header-actions">
+    <button class="btn-icon" onclick="exportData()" title="Exportar JSON">⬇</button>
+    <button class="btn-icon" onclick="toggleTheme()" title="Cambiar Tema">☀️</button>
+  </div>
+</header>
+
+<div id="view-stats" class="view-container">
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" id="totalCount">0</div><div class="stat-label">Total</div></div>
+    <div class="stat-card"><div class="stat-num" id="todayCount">0</div><div class="stat-label">Hoy</div></div>
+    <div class="stat-card"><div class="stat-num" id="thisWeekCount">0</div><div class="stat-label">Últ. 7 días</div></div>
+  </div>
+  <div class="card" style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px;">
+    <div><span style="color:var(--text-muted); font-size:12px;">Extras Acumuladas</span><br><strong style="font-size:20px; color:var(--accent);" id="overtimeSummary">0h</strong></div>
+    <div><span style="color:var(--text-muted); font-size:12px;">Pendientes</span><br><strong style="font-size:20px; color:var(--danger);" id="pendingSummary">0</strong></div>
+  </div>
+</div>
+
+<div id="view-timeline" class="view-container">
+  <div class="filters-row">
+    <select class="filter-select" id="filterType" onchange="applyFilters()">
+      <option value="all">Tipo: Todos</option>
+      <option value="KW">KW</option>
+      <option value="CT">CT</option>
+      <option value="CCTV">CCTV</option>
+    </select>
+    <select class="filter-select" id="filterTech" onchange="applyFilters()">
+      <option value="all">Técnico: Todos</option>
+      <option value="Christian Loera">Christian</option>
+      <option value="Néstor Corchado">Néstor</option>
+    </select>
+    <select class="filter-select" id="filterDate" onchange="applyFilters()">
+      <option value="all">Fecha: Todo</option>
+      <option value="today">Hoy</option>
+      <option value="week">Últ. 7 días</option>
+      <option value="month">Este mes</option>
+    </select>
+  </div>
+  <div id="timeline"><div class="empty-state"><div class="icon">📋</div><p>Cargando datos...</p></div></div>
+  <button class="btn btn-more" id="loadMoreBtn" style="display:none;" onclick="loadMore()">Cargar más</button>
+</div>
+
+<div id="view-form" class="view-container">
+  <div class="card" id="formCard">
+    <div class="card-header">
+      <span>➕ Nueva Bitácora</span>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="save-indicator" id="saveIndicator">
+          <span class="dot"></span> <span id="saveText">Auto-guardando</span>
+        </div>
+        <button onclick="toggleForm()">− Ocultar</button>
+      </div>
+    </div>
+    <div id="formFields">
+      <div class="grid-3">
+        <div class="form-group"><label>Tipo</label><select class="form-control" id="fUnitType"><option value="KW">KW</option><option value="CT">CT</option><option value="CCTV">CCTV</option></select></div>
+        <div class="form-group"><label>Unidad</label><input class="form-control" id="fAsset" placeholder="Ej: 547_R"></div>
+        <div class="form-group"><label>Fecha</label><input class="form-control" type="date" id="fDate"></div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group"><label>Hora reporte</label><input class="form-control" type="time" id="fTime"></div>
+        <div class="form-group"><label>Inicio trabajo</label><input class="form-control" type="time" id="fStart"></div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group"><label>Fin trabajo</label><input class="form-control" type="time" id="fEnd"></div>
+        <div class="form-group"><label>Ubicación</label><input class="form-control" id="fLocation" placeholder="Ej: Tula"></div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group"><label>Técnico</label><select class="form-control" id="fTech"><option>Christian Loera</option><option>Néstor Corchado</option></select></div>
+        <div class="form-group"><label>Estado</label><select class="form-control" id="fStatus"><option value="CLOSED">✅ Cerrada</option><option value="PENDING">⏳ Pendiente</option></select></div>
+      </div>
+      <div class="form-group"><label>Motivo / Falla</label><input class="form-control" id="fReason" placeholder="Describa el motivo o reporte"></div>
+      <div class="form-group"><label>Procedimiento</label><textarea class="form-control" id="fProcedure" rows="3" placeholder="Detalle la solución o inspección realizada"></textarea></div>
+      <button class="btn btn-primary" id="btnSubmit" onclick="submitOrder()">✓ Registrar Bitácora</button>
+      <button class="btn btn-more hidden" id="btnCancelEdit" onclick="cancelEdit()" style="margin-top:8px;">Cancelar Edición</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span>📤 Importar desde WhatsApp</span></div>
+    <div style="background:var(--bg-input); border-radius:8px; padding:12px; margin-bottom:8px;">
+      <input type="file" id="whatsappFileInput" accept=".txt" style="display:none;">
+      <button class="btn" onclick="document.getElementById('whatsappFileInput').click()" style="background:var(--bg-card); border:1px solid var(--border); color:var(--text);">📄 Seleccionar archivo .txt</button>
+      <span id="whatsappFileName" style="font-size:12px; color:var(--text-muted); display:block; text-align:center; margin-top:4px;"></span>
+    </div>
+    <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:8px;">
+      <button class="btn btn-purple" onclick="backupDatabase()" style="flex:1;">⬇ Backup DB</button>
+      <div style="flex:1;">
+        <input type="file" id="restoreFileInput" accept=".db" style="display:none;">
+        <button class="btn btn-purple" onclick="document.getElementById('restoreFileInput').click()" style="width:100%;">⬆ Restaurar DB</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="view-sensors" class="view-container">
+  <div class="card" id="sensorCard">
+    <div class="card-header"><span>📡 Gestión de Sensores BLE</span></div>
+    <div style="background:var(--bg-input); border-radius:8px; padding:12px;">
+      <input type="file" id="sensorFileInput" accept=".csv" style="display:none;">
+      <button class="btn" onclick="document.getElementById('sensorFileInput').click()" style="background:var(--bg-card); border:1px solid var(--border); color:var(--text);">📊 Seleccionar .csv</button>
+      <span id="sensorFileName" style="font-size:12px; color:var(--text-muted); display:block; text-align:center; margin-top:4px;"></span>
+    </div>
+    <button class="btn btn-purple" onclick="importSensors()" style="margin-top:10px;">⬆ Importar Sensores</button>
+    <div style="margin-top:14px; padding:12px; background:var(--bg-input); border-radius:8px;">
+      <div style="font-weight:700; font-size:14px;">📊 Total: <span id="sensorCount">0</span> sensores</div>
+      <div style="font-size:12px; color:var(--text-muted); max-height:220px; overflow-y:auto; margin-top:8px;" id="sensorList"></div>
+    </div>
+  </div>
+</div>
+
+<div id="view-attendance" class="view-container">
+  <div class="card">
+    <div class="card-header"><span>⏱️ Registrar Jornada Laboral</span></div>
+    <div>
+      <div class="form-group"><label>Fecha</label><input class="form-control" type="date" id="attDate"></div>
+      <div class="grid-2">
+        <div class="form-group"><label>Entrada</label><input class="form-control" type="time" id="attIn"></div>
+        <div class="form-group"><label>Salida</label><input class="form-control" type="time" id="attOut"></div>
+      </div>
+      <button class="btn btn-primary" onclick="registerAttendance()">📊 Calcular y Registrar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span>📈 Total Extras Acumuladas</span></div>
+    <div id="attTotals" style="text-align:center; padding:12px; font-size:14px; color:var(--text-muted);">Cargue el historial para ver el resumen.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span>📋 Historial de Jornadas</span>
+      <button class="btn-purple" style="width:auto; padding:6px 12px; border-radius:6px; font-size:12px;" onclick="loadAttendanceHistory()">🔄 Cargar</button>
+    </div>
+    <div id="attHistoryList" style="font-size:13px; max-height:320px; overflow-y:auto; color:var(--text-muted);">
+      <div style="text-align:center; padding:12px;">Presione "Cargar" para actualizar.</div>
+    </div>
+  </div>
+</div>
+
+<div id="view-manual" class="view-container">
+  <div style="background: #0a1128; border-bottom: 2px solid #1e3a8a; padding: 12px 16px; color: #e2e8f0; border-radius: 8px 8px 0 0; margin-bottom: 16px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <span style="background: #b91c1c; color: white; font-weight: 700; padding: 2px 8px; font-size: 11px; border-radius: 4px;">KENWORTH</span>
+          <h2 style="font-size: 18px; font-weight: 800; margin: 0;">DIAGRAMA DE TELEMETRÍA</h2>
+        </div>
+        <p style="color: #60a5fa; font-size: 12px; margin: 4px 0 0;">Interrupción de APPS | Kenworth T680/T880 Cummins X15</p>
+      </div>
+      <div style="background: #1e3a8a; padding: 6px 10px; border-radius: 4px; font-size: 10px; text-align: right;">
+        <p style="margin: 0; color: #94a3b8;">Conector: P006 (62-Pin)</p>
+        <p style="margin: 0; color: #94a3b8;">Señal: RED3215-1 (Pin 28)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="manual-alert">
+    <div style="display: flex; gap: 10px; align-items: flex-start;">
+      <div style="background: #dc2626; color: white; font-size: 16px; font-weight: bold; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">⚠</div>
+      <div>
+        <h4 style="font-weight: 800; margin-bottom: 2px;">ADVERTENCIA TÉCNICA</h4>
+        <p style="font-size: 12px; line-height: 1.4;">NO APLICAR 12V NI 24V A NINGUNA CAVIDAD DEL CONECTOR P006. El pedal opera con referencia analógica de 0.5V a 4.5V. Inyectar alto voltaje dañará permanentemente el canal analógico del ECM.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="manual-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+      <h4 class="manual-title"><span>🎲</span> Render 3D: Conector P006</h4>
+      <span class="manual-badge">Interactivo 3D</span>
+    </div>
+    <p style="color: #94a3b8; font-size: 11px; margin-bottom: 8px;">Arrastre para rotar el modelo. Pin 28 (Rojo) y Pin 20 (Verde).</p>
+    <div id="canvas-container">
+      <div id="loading-3d">Iniciando motor Three.js...</div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-btn" data-tab="stats" onclick="switchTab('stats')"><span class="icon">📊</span> Stats</button>
+  <button class="nav-btn" data-tab="timeline" onclick="switchTab('timeline')"><span class="icon">📋</span> Bitácora</button>
+  <button class="nav-btn" data-tab="form" onclick="switchTab('form')"><span class="icon">✏️</span> Nuevo</button>
+  <button class="nav-btn" data-tab="sensors" onclick="switchTab('sensors')"><span class="icon">📡</span> Sensores</button>
+  <button class="nav-btn" data-tab="attendance" onclick="switchTab('attendance')"><span class="icon">⏱️</span> Asistencia</button>
+  <button class="nav-btn" data-tab="manual" onclick="switchTab('manual')"><span class="icon">🛠️</span> Manual</button>
+</nav>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Modal Dialog -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-title" id="modalTitle">¿Confirmar Acción?</div>
+    <div class="modal-desc" id="modalDesc">Esta acción no se puede deshacer.</div>
+    <div class="modal-actions">
+      <button class="btn btn-more" onclick="closeModal(false)">Cancelar</button>
+      <button class="btn btn-primary" id="modalConfirmBtn" onclick="closeModal(true)" style="background:var(--danger); color:#fff;">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function showToast(msg, type = 'success') {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = `toast-item ${type}`;
+  el.innerHTML = `<span class="icon">${type === 'success' ? '✅' : '❌'}</span><span>${msg}</span>`;
+  container.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => {
+    el.classList.remove('show');
+    setTimeout(() => el.remove(), 300);
+  }, 3500);
+}
+
+let modalResolver = null;
+function confirmDialog(title, desc) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalDesc').textContent = desc;
+  document.getElementById('confirmModal').classList.add('active');
+  return new Promise((resolve) => {
+    modalResolver = resolve;
+  });
+}
+function closeModal(confirmed) {
+  document.getElementById('confirmModal').classList.remove('active');
+  if (modalResolver) {
+    modalResolver(confirmed);
+    modalResolver = null;
+  }
+}
+
+function updateConnectionStatus(online) {
+  const el = document.getElementById('connectionStatus');
+  el.className = online ? 'online' : 'offline';
+  el.textContent = online ? '🟢 Conectado al servidor' : '🔴 Sin conexión (Modo Offline)';
+}
+window.addEventListener('online', () => syncQueue());
+window.addEventListener('offline', () => updateConnectionStatus(false));
+
+const QUEUE_STORE = 'offline_queue';
+let db = null;
+const request = indexedDB.open('RunforgeOffline', 1);
+request.onupgradeneeded = (e) => {
+  db = e.target.result;
+  if (!db.objectStoreNames.contains(QUEUE_STORE))
+    db.createObjectStore(QUEUE_STORE, { autoIncrement: true });
+};
+request.onsuccess = (e) => { db = e.target.result; syncQueue(); };
+
+function queueOrder(order) {
+  if (!db) return;
+  const tx = db.transaction(QUEUE_STORE, 'readwrite');
+  tx.objectStore(QUEUE_STORE).add(order);
+  tx.oncomplete = () => {
+    showToast('📦 Guardado offline (sincronizará al conectar)', 'success');
+    updateConnectionStatus(false);
+  };
+}
+
+async function syncQueue() {
+  if (!db) return;
+  try {
+    const res = await fetch('/api/orders?limit=1');
+    if (!res.ok) throw new Error('Servidor fuera de línea');
+    const tx = db.transaction(QUEUE_STORE, 'readwrite');
+    const store = tx.objectStore(QUEUE_STORE);
+    const items = await new Promise((resolve) => {
+      const req = store.getAll();
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => resolve([]);
+    });
+    for (const order of items) {
+      try {
+        const r = await fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(order)
+        });
+        if (r.ok) store.delete(order.id);
+      } catch (e) { console.warn('Fallo al sincronizar:', order.id); }
+    }
+    updateConnectionStatus(true);
+    if (items.length > 0) {
+      showToast(`🔄 ${items.length} órdenes sincronizadas`, 'success');
+      fetchOrders();
+    }
+  } catch (e) {
+    updateConnectionStatus(false);
+  }
+}
+
+let offset = 0;
+let loading = false;
+let editingId = null;
+let allOrders = [];
+const STORAGE_KEY = 'runforge_draft';
+
+function switchTab(tab) {
+  document.querySelectorAll('.view-container').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  const viewEl = document.getElementById('view-' + tab);
+  if (viewEl) viewEl.classList.add('active');
+  const btn = document.querySelector(`.nav-btn[data-tab="${tab}"]`);
+  if (btn) btn.classList.add('active');
+  if (tab === 'attendance') loadAttendanceHistory();
+  if (tab === 'manual') setTimeout(initThreeJS, 300);
+}
+
+function syncDateTime() {
+  const now = new Date();
+  document.getElementById('fDate').value = now.toISOString().split('T')[0];
+  const hh = String(now.getHours()).padStart(2,'0');
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('fTime').value = `${hh}:${mm}`;
+  document.getElementById('fStart').value = `${hh}:${mm}`;
+}
+
+function getFormData() {
+  return {
+    unitType: document.getElementById('fUnitType').value,
+    asset: document.getElementById('fAsset').value.trim(),
+    date: document.getElementById('fDate').value,
+    time: document.getElementById('fTime').value,
+    start: document.getElementById('fStart').value,
+    end: document.getElementById('fEnd').value,
+    location: document.getElementById('fLocation').value.trim(),
+    tech: document.getElementById('fTech').value,
+    status: document.getElementById('fStatus').value,
+    reason: document.getElementById('fReason').value.trim(),
+    procedure: document.getElementById('fProcedure').value.trim()
+  };
+}
+
+function loadDraft() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return;
+  try {
+    const data = JSON.parse(saved);
+    document.getElementById('fUnitType').value = data.unitType || 'KW';
+    document.getElementById('fAsset').value = data.asset || '';
+    document.getElementById('fDate').value = data.date || '';
+    document.getElementById('fTime').value = data.time || '';
+    document.getElementById('fStart').value = data.start || '';
+    document.getElementById('fEnd').value = data.end || '';
+    document.getElementById('fLocation').value = data.location || '';
+    document.getElementById('fTech').value = data.tech || 'Christian Loera';
+    document.getElementById('fStatus').value = data.status || 'CLOSED';
+    document.getElementById('fReason').value = data.reason || '';
+    document.getElementById('fProcedure').value = data.procedure || '';
+    if (data.asset || data.reason || data.procedure) updateSaveIndicator(true);
+  } catch (e) { console.error('Error borrador:', e); }
+}
+
+function autoSave() {
+  const data = getFormData();
+  const hasData = data.asset || data.reason || data.procedure;
+  if (hasData) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    updateSaveIndicator(true);
+  } else {
+    localStorage.removeItem(STORAGE_KEY);
+    updateSaveIndicator(false);
+  }
+}
+
+function updateSaveIndicator(hasData) {
+  const ind = document.getElementById('saveIndicator');
+  const txt = document.getElementById('saveText');
+  if (hasData) {
+    ind.classList.add('saved');
+    txt.textContent = 'Borrador Guardado ✅';
+  } else {
+    ind.classList.remove('saved');
+    txt.textContent = 'Auto-guardando...';
+  }
+}
+
+function toggleForm() {
+  const fields = document.getElementById('formFields');
+  fields.style.display = fields.style.display === 'none' ? 'block' : 'none';
+}
+
+function cancelEdit() {
+  editingId = null;
+  document.getElementById('btnCancelEdit').classList.add('hidden');
+  document.getElementById('btnSubmit').innerHTML = '✓ Registrar Bitácora';
+  syncDateTime();
+  document.getElementById('fAsset').value = '';
+  document.getElementById('fStart').value = '';
+  document.getElementById('fEnd').value = '';
+  document.getElementById('fLocation').value = '';
+  document.getElementById('fReason').value = '';
+  document.getElementById('fProcedure').value = '';
+}
+
+async function submitOrder() {
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Guardando...';
+  try {
+    const data = getFormData();
+    let asset_id = data.asset;
+    if (data.unitType !== 'CCTV' && !data.asset.startsWith(data.unitType))
+      asset_id = `${data.unitType}${data.asset}`;
+    if (!data.asset || !data.reason || !data.procedure) {
+      showToast('Complete los campos obligatorios', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '✓ Registrar Bitácora';
+      return;
+    }
+    const payload = {
+      asset_id,
+      unit_type: data.unitType,
+      request_date: data.date,
+      request_time: data.time,
+      start_time: data.start,
+      end_time: data.end,
+      location: data.location,
+      reason: data.reason,
+      procedure_log: data.procedure,
+      technician_id: data.tech,
+      status: data.status
+    };
+    let url = '/api/orders', method = 'POST';
+    if (editingId) {
+      url = `/api/orders/${editingId}`;
+      method = 'PUT';
+      payload.id = editingId;
+    } else {
+      payload.id = `SO-${Date.now()}`;
+      payload.imported_from = 'manual';
+    }
+
+    let online = true;
+    let res;
+    try {
+      res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Error de conexión');
+    } catch (e) {
+      online = false;
+    }
+
+    if (!online) {
+      queueOrder(payload);
+      allOrders.unshift(payload);
+      renderFilteredTimeline(allOrders);
+      updateStats(allOrders.length);
+      cancelEdit();
+      btn.disabled = false;
+      btn.innerHTML = '✓ Registrar Bitácora';
+      return;
+    }
+
+    if (editingId) {
+      editingId = null;
+      document.getElementById('btnCancelEdit').classList.add('hidden');
+    }
+    cancelEdit();
+    showToast('✅ Bitácora guardada exitosamente', 'success');
+    offset = 0;
+    fetchOrders();
+    localStorage.removeItem(STORAGE_KEY);
+    updateSaveIndicator(false);
+  } catch (e) {
+    showToast('❌ ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '✓ Registrar Bitácora';
+  }
+}
+
+async function fetchOrders() {
+  if (loading) return;
+  loading = true;
+  const limit = 20;
+  try {
+    const res = await fetch(`/api/orders?offset=${offset}&limit=${limit}`);
+    if (!res.ok) throw new Error('Error al cargar bitácora');
+    const json = await res.json();
+    allOrders = json.data || [];
+    applyFilters();
+    document.getElementById('loadMoreBtn').style.display = (json.data && json.data.length < limit) ? 'none' : 'block';
+    updateStats(json.total || allOrders.length);
+  } catch (e) { console.error(e); }
+  finally { loading = false; }
+}
+
+function applyFilters() {
+  const type = document.getElementById('filterType').value;
+  const tech = document.getElementById('filterTech').value;
+  const date = document.getElementById('filterDate').value;
+  let filtered = allOrders;
+  if (type !== 'all') filtered = filtered.filter(o => o.unit_type === type);
+  if (tech !== 'all') filtered = filtered.filter(o => o.technician_id === tech);
+  const today = new Date().toISOString().split('T')[0];
+  const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+  const monthAgo = new Date(); monthAgo.setDate(monthAgo.getDate() - 30);
+  if (date === 'today') filtered = filtered.filter(o => o.request_date === today);
+  else if (date === 'week') filtered = filtered.filter(o => o.request_date >= weekAgo.toISOString().split('T')[0]);
+  else if (date === 'month') filtered = filtered.filter(o => o.request_date >= monthAgo.toISOString().split('T')[0]);
+  renderFilteredTimeline(filtered);
+}
+
+function renderFilteredTimeline(orders) {
+  const container = document.getElementById('timeline');
+  if (!orders || orders.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">📋</div><p>No hay registros que coincidan con los filtros.</p></div>';
+    return;
+  }
+  container.innerHTML = '';
+  orders.forEach(o => {
+    const el = document.createElement('div');
+    el.className = 'order-card';
+    const statusClass = o.status === 'PENDING' ? 'status-pending' : '';
+    el.innerHTML = `
+      <div class="order-actions">
+        <button onclick="copyReport('${o.id}')" title="Copiar reporte WhatsApp">📋</button>
+        <button onclick="editOrder('${o.id}')" title="Editar">✎</button>
+      </div>
+      <div class="order-header">
+        <span class="order-unit">${o.asset_id || 'N/A'}</span>
+        <span class="order-meta">${o.request_date || ''}</span>
+      </div>
+      <div class="order-reason">${o.reason || 'Sin motivo'}</div>
+      <div class="order-procedure">${o.procedure_log || 'Sin procedimiento registrado.'}</div>
+      <div class="order-footer">
+        <span class="order-tech">👤 ${o.technician_id || 'Pendiente'}</span>
+        <span class="status-badge ${statusClass}">${o.status === 'PENDING' ? '⏳ PENDIENTE' : '✅ CERRADA'}</span>
+      </div>`;
+    container.appendChild(el);
+  });
+}
+
+function loadMore() { offset += 20; fetchOrders(); }
+
+async function updateStats(total) {
+  document.getElementById('totalCount').textContent = total || 0;
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('todayCount').textContent = allOrders.filter(o => o.request_date === today).length;
+  const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+  document.getElementById('thisWeekCount').textContent = allOrders.filter(o => o.request_date >= weekAgo.toISOString().split('T')[0]).length;
+  try {
+    const res = await fetch('/api/attendance/overtime');
+    const data = await res.json();
+    document.getElementById('overtimeSummary').textContent = (data.total_overtime_hours || 0) + 'h';
+  } catch (e) {}
+  document.getElementById('pendingSummary').textContent = allOrders.filter(o => o.status === 'PENDING').length;
+}
+
+function editOrder(id) {
+  const order = allOrders.find(o => o.id === id);
+  if (!order) return;
+  editingId = id;
+  document.getElementById('fUnitType').value = order.unit_type;
+  document.getElementById('fAsset').value = order.asset_id.replace(order.unit_type, '');
+  document.getElementById('fDate').value = order.request_date;
+  document.getElementById('fTime').value = order.request_time;
+  document.getElementById('fStart').value = order.start_time;
+  document.getElementById('fEnd').value = order.end_time;
+  document.getElementById('fLocation').value = order.location;
+  document.getElementById('fTech').value = order.technician_id;
+  document.getElementById('fStatus').value = order.status;
+  document.getElementById('fReason').value = order.reason;
+  document.getElementById('fProcedure').value = order.procedure_log;
+  document.getElementById('btnSubmit').innerHTML = '✎ Actualizar Bitácora';
+  document.getElementById('btnCancelEdit').classList.remove('hidden');
+  document.getElementById('formFields').style.display = 'block';
+  switchTab('form');
+  showToast('Editando registro seleccionado', 'success');
+}
+
+function copyReport(id) {
+  const order = allOrders.find(o => o.id === id);
+  if (!order) return;
+  const formatTime = (t) => {
+    if (!t) return 'N/A';
+    const [h, m] = t.split(':');
+    const hour = parseInt(h);
+    const ampm = hour >= 12 ? 'p.m.' : 'a.m.';
+    const h12 = hour % 12 || 12;
+    return `${h12}:${m} ${ampm}`;
+  };
+  const now = new Date();
+  const reportDate = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+  const text = `Fecha: ${reportDate}
+Unidad: ${order.asset_id || 'N/A'}
+Hora: ${formatTime(order.request_time)}
+Inicio: ${formatTime(order.start_time)}
+Fin: ${formatTime(order.end_time)}
+Motivo: ${order.reason || 'Sin motivo'}
+Procedimiento: ${order.procedure_log || 'Sin procedimiento'}
+Atendió: ${order.technician_id || 'Pendiente'}`;
+
+  const area = document.createElement('textarea');
+  area.value = text;
+  document.body.appendChild(area);
+  area.select();
+  try {
+    document.execCommand('copy');
+    showToast('📋 Reporte copiado al portapapeles', 'success');
+  } catch (e) {
+    showToast('❌ Error al copiar texto', 'error');
+  }
+  document.body.removeChild(area);
+}
+
+async function exportData() {
+  try {
+    const res = await fetch('/api/orders/all');
+    if (!res.ok) throw new Error('Error al obtener datos');
+    const data = await res.json();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bitacora_${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast(`📁 ${data.length} registros exportados`, 'success');
+  } catch (e) {
+    showToast('❌ ' + e.message, 'error');
+  }
+}
+
+async function importSensors() {
+  const fileInput = document.getElementById('sensorFileInput');
+  const file = fileInput.files[0];
+  if (!file) {
+    showToast('Seleccione un archivo .csv primero', 'error');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = async (ev) => {
+    try {
+      const res = await fetch('/api/sensors/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ csv: ev.target.result })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showToast(`✅ ${data.imported || 0} sensores importados`, 'success');
+        loadSensors();
+      } else showToast('❌ ' + data.error, 'error');
+    } catch (err) { showToast('❌ ' + err.message, 'error'); }
+  };
+  reader.readAsText(file);
+  fileInput.value = '';
+}
+
+async function loadSensors() {
+  try {
+    const res = await fetch('/api/sensors');
+    if (!res.ok) return;
+    const data = await res.json();
+    document.getElementById('sensorCount').textContent = data.length;
+    const list = document.getElementById('sensorList');
+    if (data.length === 0) {
+      list.innerHTML = '<div style="text-align:center; padding:10px;">No hay sensores registrados.</div>';
+    } else {
+      list.innerHTML = data.map(s =>
+        `<div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border); padding:6px 0;">
+          <span style="font-weight:600;">${s.sensor_id}</span>
+          <span style="color:var(--text-muted); font-size:11px;">${s.mac_ble} ${s.assigned_to ? '| '+s.assigned_to : ''}</span>
+        </div>`
+      ).join('');
+    }
+  } catch (e) {}
+}
+
+async function registerAttendance() {
+  const date = document.getElementById('attDate').value;
+  const checkIn = document.getElementById('attIn').value;
+  const checkOut = document.getElementById('attOut').value;
+  if (!checkIn || !checkOut) {
+    showToast('Seleccione hora de entrada y salida', 'error');
+    return;
+  }
+  try {
+    const res = await fetch('/api/attendance', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ entry_date: date, check_in: checkIn, check_out: checkOut })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Error al registrar');
+    showToast(`✅ Registrado. Extras: ${data.overtime_hours}h`, 'success');
+    loadAttendanceHistory();
+  } catch (e) { showToast('❌ ' + e.message, 'error'); }
+}
+
+async function loadAttendanceHistory() {
+  const list = document.getElementById('attHistoryList');
+  const totals = document.getElementById('attTotals');
+  try {
+    const res = await fetch('/api/attendance/overtime');
+    if (!res.ok) return;
+    const data = await res.json();
+    totals.innerHTML = `<div style="font-size:22px; font-weight:800; color:var(--accent);">${data.total_overtime_hours || 0} horas extra</div>
+                        <div style="font-size:11px; color:var(--text-muted);">Técnico: ${data.technician || 'N/A'}</div>`;
+    if (!data.records || data.records.length === 0) {
+      list.innerHTML = '<div style="text-align:center; padding:12px;">No hay jornadas registradas.</div>';
+      return;
+    }
+    let html = `<table style="width:100%; border-collapse:collapse; font-size:12px;">
+      <tr style="border-bottom:1px solid var(--border); text-align:left; color:var(--text-muted);">
+        <th style="padding:4px;">Fecha</th><th>Entrada</th><th>Salida</th><th>Extras</th><th style="text-align:right;">Acción</th>
+      </tr>`;
+    data.records.forEach(r => {
+      const ext = (r.overtime_minutes / 60).toFixed(2);
+      html += `<tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:6px 4px;">${r.entry_date}</td>
+        <td>${r.check_in}</td>
+        <td>${r.check_out}</td>
+        <td style="color:var(--accent); font-weight:700;">${ext}h</td>
+        <td style="text-align:right;">
+          <button onclick="deleteAttendance('${r.id}')" style="background:none; border:none; color:var(--danger); cursor:pointer; font-size:14px;">🗑️</button>
+        </td>
+      </tr>`;
+    });
+    html += `</table>`;
+    list.innerHTML = html;
+  } catch (e) {}
+}
+
+async function deleteAttendance(id) {
+  const confirmed = await confirmDialog('¿Eliminar Registro?', '¿Está seguro de eliminar esta jornada de asistencia?');
+  if (!confirmed) return;
+  try {
+    const res = await fetch(`/api/attendance/${id}`, { method: 'DELETE' });
+    if (!res.ok) throw new Error('Error al eliminar');
+    showToast('🗑️ Registro eliminado', 'success');
+    loadAttendanceHistory();
+  } catch (e) { showToast('❌ ' + e.message, 'error'); }
+}
+
+async function backupDatabase() {
+  window.location.href = '/api/backup';
+  setTimeout(() => showToast('📁 Backup descargado', 'success'), 1500);
+}
+
+const currentTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', currentTheme);
+function toggleTheme() {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+}
+
+let threeInitialized = false;
+function initThreeJS() {
+  const container = document.getElementById('canvas-container');
+  if (!container || threeInitialized) return;
+  const loading = document.getElementById('loading-3d');
+  if (loading) loading.style.display = 'none';
+  threeInitialized = true;
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x020617);
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.set(0, 4, 28);
+  camera.lookAt(0, 0, 0);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  container.appendChild(renderer.domElement);
+
+  const ambient = new THREE.AmbientLight(0xffffff, 0.7);
+  scene.add(ambient);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  dirLight.position.set(20, 30, 20);
+  scene.add(dirLight);
+
+  const group = new THREE.Group();
+  const bodyMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.4 });
+  const body = new THREE.Mesh(new THREE.BoxGeometry(18, 9, 10), bodyMat);
+  group.add(body);
+
+  const lockMat = new THREE.MeshStandardMaterial({ color: 0xeab308, roughness: 0.2 });
+  const lock = new THREE.Mesh(new THREE.BoxGeometry(14, 1.2, 8), lockMat);
+  lock.position.set(0, -4.8, 0);
+  group.add(lock);
+
+  const pinMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.8 });
+  const pin28Mat = new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: 0x991b1b, emissiveIntensity: 0.5 });
+  const pin20Mat = new THREE.MeshStandardMaterial({ color: 0x22c55e, emissive: 0x166534, emissiveIntensity: 0.5 });
+  const pinGeo = new THREE.CylinderGeometry(0.25, 0.25, 1.2, 12);
+
+  for (let row = 0; row < 2; row++) {
+    for (let col = 0; col < 31; col++) {
+      const num = row * 31 + col + 1;
+      let mat = pinMat;
+      if (num === 28) mat = pin28Mat;
+      if (num === 20) mat = pin20Mat;
+      const pin = new THREE.Mesh(pinGeo, mat);
+      pin.rotation.x = Math.PI / 2;
+      pin.position.set(-7.5 + col * 0.5, row === 0 ? 2 : -2, 4.6);
+      group.add(pin);
+    }
+  }
+
+  scene.add(group);
+
+  // Touch / Drag controls
+  let isDragging = false;
+  let previousMousePosition = { x: 0, y: 0 };
+  
+  const startDrag = (x, y) => { isDragging = true; previousMousePosition = { x, y }; };
+  const moveDrag = (x, y) => {
+    if (!isDragging) return;
+    const deltaX = x - previousMousePosition.x;
+    const deltaY = y - previousMousePosition.y;
+    group.rotation.y += deltaX * 0.01;
+    group.rotation.x += deltaY * 0.01;
+    previousMousePosition = { x, y };
+  };
+  const stopDrag = () => { isDragging = false; };
+
+  container.addEventListener('mousedown', (e) => startDrag(e.clientX, e.clientY));
+  container.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
+  window.addEventListener('mouseup', stopDrag);
+
+  container.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) startDrag(e.touches[0].clientX, e.touches[0].clientY);
+  });
+  container.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 1) moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+  });
+  container.addEventListener('touchend', stopDrag);
+
+  function animate() {
+    requestAnimationFrame(animate);
+    if (!isDragging) group.rotation.y += 0.005;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  syncDateTime();
+  loadDraft();
+  fetchOrders();
+  loadSensors();
+  setInterval(autoSave, 2000);
+  document.getElementById('attDate').valueAsDate = new Date();
+  switchTab('stats');
+});
+</script>
+</body>
+</html>

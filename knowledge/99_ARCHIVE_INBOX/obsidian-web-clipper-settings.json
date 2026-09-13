@@ -1,0 +1,164 @@
+{
+  "domain": "mokosmart.com",
+  "equipos_detectados": [
+    {
+      "marca": "MOKOSmart",
+      "modelo": "LW001-BG PRO-A (presumiblemente 12000 mAh no recargable)",
+      "protocolo": "LoRaWAN, GPS, WiFi, BLE",
+      "specs_clave": "Batería de larga duración (12000 mAh según título). Detección de movimiento, vibración, inactividad. Alarma antimanipulación. Copia de seguridad de datos. Tamaño NO proporcionado."
+    },
+    {
+      "marca": "MOKOSmart",
+      "modelo": "LW001-BG PRO-AC (recargable 4500 mAh)",
+      "protocolo": "LoRaWAN, GPS, WiFi, BLE",
+      "specs_clave": "Batería recargable de 4500 mAh (carga USB o power bank). Mismas funciones de posicionamiento y sensores. Tamaño NO proporcionado, pero se espera que sea el más compacto de los dos."
+    }
+  ],
+  "general_settings": {
+    "betaFeatures": false,
+    "legacyMode": false,
+    "openBehavior": "popup",
+    "saveBehavior": "addToObsidian",
+    "showMoreActionsButton": false,
+    "silentOpen": false
+  },
+  "highlighter_settings": {
+    "alwaysShowHighlights": true,
+    "highlightBehavior": "highlight-inline",
+    "highlighterEnabled": true
+  },
+  "interpreter_settings": {
+    "defaultPromptContext": "",
+    "interpreterAutoRun": false,
+    "interpreterEnabled": false,
+    "interpreterModel": "",
+    "models": [],
+    "providers": []
+  },
+  "migrationVersion": 1,
+  "next_action": "solicitar_dimensiones_exactas_y_peso_a_MOKO",
+  "notas_importantes": [
+    "La página no muestra dimensiones de ninguna variante.",
+    "La capacidad de 12000 mAh aparece solo en el título/meta, no en el cuerpo del texto.",
+    "La instalación oculta requiere confirmar si el modelo de 4500 mAh mantiene las dimensiones aproximadas de 84x58x18 mm que otras fuentes sugieren."
+  ],
+  "outputs": {
+    "json_ready": true,
+    "markdown_ready": true
+  },
+  "project": "RUNEFORGE_MOBILE / CAMION_OCULTO",
+  "property_types": [
+    {
+      "defaultValue": "{{title}}",
+      "name": "title",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{url}}",
+      "name": "source",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{author|split:\", \"|wikilink|join}}",
+      "name": "author",
+      "type": "multitext"
+    },
+    {
+      "defaultValue": "{{published}}",
+      "name": "published",
+      "type": "date"
+    },
+    {
+      "defaultValue": "{{date}}",
+      "name": "created",
+      "type": "date"
+    },
+    {
+      "defaultValue": "{{description}}",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "defaultValue": "clippings",
+      "name": "tags",
+      "type": "multitext"
+    }
+  ],
+  "reader_settings": {
+    "appearance": "auto",
+    "autoScroll": true,
+    "blendImages": true,
+    "colorLinks": false,
+    "customCss": "",
+    "darkTheme": "same",
+    "defaultFont": "",
+    "followLinks": true,
+    "fontSize": 16,
+    "fonts": [],
+    "highlightActiveLine": true,
+    "lightTheme": "default",
+    "lineHeight": 1.6,
+    "maxWidth": 38,
+    "pinPlayer": true
+  },
+  "schema": "rf.webclip.extract.v2",
+  "source_url": "https://mokosmart.com/es/lorawan-tracker-lw001-bg-pro/",
+  "stats": {
+    "addToObsidian": 1,
+    "copyToClipboard": 25,
+    "saveFile": 0,
+    "share": 0
+  },
+  "status": "actualizado",
+  "template_1784151273415avj5bmdco": {
+    "id": "1784151273415avj5bmdco",
+    "name": "Predeterminado",
+    "behavior": "create",
+    "noteNameFormat": "{{title}}",
+    "path": "Clippings",
+    "noteContentFormat": "{{content}}",
+    "context": "",
+    "properties": [
+      {
+        "id": "1784151273415iabypkv48",
+        "name": "title",
+        "value": "{{title}}"
+      },
+      {
+        "id": "17841512734154lj671gb8",
+        "name": "source",
+        "value": "{{url}}"
+      },
+      {
+        "id": "1784151273415tucui01ty",
+        "name": "author",
+        "value": "{{author|split:\", \"|wikilink|join}}"
+      },
+      {
+        "id": "1784151273415x17uiz01j",
+        "name": "published",
+        "value": "{{published}}"
+      },
+      {
+        "id": "1784151273415mhjjq6mri",
+        "name": "created",
+        "value": "{{date}}"
+      },
+      {
+        "id": "1784151273415w25tf1412",
+        "name": "description",
+        "value": "{{description}}"
+      },
+      {
+        "id": "178415127341585x7wlnx6",
+        "name": "tags",
+        "value": "clippings"
+      }
+    ],
+    "triggers": []
+  },
+  "template_list": [
+    "1784151273415avj5bmdco"
+  ],
+  "vaults": []
+}

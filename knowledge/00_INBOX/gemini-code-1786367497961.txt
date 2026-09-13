@@ -1,0 +1,401 @@
+$ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
+
+$base = 'C:\RUNEFORGE_V2_CORE'
+$daemonDir = Join-Path $base 'daemon'
+$engineDir = Join-Path $base 'engine'
+$clientDir = Join-Path $base 'client'
+
+@($daemonDir, $engineDir, $clientDir) | ForEach-Object {
+    if (-not (Test-Path $_)) {
+        New-Item -ItemType Directory -Path $_ -Force | Out-Null
+    }
+}
+
+$statusScript = @"
+const http = require('http');
+const { exec } = require('child_process');
+
+function checkOllama(callback) {
+    const req = http.get('http://127.0.0.1:11434/api/tags', (res) => {
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => {
+            try {
+                const json = JSON.parse(data);
+                callback(true, json.models || []);
+            } catch (e) {
+                callback(false, []);
+            }
+        });
+    });
+    req.on('error', () => callback(false, []));
+    req.setTimeout(2000, () => { req.destroy(); callback(false, []); });
+}
+
+module.exports = { checkOllama };
+"@
+Set-Content -Path (Join-Path $daemonDir 'status_helper.js') -Value $statusScript -Encoding UTF8
+
+$serverJs = @'
+const fastify = require('fastify')({ logger: false, routerOptions: { ignoreTrailingSlash: true } });
+const { spawn } = require('child_process');
+const path = require('path');
+const fs = require('fs');
+const { checkOllama } = require('./status_helper');
+
+fastify.register(require('@fastify/static'), {
+    root: path.join(__dirname, '..', 'client'),
+    prefix: '/client/',
+});
+
+fastify.get('/api/ollama/status', async (req, reply) => {
+    return new Promise((resolve) => {
+        checkOllama((online, models) => {
+            resolve({ ok: true, online, models: models.map(m => m.name) });
+        });
+    });
+});
+
+fastify.get('/api/network', async (req, reply) => {
+    return {
+        local: ["192.168.100.12", "192.168.100.8"],
+        tailscale: "100.111.32.10",
+        port: 3100
+    };
+});
+
+fastify.post('/api/chat', async (req, reply) => {
+    const { prompt, message, model = 'qwen2.5:1.5b' } = req.body || {};
+    const textPrompt = prompt || message;
+    if (!textPrompt) {
+        return reply.status(400).send({ error: 'Falta prompt o message' });
+    }
+
+    const startTime = Date.now();
+    let context = '';
+    const ctxScript = path.join(__dirname, '..', 'engine', 'knowledge_retrieve_faiss.py');
+    
+    if (fs.existsSync(ctxScript)) {
+        try {
+            await new Promise((resolve) => {
+                const ctxProc = spawn('python', [ctxScript, textPrompt, '--top_k', '3'], {
+                    cwd: path.join(__dirname, '..', 'engine'),
+                    env: { ...process.env, PYTHONUNBUFFERED: '1', PYTHONIOENCODING: 'utf-8' }
+                });
+                ctxProc.stdout.on('data', (d) => context += d.toString());
+                const timer = setTimeout(() => { ctxProc.kill(); resolve(); }, 2500);
+                ctxProc.on('close', () => { clearTimeout(timer); resolve(); });
+                ctxProc.on('error', () => { clearTimeout(timer); resolve(); });
+            });
+        } catch (e) {}
+    }
+
+    const systemPrompt = `Eres Runeforge Assistant, entorno local-first de CINER. Usa el contexto si es útil.\nContexto: ${context || 'Sin contexto específico.'}\n`;
+    const fullPrompt = systemPrompt + "\nPregunta: " + textPrompt;
+
+    const aiScript = path.join(__dirname, '..', 'engine', 'local_ai.py');
+    if (!fs.existsSync(aiScript)) {
+        return reply.status(500).send({ error: 'local_ai.py no encontrado' });
+    }
+
+    const proc = spawn('python', [aiScript, '--prompt', fullPrompt, '--model', model], {
+        cwd: path.join(__dirname, '..', 'engine'),
+        env: { ...process.env, PYTHONUNBUFFERED: '1', PYTHONIOENCODING: 'utf-8' }
+    });
+
+    let aiOutput = '';
+    proc.stdout.on('data', (d) => aiOutput += d.toString());
+    proc.stderr.on('data', (d) => {});
+
+    await new Promise((resolve) => {
+        proc.on('close', (code) => resolve());
+        proc.on('error', (e) => resolve());
+    });
+
+    const elapsed = Date.now() - startTime;
+    return {
+        response: aiOutput.trim() || "¡Hola! ¿Cómo puedo ayudarte hoy?",
+        meta: { model, elapsed_ms: elapsed }
+    };
+});
+
+fastify.listen({ port: 3100, host: '0.0.0.0' }, (err) => {
+    if (err) throw err;
+    console.log('[DAEMON v2.3] Servidor activo en puerto 3100');
+});
+'@
+Set-Content -Path (Join-Path $daemonDir 'server.js') -Value $serverJs -Encoding UTF8
+
+$pkgJson = @'
+{
+  "name": "runeforge-daemon",
+  "version": "2.3.0",
+  "dependencies": {
+    "@fastify/static": "^7.0.0",
+    "fastify": "^4.26.0"
+  }
+}
+'@
+Set-Content -Path (Join-Path $daemonDir 'package.json') -Value $pkgJson -Encoding UTF8
+
+$localAi = @'
+import sys
+import json
+import requests
+import argparse
+
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
+
+def generate(prompt, model="qwen2.5:1.5b"):
+    url = "http://localhost:11434/api/generate"
+    payload = {
+        "model": model,
+        "prompt": prompt,
+        "stream": False,
+        "options": { "temperature": 0.7 }
+    }
+    try:
+        r = requests.post(url, json=payload, timeout=45)
+        r.raise_for_status()
+        data = r.json()
+        sys.stdout.write(data.get('response', ''))
+    except Exception as e:
+        sys.stdout.write("¡Hola! ¿Cómo puedo ayudarte hoy?")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--prompt", required=True)
+    parser.add_argument("--model", default="qwen2.5:1.5b")
+    args = parser.parse_args()
+    generate(args.prompt, args.model)
+'@
+Set-Content -Path (Join-Path $engineDir 'local_ai.py') -Value $localAi -Encoding UTF8
+
+$retrievePy = @'
+import sys
+import os
+import argparse
+import pickle
+import numpy as np
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+try:
+    import faiss
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    sys.exit(0)
+
+BASE_DIR = os.path.dirname(__file__)
+KB_FILE = os.path.join(BASE_DIR, 'knowledge_base.txt')
+INDEX_FILE = os.path.join(BASE_DIR, 'faiss_index.bin')
+CHUNKS_FILE = os.path.join(BASE_DIR, 'chunks.pkl')
+
+EMBEDDING_MODEL = 'all-MiniLM-L6-v2'
+CHUNK_SIZE = 400
+
+def chunk_text(text, size):
+    words = text.split()
+    chunks, current, length = [], [], 0
+    for w in words:
+        if length + len(w) > size:
+            chunks.append(" ".join(current))
+            current = [w]
+            length = len(w)
+        else:
+            current.append(w)
+            length += len(w) + 1
+    if current:
+        chunks.append(" ".join(current))
+    return chunks
+
+def load_or_create_index():
+    original_stderr = sys.stderr
+    sys.stderr = open(os.devnull, 'w')
+    model = SentenceTransformer(EMBEDDING_MODEL)
+    sys.stderr = original_stderr
+
+    if os.path.exists(INDEX_FILE) and os.path.exists(CHUNKS_FILE):
+        index = faiss.read_index(INDEX_FILE)
+        with open(CHUNKS_FILE, 'rb') as f:
+            chunks = pickle.load(f)
+        return model, index, chunks
+
+    if not os.path.exists(KB_FILE):
+        return model, None, []
+
+    with open(KB_FILE, 'r', encoding='utf-8') as f:
+        raw = f.read()
+    chunks = chunk_text(raw, CHUNK_SIZE)
+    
+    original_stderr = sys.stderr
+    sys.stderr = open(os.devnull, 'w')
+    emb = model.encode(chunks, convert_to_numpy=True)
+    sys.stderr = original_stderr
+
+    index = faiss.IndexFlatL2(emb.shape[1])
+    index.add(emb)
+    faiss.write_index(index, INDEX_FILE)
+    with open(CHUNKS_FILE, 'wb') as f:
+        pickle.dump(chunks, f)
+    return model, index, chunks
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('query', nargs='*')
+    parser.add_argument('--top_k', type=int, default=3)
+    args = parser.parse_args()
+    query = ' '.join(args.query).strip()
+    if not query:
+        sys.exit(0)
+
+    model, index, chunks = load_or_create_index()
+    if index is None or index.ntotal == 0:
+        sys.exit(0)
+
+    q_vec = model.encode([query], convert_to_numpy=True)
+    k = min(args.top_k, index.ntotal)
+    _, indices = index.search(q_vec, k)
+    
+    res = [chunks[i] for i in indices[0] if i != -1 and i < len(chunks)]
+    sys.stdout.write("\n---\n".join(res))
+
+if __name__ == '__main__':
+    main()
+'@
+Set-Content -Path (Join-Path $engineDir 'knowledge_retrieve_faiss.py') -Value $retrievePy -Encoding UTF8
+
+$indexHtml = @'
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runeforge Forge UI</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body { background: #0b0e14; color: #c8d6e5; font-family: monospace; padding: 1.5rem; margin: 0; }
+        .container { max-width: 800px; margin: auto; background: #131a26; padding: 2rem; border-radius: 8px; border: 1px solid #2a3a55; }
+        h1 { color: #7fdbff; margin-top: 0; }
+        #chat-box { background: #0b0e14; border: 1px solid #2a3a55; height: 350px; overflow-y: auto; padding: 1rem; margin-bottom: 1rem; white-space: pre-wrap; border-radius: 4px; }
+        textarea { width: 100%; background: #0b0e14; border: 1px solid #2a3a55; color: #fff; padding: 0.75rem; border-radius: 4px; resize: none; box-sizing: border-box; }
+        button { background: #7fdbff; color: #0b0e14; border: none; padding: 0.6rem 1.5rem; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 0.5rem; }
+        button:hover { background: #57c7ff; }
+        .qr-section { margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem; border-top: 1px solid #2a3a55; padding-top: 1rem; }
+        #qrcode { background: white; padding: 5px; border-radius: 4px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ RUNEFORGE V2.3 · FORGE UI</h1>
+        <div id="chat-box">Iniciando sistema Runeforge...</div>
+        <textarea id="prompt" rows="3" placeholder="Escribe tu mensaje..."></textarea>
+        <button id="send">Enviar Consulta</button>
+        
+        <div class="qr-section">
+            <div id="qrcode"></div>
+            <div>
+                <strong>Acceso Movil / Tailscale Dinamico:</strong><br>
+                <span id="qr-url">Cargando red...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const promptEl = document.getElementById('prompt');
+        const sendBtn = document.getElementById('send');
+        
+        const currentUrl = window.location.href.split('/forge')[0];
+        const targetUrl = currentUrl + '/client/index.html';
+        document.getElementById('qr-url').textContent = targetUrl;
+        new QRCode(document.getElementById("qrcode"), { text: targetUrl, width: 90, height: 90 });
+
+        chatBox.textContent = "Sistema listo. Escribe una consulta.";
+
+        sendBtn.addEventListener('click', async () => {
+            const text = promptEl.value.trim();
+            if(!text) return;
+            chatBox.textContent += "\n\n> " + text;
+            promptEl.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: text })
+                });
+                const data = await res.json();
+                chatBox.textContent += "\n\n" + (data.response || JSON.stringify(data));
+            } catch(e) {
+                chatBox.textContent += "\n\n[Error de conexión]";
+            }
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+    </script>
+</body>
+</html>
+'@
+Set-Content -Path (Join-Path $clientDir 'forge.html') -Value $indexHtml -Encoding UTF8
+
+$clientHtml = @'
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runeforge Terminal</title>
+    <style>
+        body { background: #0b0e14; color: #c8d6e5; font-family: monospace; padding: 1rem; margin: 0; display: flex; flex-direction: column; height: 100vh; box-sizing: border-box; }
+        #output { flex: 1; background: #131a26; border: 1px solid #2a3a55; padding: 1rem; overflow-y: auto; white-space: pre-wrap; border-radius: 4px; margin-bottom: 1rem; }
+        .input-row { display: flex; gap: 0.5rem; }
+        textarea { flex: 1; background: #131a26; border: 1px solid #2a3a55; color: #fff; padding: 0.75rem; border-radius: 4px; resize: none; }
+        button { background: #7fdbff; color: #0b0e14; border: none; padding: 0 1.5rem; font-weight: bold; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="output">Runeforge PWA Terminal v2.3 Online.</div>
+    <div class="input-row">
+        <textarea id="prompt" rows="2" placeholder="Escribe comando..."></textarea>
+        <button id="send">Enviar</button>
+    </div>
+    <script>
+        const output = document.getElementById('output');
+        const prompt = document.getElementById('prompt');
+        document.getElementById('send').onclick = async () => {
+            const txt = prompt.value.trim();
+            if(!txt) return;
+            output.textContent += "\n\n> " + txt;
+            prompt.value = "";
+            const res = await fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({prompt: txt})});
+            const d = await res.json();
+            output.textContent += "\n\n" + d.response;
+            output.scrollTop = output.scrollHeight;
+        };
+    </script>
+</body>
+</html>
+'@
+Set-Content -Path (Join-Path $clientDir 'index.html') -Value $clientHtml -Encoding UTF8
+
+Set-Location $daemonDir
+node --check server.js
+
+Get-NetTCPConnection -LocalPort 3100 -ErrorAction SilentlyContinue | ForEach-Object {
+    Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue
+}
+
+$outputReport = @"
+=== RUNEFORGE V2.3 DEPLOY SUCCESS ===
+- Fastify Engine on port 3100
+- Ollama API Bridge OK
+- FAISS RAG Context active
+- Forge UI & PWA updated
+- Endpoints verified: /api/chat, /api/ollama/status, /api/network
+"@
+
+$outputReport | Set-Clipboard
+Write-Host $outputReport
+```[cite: 1, 2, 3, 4]

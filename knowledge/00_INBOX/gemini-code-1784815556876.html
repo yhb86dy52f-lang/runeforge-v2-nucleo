@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Optimización - Telemetría BLE</title>
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --secondary-color: #1976d2;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --warning-bg: #fff8e1;
+            --warning-border: #ffc107;
+        }
+        body { 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            line-height: 1.6; 
+            color: var(--text-color); 
+            background: var(--bg-color); 
+            margin: 0; 
+            padding: 20px; 
+        }
+        .dashboard-container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 20px; 
+        }
+        header { 
+            background: var(--primary-color); 
+            color: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            text-align: center; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+        }
+        .card { 
+            background: var(--card-bg); 
+            padding: 25px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+        }
+        h2 { 
+            color: var(--primary-color); 
+            border-bottom: 2px solid var(--secondary-color); 
+            padding-bottom: 10px; 
+            margin-top: 0;
+        }
+        ul { 
+            padding-left: 20px; 
+        }
+        li { 
+            margin-bottom: 10px; 
+        }
+        .warning { 
+            background: var(--warning-bg); 
+            border-left: 4px solid var(--warning-border); 
+            padding: 15px; 
+            margin: 15px 0; 
+            border-radius: 0 8px 8px 0;
+        }
+        pre { 
+            background: #1e1e1e; 
+            color: #d4d4d4; 
+            padding: 20px; 
+            border-radius: 6px; 
+            overflow-x: auto; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 14px;
+        }
+        code {
+            background-color: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <header>
+        <h1>Consola de Despliegue: Escort TD-BLE & CalAmp LMU-2630MB</h1>
+        <p>Documentación técnica optimizada para integración directa sin hardware de puente</p>
+    </header>
+
+    <div class="card">
+        <h2>1. Especificaciones Técnicas Aclaradas</h2>
+        <p>Para garantizar la interoperabilidad sin hardware externo como el ESP32[cite: 23], el sistema depende de variables estrictas:</p>
+        <ul>
+            <li><strong>Identidad del Sensor:</strong> Modelo ESCORT TD-BLE [cite: 2], MAC Address <code>D1:6D:2A:5B:BE:07</code> [cite: 2, 5], Número de Serie 260463959191[cite: 2, 15].</li>
+            <li><strong>Regla Crítica de Firmware:</strong> El firmware máximo compatible para este hardware específico es la versión 1.3.9[cite: 2, 15]. El flasheo a la versión 1.4.0 provocará un bloqueo irreversible del dispositivo[cite: 24].</li>
+            <li><strong>Transmisión de Datos (Sensor):</strong> Opera bajo BLE Advertising (modo broadcast) enviando paquetes con un intervalo de 3000 ms[cite: 2].</li>
+            <li><strong>Adquisición de Datos (Rastreador):</strong> El CalAmp lee el valor ADC puro, que oscila en un rango válido de 1 a 4095[cite: 7].</li>
+            <li><strong>Calibración Matemática:</strong> La conversión de ADC a volumen requiere la aplicación exacta de una tabla validada de 28 puntos de calibración (sin ceros residuales)[cite: 3, 13, 25].</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>2. Optimización de la Arquitectura y Scripts</h2>
+        <p>La integración BLE nativa y directa [cite: 23] reduce puntos de falla. Las optimizaciones aplicadas son:</p>
+        
+        <div class="warning">
+            <strong>Optimización del Script PEG (CalAmp):</strong> El script actual busca la MAC del sensor al registrarse un evento BLE (on BLE_Event) [cite: 6] y extrae el valor ADC basándose en BYTE_OFFSET 2 y BYTE_SIZE 2[cite: 5].
+        </div>
+        <ul>
+            <li><strong>Problema actual:</strong> Utilizar <code>Send_Record_Now()</code> [cite: 8] en cada evento de publicidad saturará la red celular.</li>
+            <li><strong>Solución Optimizada:</strong> El script solo debe actualizar el acumulador local mediante <code>Set_Fuel_Level_1(raw_adc)</code>[cite: 7]. Si hay un error, lo asigna a 0[cite: 9]. El envío de datos debe delegarse al motor de reportes estándar de CalAmp.</li>
+        </ul>
+
+        <div class="warning">
+            <strong>Optimización del Procesamiento (PowerShell):</strong> El script de validación está diseñado para Windows o PowerShell Core [cite: 11] y genera eficientemente los archivos JSON y CSV en formato UTF-8 (-Encoding utf8) [cite: 16, 17], excluyendo la fila inútil (0,0)[cite: 18].
+        </div>
+        <ul>
+            <li><strong>Recomendación de Escalabilidad:</strong> Para flotas grandes, envuelve esta lógica en un bloque param() para procesar múltiples vehículos dinámicamente.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>3. Recursos Necesarios para Terreno</h2>
+        <ul>
+            <li><strong>Dispositivo Móvil Android/iOS:</strong> Con Bluetooth 4.0/5.0 habilitado[cite: 50].</li>
+            <li><strong>Software de Diagnóstico:</strong> La aplicación nRF Connect es de uso obligatorio[cite: 28].</li>
+            <li><strong>Parámetros a Descubrir:</strong> El técnico debe usar nRF Connect para obtener el Service UUID, el Characteristic UUID y confirmar el Byte Offset real[cite: 28]. Esto ajustará los parámetros #define BYTE_OFFSET en el script PEG final[cite: 4, 5].</li>
+            <li><strong>Configuración:</strong> CalAmp DMC Configurator para cargar el entorno BLE Custom o el Script PEG[cite: 26].</li>
+            <li><strong>Calibración:</strong> Los archivos <code>calibration_data_verified.csv</code> y <code>.json</code> generados para importación[cite: 17, 18, 25].</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>4. Diagrama de Ruta de Datos (Data Flow ASCII)</h2>
+        <p>Mapeo visual esquemático de cómo transita el valor analógico/digital desde el tanque hasta el servidor[cite: 56]:</p>
+        <pre>
+       [ T A N Q U E   D E   C O M B U S T I B L E ]
+                          |
+                          | (Nivel Físico)
+                          v
++-------------------------------------------------------+
+|  SENSOR: Escort TD-BLE                                |
+|  MAC: D1:6D:2A:5B:BE:07  |  SN: 260463959191          | <-- FW Estricto: 1.3.9
++-------------------------------------------------------+
+                          |
+                          | (Wireless: BLE 4.0 Advertising)
+                          | Intervalo de Broadcast: 3000 ms
+                          v
++-------------------------------------------------------+
+|  RASTREADOR: CalAmp LMU-2630MB                        |
+|  [Hardware] BLE Nativo (Cero puentes ESP32 externos)  |
+|  [Software] PEG Script (Filtro por MAC -> on BLE_Event|
+|             Parseo GATT -> BYTE_OFFSET 2, BYTE_SIZE 2)|
++-------------------------------------------------------+
+                          |
+                          | (Variables Internas del LMU)
+                          | raw_adc (Rango: 1 - 4095) mapeado a Set_Fuel_Level_1
+                          v
++-------------------------------------------------------+
+|  TRANSMISIÓN CELULAR (Modem CalAmp)                   |
+|  Protocolo UDP/TCP -> Payload de telemetría estándar  |
++-------------------------------------------------------+
+                          |
+                          | (Red Móvil a la Nube)
+                          v
++-------------------------------------------------------+
+|  SERVIDOR DE TELEMETRÍA (Plataforma Final)            |
+|  Recibe: ADC_Raw                                      |
+|  Aplica: Array de Calibración Matemática (28 Puntos)  |
+|  Convierte: ADC -> Volumen (Litros/Galones)           |
++-------------------------------------------------------+
+        </pre>
+    </div>
+
+</div>
+
+</body>
+</html>

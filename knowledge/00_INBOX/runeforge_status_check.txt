@@ -1,0 +1,126 @@
+=== HEALTH ===
+{
+  "ok": true,
+  "service": "runeforge-core",
+  "modules": [
+    "core",
+    "forge",
+    "relay",
+    "trace",
+    "vault"
+  ]
+}
+
+=== MANIFEST ===
+{
+  "ok": true,
+  "manifest": {
+    "name": "Runeforge Master Fusionado",
+    "runtime": {
+      "backend": "Windows + PowerShell 7 + Node.js",
+      "client": "iPhone como consola ligera",
+      "network": "Tailscale"
+    },
+    "principles": [
+      "backend primero, interfaz despues",
+      "modular",
+      "seguro por defecto",
+      "logica desacoplada de UI y canales",
+      "usar API especifica o solucion local segun convenga",
+      "evitar complejidad prematura"
+    ],
+    "modules": [
+      {
+        "id": "core",
+        "status": "active",
+        "role": "bootstrap y composicion",
+        "description": "Levanta HTTP, expone health y ensambla modulos operativos."
+      },
+      {
+        "id": "forge",
+        "status": "active",
+        "role": "acciones controladas",
+        "description": "Expone un catalogo fijo de scripts y evita ejecucion arbitraria."
+      },
+      {
+        "id": "relay",
+        "status": "active",
+        "role": "canales y transporte",
+        "description": "Recibe eventos externos y los traduce a logica de backend."
+      },
+      {
+        "id": "trace",
+        "status": "active",
+        "role": "observabilidad local",
+        "description": "Persiste NDJSON y logs operativos del backend."
+      },
+      {
+        "id": "vault",
+        "status": "active",
+        "role": "configuracion y secretos",
+        "description": "Centraliza variables de entorno y evita hardcodear credenciales."
+      },
+      {
+        "id": "beacon",
+        "status": "planned",
+        "role": "senalizacion",
+        "description": "Notificaciones y avisos de salida."
+      },
+      {
+        "id": "codex",
+        "status": "planned",
+        "role": "automatizacion asistida",
+        "description": "Flujos de trabajo y tareas guiadas por IA local o API."
+      },
+      {
+        "id": "sentinel",
+        "status": "planned",
+        "role": "guardrails",
+        "description": "Politicas, alertas y controles de seguridad."
+      },
+      {
+        "id": "anvil",
+        "status": "planned",
+        "role": "trabajo pesado",
+        "description": "Procesos largos, jobs y construccion."
+      },
+      {
+        "id": "adapters",
+        "status": "planned",
+        "role": "integraciones",
+        "description": "Conectores por proveedor, canal o dispositivo."
+      }
+    ]
+  }
+}
+
+=== FORGE ===
+{
+  "ok": true,
+  "items": [
+    {
+      "id": "gps_status",
+      "title": "Estado GPS",
+      "description": "Ejecuta una validacion base del backend y del modulo GPS.",
+      "scriptFile": "status.ps1"
+    },
+    {
+      "id": "leer_apn",
+      "title": "Leer APN",
+      "description": "Genera payload controlado para consultar APN en CalAmp.",
+      "scriptFile": "leer_apn.ps1"
+    },
+    {
+      "id": "leer_inbound_ip",
+      "title": "Leer Inbound IP",
+      "description": "Genera payload controlado para consultar IP inbound en CalAmp.",
+      "scriptFile": "leer_inbound_ip.ps1"
+    },
+    {
+      "id": "leer_inbound_port",
+      "title": "Leer Inbound Port",
+      "description": "Genera payload controlado para consultar puerto inbound en CalAmp.",
+      "scriptFile": "leer_inbound_port.ps1"
+    }
+  ]
+}

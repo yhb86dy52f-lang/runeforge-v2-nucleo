@@ -1,0 +1,96 @@
+13/07/26
+Unidad: KW 620
+Hora: 08:00
+Inicio: 08:00
+Fin: -
+Motivo: Retirar cámara Samsara y solucionar falla de sensor 1 marca desconexiones
+Procedimiento: Se realizó el retiro de instalación Samsara APRS y cámara, además de corregir funcionamiento de sensor 1 por falla de dirección de red duplicada.
+Atendió: Néstor Corchado
+
+---
+
+13/07/26
+Unidad: Sistemas
+Hora: 08:30
+Inicio: 08:30
+Fin: 14:30
+Motivo: Apoyo en desarrollo de funcionamiento de sensores con dispositivo ESP32
+Procedimiento: Se continuó con el apoyo en el desarrollo del funcionamiento de sensores con el dispositivo ESP32. Lunes 13/07/26.
+Atendió: Néstor Corchado
+
+---
+
+14/07/26
+Unidad: KW 535
+Hora: 08:00
+Inicio: 08:00
+Fin: 14:00
+Motivo: Revisión de sensor de combustible 1
+Procedimiento: Se logró identificar falla, sensor fallando. No se logró reparar, pendiente cambio de sensor por falta de stock.
+Atendió: Néstor Corchado
+
+---
+
+15/07/26
+Unidad: CCTV
+Hora: 17:00
+Inicio: 17:00
+Fin: 23:00
+Motivo: Cambio de fuente de cámaras caseta peatonal y diagnóstico cámaras entrada arriba de portón
+Procedimiento: Se realizó cambio de fuente de cámaras en caseta peatonal y diagnóstico de cámaras de entrada arriba de portón.
+Atendió: Néstor Corchado, Christian
+
+---
+
+16/07/26
+Unidad: CCTV
+Hora: 08:00
+Inicio: 08:00
+Fin: 09:00
+Motivo: Reubicación vista cámara chatarra
+Procedimiento: Se realizó reubicación de vista de cámara de chatarra.
+Atendió: Néstor Corchado
+
+---
+
+16/07/26
+Unidad: CCTV
+Hora: 09:00
+Inicio: 09:00
+Fin: 13:00
+Motivo: Reparación cámaras fuera y dentro de recepción
+Procedimiento: Se reparó cableado, pendiente cambiar cable.
+Atendió: Néstor Corchado
+
+---
+
+16/07/26
+Unidad: KW 515
+Hora: 11:00
+Inicio: 11:00
+Fin: 12:00
+Motivo: Revisión de niveles de combustible físicamente y en plataforma
+Procedimiento: Se realizó la revisión y se validó con plataforma y físicamente. Los sensores están funcionando bien.
+Atendió: Néstor Corchado
+
+---
+
+16/07/26
+Unidad: CT 191
+Hora: 14:00
+Inicio: 14:00
+Fin: 16:00
+Motivo: Reparación sensores no actualizan
+Procedimiento: Se solucionó corto en sensores de temperatura y se reseteó equipo para solucionar falla en reporte de ubicación.
+Atendió: Néstor Corchado
+
+---
+
+16/07/26
+Unidad: Sistemas
+Hora: 14:00
+Inicio: 14:00
+Fin: 16:00
+Motivo: Apoyo en desarrollo de funcionamiento de sensores con dispositivo ESP32
+Procedimiento: Se continuó con el apoyo en el desarrollo del funcionamiento de sensores con el dispositivo ESP32.
+Atendió: Néstor Corchado
