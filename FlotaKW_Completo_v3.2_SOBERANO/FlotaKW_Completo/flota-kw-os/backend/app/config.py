@@ -1,17 +1,16 @@
-from pydantic_settings import BaseSettings
-from functools import lru_cache
-
+from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
-    DATABASE_URL: str = "mssql+pyodbc://sa:FlotaKW2024!@localhost:1433/FlotaKW_CT?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes"
+    model_config = SettingsConfigDict(extra="allow", env_file=".env", env_file_encoding="utf-8")
+    DATABASE_URL: str = "sqlite:///./flotakw.db"
     DB_ECHO: bool = False
-    API_V1_PREFIX: str = "/api/v1"
-    CORS_ORIGINS: str = "*"
-    LOG_LEVEL: str = "INFO"
-    APP_NAME: str = "FlotaKW OS - Ontologia Operativa"
-
-    class Config:
-        env_file = ".env"
-
-@lru_cache
+    SECRET_KEY: str = "flotakw2024"
+    ENV: str = "dev"
+    APP_NAME: str = "FlotaKW OS v3.2 SOBERANO"
+    PROJECT_NAME: str = "FlotaKW OS"
+    VERSION: str = "3.0.0"
+    def __getattr__(self, name):
+        if "NAME" in name.upper(): return "FlotaKW OS v3.2 SOBERANO"
+        if "VERSION" in name.upper(): return "3.0.0"
+        return ""
 def get_settings():
     return Settings()

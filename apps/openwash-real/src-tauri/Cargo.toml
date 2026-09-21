@@ -1,0 +1,23 @@
+[package]
+name = "openwash-real"
+version = "1.0.0"
+description = "Openwash Real Comercial"
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+name = "openwash_real_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+
+[profile.release]
+opt-level = "s"
+lto = true
+strip = true
+codegen-units = 1
+panic = "abort"

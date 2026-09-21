@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>RUNEFORGE · README</title>
+<style>
+  body{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;max-width:920px;margin:40px auto;padding:20px 24px;background:#0d1117;color:#c9d1d9;line-height:1.6}
+  h1,h2,h3{border-bottom:1px solid #30363d;padding-bottom:6px;color:#e6edf3}
+  h1{font-size:1.9em}
+  h2{font-size:1.4em;margin-top:32px}
+  h3{font-size:1.15em}
+  a{color:#58a6ff;text-decoration:none}
+  a:hover{text-decoration:underline}
+  pre{background:#161b22;padding:14px 16px;border-radius:8px;overflow-x:auto;border:1px solid #30363d;font-family:'Consolas','Monaco',monospace;font-size:12.5px;line-height:1.5}
+  code{background:#161b22;padding:2px 6px;border-radius:4px;font-family:'Consolas',monospace;font-size:12.5px;color:#79c0ff}
+  pre code{background:none;padding:0;color:#c9d1d9}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px}
+  th,td{border:1px solid #30363d;padding:8px 12px;text-align:left;vertical-align:top}
+  th{background:#161b22;font-weight:600}
+  tr:nth-child(even) td{background:#0f141a}
+  blockquote{border-left:4px solid #30363d;padding:0 16px;color:#8b949e;margin:14px 0}
+  hr{border:0;border-top:1px solid #30363d;margin:24px 0}
+  ul,ol{padding-left:24px}
+  li{margin:4px 0}
+  .toolbar{position:sticky;top:0;background:#0d1117ee;backdrop-filter:blur(8px);padding:10px 0;margin:-20px 0 20px;border-bottom:1px solid #30363d;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#8b949e;z-index:10}
+  .toolbar a{color:#58a6ff;font-weight:600}
+  .err{background:#3d1418;border:1px solid #6e1a22;color:#ff7b72;padding:14px;border-radius:8px;font-family:monospace;font-size:12px}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <span>⚡ RUNEFORGE · README renderizado</span>
+  <span><a href="/api/docs/README.md" target="_blank">JSON crudo</a> · <a href="/api/docs" target="_blank">Lista docs</a> · <a href="/">Volver al dashboard</a></span>
+</div>
+<div id="c"><p style="color:#8b949e">Cargando README…</p></div>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  fetch('/api/docs/README.md', { cache: 'no-store' })
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(j => { document.getElementById('c').innerHTML = marked.parse(j.content); })
+    .catch(e => {
+      document.getElementById('c').innerHTML =
+        '<div class="err">⚠ No se pudo cargar el README.<br>Error: ' + e.message + '</div>';
+    });
+</script>
+</body>
+</html>

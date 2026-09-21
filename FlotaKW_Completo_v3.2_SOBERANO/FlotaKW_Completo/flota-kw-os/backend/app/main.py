@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .config import get_settings
 from .database import Base, engine
+import app.models
+from app.models import *
 from .routers import unidades, etiquetas
 from .middleware.tracing import TracingMiddleware
 import structlog, logging

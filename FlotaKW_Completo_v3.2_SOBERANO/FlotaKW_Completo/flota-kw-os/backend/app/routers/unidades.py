@@ -47,7 +47,7 @@ def listar_tecnicos(db: Session = Depends(get_db)):
 
 @router.get("/auditoria")
 def listar_auditoria(limit: int = 50, db: Session = Depends(get_db)):
-    return db.query(Auditoria).order_by(Auditoria.timestamp.desc()).limit(limit).all()
+    return db.query(Auditoria).order_by(Auditoria.created_at.desc()).limit(limit).all()
 
 @router.get("/stats")
 def stats(db: Session = Depends(get_db)):

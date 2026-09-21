@@ -1,0 +1,233 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": [],
+    "alwaysOnTop": true,
+    "alwaysShowNotificationIcon": false,
+    "alwaysShowTabs": true,
+    "autoHideWindow": false,
+    "compatibility.allowHeadless": true,
+    "compatibility.textMeasurement": "console",
+    "copyFormatting": "none",
+    "copyOnSelect": true,
+    "defaultProfile": "{9f2b7a50-7c7e-4a35-9a6e-000000000001}",
+    "experimental.enableColorSelection": true,
+    "focusFollowMouse": false,
+    "initialCols": 140,
+    "initialRows": 38,
+    "keybindings": [
+        {
+            "id": "Terminal.PasteFromClipboard",
+            "keys": "ctrl+shift+v"
+        },
+        {
+            "id": "Terminal.SplitPane",
+            "keys": "ctrl+shift+d"
+        },
+        {
+            "id": "Terminal.PreviousTab",
+            "keys": "ctrl+shift+tab"
+        },
+        {
+            "id": "Terminal.CopyToClipboard",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": "Terminal.OpenSettings",
+            "keys": "ctrl+comma"
+        },
+        {
+            "id": "Terminal.FindText",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "Terminal.CloseTab",
+            "keys": "ctrl+shift+w"
+        },
+        {
+            "id": "Terminal.NewTab",
+            "keys": "ctrl+shift+t"
+        },
+        {
+            "id": "Terminal.NextTab",
+            "keys": "ctrl+tab"
+        },
+        {
+            "id": "Terminal.SelectAll",
+            "keys": "ctrl+a"
+        },
+        {
+            "id": "Terminal.DuplicateTab",
+            "keys": "ctrl+d"
+        }
+    ],
+    "language": "es-ES",
+    "launchMode": "default",
+    "minimizeToNotificationArea": false,
+    "newTabMenu": [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": {
+        "defaults": {
+            "adjustIndistinguishableColors": "indexed",
+            "antialiasingMode": "cleartype",
+            "colorScheme": "RuneforgeCyberpunk",
+            "cursorShape": "vintage",
+            "elevate": true,
+            "experimental.retroTerminalEffect": true,
+            "font": {
+                "cellHeight": "1.15",
+                "cellWidth": "1.0",
+                "face": "Cascadia Code",
+                "size": 10,
+                "weight": "bold"
+            },
+            "icon": "",
+            "intenseTextStyle": "bright",
+            "opacity": 30,
+            "padding": "10",
+            "useAcrylic": true
+        },
+        "list": [
+            {
+                "antialiasingMode": "cleartype",
+                "backgroundImage": "D:\\UserData\\Desktop\\cyber_monja_bg.png",
+                "backgroundImageAlignment": "center",
+                "backgroundImageOpacity": 0.12,
+                "backgroundImageStretchMode": "uniformToFill",
+                "colorScheme": "RuneforgeCyberpunk",
+                "commandline": "pwsh.exe -NoLogo -NoExit -ExecutionPolicy Bypass -WorkingDirectory \"C:\\RUNEFORGE_V2_CORE\" -File \"C:\\RUNEFORGE_V2_CORE\\scripts\\rf_init.ps1\"",
+                "cursorColor": "#FF0055",
+                "cursorShape": "vintage",
+                "elevate": true,
+                "experimental.rainbowSuggestions": true,
+                "experimental.repositionCursorWithMouse": true,
+                "experimental.retroTerminalEffect": true,
+                "font": {
+                    "cellHeight": "1.15",
+                    "face": "Cascadia Code",
+                    "size": 8,
+                    "weight": "bold"
+                },
+                "guid": "{9f2b7a50-7c7e-4a35-9a6e-000000000001}",
+                "hidden": false,
+                "icon": "",
+                "intenseTextStyle": "all",
+                "name": "⚡ RUNEFORGE // CYBER MONJA",
+                "opacity": 30,
+                "padding": "10",
+                "rightClickContextMenu": true,
+                "scrollbarState": "hidden",
+                "showMarksOnScrollbar": false,
+                "startingDirectory": "C:\\RUNEFORGE_V2_CORE",
+                "tabTitle": "⚡ RUNEFORGE",
+                "useAcrylic": true
+            },
+            {
+                "guid": "{b8e4f1a2-3c5d-4e6f-8a9b-1c2d3e4f5a6b}",
+                "name": "⚡ RUNEFORGE // CANON",
+                "tabTitle": "⚡ CANON v1.0",
+                "commandline": "pwsh.exe -NoProfile -NoLogo -ExecutionPolicy Bypass -NoExit -Command \"Set-Location C:\\RUNEFORGE_V2_CORE; $env:CARGO_HTTP_MULTIPLEXING='false'; $env:CARGO_NET_RETRY='10'; $env:CARGO_HTTP_TIMEOUT='300'; $env:CARGO_REGISTRIES_CRATES_IO_PROTOCOL='sparse'; $env:NODE_OPTIONS='--openssl-legacy-provider --max-old-space-size=4096'; $host.UI.RawUI.WindowTitle='⚡ RUNEFORGE // CANON v1.0 - ESTABLE'; Write-Host '[CANON v1.0] Norma: HTTP/1.1 multiplexing=false retry=10 sparse | NODE_OPTIONS=--openssl-legacy-provider | Directorio: C:\\RUNEFORGE_V2_CORE' -ForegroundColor Cyan\"",
+                "startingDirectory": "C:\\RUNEFORGE_V2_CORE",
+                "colorScheme": "RuneforgeCyberpunk",
+                "icon": "⚡",
+                "cursorColor": "#00F5FF",
+                "cursorShape": "bar",
+                "background": "#080A12",
+                "opacity": 85,
+                "useAcrylic": true,
+                "elevate": true,
+                "font": {
+                    "face": "Cascadia Code",
+                    "size": 10,
+                    "weight": "bold"
+                },
+                "hidden": false
+            },
+            {
+                "guid": "{c9f5a2b3-4d6e-5f7a-8b9c-0d1e2f3a4b5c}",
+                "name": "🔨 RUNEFORGE // FORJA",
+                "tabTitle": "🔨 FORJA",
+                "commandline": "pwsh.exe -NoProfile -NoLogo -ExecutionPolicy Bypass -NoExit -Command \"Set-Location C:\\RUNEFORGE_V2_CORE\\forja; $env:CARGO_HTTP_MULTIPLEXING='false'; $env:CARGO_NET_RETRY='10'; Write-Host '[FORJA] Fabrica: Nexus-Forge.ps1 -Name mi-app -Html C:\\ruta\\index.html' -ForegroundColor Yellow; Write-Host '[FORJA] Lab: laboratorio.html -> ESP32.ino + LMU3640.lua' -ForegroundColor Cyan\"",
+                "startingDirectory": "C:\\RUNEFORGE_V2_CORE\\forja",
+                "colorScheme": "RuneforgeCyberpunk",
+                "icon": "🔨",
+                "cursorColor": "#A6FF00",
+                "background": "#0C0E1A",
+                "opacity": 85,
+                "useAcrylic": true,
+                "elevate": true,
+                "font": {
+                    "face": "Cascadia Code",
+                    "size": 10
+                },
+                "hidden": false
+            },
+            {
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": true,
+                "name": "Windows PowerShell"
+            },
+            {
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": true,
+                "name": "Command Prompt"
+            },
+            {
+                "guid": "{20e7d801-50cd-5d02-a8ab-710e8e09707f}",
+                "hidden": true,
+                "name": "Ubuntu (WSL)",
+                "source": "Microsoft.WSL"
+            },
+            {
+                "guid": "{c85eef1e-b593-542d-b96e-4e2f5d9a53aa}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{73d3c398-74ca-597b-8222-5264e04b6480}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            }
+        ]
+    },
+    "rendering.graphicsAPI": "direct3d11",
+    "schemes": [
+        {
+            "background": "#010103",
+            "black": "#05050A",
+            "blue": "#00F0FF",
+            "brightBlack": "#2A2A3C",
+            "brightBlue": "#00F0FF",
+            "brightCyan": "#64FFDA",
+            "brightGreen": "#32FF82",
+            "brightPurple": "#FF00FF",
+            "brightRed": "#FF3366",
+            "brightWhite": "#FFFFFF",
+            "brightYellow": "#FEE715",
+            "cursorColor": "#FF0055",
+            "cyan": "#00F0FF",
+            "foreground": "#16C60C",
+            "green": "#00FF66",
+            "name": "RuneforgeCyberpunk",
+            "purple": "#BD00FF",
+            "red": "#FF0055",
+            "selectionBackground": "#BD00FF",
+            "white": "#D0D0E0",
+            "yellow": "#FEE715"
+        }
+    ],
+    "showTabsFullscreen": false,
+    "showTabsInTitlebar": true,
+    "tabSwitcherMode": "inOrder",
+    "tabWidthMode": "equal",
+    "theme": "dark",
+    "themes": [],
+    "useAcrylicInTabRow": true,
+    "warning.largePaste": true,
+    "windowingBehavior": "useNew"
+}
