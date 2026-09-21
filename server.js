@@ -1,46 +1,5 @@
-const fastify=require('fastify')({logger:true});
-const path=require('path');
-const fs=require('fs');
-fastify.register(require('@fastify/cors'),{origin:true});
-fastify.register(require('@fastify/static'),{root:path.join(__dirname,'public')});
-const clipDir=path.join(__dirname,'clippings');
-if(!fs.existsSync(clipDir)) fs.mkdirSync(clipDir,{recursive:true});
-const tglDir=path.join(__dirname,'knowledge','TGL');
-fastify.get('/health', async ()=>{
-  let clippings=0; try{ clippings=fs.readdirSync(clipDir).length }catch{}
-  return {ok:true, ts:new Date().toISOString(), clippings, status:"TGL LAB V7 ONLINE", tgl_exists:fs.existsSync(tglDir), version:"2.6.2-TGL"};
-});
-fastify.post('/api/clipping', async(req)=>{
-  const b=req.body||{}; let fname, md;
-  if(b.filename){ fname=b.filename.replace(/[^a-zA-Z0-9_.-]/g,'_'); md=b.content||b.markdown||''; }
-  else { const esn=(b.esn||'NOESN').toString().replace(/[^0-9A-Z]/gi,'').slice(0,20); const ts=new Date().toISOString().replace(/[:.]/g,'-'); fname=`${esn}_${ts}.md`; md=b.markdown||`# ${esn}\n${b.content||''}`; }
-  fs.writeFileSync(path.join(clipDir,fname), md,'utf8'); console.log(`[CLIP OK] ${fname}`); return {ok:true,file:fname,name:fname};
-});
-fastify.post('/api/clippings', async(req)=>{
-  const b=req.body||{}; let fname=(b.filename||`CLIP_${Date.now()}.md`).replace(/[^a-zA-Z0-9_.-]/g,'_'); let md=b.content||b.markdown||'';
-  fs.writeFileSync(path.join(clipDir,fname), md,'utf8'); console.log(`[CLIP OK] ${fname}`); return {ok:true,file:fname,name:fname};
-});
-fastify.get('/api/clippings', async()=>{ const files=fs.readdirSync(clipDir).map(f=>({name:f})); return {ok:true,files}; });
-fastify.get('/api/tgl/flota', async(req)=>{
-  try{
-    const csvPath=path.join(tglDir,'flota','export_20260830','Cuenta TGL_Trailers.csv');
-    const q=(req.query.q||'').toUpperCase(); let results=[];
-    if(fs.existsSync(csvPath)){
-      const content=fs.readFileSync(csvPath,'latin1'); const lines=content.split('\n');
-      for(let line of lines){ if(!q || line.toUpperCase().includes(q)){ results.push(line.slice(0,400)); } if(results.length>=100) break; }
-    }
-    return {ok:true, query:q, count:results.length, results};
-  }catch(e){ return {ok:false, error:e.message}; }
-});
-fastify.post('/api/ask', async(req)=>{
-  const q=(req.body?.q||'').toLowerCase(); if(!q) return {ok:false, error:'q requerido'}; let hits=[];
-  const searchDir=(dir)=>{ if(!fs.existsSync(dir)) return; const files=fs.readdirSync(dir,{withFileTypes:true});
-    for(let f of files){ const full=path.join(dir,f.name); if(f.isDirectory()){ searchDir(full); continue; }
-      if(f.name.endsWith('.md')||f.name.endsWith('.csv')||f.name.endsWith('.txt')){
-        try{ const txt=fs.readFileSync(full,'utf8').toLowerCase(); if(txt.includes(q)){ hits.push({file:full.replace(__dirname,''), snippet:txt.slice(Math.max(0,txt.indexOf(q)-80), txt.indexOf(q)+200)}); if(hits.length>=30) return; } }catch{}
-      }
-    }
-  };
-  searchDir(tglDir); searchDir(clipDir); return {ok:true, q, count:hits.length, hits};
-});
-fastify.listen({port:3001, host:'0.0.0.0'}, (err)=>{ if(err) throw err; console.log('TGL LAB V7 http://localhost:3001 - 6 endpoints'); });
+const fastify = require('fastify')({ logger: true });
+fastify.register(require('@fastify/cors'), { origin: true });
+fastify.get('/healthz', async () => ({ status: 'ok', soberania: '100%', port: 3100, ts: new Date().toISOString() }));
+fastify.get('/health', async () => ({ ok: true }));
+fastify.listen({ port: 3100, host: '0.0.0.0' }, (err, addr) => { if(err){ console.error(err); process.exit(1);} console.log('BACKEND OK ' + addr); });

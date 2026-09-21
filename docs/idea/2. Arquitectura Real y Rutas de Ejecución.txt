@@ -1,0 +1,31 @@
+El sistema está desplegado en un entorno Windows (PowerShell 7.6.6) con la siguiente estructura de archivos y rutas absolutas:
+
+Raíz del Proyecto: C:\RUNEFORGE_V2_CORE
+
+Backend (Fastify / Node.js): C:\RUNEFORGE_V2_CORE\server.js
+
+Ejecución: node server.js (o gestionado por PM2)
+
+Puerto: 3001
+
+URL Local: http://127.0.0.1:3001
+
+Frontend (Interfaz Web): C:\RUNEFORGE_V2_CORE\public\
+
+HTML Principal: C:\RUNEFORGE_V2_CORE\public\index.html
+
+Lógica de Sincronización: C:\RUNEFORGE_V2_CORE\public\sync.js
+
+Base de Datos Local (IndexedDB): C:\RUNEFORGE_V2_CORE\public\db.js
+
+Base de Datos (SQLite): C:\RUNEFORGE_V2_CORE\db\database.db
+
+Directorio de Salida (Clippings): C:\RUNEFORGE_V2_CORE\clippings\
+
+Formato: Archivos .md generados automáticamente.
+
+Logs del Servidor: C:\RUNEFORGE_V2_CORE\server.log
+
+Comando de Arranque Típico (PowerShell):
+Set-Location C:\RUNEFORGE_V2_CORE
+node server.js

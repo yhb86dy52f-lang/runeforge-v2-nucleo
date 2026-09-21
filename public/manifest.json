@@ -1,13 +1,35 @@
 {
-  "name": "TGL LAB V5 PRO",
-  "short_name": "TGL LAB",
-  "start_url": "/lab-v5-pro.html",
+  "name": "LMU-2630 Sim Pro - RUNEFORGE Lab",
+  "short_name": "LMU2630 Lab",
+  "description": "Simulador LMU-2630 con relevadores y l\u00e1mparas - 100% offline, educativo",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#00ff88",
-  "orientation": "portrait",
+  "background_color": "#0B0F19",
+  "theme_color": "#06B6D4",
+  "orientation": "any",
   "icons": [
-    { "src": "/forge/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/forge/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
   ]
 }

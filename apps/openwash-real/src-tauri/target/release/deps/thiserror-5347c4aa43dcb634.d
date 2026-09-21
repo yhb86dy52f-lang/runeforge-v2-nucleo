@@ -1,0 +1,14 @@
+C:\RUNEFORGE_V2_CORE\apps\openwash-real\src-tauri\target\release\deps\thiserror-5347c4aa43dcb634.d: C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\lib.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\aserror.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\display.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\var.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\private.rs C:\RUNEFORGE_V2_CORE\apps\openwash-real\src-tauri\target\release\build\thiserror-3954742816a09eec\out/private.rs
+
+C:\RUNEFORGE_V2_CORE\apps\openwash-real\src-tauri\target\release\deps\libthiserror-5347c4aa43dcb634.rlib: C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\lib.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\aserror.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\display.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\var.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\private.rs C:\RUNEFORGE_V2_CORE\apps\openwash-real\src-tauri\target\release\build\thiserror-3954742816a09eec\out/private.rs
+
+C:\RUNEFORGE_V2_CORE\apps\openwash-real\src-tauri\target\release\deps\libthiserror-5347c4aa43dcb634.rmeta: C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\lib.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\aserror.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\display.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\var.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\private.rs C:\RUNEFORGE_V2_CORE\apps\openwash-real\src-tauri\target\release\build\thiserror-3954742816a09eec\out/private.rs
+
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\lib.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\aserror.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\display.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\var.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.20\src\private.rs:
+C:\RUNEFORGE_V2_CORE\apps\openwash-real\src-tauri\target\release\build\thiserror-3954742816a09eec\out/private.rs:
+
+# env-dep:OUT_DIR=C:\\RUNEFORGE_V2_CORE\\apps\\openwash-real\\src-tauri\\target\\release\\build\\thiserror-3954742816a09eec\\out

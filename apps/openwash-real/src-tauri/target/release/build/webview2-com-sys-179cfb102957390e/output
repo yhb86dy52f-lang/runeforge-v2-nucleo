@@ -1,0 +1,2 @@
+cargo:rustc-link-search=native=C:\RUNEFORGE_V2_CORE\apps\openwash-real\src-tauri\target\release\build\webview2-com-sys-179cfb102957390e\out\x64
+cargo:rustc-link-lib=advapi32
