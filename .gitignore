@@ -18,3 +18,9 @@ logs/
 *.log
 *.log.err
 *.bak*
+
+# Windows basura
+desktop.ini
+**/desktop.ini
+Thumbs.db
+
