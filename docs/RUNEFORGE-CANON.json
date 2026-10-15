@@ -1,0 +1,192 @@
+{
+  "version_canon": "2026-10-09T00:12:08-06:00",
+  "forja": {
+    "nombre": "RUNEFORGE_V2_CORE",
+    "ruta": "C:\\RUNEFORGE_V2_CORE",
+    "estado": "SELLADA",
+    "validacion_final": {
+      "cargo_check_p_dictate-studio-v2": "7.34s",
+      "cargo_check_p_mi-nueva-app_previo": "19.03s",
+      "cargo_check_p_mi-nueva-app_borrada": true,
+      "sccache_version": "0.18.0",
+      "sccache_stats": {
+        "compile_requests": 1206,
+        "compile_requests_executed": 1063,
+        "cache_hits": 460,
+        "cache_hits_rust": 460,
+        "cache_misses": 593,
+        "cache_misses_rust": 593,
+        "cache_hits_rate": 43.68,
+        "cache_location": "C:\\RUNEFORGE_V2_CORE\\.sccache",
+        "cache_size": "1 GiB",
+        "max_cache_size": "50 GiB",
+        "average_compiler": "9.503s",
+        "average_cache_write": "0.004s",
+        "average_cache_read_hit": "0.002s"
+      }
+    }
+  },
+  "cargo_toml_raiz_canonico": {
+    "workspace": {
+      "members": [
+        "apps/*/src-tauri"
+      ],
+      "exclude": [
+        "apps/_template/src-tauri"
+      ],
+      "resolver": "2"
+    },
+    "workspace_dependencies": {
+      "tauri": {
+        "version": "2",
+        "features": []
+      },
+      "serde": {
+        "version": "1",
+        "features": [
+          "derive"
+        ]
+      },
+      "serde_json": "1",
+      "tauri-build": {
+        "version": "2",
+        "features": []
+      },
+      "tauri-plugin-http": {
+        "version": "2"
+      },
+      "tauri-plugin-updater": {
+        "version": "2"
+      },
+      "tauri-plugin-process": {
+        "version": "2"
+      },
+      "tauri-plugin-fs": {
+        "version": "2"
+      }
+    },
+    "profile_dev": {
+      "incremental": true,
+      "package_star_opt_level": 0
+    }
+  },
+  "template_canonico": {
+    "path": "apps/_template/src-tauri/Cargo.toml",
+    "name": "__APPNAME__",
+    "edition": "2021",
+    "uses_workspace_true": true,
+    "excluded_from_workspace": true,
+    "lib_rs_canonico": "#[cfg_attr(mobile, tauri::mobile_entry_point)]\npub fn run() {\n    tauri::Builder::default()\n     .plugin(tauri_plugin_http::init())\n     .plugin(tauri_plugin_fs::init())\n     .plugin(tauri_plugin_process::init())\n     .plugin(tauri_plugin_updater::Builder::new().build())\n     .run(tauri::generate_context!()).expect(\"error\");\n}",
+    "icons_source": "apps/dictate-studio-v2/src-tauri/icons"
+  },
+  "apps_validadas": {
+    "total_carpetas": 10,
+    "tauri_apps_registradas": 8,
+    "lista": [
+      "dictate-studio",
+      "dictate-studio-v2",
+      "nexus-lab",
+      "openwash-real",
+      "openwash-real-v2",
+      "opt-verify",
+      "panel-relevadores",
+      "sms-hub-hmi"
+    ],
+    "backends_no_tauri": [
+      "dictate-backend",
+      "sms-hub"
+    ],
+    "borrada": [
+      "mi-nueva-app"
+    ]
+  },
+  "scannerpro_cyber_visualizer": {
+    "html": {
+      "path": "firmware/scannerpro_cyber_visualizer/scannerpro_cyber_visualizer.html",
+      "size": "1197.6 KB",
+      "estado": "offline-first",
+      "cdns_embebidos": {
+        "tailwind": "397.7 KB",
+        "lucide": "437.2 KB",
+        "mqtt_js": "334.3 KB"
+      },
+      "refs_externas": 0
+    },
+    "json_canonico": {
+      "nombre": "ESP32-PROJECT.json",
+      "size": "9.8 KB",
+      "estado": "CANONICO_UNICO",
+      "duplicado_archivado": "Subsistema ESP32 ScannerPRO.json.obsoleto-20261008-235550"
+    }
+  },
+  "scripts_canonicos": {
+    "new_app": {
+      "path": "scripts/new-app.ps1",
+      "uso": ".\\scripts\\new-app.ps1 nombre-app",
+      "acciones": [
+        "Copy-Item -Recurse apps/_template apps/$Name",
+        "replace __APPNAME__ in Cargo.toml, tauri.conf.json, index.html",
+        "copy icons if missing",
+        "cargo check -p $Name"
+      ]
+    },
+    "readme": {
+      "path": "README_FORJA.md"
+    }
+  },
+  "correcciones_para_deepseek": [
+    {
+      "id": "B_HTML_SIZE",
+      "deepseek_creia": "28.26 KB con CDNs externos",
+      "canon_real": "1197.6 KB offline-first, 0 refs externas, CDNs ya embebidos",
+      "accion": "actualizar estado B a COMPLETO"
+    },
+    {
+      "id": "C_JSON_DUPLICADO",
+      "deepseek_creia": "2 JSONs activos con 6 claves compartidas difieren",
+      "canon_real": "Solo ESP32-PROJECT.json canonico 9.8KB, Subsistema archivado como .obsoleto",
+      "accion": "eliminar referencia a Subsistema JSON como activo"
+    },
+    {
+      "id": "WORKSPACE_EXCLUDE",
+      "deepseek_creia": "workspace incluye _template causando error __APPNAME__ duplicado",
+      "canon_real": "exclude = [\"apps/_template/src-tauri\"] en Cargo.toml raiz",
+      "accion": "actualizar Cargo.toml raiz con exclude"
+    },
+    {
+      "id": "UNUSED_IMPORT",
+      "deepseek_creia": "warning unused_import tauri::Manager en lib.rs",
+      "canon_real": "lib.rs limpio sin Manager",
+      "accion": "sobrescribir lib.rs canonico"
+    },
+    {
+      "id": "ICONS",
+      "deepseek_creia": "icons/icon.ico not found",
+      "canon_real": "icons copiados desde dictate-studio-v2",
+      "accion": "validar copia de icons en new-app.ps1"
+    },
+    {
+      "id": "MI_NUEVA_APP",
+      "deepseek_creia": "mi-nueva-app existe como prueba 38.54s",
+      "canon_real": "borrada con Remove-Item -Recurse -Force apps/mi-nueva-app",
+      "accion": "actualizar lista apps a 10 carpetas, 8 tauri"
+    },
+    {
+      "id": "SCCACHE",
+      "deepseek_creia": "317 hits 38.99%",
+      "canon_real": "460 hits 43.68% - 1206 requests - 1 GiB",
+      "accion": "actualizar stats sccache"
+    }
+  ],
+  "instrucciones_sincronia": {
+    "no_tocar": [
+      "C:\\RUNEFORGE_V2_CORE\\Cargo.toml",
+      "apps/_template/src-tauri/Cargo.toml",
+      "apps/_template/src-tauri/src/lib.rs",
+      ".sccache"
+    ],
+    "comando_crear_app": ".\\scripts\\new-app.ps1 <nombre>",
+    "comando_validar": "cargo check -p dictate-studio-v2",
+    "tiempo_esperado": "7-10s"
+  }
+}

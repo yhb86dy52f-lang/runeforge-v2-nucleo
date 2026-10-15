@@ -1,0 +1,7 @@
+{
+  "build": { "beforeBuildCommand": "", "beforeDevCommand": "", "frontendDist": "../dist" },
+  "identifier": "com.runeforge.opt_verify",
+  "productName": "Opt Verify",
+  "version": "1.0.0",
+  "app": { "windows": [{ "title": "Opt Verify", "width": 1440, "height": 900 }] }
+}

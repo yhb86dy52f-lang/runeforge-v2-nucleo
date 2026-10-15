@@ -1,0 +1,155 @@
+# ============================================================
+# RUNEFORGE V2.2 — .gitignore definitivo
+# Regla de oro: soberanía local. Nada de binarios, venvs,
+# modelos, backups ni artefactos de build entran al repo.
+# ============================================================
+
+# ---------- Artefactos de build ----------
+target/
+**/target/
+**/src-tauri/target/
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+build/
+**/build/
+build-cuda/
+.next/
+out/
+.sccache/
+.cargo/
+
+# ---------- Python ----------
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+**/venv/
+.venv/
+**/.venv/
+env/
+ENV/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---------- Rust ----------
+**/*.rs.bk
+Cargo.lock.bak
+
+# ---------- Modelos y binarios pesados ----------
+models/
+**/models/
+*.bin
+*.gguf
+*.onnx
+*.pt
+*.pth
+*.safetensors
+*.exe
+*.msi
+*.dll
+*.so
+*.dylib
+*.node
+
+# ---------- Backups y archivos temporales ----------
+BACKUP-*.zip
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+*.bak
+*.bak_*
+*.bak.*
+*.bak2
+*.bak3
+*.VIEJO_*
+*.old
+*.orig
+*.tmp
+*.temp
+*~
+
+# ---------- Bases de datos y datos locales ----------
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+*.db-wal
+*.db-shm
+data/
+db/
+infra/headscale/data/
+infra/headscale/config/data/
+*.3u
+knowledge/devices/audit-*.txt
+knowledge/devices/*.plist
+
+# ---------- Secretos ----------
+.env
+.env.*
+*.env
+app.env
+*.pem
+*.key
+id_rsa*
+ssh_host_*_key
+secrets/
+*.backup_whatsapp
+selfIdentity.plist
+
+# ---------- Config local con rutas absolutas ----------
+ecosystem.config.js
+ecosystem.config.js.bak_*
+appsettings.local.json
+
+# ---------- Logs ----------
+*.log
+*.log.err
+logs/
+*.log.txt
+runeforge_orquestador_log.txt
+server_run.log
+server_run.log.err
+forward.log
+tunnel.log
+wda.log
+tailscale.log
+diagnostico_flota.log
+
+# ---------- Windows / macOS basura ----------
+desktop.ini
+**/desktop.ini
+Thumbs.db
+.DS_Store
+*.lnk
+
+# ---------- Editores (config local) ----------
+.obsidian/
+.vscode/
+*.code-workspace
+
+# ---------- Tmp de sync / drive ----------
+.tmp.driveupload/
+clippings/
+
+# ---------- PM2 ----------
+.pm2/
+pids/
+
+# ---------- Archivos sueltos que no deben ir ----------
+status.txt
+videoframe_*.png
+Nuevo documento de texto.txt
+Sin título.*
+2026-09-13.md
+e --abort
+Administador_*.txt
+Administrador_*.txt

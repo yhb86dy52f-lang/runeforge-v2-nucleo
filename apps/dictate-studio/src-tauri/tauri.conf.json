@@ -1,0 +1,7 @@
+{
+  "build": { "beforeBuildCommand": "", "beforeDevCommand": "", "frontendDist": "../dist" },
+  "identifier": "com.runeforge.dictate_studio",
+  "productName": "DICTATE Studio",
+  "version": "1.0.0",
+  "app": { "windows": [{ "title": "DICTATE Studio", "width": 1600, "height": 1000 }] }
+}

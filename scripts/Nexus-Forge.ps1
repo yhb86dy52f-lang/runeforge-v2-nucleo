@@ -1,276 +1,190 @@
-# =====================================================================
-# RUNEFORGE :: NEXUS-FORGE v1.0 - FABRICA CANONICA
-# 12 Mandamientos - Un solo HTML -> .exe nativo ~3MB
-# Ubicacion canonica: C:\RUNEFORGE_V2_CORE\scripts\Nexus-Forge.ps1
-# Uso: powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Nexus-Forge.ps1 -Name "mi-app" -Html "C:\ruta\index.html"
-# =====================================================================
+# NEXUS-FORGE v2.0 - OPTIMIZADO RAPIDO
 param(
     [Parameter(Mandatory=$true)][string]$Name,
     [Parameter(Mandatory=$true)][string]$Html,
-    [string]$Title = "",
+    [string]$Title = $Name,
     [int]$Width = 1440,
     [int]$Height = 900,
-    [string]$Identifier = "",
-    [switch]$Bundle,
-    [switch]$Run
+    [switch]$Run,
+    [switch]$FastHtmlOnly
 )
 
-$ErrorActionPreference = "Continue"
-$ProgressPreference = "SilentlyContinue"
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-
-# --- MANDAMIENTO VI: Rutas absolutas siempre ---
+$ErrorActionPreference="Stop"
 $ROOT = "C:\RUNEFORGE_V2_CORE"
-$APP_ROOT = Join-Path $ROOT "apps\$Name"
-$DIST_DIR = Join-Path $APP_ROOT "dist"
-$SRC_TAURI = Join-Path $APP_ROOT "src-tauri"
-$TARGET_EXE = Join-Path $SRC_TAURI "target\release\$Name.exe"
+$NameSnake = $Name -replace "-", "_"
+$NameSnakeLib = "${NameSnake}_lib"
+$sharedTarget = "C:\RUNEFORGE_V2_CORE\target"
 
-if (-not $Title) { $Title = $Name }
-if (-not $Identifier) { $Identifier = "com.runeforge.$Name" }
+# --- ENV OPTIMIZADO ---
+$env:CARGO_TARGET_DIR = $sharedTarget
+# CARGO_BUILD_JOBS eliminado (dejar auto-detect por cargo)
+$env:CARGO_HTTP_MULTIPLEXING = "false"
+$env:CARGO_NET_RETRY = "5"
+$env:CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse"
+$env:RUSTC_WRAPPER = "$env:USERPROFILE\.cargo\bin\sccache.exe"
+if (-not (Test-Path $env:RUSTC_WRAPPER)) { Remove-Item Env:RUSTC_WRAPPER -ErrorAction SilentlyContinue }
 
-# Validar HTML fuente
-if (-not (Test-Path $Html)) { Write-Host "[X] HTML no existe: $Html" -ForegroundColor Red; exit 1 }
-$Html = (Resolve-Path $Html).Path
-$HtmlSizeKB = [math]::Round((Get-Item $Html).Length/1KB,1)
-Write-Host "`n[RUNEFORGE FORGE v1.0] $Name <- $Html ($HtmlSizeKB KB)" -ForegroundColor Cyan
-Write-Host "[CANON] 12 mandamientos - Sin Node, solo cargo build --release" -ForegroundColor DarkGray
+Write-Host "`n[FORGE v2.0 RAPIDO] $Name <- $Html" -ForegroundColor Cyan
 
-# --- MANDAMIENTO VII: Limpieza de procesos antes de reescribir ---
-$procName = $Name
-Write-Host "[*] Limpiando procesos $procName..." -ForegroundColor Yellow
-Get-Process -Name $procName -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
-Start-Sleep -Milliseconds 400
-if (Test-Path $TARGET_EXE) {
-    & cmd /c "attrib -R -H -S ""$TARGET_EXE"" >nul 2>&1"
-    Remove-Item $TARGET_EXE -Force -ErrorAction SilentlyContinue
+if (-not (Test-Path $Html)) { Write-Host "[X] HTML no existe: $Html" -ForegroundColor Red; return }
+
+$appDir = "$ROOT\apps\$Name"
+$srcTauri = "$appDir\src-tauri"
+$distDir = "$appDir\dist"
+
+# FAST PATH: Si solo cambio HTML y exe ya existe, no recompila Rust
+if ($FastHtmlOnly -and (Test-Path "$srcTauri\target\release\$Name.exe")) {
+    Write-Host "[FAST] HTML-only -> copiando dist\index.html sin cargo build" -ForegroundColor Green
+    Copy-Item $Html "$distDir\index.html" -Force
+    if ($Run) { Start-Process "$srcTauri\target\release\$Name.exe" }
+    return
 }
 
-# Crear estructura canonica
-New-Item -ItemType Directory -Path $DIST_DIR, "$SRC_TAURI\src", "$SRC_TAURI\capabilities", "$SRC_TAURI\icons" -Force | Out-Null
+# Si exe existe y solo cambio HTML (detecta automaticamente)
+$existingExe = Get-ChildItem "$ROOT\target\release\$Name.exe","$srcTauri\target\release\$Name.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($existingExe -and (Test-Path $distDir)) {
+    $htmlTime = (Get-Item $Html).LastWriteTime
+    $exeTime = $existingExe.LastWriteTime
+    if ($htmlTime -gt $exeTime.AddMinutes(-5)) {
+        Write-Host "[FAST DETECT] HTML modificado recientemente, usando fast path..." -ForegroundColor Yellow
+        Copy-Item $Html "$distDir\index.html" -Force
+        Write-Host "[OK] HTML actualizado en 2s, exe reutilizado: $($existingExe.FullName)" -ForegroundColor Green
+        if ($Run) { Start-Process $existingExe.FullName }
+        return
+    }
+}
 
-# --- MANDAMIENTO I: Un solo HTML autocontenido ---
-Write-Host "[*] Copiando HTML autocontenido -> dist\index.html" -ForegroundColor Yellow
-Copy-Item $Html (Join-Path $DIST_DIR "index.html") -Force
-# Unblock si viene de otro equipo
-Unblock-File (Join-Path $DIST_DIR "index.html") -ErrorAction SilentlyContinue
+# --- FORJA COMPLETA (cold o Rust cambiado) ---
+New-Item -ItemType Directory -Path $appDir,$srcTauri,$distDir -Force | Out-Null
+Copy-Item $Html "$distDir\index.html" -Force
+Write-Host "[OK] HTML -> dist\index.html" -ForegroundColor Green
 
-# --- MANDAMIENTO IV: Cargo config global permanente ---
-$cargoCfgDir = "$env:USERPROFILE\.cargo"
-New-Item -ItemType Directory -Path $cargoCfgDir -Force | Out-Null
-@'
-[http]
-multiplexing = false
-timeout = 300
-low-speed-limit = 1
-
-[net]
-retry = 10
-git-fetch-with-cli = true
-
-[registries.crates-io]
-protocol = "sparse"
-'@ | Set-Content "$cargoCfgDir\config.toml" -Encoding UTF8
-Write-Host "[OK] $cargoCfgDir\config.toml canonico (HTTP/1.1 + retry 10 + sparse)" -ForegroundColor Green
-
-$env:CARGO_HTTP_MULTIPLEXING = "false"
-$env:CARGO_NET_RETRY = "10"
-$env:CARGO_HTTP_TIMEOUT = "300"
-$env:CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse"
-$env:Path = "$env:USERPROFILE\.cargo\bin;$env:Path"
-
-# --- Cargo.toml con perfil release optimizado (Mandamiento X) ---
+# Cargo.toml optimizado
 @"
 [package]
 name = "$Name"
 version = "1.0.0"
-description = "$Title - RUNEFORGE Canon v1.0"
 edition = "2021"
 
 [lib]
-name = "${Name}_lib"
+name = "$NameSnakeLib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-tauri = { version = "2", features = [] }
+tauri = { version = "2", features = ["devtools"] }`ntauri-plugin-http = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
 [profile.release]
-opt-level = "s"
-lto = true
+opt-level = 1
+lto = false
+codegen-units = 16
+incremental = true
 strip = true
-codegen-units = 1
-panic = "abort"
-"@ | Set-Content "$SRC_TAURI\Cargo.toml" -Encoding UTF8
+"@ | Set-Content "$srcTauri\Cargo.toml" -Encoding UTF8
+Add-Content "$srcTauri\Cargo.toml" -Value "`n`n[profile.release.package.$Name]`nopt-level = 0`n" -Encoding UTF8
 
-"fn main() { tauri_build::build() }" | Set-Content "$SRC_TAURI\build.rs" -Encoding UTF8
-
+# main.rs y lib.rs (igual que v1.0.1)
 @"
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-fn main() { ${Name}_lib::run() }
-"@ | Set-Content "$SRC_TAURI\src\main.rs" -Encoding UTF8
+fn main() { ${NameSnakeLib}::run() }
+"@ | Set-Content "$srcTauri\src\main.rs" -Force -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Path "$srcTauri\src" -Force | Out-Null
+@"
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+fn main() { ${NameSnakeLib}::run() }
+"@ | Set-Content "$srcTauri\src\main.rs" -Encoding UTF8
 
 @"
+use tauri::Manager;
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
+    tauri::Builder::default()`n        .plugin(tauri_plugin_http::init())
+        .setup(|app| {
+            let window = app.get_webview_window("main").unwrap();
+            window.set_title("$Title").unwrap();
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
-"@ | Set-Content "$SRC_TAURI\src\lib.rs" -Encoding UTF8
+"@ | Set-Content "$srcTauri\src\lib.rs" -Encoding UTF8
+"fn main() { tauri_build::build() }" | Set-Content "$srcTauri\build.rs" -Encoding UTF8
 
 # tauri.conf.json
 @"
 {
-  "`$schema": "https://schema.tauri.app/config/2",
+  "build": { "beforeBuildCommand": "", "beforeDevCommand": "", "frontendDist": "../dist" },
+  "identifier": "com.runeforge.$NameSnake",
   "productName": "$Title",
   "version": "1.0.0",
-  "identifier": "$Identifier",
-  "build": {
-    "frontendDist": "../dist",
-    "beforeBuildCommand": "",
-    "beforeDevCommand": ""
-  },
-  "app": {
-    "windows": [{ "title": "$Title", "width": $Width, "height": $Height, "resizable": true }],
-    "security": { "csp": null }
-  },
-  "bundle": {
-    "active": $(if ($Bundle) { "true" } else { "false" }),
-    "targets": "all",
-    "icon": ["icons/32x32.png","icons/128x128.png","icons/128x128@2x.png","icons/icon.png","icons/icon.ico"]
+  "app": {`n    "withGlobalTauri": true, "windows": [{ "title": "$Title", "width": $Width, "height": $Height }] }
+,
+  "plugins": {
+    "http": {
+      "scopeRedirects": true
+    }
   }
 }
-"@ | Set-Content "$SRC_TAURI\tauri.conf.json" -Encoding UTF8
+"@ | Set-Content "$srcTauri\tauri.conf.json" -Encoding UTF8
 
-@"
-{
-  "`$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Default capability",
-  "windows": ["main"],
-  "permissions": ["core:default"]
-}
-"@ | Set-Content "$SRC_TAURI\capabilities\default.json" -Encoding UTF8
-
-# --- MANDAMIENTO VIII: Iconos generados in-situ con System.Drawing ---
-Write-Host "[*] Generando iconos cyan #00F5FF -> magenta #FF00FF 45° + nucleo #080A12" -ForegroundColor Yellow
+# --- ICONOS (auto) ---
+$_iconDir = "$srcTauri\icons"
+New-Item -ItemType Directory -Path $_iconDir -Force | Out-Null
 Add-Type -AssemblyName System.Drawing
-$sizes = @{ "32x32.png"=32; "128x128.png"=128; "128x128@2x.png"=256; "icon.png"=512 }
-foreach ($kv in $sizes.GetEnumerator()) {
-    $size = $kv.Value
-    $bmp = New-Object System.Drawing.Bitmap $size, $size
-    $g = [System.Drawing.Graphics]::FromImage($bmp)
-    $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
-    # Gradiente 45° cyan -> magenta
-    $rect = New-Object System.Drawing.Rectangle 0,0,$size,$size
-    $brushGrad = New-Object System.Drawing.Drawing2D.LinearGradientBrush $rect, ([System.Drawing.Color]::FromArgb(0,245,255)), ([System.Drawing.Color]::FromArgb(255,0,255)), 45
-    $g.FillRectangle($brushGrad, $rect)
-    # Nucleo oscuro #080A12
-    $coreSize = [int]($size * 0.55)
-    $corePos = [int](($size - $coreSize)/2)
-    $brushCore = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(8,10,18))
-    $g.FillEllipse($brushCore, $corePos, $corePos, $coreSize, $coreSize)
-    # Dot cyan central
-    $dotSize = [int]($size * 0.18)
-    $dotPos = [int](($size - $dotSize)/2)
-    $brushDot = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(0,245,255))
-    $g.FillEllipse($brushDot, $dotPos, $dotPos, $dotSize, $dotSize)
-    $bmp.Save((Join-Path $SRC_TAURI "icons\$($kv.Key)"), [System.Drawing.Imaging.ImageFormat]::Png)
-    $bmp.Dispose(); $g.Dispose(); $brushGrad.Dispose(); $brushCore.Dispose(); $brushDot.Dispose()
+$_iconSizes = @{ "32x32.png"=32; "128x128.png"=128; "128x128@2x.png"=256; "icon.png"=512 }
+foreach ($_iconKv in $_iconSizes.GetEnumerator()) {
+    $_iconS = $_iconKv.Value
+    $_iconBmp = New-Object System.Drawing.Bitmap $_iconS, $_iconS
+    $_iconG = [System.Drawing.Graphics]::FromImage($_iconBmp)
+    $_iconG.SmoothingMode = 'AntiAlias'
+    $_iconRect = New-Object System.Drawing.Rectangle 0, 0, $_iconS, $_iconS
+    $_iconBrush = New-Object System.Drawing.Drawing2D.LinearGradientBrush($_iconRect, [System.Drawing.Color]::FromArgb(0,245,255), [System.Drawing.Color]::FromArgb(255,0,255), 45.0)
+    $_iconG.FillRectangle($_iconBrush, $_iconRect)
+    $_iconDark = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(8,10,18))
+    $_iconM = [int]($_iconS * 0.2)
+    $_iconG.FillEllipse($_iconDark, $_iconM, $_iconM, $_iconS - 2*$_iconM, $_iconS - 2*$_iconM)
+    $_iconCyan = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(0,245,255))
+    $_iconI = [int]($_iconS * 0.4)
+    $_iconG.FillEllipse($_iconCyan, $_iconI, $_iconI, $_iconS - 2*$_iconI, $_iconS - 2*$_iconI)
+    $_iconBmp.Save("$_iconDir\$($_iconKv.Key)", [System.Drawing.Imaging.ImageFormat]::Png)
+    $_iconBmp.Dispose(); $_iconG.Dispose(); $_iconBrush.Dispose(); $_iconDark.Dispose(); $_iconCyan.Dispose()
 }
-Write-Host "[OK] Iconos PNG generados" -ForegroundColor Green
-
-# --- MANDAMIENTO IX: icon.ico escrito a mano ICONDIR + PNG ---
-Write-Host "[*] Generando icon.ico (ICONDIR + PNG embebido)" -ForegroundColor Yellow
-$pngPath = Join-Path $SRC_TAURI "icons\icon.png"
-$icoPath = Join-Path $SRC_TAURI "icons\icon.ico"
-$pngBytes = [IO.File]::ReadAllBytes($pngPath)
-$fs = [IO.File]::Create($icoPath)
-$bw = New-Object IO.BinaryWriter $fs
-$bw.Write([UInt16]0) # reserved
-$bw.Write([UInt16]1) # type 1 = ico
-$bw.Write([UInt16]1) # count
-$bw.Write([Byte]0) # width 0 = 256
-$bw.Write([Byte]0) # height 0 = 256
-$bw.Write([Byte]0) # color count
-$bw.Write([Byte]0) # reserved
-$bw.Write([UInt16]1) # planes
-$bw.Write([UInt16]32) # bpp
-$bw.Write([UInt32]$pngBytes.Length) # size
-$bw.Write([UInt32]22) # offset
-$bw.Write($pngBytes)
-$bw.Close(); $fs.Close()
-Write-Host "[OK] icon.ico generado" -ForegroundColor Green
-
-# --- MANDAMIENTO III: Solo cargo build --release + V: fallback espejo ---
-Write-Host "`n[RUNEFORGE] Compilando $Name con cargo build --release" -ForegroundColor Cyan
-Set-Location $SRC_TAURI
-$ok = $false
-for ($i=1; $i -le 2; $i++) {
-    if ($i -eq 1) {
-        Write-Host "[Intento 1] CDN oficial crates.io HTTP/1.1" -ForegroundColor Yellow
-    } else {
-        Write-Host "[Intento 2] Espejo USTC" -ForegroundColor Yellow
-        @'
-[http]
-multiplexing = false
-timeout = 300
-[net]
-retry = 10
-git-fetch-with-cli = true
-[source.crates-io]
-replace-with = "ustc"
-[source.ustc]
-registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
-'@ | Set-Content "$cargoCfgDir\config.toml" -Encoding UTF8
+$_iconPng = [IO.File]::ReadAllBytes("$_iconDir\32x32.png")
+$_iconMs = New-Object IO.MemoryStream
+$_iconBw = New-Object IO.BinaryWriter($_iconMs)
+$_iconBw.Write([UInt16]0); $_iconBw.Write([UInt16]1); $_iconBw.Write([UInt16]1)
+$_iconBw.Write([Byte]32); $_iconBw.Write([Byte]32); $_iconBw.Write([Byte]0); $_iconBw.Write([Byte]0)
+$_iconBw.Write([UInt16]1); $_iconBw.Write([UInt16]32)
+$_iconBw.Write([UInt32]$_iconPng.Length); $_iconBw.Write([UInt32]22)
+$_iconBw.Write($_iconPng); $_iconBw.Flush()
+[IO.File]::WriteAllBytes("$_iconDir\icon.ico", $_iconMs.ToArray())
+$_iconBw.Dispose(); $_iconMs.Dispose()
+Write-Host "[OK] Iconos generados" -ForegroundColor Green
+Write-Host "[*] cargo build --release --offline (target compartido $sharedTarget)..." -ForegroundColor Yellow
+Set-Location $srcTauri
+$start = Get-Date
+try {
+    # Intenta offline primero (usa cache)
+    & cargo build --release --offline 2>&1 | Tee-Object build.log
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "[*] Offline fallo, intentando online..." -ForegroundColor Yellow
+        & cargo build --release 2>&1 | Tee-Object build.log -Append
     }
-    & cmd /c "cargo build --release > build.log 2>&1"
-    $logTail = Get-Content "build.log" -Tail 5 -ErrorAction SilentlyContinue
-    $logTail | ForEach-Object { Write-Host "  $_" -ForegroundColor DarkGray }
-    if ($LASTEXITCODE -eq 0 -and (Test-Path $TARGET_EXE)) {
-        $ok = $true
-        break
-    }
-    Write-Host "[!] Fallo intento $i, reintentando..." -ForegroundColor DarkYellow
-    Start-Sleep -Seconds 3
+} catch {
+    & cargo build --release 2>&1 | Tee-Object build.log
 }
+$elapsed = (Get-Date) - $start
 
-if (-not $ok) {
-    Write-Host "[X] Build fallo tras 2 intentos. Ver $SRC_TAURI\build.log" -ForegroundColor Red
-    Get-Content "$SRC_TAURI\build.log" -Tail 30
-    exit 1
+if ($LASTEXITCODE -eq 0) {
+    $exe = Get-ChildItem "$sharedTarget\release\$Name.exe","$srcTauri\target\release\$Name.exe" -ErrorAction SilentlyContinue | Select -First 1
+    if (-not $exe) { $exe = Get-ChildItem "$sharedTarget\release\$Name.exe" -ErrorAction SilentlyContinue }
+    Write-Host "[OK] $($exe.Name) $([math]::Round($exe.Length/1MB,2)) MB en $([math]::Round($elapsed.TotalMinutes,1)) min" -ForegroundColor Green
+    if ($Run) { Start-Process $exe.FullName }
+} else {
+    Write-Host "[X] Build fallo, ver build.log" -ForegroundColor Red
 }
-
-# Restaurar config sin espejo
-@'
-[http]
-multiplexing = false
-timeout = 300
-low-speed-limit = 1
-[net]
-retry = 10
-git-fetch-with-cli = true
-[registries.crates-io]
-protocol = "sparse"
-'@ | Set-Content "$cargoCfgDir\config.toml" -Encoding UTF8
-
-$sizeMB = [math]::Round((Get-Item $TARGET_EXE).Length/1MB,2)
-Write-Host "`n[OK] $TARGET_EXE ($sizeMB MB)" -ForegroundColor Green
-Write-Host "[CANON] 12 mandamientos cumplidos - Binario offline-first" -ForegroundColor DarkGray
-
-if ($Bundle) {
-    Write-Host "[*] Bundle MSI/NSIS..." -ForegroundColor Yellow
-    & cmd /c "cargo build --release --features custom-protocol > bundle.log 2>&1"
-}
-
-if (-not $Bundle -or $Run) {
-    Write-Host "[RUNEFORGE] Lanzando $Name..." -ForegroundColor Green
-    Start-Process $TARGET_EXE
-}
-
-Write-Host "`n[RUNEFORGE] Forja completada: $Name -> $TARGET_EXE" -ForegroundColor Cyan
