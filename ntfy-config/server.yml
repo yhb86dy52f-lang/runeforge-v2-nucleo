@@ -1,0 +1,6 @@
+base-url: http://localhost:8085
+listen-http: :80
+cache-file: /var/cache/ntfy/cache.db
+auth-file: /etc/ntfy/auth.db
+auth-default-access: deny-all
+behind-proxy: true

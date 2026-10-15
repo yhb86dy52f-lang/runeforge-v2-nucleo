@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Scanner PRO v8.0 ULTIMATE - Fusion</title>
+<style>
+:root{
+  --bg:#0a0f0d; --surface:#131a17; --surface-light:#1c2621;
+  --primary:#00e676; --primary-glow:rgba(0,230,118,.3);
+  --lmu:#00b3ff; --lmu-glow:rgba(0,179,255,.3);
+  --samsara:#ff6d00; --samsara-glow:rgba(255,109,0,.3);
+  --ciclope:#ffcc00; --apple:#af52de;
+  --text:#eef5f0; --text-dim:#8fa396; --danger:#ff5c5c; --warning:#ffb84d;
+  --radius:16px; --shadow:0 8px 24px rgba(0,0,0,.5); --border:rgba(255,255,255,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:12px;padding-bottom:40px}
+.app{width:100%;max-width:500px;display:flex;flex-direction:column;gap:12px}
+.header{background:var(--surface);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);border:1px solid rgba(0,230,118,.15);text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--ciclope),var(--lmu),var(--samsara),var(--apple))}
+.logo{font-size:22px;font-weight:800;color:var(--primary);display:flex;align-items:center;justify-content:center;gap:8px}
+.subtitle{font-size:11px;color:var(--text-dim);margin-top:4px}
+.badges{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.badge{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;border:1px solid}
+.b1{background:rgba(0,230,118,.12);color:var(--primary);border-color:rgba(0,230,118,.2)}
+.b2{background:rgba(255,109,0,.12);color:var(--samsara);border-color:rgba(255,109,0,.2)}
+.b3{background:rgba(255,204,0,.12);color:var(--ciclope);border-color:rgba(255,204,0,.2)}
+.box{background:var(--surface);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.row{display:flex;justify-content:space-between;align-items:center}
+.btn-toggle{background:#1e2a22;color:var(--text);border:none;padding:7px 14px;border-radius:20px;font-size:12px}
+.filters{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.pill{background:var(--surface);color:var(--text-dim);border:1px solid var(--border);padding:8px 14px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill.active{background:var(--primary);color:#000;border-color:var(--primary)}
+.pill.lmu.active{background:var(--lmu);border-color:var(--lmu)}
+.pill.samsara.active{background:var(--samsara);border-color:var(--samsara)}
+.pill.ciclope.active{background:var(--ciclope);color:#000;border-color:var(--ciclope)}
+.pill.apple.active{background:var(--apple);border-color:var(--apple);color:#fff}
+.search{flex:1;min-width:120px;background:var(--surface-light);border:1px solid var(--border);border-radius:20px;padding:8px 12px;color:var(--text);font-size:13px}
+.progress-header{display:flex;justify-content:space-between;margin-bottom:8px}
+.label{font-size:12px;color:var(--text-dim);font-weight:600}
+.count{font-size:14px;font-weight:800;color:var(--primary)}
+.bar{height:8px;background:var(--surface-light);border-radius:10px;overflow:hidden;margin-bottom:6px}
+.fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--ciclope),var(--samsara));border-radius:10px;transition:width .5s;width:0%;box-shadow:0 0 12px var(--primary-glow)}
+.stats{display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim)}
+.highlight{color:var(--primary);font-weight:700}
+.scan{background:linear-gradient(135deg,#00e676,#00b36b);color:#000;font-weight:800;font-size:15px;border:none;border-radius:var(--radius);padding:16px;cursor:pointer;box-shadow:0 8px 20px rgba(0,230,118,.35);display:flex;align-items:center;justify-content:center;gap:8px}
+.scan.orange{background:linear-gradient(135deg,#ff9800,#ff6d00)}
+.scan.ciclope{background:linear-gradient(135deg,#ffcc00,#ff9900);color:#000}
+.scan:active{transform:scale(.97)}
+.grid{display:flex;flex-direction:column;gap:9px}
+.card{background:var(--surface);border-radius:var(--radius);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border);border-left:4px solid var(--primary);animation:slide .3s ease}
+.card.kw{border-left-color:var(--primary)} .card.lmu{border-left-color:var(--lmu)} .card.samsara{border-left-color:var(--samsara)} .card.ciclope{border-left-color:var(--ciclope)} .card.apple{border-left-color:var(--apple)} .card.other{border-left-color:var(--text-dim)}
+@keyframes slide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.info{flex:1;min-width:0}
+.name{font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:700;text-transform:uppercase}
+.tag.kw{background:rgba(0,230,118,.15);color:var(--primary)} .tag.lmu{background:rgba(0,179,255,.15);color:var(--lmu)} .tag.samsara{background:rgba(255,109,0,.15);color:var(--samsara)} .tag.ciclope{background:rgba(255,204,0,.15);color:var(--ciclope)} .tag.apple{background:rgba(175,82,222,.15);color:var(--apple)} .tag.other{background:rgba(255,255,255,.1);color:var(--text-dim)}
+.meta{font-size:10px;color:var(--text-dim);margin-top:3px;display:flex;gap:6px;flex-wrap:wrap}
+.idbox{font-family:monospace;background:rgba(0,0,0,.3);padding:2px 5px;border-radius:4px}
+.rssi{display:flex;flex-direction:column;align-items:flex-end;min-width:55px}
+.rssi-v{font-size:11px;font-weight:800;color:var(--text-dim)}
+.rssi-l{font-size:8px;color:var(--text-dim);text-transform:uppercase}
+.pending{border:1px dashed rgba(255,184,77,.4);padding:10px 12px;border-radius:var(--radius)}
+.pending .t{font-size:11px;color:var(--warning);font-weight:700;margin-bottom:6px}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.ptag{background:rgba(255,92,92,.1);color:#ff9e9e;padding:3px 9px;border-radius:12px;font-size:10px;border:1px solid rgba(255,92,92,.2)}
+.log{background:#1a0f0f;border:1px solid rgba(255,92,92,.3);border-radius:var(--radius);padding:8px 12px;font-family:monospace;font-size:9px;color:#ff9e9e;max-height:70px;overflow-y:auto;display:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px;color:var(--text);font-size:13px;font-weight:600}
+.btn span{color:var(--primary)}
+.empty{text-align:center;padding:20px;color:var(--text-dim);font-size:12px;border:2px dashed var(--surface-light);border-radius:var(--radius)}
+.counters{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.counter{padding:4px 9px;border-radius:12px;font-size:10px;font-weight:700;background:#0d1110;border:1px solid var(--border)}
+#qrBox{display:none;background:#1a1200;border:1px solid #3a2a00;border-radius:10px;padding:10px;margin-top:8px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="logo">📡 Scanner PRO v8.0 ULTIMATE</div>
+    <div class="subtitle">Fusion Edition · KW 748-762 · LMU-EX7 · Samsara AT11 · Ciclope C3:00</div>
+    <div class="badges">
+      <div class="badge b1">v8.0 - Termux Ready - Offline First</div>
+      <div class="badge b2">🆕 Samsara AT11 FCC:2AIHD-AT11</div>
+      <div class="badge b3">nRF C3:00 + BDVA + PB705 + RSSI -75</div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="row"><div style="font-size:12px;font-weight:700">⚙️ Configuración Backend & Filtros RF</div><button class="btn-toggle" onclick="toggleCfg()">Mostrar</button></div>
+    <div id="cfgPanel" style="display:none;margin-top:10px;background:#0d1110;padding:10px;border-radius:10px">
+      <input id="cfgBackend" placeholder="Backend Runeforge http://100.64.0.1:3000" style="width:100%;padding:8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);margin-bottom:6px">
+      <input id="cfgRssi" placeholder="RSSI mínimo -85 (EMI alternador)" style="width:100%;padding:8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);margin-bottom:6px">
+      <input id="cfgFiltro" placeholder="Filtro RF ej: PB705, BDVA-7011, C3:00" style="width:100%;padding:8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text)">
+      <button class="btn" style="width:100%;margin-top:8px" onclick="guardarCfg()">Guardar</button>
+      <div style="margin-top:8px;font-size:10px;color:var(--text-dim)">Generador filtro nRF: <span id="nrfPreview" style="font-family:monospace;color:var(--ciclope)">C3:00, BDVA-7011, PB705, -75</span> <button onclick="copiarFiltro()" style="background:var(--surface-light);border:none;color:var(--text);padding:2px 8px;border-radius:6px;font-size:10px">Copiar</button></div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button class="pill active" data-f="all">Todos</button>
+    <button class="pill" data-f="kw">KW 748-762</button>
+    <button class="pill lmu" data-f="lmu">LMU</button>
+    <button class="pill samsara" data-f="samsara">Samsara AT11</button>
+    <button class="pill ciclope" data-f="ciclope">Ciclope C3:00</button>
+    <button class="pill apple" data-f="apple">Find My</button>
+    <button class="pill" data-f="other">Otros</button>
+    <input class="search" id="buscador" placeholder="🔍 GDXF, PB705, BDVA...">
+  </div>
+
+  <div class="box">
+    <div class="progress-header"><span class="label">📊 Avance General KW + Samsara</span><span class="count" id="globalCount">0/15 (0%)</span></div>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+    <div class="stats"><span>Detectados: <span class="highlight" id="liveCount">0</span>/15</span><span>Vivos: <span class="highlight" id="livePct">0%</span> · BLE: <b id="totalTxt">0</b></span></div>
+    <div class="counters">
+      <div class="counter" style="color:var(--primary)">KW <span id="cKw">0</span></div>
+      <div class="counter" style="color:var(--lmu)">LMU <span id="cLmu">0</span></div>
+      <div class="counter" style="color:var(--samsara)">Samsara <span id="cSamsara">0</span></div>
+      <div class="counter" style="color:var(--ciclope)">Ciclope <span id="cCiclope">0</span></div>
+      <div class="counter" style="color:var(--apple)">Apple <span id="cApple">0</span></div>
+      <div class="counter" style="color:var(--text-dim)">Otros <span id="cOtros">0</span></div>
+    </div>
+    <div id="qrBox"><b>📷 QR:</b> <span id="qrRes">-</span><br><small id="qrDet" style="color:var(--text-dim)"></small></div>
+  </div>
+
+  <button class="scan" id="scanBtn"><span class="spinner" style="display:none">⏳</span><span id="scanTxt">▶ SELECCIONAR DISPOSITIVO</span></button>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <button class="scan orange" onclick="escanearQR()">📷 QR AT11/BDVA</button>
+    <button class="scan ciclope" onclick="generarFiltroNRF()">⚙️ FILTRO nRF</button>
+  </div>
+
+  <div class="grid" id="grid"><div class="empty">Presiona SELECCIONAR para escanear. Usa Chrome Android con Bluetooth activo. En iPhone modo demo.</div></div>
+
+  <div class="pending" id="pendingBox"><div class="t">⚠️ Pendientes KW 748-762 (PB705)</div><div class="tags" id="pendingTags"></div></div>
+
+  <div class="grid2">
+    <button class="btn" onclick="sincronizar()">🔄 <span>Sincronizar</span></button>
+    <button class="btn" onclick="exportarJSON()">📄 JSON</button>
+    <button class="btn" onclick="exportarCSV()">📊 CSV</button>
+    <button class="btn" onclick="limpiar()">🗑️ Limpiar</button>
+  </div>
+
+  <div class="log" id="logBox"><div style="font-weight:700;color:var(--danger)">🔴 LOG ERRORES</div><div id="logContent"></div></div>
+</div>
+
+<script>
+(() => {
+  const CONFIG = { RSSI_MIN:-85, MAX_REINT:3, TIMEOUT:30000, BACKEND:'http://100.64.0.1:3000/api/lmu/register', VIB:100 };
+  const KW_MAP = {
+    "748":"KW 748","749":"KW 749_R","750":"KW 750_R","751":"KW 751_R","752":"KW 752_R","753":"KW 753_R","754":"KW 754_R","755":"KW 755_R","756":"KW 756_R","759":"KW 759_R","761":"KW 761_R","762":"KW 762"
+  };
+  const KW_PB = {
+    "26435":"749_R","26520":"750_R","25431":"751_R","25961":"752_R","24529":"753_R","24837":"754_R","23806":"755_R","24374":"756_R","25665":"759_R","25203":"761_R",
+    "780901807725431":"751_R","780901807723806":"755_R","780901807725203":"761_R"
+  };
+
+  let devices = new Map();
+  let detectedKW = new Set();
+  let filter='all', search='', scanActive=false, reint=0, errors=[];
+
+  const grid=document.getElementById('grid'), liveCount=document.getElementById('liveCount'), livePct=document.getElementById('livePct'), fill=document.getElementById('fill'), globalCount=document.getElementById('globalCount'), totalTxt=document.getElementById('totalTxt');
+  const btn=document.getElementById('scanBtn'), scanTxt=document.getElementById('scanTxt'), pendingTags=document.getElementById('pendingTags'), buscador=document.getElementById('buscador');
+  const logBox=document.getElementById('logBox'), logContent=document.getElementById('logContent');
+
+  function cargar(){
+    const s=localStorage.getItem('scannerV8Ultimate');
+    if(s){ try{ const arr=JSON.parse(s); arr.forEach(d=>{ devices.set(d.id,d); if(d.type==='kw'&&d.label) detectedKW.add(d.label); }); }catch{} }
+    const cb=localStorage.getItem('cfgBackend'); if(cb) document.getElementById('cfgBackend').value=cb;
+    actualizar();
+  }
+  function guardar(){ localStorage.setItem('scannerV8Ultimate', JSON.stringify(Array.from(devices.values()))); }
+
+  window.toggleCfg=()=>{ const p=document.getElementById('cfgPanel'); p.style.display=p.style.display==='block'?'none':'block'; }
+  window.guardarCfg=()=>{ localStorage.setItem('cfgBackend', document.getElementById('cfgBackend').value); alert('Config guardada'); }
+  window.copiarFiltro=()=>{ navigator.clipboard.writeText(document.getElementById('nrfPreview').textContent).then(()=>alert('Filtro copiado')); }
+
+  function logErr(code,msg,ctx={}){ const e={ts:new Date().toISOString(),code,msg,ctx}; errors.push(e); logBox.style.display='block'; logContent.innerHTML=errors.slice(-3).map(x=>`[${x.ts.split('T')[1].split('.')[0]}] ${x.code}: ${x.msg}`).join('<br>'); console.error(e); }
+
+  function clasificar(name,id){
+    const n=(name||'').toUpperCase(); const iid=(id||'').toUpperCase();
+    if(n.includes('AT11')||n.includes('SAMSARA')||n.includes('2AIHD')||n.includes('GDXF')||n.includes('030-00007')||iid.includes('AT11')) return {type:'samsara',label:name||'Samsara AT11',sub:'FCC:2AIHD-AT11 | IC:21492-AT11 | IP67',tag:'AT11'};
+    if(n.startsWith('C3:00')||n.includes('CICLOPE')||iid.startsWith('C3:00')) return {type:'ciclope',label:name,sub:'MAC C3:00:00:6B:9B:C8 · BDVA-7011 TILE 15',tag:'CICLOPE'};
+    if(n.startsWith('PB705')||n.includes('KENWORTH')||n.includes('KW')||KW_PB[n.split('-').pop()]||KW_MAP[n]){ const suf=n.split('-').pop(); const kw=KW_MAP[suf]||KW_MAP[KW_PB[suf]]||KW_PB[suf]||n; return {type:'kw',label:typeof kw==='string'?kw:n,sub:`PB705 ID: ${suf} | BDVA-7011`,tag:'KW'}; }
+    if(n.startsWith('LMU_')||n.includes('LMU')||n.includes('EX7')) return {type:'lmu',label:name,sub:`ID LMU: ${n.split('_')[1]||n}`,tag:'LMU'};
+    if(n.includes('FIND MY')||n.includes('APPLE')) return {type:'apple',label:'Find My',sub:`ID: ${id.substring(0,8)}`,tag:'Apple'};
+    return {type:'other',label:name||'Desconocido',sub:`ID: ${id.substring(0,8)}...`,tag:'BLE'};
+  }
+
+  function updatePending(){
+    const allKw=Object.values(KW_MAP);
+    const pend=allKw.filter(k=>!Array.from(detectedKW).some(d=>d.includes(k.split(' ')[1])||d===k));
+    pendingTags.innerHTML=pend.length?pend.map(k=>`<span class="ptag">${k}</span>`).join(''):`<span style="color:var(--primary);font-size:11px">✅ Todas detectadas</span>`;
+  }
+
+  function renderCard(id,d){
+    if(filter!=='all'&&filter!==d.type) return '';
+    const isKW=d.type==='kw'; if(isKW) detectedKW.add(d.label);
+    return `<div class="card ${d.type}" data-id="${id}"><div class="info"><div class="name"><span class="tag ${d.type}">${d.tag}</span><span>${d.label}</span></div><div class="meta"><span class="idbox">${id.substring(0,14)}...</span><span>${d.sub}</span>${d.qr?`<span>QR:${d.qr}</span>`:''}</div></div><div class="rssi"><div class="rssi-v">${d.rssi?d.rssi+' dBm':'SELECC'}</div><div class="rssi-l">${d.vivo?'Vivo':'Demo'}</div></div></div>`;
+  }
+
+  function actualizar(){
+    const vals=Array.from(devices.values());
+    const kw=vals.filter(d=>d.type==='kw').length, lmu=vals.filter(d=>d.type==='lmu').length, sam=vals.filter(d=>d.type==='samsara').length, cic=vals.filter(d=>d.type==='ciclope').length, apple=vals.filter(d=>d.type==='apple').length, other=vals.filter(d=>d.type==='other').length;
+    const total=vals.length; const meta=15; const det=kw+sam+cic; const pct=Math.min(100,Math.round(det/meta*100));
+    document.getElementById('cKw').textContent=kw; document.getElementById('cLmu').textContent=lmu; document.getElementById('cSamsara').textContent=sam; document.getElementById('cCiclope').textContent=cic; document.getElementById('cApple').textContent=apple; document.getElementById('cOtros').textContent=other;
+    liveCount.textContent=det; livePct.textContent=pct+'%'; fill.style.width=pct+'%'; globalCount.textContent=`${det}/${meta} (${pct}%)`; totalTxt.textContent=total;
+    const filtered=vals.filter(d=>{
+      const fOk=filter==='all'||d.type===filter;
+      const sOk=!search||d.label.toLowerCase().includes(search)||d.id.toLowerCase().includes(search)||(d.qr&&d.qr.toLowerCase().includes(search));
+      return fOk&&sOk;
+    });
+    grid.innerHTML=filtered.length?filtered.slice(-20).reverse().map(d=>renderCard(d.id,d)).join(''):`<div class="empty">No hay dispositivos tipo <b>${filter.toUpperCase()}</b></div>`;
+    updatePending(); guardar();
+  }
+
+  function manejarErr(err,ctx={}){
+    const map={'NotFoundError':{code:'BLE_001',msg:'Usuario canceló'},'SecurityError':{code:'BLE_002',msg:'Permiso denegado'},'NetworkError':{code:'BLE_003',msg:'Bluetooth apagado'},'NotSupportedError':{code:'BLE_004',msg:'Web BT no soportado'},'InvalidStateError':{code:'BLE_005',msg:'BLE en curso'},'AbortError':{code:'BLE_006',msg:'Timeout 30s'}};
+    const m=map[err.name]||{code:'BLE_999',msg:err.message}; logErr(m.code,m.msg,{...ctx,name:err.name}); if(err.name==='NotFoundError') return {tipo:'cancel'}; reint++; if(reint>=CONFIG.MAX_REINT){ logErr('BLE_007',`Max reintentos ${CONFIG.MAX_REINT}`); return {tipo:'bloq'}; } return {tipo:'err',...m};
+  }
+
+  async function startScan(){
+    if(scanActive) return; scanActive=true; btn.disabled=true; scanTxt.textContent='Abriendo selector...';
+    const start=performance.now();
+    try{
+      const device=await Promise.race([navigator.bluetooth.requestDevice({acceptAllDevices:true}), new Promise((_,rej)=>setTimeout(()=>rej(new DOMException('Timeout','AbortError')),CONFIG.TIMEOUT))]);
+      if(!device) throw new DOMException('Sin dispositivo','NotFoundError');
+      const name=device.name||'Desconocido'; const id=device.id; const cls=clasificar(name,id);
+      devices.set(id,{id,name, ...cls, rssi:null, timestamp:Date.now(), vivo:true, scanMs:Math.round(performance.now()-start)});
+      if(cls.type==='kw'&&!detectedKW.has(cls.label)&&navigator.vibrate) navigator.vibrate(CONFIG.VIB);
+      reint=0;
+      try{ await fetch((document.getElementById('cfgBackend').value||CONFIG.BACKEND),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,name,type:cls.type,label:cls.label,ts:Date.now()})}); }catch{ logErr('NET_001','Backend no disponible, guardado local',{id}); }
+      actualizar();
+    }catch(err){
+      const r=manejarErr(err,{scanMs:Math.round(performance.now()-start)}); if(r.tipo==='bloq'){ scanTxt.textContent='⛔ BLOQUEADO - Recarga'; return; }
+    }finally{ scanActive=false; btn.disabled=false; if(!scanTxt.textContent.includes('BLOQUEADO')) scanTxt.textContent='▶ SELECCIONAR DISPOSITIVO'; }
+  }
+
+  window.escanearQR=()=>{
+    const c=prompt('QR Samsara AT11 (GDXF-HK4-HZ7) o BDVA-7011 TILE 15:');
+    if(!c) return; const clean=c.trim().toUpperCase();
+    document.getElementById('qrBox').style.display='block'; document.getElementById('qrRes').textContent=clean; document.getElementById('qrDet').textContent=`FCC:2AIHD-AT11 | BDVA-7011 | ${new Date().toLocaleString()}`;
+    const isAT11=clean.includes('GDXF')||clean.includes('AT11')||clean.includes('030-'); const type=isAT11?'samsara':(clean.includes('BDVA')?'ciclope':'other');
+    const id=clean; devices.set(id,{id,name:(isAT11?'Samsara AT11 ':'BDVA ')+clean,label:(isAT11?'Samsara AT11 ':'BDVA ')+clean,sub:isAT11?'FCC:2AIHD-AT11 | Made in Mexico':'BDVA-7011 TILE 15 · C3:00:00:6B:9B:C8',tag:isAT11?'AT11':'BDVA',type,rssi:-55,timestamp:Date.now(),vivo:true,qr:clean});
+    actualizar();
+  };
+
+  window.generarFiltroNRF=()=>{
+    const kw=Array.from(detectedKW); const sam=Array.from(devices.values()).filter(d=>d.type==='samsara').length;
+    const filtro=`C3:00, BDVA-7011, PB705${kw.length?', '+kw.join(', '):''}, -75`;
+    document.getElementById('nrfPreview').textContent=filtro; document.getElementById('cfgPanel').style.display='block';
+    prompt('Filtro nRF Connect (copia esto en tu app nRF):', filtro);
+  };
+
+  window.exportarJSON=()=>{ const blob=new Blob([JSON.stringify(Array.from(devices.values()),null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='scanner-v8-ultimate.json'; a.click(); };
+  window.exportarCSV=()=>{ let csv='id,name,tipo,tag,rssi,timestamp,qr,fcc\n'; devices.forEach(d=>{ csv+=`${d.id},${d.label},${d.type},${d.tag},${d.rssi||''},${d.timestamp},${d.qr||''},${d.sub||''}\n`; }); const blob=new Blob([csv],{type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='scanner-v8-ultimate.csv'; a.click(); };
+  window.limpiar=()=>{ if(confirm('¿Borrar todo?')){ devices.clear(); detectedKW.clear(); actualizar(); } };
+  window.sincronizar=async()=>{ const url=document.getElementById('cfgBackend').value||CONFIG.BACKEND; try{ await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Array.from(devices.values()))}); alert('Sincronizado '+devices.size); }catch(e){ alert('Error sync: '+e.message); } };
+
+  document.querySelectorAll('.pill').forEach(b=>{ b.addEventListener('click',()=>{ document.querySelectorAll('.pill').forEach(x=>x.classList.remove('active')); b.classList.add('active'); filter=b.dataset.f; actualizar(); }); });
+  buscador.addEventListener('input',e=>{ search=e.target.value.toLowerCase(); actualizar(); });
+  btn.addEventListener('click',startScan);
+  window.addEventListener('beforeunload',()=>{ if(errors.length) navigator.sendBeacon((document.getElementById('cfgBackend').value||CONFIG.BACKEND).replace('/api/lmu/register','/api/log/batch'), JSON.stringify(errors)); });
+
+  cargar();
+})();
+</script>
+</body>
+</html>

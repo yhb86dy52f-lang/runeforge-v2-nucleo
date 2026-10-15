@@ -15,9 +15,3 @@ tauri-build = { version = "2", features = [] }
 [dependencies]
 tauri = { version = "2", features = [] }
 
-[profile.release]
-opt-level = "s"
-lto = true
-strip = true
-codegen-units = 1
-panic = "abort"

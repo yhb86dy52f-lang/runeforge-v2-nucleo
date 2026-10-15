@@ -1,0 +1,64 @@
+
+{
+  "productName": "RUNEFORGE PRO",
+  "version": "10.0.0",
+  "identifier": "com.runeforge.scannerpro",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "RUNEFORGE ScannerPRO v10",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 1024,
+        "minHeight": 600
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "msi"],
+    "icon": ["icons/icon.png"],
+    "resources": ["resources/*"],
+    "externalBin": [
+      "bin/flota-x86_64-pc-windows-msvc",
+      "bin/dictate-x86_64-pc-windows-msvc"
+    ],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "embedBootstrapper"
+      },
+      "wix": {
+        "language": "es-MX"
+      },
+      "nsis": {
+        "displayLanguageSelector": true
+      }
+    },
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "PON_AQUI_TU_TAURI_UPDATER_PUBKEY",
+      "endpoints": ["https://github.com/nesthor_99/runeforge/releases/latest/download/latest.json"],
+      "windows": {
+        "installMode": "passive"
+      }
+    },
+    "shell": {
+      "open": true,
+      "scope": [
+        { "name": "flota", "sidecar": true, "args": true },
+        { "name": "dictate", "sidecar": true, "args": true }
+      ]
+    }
+  }
+}

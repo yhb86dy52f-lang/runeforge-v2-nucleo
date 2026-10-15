@@ -1,0 +1,58 @@
+{
+	"schemaVersion": "0.1.0",
+	"name": "📡 TGL LAB - Extracción Rápida (Legacy)",
+	"behavior": "create",
+	"noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{source}}\"\npublished: \"{{published}}\"\nesn: \"\"\ntrama: \"\"\nnivel: \"\"\nraw_escort: \"\"\ncomandos: \"\"\nestado: \"pendiente\"\n---\n\n{{content}}\n\n## Datos extraídos automáticamente (no modificar)\n\n- **ESN:** `{{esn}}`\n- **Trama completa:** `{{trama}}`\n- **Nivel calculado:** `{{nivel}}` / 1000\n- **Raw Escort:** `{{raw_escort}}`\n- **Comandos CalAmp:** `{{comandos}}`",
+	"properties": [
+		{
+			"name": "title",
+			"value": "",
+			"type": "text"
+		},
+		{
+			"name": "source",
+			"value": "",
+			"type": "text"
+		},
+		{
+			"name": "published",
+			"value": "",
+			"type": "date"
+		},
+		{
+			"name": "esn",
+			"value": "",
+			"type": "text"
+		},
+		{
+			"name": "trama",
+			"value": "",
+			"type": "text"
+		},
+		{
+			"name": "nivel",
+			"value": "",
+			"type": "number"
+		},
+		{
+			"name": "raw_escort",
+			"value": "",
+			"type": "number"
+		},
+		{
+			"name": "comandos",
+			"value": "",
+			"type": "text"
+		},
+		{
+			"name": "estado",
+			"value": "pendiente",
+			"type": "text"
+		}
+	],
+	"triggers": [
+		"https://rastreo.tgarzaleal.com/*"
+	],
+	"noteNameFormat": "{{published}} - {{esn}} - {{title}}",
+	"path": "Clippings/TGL_Lab"
+}

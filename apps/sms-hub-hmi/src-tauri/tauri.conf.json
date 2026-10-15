@@ -1,0 +1,7 @@
+{
+  "build": { "beforeBuildCommand": "", "beforeDevCommand": "", "frontendDist": "../dist" },
+  "identifier": "com.runeforge.sms_hub_hmi",
+  "productName": "FORGE SMS-HUB",
+  "version": "1.0.0",
+  "app": { "windows": [{ "title": "FORGE SMS-HUB", "width": 1500, "height": 950 }] }
+}

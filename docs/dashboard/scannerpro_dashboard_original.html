@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScannerPRO - RF Spectrum & Network Analyzer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#090d16',
+                            panel: '#111827',
+                            border: '#1f293d',
+                            accent: '#06b6d4',
+                            emerald: '#10b981',
+                            rose: '#f43f5e',
+                            amber: '#f59e0b',
+                            violet: '#8b5cf6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #06090e;
+            color: #e2e8f0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f293d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(0.99); }
+        }
+        .radar-grid {
+            background-image: radial-gradient(rgba(6, 182, 212, 0.15) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-cyber-bg text-slate-200 antialiased selection:bg-cyber-accent selection:text-black">
+
+    <!-- Top Navigation Header -->
+    <header class="h-16 border-b border-cyber-border glass-panel sticky top-0 z-50 flex items-center justify-between px-4 md:px-6">
+        <div class="flex items-center gap-3">
+            <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 glow-cyan">
+                <i data-lucide="radar" class="w-6 h-6 animate-spin" style="animation-duration: 12s;"></i>
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="font-mono font-bold tracking-wider text-lg text-white">SCANNER<span class="text-cyan-400">PRO</span></span>
+                    <span class="text-[10px] uppercase font-mono tracking-widest px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">v3.8-ESP</span>
+                </div>
+                <p class="text-xs text-slate-400 hidden sm:block">Análisis Espectral RF y Diagnóstico Wi-Fi / BLE en Tiempo Real</p>
+            </div>
+        </div>
+
+        <!-- Controls Header Right -->
+        <div class="flex items-center gap-2 md:gap-4">
+            <!-- Audio Beacon Toggle -->
+            <button id="btn-audio" onclick="toggleAudioEngine()" class="p-2.5 rounded-lg border border-slate-800 bg-slate-900/80 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/50 transition-all flex items-center gap-2 text-xs font-mono">
+                <i data-lucide="volume-x" id="icon-audio" class="w-4 h-4"></i>
+                <span class="hidden md:inline" id="txt-audio">Audio: OFF</span>
+            </button>
+
+            <!-- Scan Control Toggle -->
+            <button id="btn-scan" onclick="toggleScan()" class="px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/20">
+                <i data-lucide="pause" id="icon-scan" class="w-4 h-4"></i>
+                <span id="txt-scan">PAUSAR</span>
+            </button>
+
+            <!-- Quick Settings Modal Trigger -->
+            <button onclick="openConfigModal()" class="p-2.5 rounded-lg border border-slate-800 bg-slate-900/80 text-slate-400 hover:text-white hover:border-slate-700 transition-all">
+                <i data-lucide="settings" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Body -->
+    <div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+        
+        <!-- Left Sidebar Navigation / Quick Stats -->
+        <aside class="w-full lg:w-64 border-b lg:border-b-0 lg:border-r border-cyber-border glass-panel p-4 flex flex-col justify-between shrink-0">
+            <div class="space-y-6">
+                <!-- Status Card -->
+                <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-slate-400 font-mono uppercase">Estado Hardware</span>
+                        <span class="flex h-2 w-2 relative">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                    </div>
+                    <div class="text-sm font-semibold text-emerald-400 flex items-center gap-2 font-mono">
+                        <i data-lucide="cpu" class="w-4 h-4"></i> ESP32-S3 Dual-Core
+                    </div>
+                    <div class="mt-2 grid grid-cols-2 gap-2 text-[11px] font-mono text-slate-400 pt-2 border-t border-slate-800">
+                        <div>SRAM: <span class="text-slate-200">312 KB</span></div>
+                        <div>CPU: <span class="text-slate-200">240 MHz</span></div>
+                        <div>Temp: <span class="text-slate-200" id="stat-temp">41.2°C</span></div>
+                        <div>FPS: <span class="text-cyan-400" id="stat-fps">60</span></div>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="space-y-1">
+                    <button onclick="switchTab('radar')" id="nav-radar" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-mono uppercase text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 font-medium transition-all">
+                        <i data-lucide="disc" class="w-4 h-4"></i> Radar & Espectro
+                    </button>
+                    <button onclick="switchTab('devices')" id="nav-devices" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-mono uppercase text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all">
+                        <i data-lucide="wifi" class="w-4 h-4"></i> Dispositivos (<span id="count-devices">0</span>)
+                    </button>
+                    <button onclick="switchTab('threats')" id="nav-threats" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-mono uppercase text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all">
+                        <i data-lucide="shield-alert" class="w-4 h-4"></i> Amenazas RF (<span id="count-threats" class="text-rose-400">0</span>)
+                    </button>
+                    <button onclick="switchTab('config')" id="nav-config" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-mono uppercase text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all">
+                        <i data-lucide="file-code" class="w-4 h-4"></i> Exportar C++ Firmware
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Quick Metrics Summary -->
+            <div class="mt-6 pt-4 border-t border-slate-800/80 space-y-3 font-mono text-xs">
+                <div>
+                    <div class="flex justify-between text-slate-400 mb-1">
+                        <span>Carga de Canal 2.4G</span>
+                        <span id="txt-load-24" class="text-cyan-400">68%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div id="bar-load-24" class="bg-cyan-400 h-full transition-all duration-500" style="width: 68%;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-slate-400 mb-1">
+                        <span>Paquetes Capturados</span>
+                        <span id="txt-packets" class="text-emerald-400">14,290</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div id="bar-packets" class="bg-emerald-400 h-full transition-all duration-300" style="width: 82%;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 md:p-6 overflow-y-auto space-y-6">
+
+            <!-- TAB 1: RADAR & SPECTRUM VIEW -->
+            <div id="tab-content-radar" class="space-y-6">
+                <!-- Top Row: Radar Sweep & Real-time Signal Charts -->
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+                    
+                    <!-- 360 Tactical Radar Canvas Card -->
+                    <div class="xl:col-span-6 glass-panel rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden">
+                        <div class="w-full flex justify-between items-center mb-2 px-2">
+                            <span class="text-xs font-mono font-semibold text-slate-300 uppercase flex items-center gap-2">
+                                <i data-lucide="crosshair" class="w-4 h-4 text-cyan-400"></i> Radar de Cobertura Espacial (RSSI vs Polar)
+                            </span>
+                            <span class="text-[11px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800">
+                                BANDA: 2.4GHz + 5.8GHz
+                            </span>
+                        </div>
+                        <div class="relative w-full aspect-square max-w-[420px] flex items-center justify-center">
+                            <canvas id="radarCanvas" class="w-full h-full rounded-full border border-cyan-500/20 glow-cyan"></canvas>
+                        </div>
+                        <div class="w-full flex justify-around text-[11px] font-mono text-slate-400 mt-4 border-t border-slate-800/80 pt-3">
+                            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-cyan-400 inline-block"></span> Wi-Fi AP</span>
+                            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-violet-400 inline-block"></span> BLE Beacon</span>
+                            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> Amenaza/Deauth</span>
+                        </div>
+                    </div>
+
+                    <!-- RF Channel Spectrum & RSSI Waterfall Chart -->
+                    <div class="xl:col-span-6 flex flex-col gap-6">
+                        <!-- Channel Congestion Spectrum Bar -->
+                        <div class="glass-panel rounded-2xl p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-xs font-mono font-semibold text-slate-300 uppercase flex items-center gap-2">
+                                    <i data-lucide="activity" class="w-4 h-4 text-emerald-400"></i> Analizador de Espectro Canales Wi-Fi
+                                </span>
+                                <span class="text-[11px] font-mono text-emerald-400">Ch 1 - 14</span>
+                            </div>
+                            <div class="flex-1 relative min-h-[180px]">
+                                <canvas id="spectrumCanvas" class="w-full h-full"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Live Time-Series Signal History Chart -->
+                        <div class="glass-panel rounded-2xl p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-xs font-mono font-semibold text-slate-300 uppercase flex items-center gap-2">
+                                    <i data-lucide="trending-up" class="w-4 h-4 text-violet-400"></i> Histórico RSSI (Top 4 Redes)
+                                </span>
+                                <span class="text-[11px] font-mono text-slate-400">dBm vs Tiempo</span>
+                            </div>
+                            <div class="flex-1 relative min-h-[180px]">
+                                <canvas id="rssiChart" class="w-full h-full"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: DEVICES TABLE -->
+            <div id="tab-content-devices" class="hidden space-y-4">
+                <div class="glass-panel rounded-2xl p-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                        <div class="relative w-full sm:w-72">
+                            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+                            <input type="text" id="device-search" oninput="filterDevices()" placeholder="Buscar SSID, BSSID, Vendedor..." class="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-xs font-mono text-slate-200 focus:outline-none focus:border-cyan-500">
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-mono">
+                            <span class="text-slate-400">Filtrar:</span>
+                            <button onclick="setFilter('ALL')" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">Todos</button>
+                            <button onclick="setFilter('WIFI')" class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">Wi-Fi</button>
+                            <button onclick="setFilter('BLE')" class="px-2.5 py-1 rounded bg-violet-950 text-violet-300 border border-violet-800">BLE</button>
+                        </div>
+                    </div>
+
+                    <!-- Device Table Container -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-slate-800 text-[11px] font-mono uppercase text-slate-400 bg-slate-900/40">
+                                    <th class="p-3">SSID / Nombre</th>
+                                    <th class="p-3">BSSID / MAC</th>
+                                    <th class="p-3">RSSI</th>
+                                    <th class="p-3">Canal</th>
+                                    <th class="p-3">Seguridad</th>
+                                    <th class="p-3">Fabricante</th>
+                                    <th class="p-3 text-right">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="device-table-body" class="divide-y divide-slate-800/50 text-xs font-mono">
+                                <!-- Dynamic rows populated via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: THREATS MONITOR -->
+            <div id="tab-content-threats" class="hidden space-y-4">
+                <div class="glass-panel rounded-2xl p-4">
+                    <h3 class="text-sm font-mono font-semibold text-rose-400 uppercase flex items-center gap-2 mb-4">
+                        <i data-lucide="shield-alert" class="w-5 h-5"></i> Detección de Anomalías y Ataques de Desautenticación
+                    </h3>
+                    <div id="threats-list" class="space-y-3 font-mono">
+                        <!-- Dynamic threat logs populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: CONFIG & FIRMWARE GENERATOR (config.h) -->
+            <div id="tab-content-config" class="hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Form Options -->
+                    <div class="lg:col-span-5 glass-panel rounded-2xl p-5 space-y-4">
+                        <h3 class="text-sm font-mono font-semibold text-cyan-400 uppercase flex items-center gap-2 mb-2">
+                            <i data-lucide="sliders" class="w-4 h-4"></i> Ajustes de Compilación C++
+                        </h3>
+                        <div>
+                            <label class="block text-xs font-mono text-slate-400 mb-1">Nombre del Dispositivo (Host)</label>
+                            <input type="text" id="cfg-hostname" value="ScannerPRO-ESP32" oninput="generateCppHeader()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono text-slate-200">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-slate-400 mb-1">SSID de Access Point Web</label>
+                            <input type="text" id="cfg-ssid" value="ScannerPRO_AP" oninput="generateCppHeader()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono text-slate-200">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-slate-400 mb-1">Intervalo de Escaneo (ms)</label>
+                            <input type="number" id="cfg-interval" value="250" step="50" oninput="generateCppHeader()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono text-slate-200">
+                        </div>
+                        <div class="flex items-center gap-2 pt-2">
+                            <input type="checkbox" id="cfg-ble" checked onchange="generateCppHeader()" class="rounded bg-slate-900 border-slate-800 text-cyan-500 focus:ring-0">
+                            <label for="cfg-ble" class="text-xs font-mono text-slate-300">Habilitar Escáner BLE Dual-Core</label>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="cfg-stealth" checked onchange="generateCppHeader()" class="rounded bg-slate-900 border-slate-800 text-cyan-500 focus:ring-0">
+                            <label for="cfg-stealth" class="text-xs font-mono text-slate-300">Modo Promiscuo / Sniffer de Paquetes</label>
+                        </div>
+                    </div>
+
+                    <!-- C++ Header Preview & Copy Box -->
+                    <div class="lg:col-span-7 glass-panel rounded-2xl p-5 flex flex-col">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-mono font-semibold text-slate-300 uppercase flex items-center gap-2">
+                                <i data-lucide="code" class="w-4 h-4 text-emerald-400"></i> Archivo Generado: <span class="text-cyan-400">config.h</span>
+                            </span>
+                            <button onclick="copyCppHeader()" class="px-3 py-1.5 rounded bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-xs font-mono transition-all flex items-center gap-1.5">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Código
+                            </button>
+                        </div>
+                        <pre class="flex-1 bg-slate-950 p-4 rounded-xl border border-slate-800 text-[11px] font-mono text-emerald-400 overflow-x-auto leading-relaxed" id="cpp-code-block"></pre>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Notification Toast Modal -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <script>
+        /* Application State */
+        const state = {
+            isScanning: true,
+            audioEnabled: false,
+            activeTab: 'radar',
+            filter: 'ALL',
+            searchTerm: '',
+            devices: [],
+            threats: [],
+            scanIntervalMs: 250,
+            radarAngle: 0,
+            fps: 60,
+            lastFrameTime: performance.now(),
+            audioCtx: null
+        };
+
+        /* Vendor OUI Mock Database */
+        const VENDORS = ['Cisco Systems', 'Apple Inc.', 'Espressif', 'Ubiquiti Inc.', 'Intel Corp', 'Samsung', 'TP-Link'];
+        const SSIDS = ['CorpNet_5G', 'Lab_IoT_Sensors', 'ESP32_Beacon_09', 'Starbucks_Guest', 'xfinitywifi', 'Home_Mesh_EXT', 'Cyber_Threat_AP'];
+
+        function initMockData() {
+            state.devices = [
+                { id: '1', ssid: 'CorpNet_5G', bssid: '00:1A:2B:3C:4D:5E', rssi: -42, channel: 36, type: 'WIFI', sec: 'WPA3 Enterprise', vendor: 'Cisco Systems', dist: 0.2, angle: 45 },
+                { id: '2', ssid: 'Lab_IoT_Sensors', bssid: '24:0A:C4:11:22:33', rssi: -58, channel: 6, type: 'WIFI', sec: 'WPA2-PSK', vendor: 'Espressif', dist: 0.5, angle: 130 },
+                { id: '3', ssid: 'Apple Watch Ultra', bssid: 'A4:C3:F0:88:99:AA', rssi: -65, channel: 37, type: 'BLE', sec: 'BLE Encrypted', vendor: 'Apple Inc.', dist: 0.65, angle: 220 },
+                { id: '4', ssid: 'Cyber_Threat_AP', bssid: 'DE:AD:BE:EF:00:01', rssi: -35, channel: 1, type: 'WIFI', sec: 'OPEN (Evil Twin)', vendor: 'Unknown', dist: 0.15, angle: 310, threat: true },
+                { id: '5', ssid: 'Home_Mesh_EXT', bssid: '78:8A:20:99:88:77', rssi: -78, channel: 11, type: 'WIFI', sec: 'WPA2-PSK', vendor: 'TP-Link', dist: 0.8, angle: 180 }
+            ];
+
+            state.threats = [
+                { time: new Date().toLocaleTimeString(), title: 'Posible Rogue AP / Evil Twin', details: 'SSID "Cyber_Threat_AP" detectado sin cifrado en canal 1 con RSSI elevado (-35 dBm).' },
+                { time: new Date().toLocaleTimeString(), title: 'Ráfaga de Marcos de Desautenticación', details: 'Detectados 140 paquetes Deauth por segundo dirijidos a BSSID 00:1A:2B:3C:4D:5E.' }
+            ];
+
+            updateThreatCount();
+        }
+
+        function toggleAudioEngine() {
+            state.audioEnabled = !state.audioEnabled;
+            const btn = document.getElementById('btn-audio');
+            const icon = document.getElementById('icon-audio');
+            const txt = document.getElementById('txt-audio');
+
+            if (state.audioEnabled) {
+                if (!state.audioCtx) {
+                    state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                btn.classList.add('border-cyan-500', 'text-cyan-400');
+                icon.setAttribute('data-lucide', 'volume-2');
+                txt.textContent = 'Audio: ON';
+                showToast('Motor Audio Sintetizado Activado', 'info');
+            } else {
+                btn.classList.remove('border-cyan-500', 'text-cyan-400');
+                icon.setAttribute('data-lucide', 'volume-x');
+                txt.textContent = 'Audio: OFF';
+            }
+            lucide.createIcons();
+        }
+
+        function playGeigerBeep(rssi) {
+            if (!state.audioEnabled || !state.audioCtx) return;
+            try {
+                const osc = state.audioCtx.createOscillator();
+                const gain = state.audioCtx.createGain();
+                const freq = 400 + (Math.abs(rssi) < 50 ? (100 - Math.abs(rssi)) * 15 : 100);
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, state.audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.03, state.audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, state.audioCtx.currentTime + 0.05);
+
+                osc.connect(gain);
+                gain.connect(state.audioCtx.destination);
+                osc.start();
+                osc.stop(state.audioCtx.currentTime + 0.05);
+            } catch(e) {}
+        }
+
+        function initRadarCanvas() {
+            const canvas = document.getElementById('radarCanvas');
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                canvas.width = rect.width * window.devicePixelRatio;
+                canvas.height = rect.height * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            function drawRadar() {
+                const w = canvas.width / window.devicePixelRatio;
+                const h = canvas.height / window.devicePixelRatio;
+                const cx = w / 2;
+                const cy = h / 2;
+                const radius = Math.min(cx, cy) - 10;
+
+                ctx.clearRect(0, 0, w, h);
+
+                // Draw radar background concentric circles
+                ctx.strokeStyle = 'rgba(6, 182, 212, 0.2)';
+                ctx.lineWidth = 1;
+                for (let r = 1; r <= 4; r++) {
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, (radius / 4) * r, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+
+                // Crosshairs
+                ctx.beginPath();
+                ctx.moveTo(cx - radius, cy); ctx.lineTo(cx + radius, cy);
+                ctx.moveTo(cx, cy - radius); ctx.lineTo(cx, cy + radius);
+                ctx.stroke();
+
+                if (state.isScanning) {
+                    state.radarAngle = (state.radarAngle + 0.03) % (Math.PI * 2);
+                }
+
+                // Draw Radar Sweeping Arc Line
+                const sweepGradient = ctx.createConicalGradient ? ctx.createConicalGradient(state.radarAngle, cx, cy) : null;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.arc(cx, cy, radius, state.radarAngle - 0.4, state.radarAngle);
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(6, 182, 212, 0.15)';
+                ctx.fill();
+
+                // Draw Rotating Beam Line
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx + radius * Math.cos(state.radarAngle), cy + radius * Math.sin(state.radarAngle));
+                ctx.strokeStyle = '#06b6d4';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Render Blips for Discovered Devices
+                state.devices.forEach(dev => {
+                    const devRad = (dev.angle * Math.PI) / 180;
+                    const devR = dev.dist * radius;
+                    const px = cx + devR * Math.cos(devRad);
+                    const py = cy + devR * Math.sin(devRad);
+
+                    // Check if radar beam is over device to trigger audio sound
+                    const angleDiff = Math.abs(state.radarAngle - devRad);
+                    if (angleDiff < 0.05 && state.isScanning) {
+                        playGeigerBeep(dev.rssi);
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(px, py, dev.threat ? 7 : 5, 0, Math.PI * 2);
+                    ctx.fillStyle = dev.threat ? '#f43f5e' : (dev.type === 'BLE' ? '#8b5cf6' : '#06b6d4');
+                    ctx.fill();
+
+                    // Glowing ring around targets
+                    ctx.beginPath();
+                    ctx.arc(px, py, dev.threat ? 12 : 9, 0, Math.PI * 2);
+                    ctx.strokeStyle = dev.threat ? 'rgba(244, 63, 94, 0.4)' : 'rgba(6, 182, 212, 0.3)';
+                    ctx.stroke();
+
+                    // SSID Label
+                    ctx.font = '10px "JetBrains Mono", monospace';
+                    ctx.fillStyle = '#cbd5e1';
+                    ctx.fillText(dev.ssid, px + 8, py + 3);
+                });
+
+                requestAnimationFrame(drawRadar);
+            }
+            drawRadar();
+        }
+
+        function initSpectrumCanvas() {
+            const canvas = document.getElementById('spectrumCanvas');
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                canvas.width = rect.width * window.devicePixelRatio;
+                canvas.height = rect.height * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            function drawSpectrum() {
+                const w = canvas.width / window.devicePixelRatio;
+                const h = canvas.height / window.devicePixelRatio;
+
+                ctx.clearRect(0, 0, w, h);
+
+                // Grid lines
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+                ctx.lineWidth = 1;
+                for (let i = 1; i < 5; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, (h / 5) * i); ctx.lineTo(w, (h / 5) * i);
+                    ctx.stroke();
+                }
+
+                // Simulate Channel parabolic curves (1 to 14)
+                const numChannels = 14;
+                const chanWidth = w / numChannels;
+
+                state.devices.forEach((dev) => {
+                    if (dev.type !== 'WIFI') return;
+                    const ch = dev.channel > 14 ? 6 : dev.channel; // fallback
+                    const cx = (ch - 0.5) * chanWidth;
+                    const peakH = Math.max(20, (100 + dev.rssi) * 1.8);
+
+                    ctx.beginPath();
+                    ctx.moveTo(cx - chanWidth * 1.5, h);
+                    ctx.quadraticCurveTo(cx, h - peakH, cx + chanWidth * 1.5, h);
+                    
+                    const grad = ctx.createLinearGradient(0, h - peakH, 0, h);
+                    grad.addColorStop(0, dev.threat ? 'rgba(244, 63, 94, 0.5)' : 'rgba(16, 185, 129, 0.5)');
+                    grad.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+
+                    ctx.strokeStyle = dev.threat ? '#f43f5e' : '#10b981';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                });
+
+                requestAnimationFrame(drawSpectrum);
+            }
+            drawSpectrum();
+        }
+
+        let rssiChartInstance = null;
+        function initRssiChart() {
+            const ctx = document.getElementById('rssiChart').getContext('2d');
+            rssiChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['', '', '', '', '', '', '', '', '', ''],
+                    datasets: [
+                        { label: 'CorpNet_5G', data: [-42, -43, -41, -44, -42, -40, -42, -43, -41, -42], borderColor: '#06b6d4', tension: 0.4, borderWidth: 2, pointRadius: 0 },
+                        { label: 'Lab_IoT', data: [-60, -58, -59, -57, -58, -60, -58, -59, -58, -58], borderColor: '#10b981', tension: 0.4, borderWidth: 2, pointRadius: 0 },
+                        { label: 'Apple Watch', data: [-68, -65, -66, -64, -65, -67, -65, -66, -65, -65], borderColor: '#8b5cf6', tension: 0.4, borderWidth: 2, pointRadius: 0 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: false,
+                    plugins: { legend: { labels: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 10 } } } },
+                    scales: {
+                        y: { min: -100, max: -20, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 } } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function renderDeviceTable() {
+            const tbody = document.getElementById('device-table-body');
+            tbody.innerHTML = '';
+
+            const filtered = state.devices.filter(d => {
+                const matchType = state.filter === 'ALL' || d.type === state.filter;
+                const matchQuery = d.ssid.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
+                                   d.bssid.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
+                                   d.vendor.toLowerCase().includes(state.searchTerm.toLowerCase());
+                return matchType && matchQuery;
+            });
+
+            filtered.forEach(d => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-800/40 transition-colors';
+                tr.innerHTML = `
+                    <td class="p-3 font-semibold text-slate-100 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full ${d.threat ? 'bg-rose-500 animate-pulse' : (d.type === 'WIFI' ? 'bg-cyan-400' : 'bg-violet-400')}"></span>
+                        ${d.ssid}
+                    </td>
+                    <td class="p-3 text-slate-400">${d.bssid}</td>
+                    <td class="p-3">
+                        <span class="px-2 py-0.5 rounded font-mono ${d.rssi > -50 ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800'}">
+                            ${d.rssi} dBm
+                        </span>
+                    </td>
+                    <td class="p-3 text-slate-300">${d.channel}</td>
+                    <td class="p-3 text-slate-400">${d.sec}</td>
+                    <td class="p-3 text-slate-400">${d.vendor}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="inspectDevice('${d.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-cyan-900 hover:text-cyan-300 text-slate-300 text-[11px] transition-all">
+                            Detalles
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('count-devices').textContent = state.devices.length;
+        }
+
+        function filterDevices() {
+            state.searchTerm = document.getElementById('device-search').value;
+            renderDeviceTable();
+        }
+
+        function setFilter(type) {
+            state.filter = type;
+            renderDeviceTable();
+        }
+
+        function updateThreatCount() {
+            document.getElementById('count-threats').textContent = state.threats.length;
+            const container = document.getElementById('threats-list');
+            container.innerHTML = '';
+
+            state.threats.forEach(t => {
+                const card = document.createElement('div');
+                card.className = 'p-3 rounded-xl bg-rose-950/30 border border-rose-800/50 flex flex-col gap-1';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-rose-400 flex items-center gap-2">
+                            <i data-lucide="alert-triangle" class="w-4 h-4"></i> ${t.title}
+                        </span>
+                        <span class="text-[10px] text-slate-500">${t.time}</span>
+                    </div>
+                    <p class="text-xs text-slate-300">${t.details}</p>
+                `;
+                container.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function generateCppHeader() {
+            const hostname = document.getElementById('cfg-hostname').value || 'ScannerPRO-ESP32';
+            const ssid = document.getElementById('cfg-ssid').value || 'ScannerPRO_AP';
+            const interval = document.getElementById('cfg-interval').value || 250;
+            const bleEnabled = document.getElementById('cfg-ble').checked;
+            const stealthEnabled = document.getElementById('cfg-stealth').checked;
+
+            const code = `/* 
+ * ScannerPRO - Auto-Generated Firmware Header (config.h)
+ * Arquitectura Target: ESP32-S3 / ESP32-C3 / ESP8266
+ * Generado por Nexus Architect Engine
+ */
+
+#ifndef CONFIG_H
+#define CONFIG_H
+
+// === CONFIGURACIÓN DE DISPOSITIVO ===
+#define DEVICE_HOSTNAME       "${hostname}"
+#define AP_WIFI_SSID          "${ssid}"
+#define AP_WIFI_PASSWORD      "scanner1234"
+
+// === PARÁMETROS DE ESCANEO RF ===
+#define SCAN_INTERVAL_MS      ${interval}
+#define SCAN_CHANNEL_HOP_TIME 50
+#define ENABLE_BLE_SCANNER    ${bleEnabled ? 'true' : 'false'}
+#define ENABLE_PROMISCUOUS    ${stealthEnabled ? 'true' : 'false'}
+
+// === PUERTOS Y PROTOCOLOS ===
+#define WEB_SERVER_PORT       80
+#define WEBSOCKET_PORT        81
+
+#endif // CONFIG_H`;
+
+            document.getElementById('cpp-code-block').textContent = code;
+        }
+
+        function copyCppHeader() {
+            const code = document.getElementById('cpp-code-block').textContent;
+            const el = document.createElement('textarea');
+            el.value = code;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            showToast('config.h copiado al portapapeles', 'success');
+        }
+
+        function switchTab(tabId) {
+            state.activeTab = tabId;
+            ['radar', 'devices', 'threats', 'config'].forEach(t => {
+                const el = document.getElementById(`tab-content-${t}`);
+                const nav = document.getElementById(`nav-${t}`);
+                if (t === tabId) {
+                    el.classList.remove('hidden');
+                    nav.classList.add('text-cyan-400', 'bg-cyan-500/10', 'border', 'border-cyan-500/30');
+                    nav.classList.remove('text-slate-400');
+                } else {
+                    el.classList.add('hidden');
+                    nav.classList.remove('text-cyan-400', 'bg-cyan-500/10', 'border', 'border-cyan-500/30');
+                    nav.classList.add('text-slate-400');
+                }
+            });
+        }
+
+        function toggleScan() {
+            state.isScanning = !state.isScanning;
+            const btn = document.getElementById('btn-scan');
+            const txt = document.getElementById('txt-scan');
+            const icon = document.getElementById('icon-scan');
+
+            if (state.isScanning) {
+                btn.className = "px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/20";
+                txt.textContent = 'PAUSAR';
+                icon.setAttribute('data-lucide', 'pause');
+            } else {
+                btn.className = "px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-semibold text-xs font-mono uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-amber-500/20";
+                txt.textContent = 'REANUDAR';
+                icon.setAttribute('data-lucide', 'play');
+            }
+            lucide.createIcons();
+        }
+
+        function inspectDevice(id) {
+            const dev = state.devices.find(d => d.id === id);
+            if (dev) {
+                showToast(`Analizando ${dev.ssid} (${dev.bssid})`, 'info');
+            }
+        }
+
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-2.5 rounded-xl border text-xs font-mono shadow-2xl transition-all duration-300 transform translate-y-2 flex items-center gap-2 ${
+                type === 'success' ? 'bg-emerald-950/90 border-emerald-500/50 text-emerald-300' : 'bg-cyan-950/90 border-cyan-500/50 text-cyan-300'
+            }`;
+            toast.innerHTML = `<i data-lucide="${type === 'success' ? 'check-circle' : 'info'}" class="w-4 h-4"></i> ${msg}`;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = function() {
+            lucide.createIcons();
+            initMockData();
+            initRadarCanvas();
+            initSpectrumCanvas();
+            initRssiChart();
+            renderDeviceTable();
+            generateCppHeader();
+
+            // Periodic simulation tick for live RSSI updates
+            setInterval(() => {
+                if (!state.isScanning) return;
+                state.devices.forEach(d => {
+                    d.rssi += Math.floor(Math.random() * 5) - 2;
+                    d.rssi = Math.max(-95, Math.min(-30, d.rssi));
+                });
+                renderDeviceTable();
+
+                // Update Chart.js RSSI data
+                if (rssiChartInstance) {
+                    rssiChartInstance.data.datasets.forEach(ds => {
+                        ds.data.shift();
+                        ds.data.push(ds.data[ds.data.length - 1] + (Math.floor(Math.random() * 5) - 2));
+                    });
+                    rssiChartInstance.update();
+                }
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

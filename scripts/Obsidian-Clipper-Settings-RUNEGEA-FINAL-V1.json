@@ -1,0 +1,319 @@
+{
+  "general_settings": {
+    "betaFeatures": true,
+    "legacyMode": false,
+    "openBehavior": "popup",
+    "saveBehavior": "saveFile",
+    "showMoreActionsButton": true,
+    "silentOpen": true
+  },
+  "highlighter_settings": {
+    "alwaysShowHighlights": true,
+    "highlightBehavior": "highlight-inline",
+    "highlighterEnabled": true
+  },
+  "interpreter_settings": {
+    "defaultPromptContext": "[RUNEFORGE RUNEGEA - SELLOS ACTIVOS]\nEres el sistema de extracción RUNEGEA v1.0 - Fusión Goetia:\n\n- SELLO #20 PURSON: Ana secore on ca Purson - Tesoros ocultos / OSINT - Función: Invoke-Purson - Busca ESN, tramas !E..., Raw Escort\n- SELLO #29 ASTAROTH: Tasa alora foren Astaroth - Knowledge Graph / Ciencias - Función: Invoke-Astaroth - Estructura en YAML/Obsidian\n- SELLO #30 FORNEUS: Tasa Forneus - Retórica / Resumir chats largos IA - Función: Invoke-Forneus - Resume conversaciones IA\n\nROUTING AUTOMÁTICO por URL:\n\n1. SI url contiene rastreo.tgarzaleal.com -> ACTIVA PURSON-ASTAROTH #20+29\n   - Extrae: ESN (10-15 digitos), TRAMA regex !E[0-9]{10},040000[0-9A-F]{16}, NIVEL L, RAW_ESCORT, COMANDOS !r3,62 / !r3,61 / AT+\n   - Si no encuentras campo, déjalo \"\" no inventes.\n   - Frontmatter: unit, esn, trama, nivel, raw_escort, comando_calamp, sello=purson-astaroth\n\n2. SI url contiene chat.deepseek.com, chat.openai.com, chatgpt.com, claude.ai, gemini.google.com, aistudio.google.com -> ACTIVA FORNEUS-ASTAROTH #30+29\n   - Extrae: modelo (deepseek/chatgpt/claude/gemini), prompt del usuario, solución / código final, lenguaje (powershell/python), errores encontrados\n   - Genera resumen ejecutivo de 3 bullets de la solución\n   - Frontmatter: modelo, solucion, prompt_resumen, lenguaje, sello=forneus-astaroth, enn=Tasa Forneus\n   - NO copies todo el chat, resume con checklist\n\n3. SI otra URL -> ACTIVA ASTAROTH base #29\n   - Extrae title, description, author, published\n   - Genera tags inteligentes + resumen\n\nREGLAS GLOBALES:\n- YAML válido, sin inventar datos\n- status: operativo|mantenimiento|alerta|resuelto|documentado\n- tags siempre incluir: runeforge/clipping + sello/purson o sello/forneus + tags contextuales\n- El cuerpo en Markdown con tablas y bloques de código\n- Si detectas comandos PowerShell, ponlos en bloque ```powershell\n",
+    "interpreterAutoRun": true,
+    "interpreterEnabled": true,
+    "interpreterModel": "runegea-purson-forneus-astaroth-v1",
+    "models": [],
+    "providers": []
+  },
+  "migrationVersion": 1,
+  "schemaVersion": "0.1.0",
+  "stats": {
+    "addToObsidian": 12,
+    "copyToClipboard": 142,
+    "saveFile": 54,
+    "share": 3
+  },
+  "property_types": [
+    {
+      "defaultValue": "{{title}}",
+      "name": "title",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{url}}",
+      "name": "source",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{date:YYYY-MM-DD HH:mm:ss}}",
+      "name": "created",
+      "type": "date"
+    },
+    {
+      "defaultValue": "{{published}}",
+      "name": "published",
+      "type": "date"
+    },
+    {
+      "defaultValue": "",
+      "name": "unit",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "esn",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "group",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "trama",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "nivel",
+      "type": "number"
+    },
+    {
+      "defaultValue": "",
+      "name": "raw_escort",
+      "type": "number"
+    },
+    {
+      "defaultValue": "",
+      "name": "comandos",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "comando_calamp",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "location",
+      "type": "text"
+    },
+    {
+      "defaultValue": "operativo",
+      "name": "status",
+      "type": "text"
+    },
+    {
+      "defaultValue": "purson-astaroth",
+      "name": "sello",
+      "type": "text"
+    },
+    {
+      "defaultValue": "Ana secore on ca Purson",
+      "name": "enn",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "modelo",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "solucion",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "prompt_resumen",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "lenguaje",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{author|split:\", \"|wikilink|join}}",
+      "name": "author",
+      "type": "multitext"
+    },
+    {
+      "defaultValue": "{{description}}",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "defaultValue": "runeforge/clipping",
+      "name": "tags",
+      "type": "multitext"
+    },
+    {
+      "defaultValue": "{{obsidianUrl}}",
+      "name": "obsidian_link",
+      "type": "text"
+    }
+  ],
+  "reader_settings": {
+    "appearance": "auto",
+    "autoScroll": true,
+    "blendImages": true,
+    "colorLinks": true,
+    "customCss": "",
+    "darkTheme": "same",
+    "defaultFont": "",
+    "followLinks": true,
+    "fontSize": 16,
+    "fonts": [],
+    "highlightActiveLine": true,
+    "lightTheme": "default",
+    "lineHeight": 1.6,
+    "maxWidth": 42,
+    "pinPlayer": true
+  },
+  "vaults": [],
+  "template_list": [
+    "tgl_fleet_intel_pro",
+    "tgl_ai_intel_forneus",
+    "tgl_quick_log",
+    "predeterminado_runegea"
+  ],
+  "templates": [
+    {
+      "behavior": "create",
+      "id": "tgl_fleet_intel_pro",
+      "name": "🚚 TGL Fleet Intelligence - Purson-Astaroth [SELLO #20+29]",
+      "noteNameFormat": "UNIDAD-{{unit}}-{{date:YYYYMMDD}}-{{title|slugify}}",
+      "path": "Runeforge/Fleet_Intel",
+      "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\npublished: \"{{published}}\"\ncreated: \"{{date:YYYY-MM-DD HH:mm:ss}}\"\nunit: \"{{unit}}\"\nesn: \"{{esn}}\"\ngroup: \"{{group}}\"\ntrama: \"{{trama}}\"\nnivel: {{nivel}}\nraw_escort: {{raw_escort}}\ncomandos: \"{{comandos}}\"\ncomando_calamp: \"{{comando_calamp}}\"\nlocation: \"{{location}}\"\nstatus: \"{{status}}\"\nsello: \"purson-astaroth\"\nenn: \"Ana secore on ca Purson\"\nmodelo: \"{{modelo}}\"\ntags: [runeforge/clipping, sello/purson, sello/astaroth, tgl-lab, fleet/intelligence, telemetry]\nobsidian_link: \"{{obsidianUrl}}\"\n---\n\n# 🚚 {{title}} [SELLO #20 Purson]\n\n> **Extractor:** Purson-Astaroth (`Ana secore on ca Purson`) | **Trigger:** rastreo.tgarzaleal.com\n> **Fuente:** [{{url}}]({{url}}) | **Capturado:** {{date:YYYY-MM-DD HH:mm:ss}}\n\n---\n\n## 📡 Telemetría Crítica [Purson Scan #20]\n\n| Parámetro | Valor | Purson |\n|-----------|-------|--------|\n| **Unidad** | `{{unit}}` | {{#unit}}✅{{/unit}}{{^unit}}⚠️{{/unit}} |\n| **ESN** | `{{esn}}` | {{#esn}}✅{{/esn}}{{^esn}}❌{{/esn}} |\n| **Grupo** | `{{group}}` |  |\n| **Trama** | `{{trama}}` | {{#trama}}🔍 Tesoro{{/trama}}{{^trama}}🔎{{/trama}} |\n| **Nivel L** | `{{nivel}}` |  |\n| **Raw Escort** | `{{raw_escort}}` |  |\n| **CalAmp** | `{{comando_calamp}}` |  |\n\n## 🔍 Trama Raw [Tesoro Oculto]\n\n```trama\n{{trama}}\n```\n\n## 📋 Contenido\n\n{{content}}\n\n## 🧠 Análisis Purson-Astaroth\n\n- [ ] Validar ESN vs inventario\n- [ ] Decodificar trama: `Invoke-Purson -MinMB 0`\n- [ ] Check `Invoke-PursonObsidian -VaultPath \"C:/Users/nesth/Documents/ObsidianVault\"`\n- [ ] Sync Tailscale\n",
+      "properties": [
+        {
+          "id": "prop_tgl_title",
+          "name": "title",
+          "type": "text",
+          "value": "{{title}}"
+        },
+        {
+          "id": "prop_tgl_source",
+          "name": "source",
+          "type": "text",
+          "value": "{{url}}"
+        },
+        {
+          "id": "prop_tgl_esn",
+          "name": "esn",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "id": "prop_tgl_trama",
+          "name": "trama",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "id": "prop_tgl_sello",
+          "name": "sello",
+          "type": "text",
+          "value": "purson-astaroth"
+        }
+      ],
+      "triggers": [
+        "https://rastreo.tgarzaleal.com/*",
+        "https://*.tgarzaleal.com/*"
+      ]
+    },
+    {
+      "behavior": "create",
+      "id": "tgl_ai_intel_forneus",
+      "name": "🧠 AI Intel - Forneus-Astaroth [SELLO #30+29] DeepSeek/ChatGPT/Claude",
+      "noteNameFormat": "AI-{{modelo}}-{{title|slugify}}-{{date:YYYYMMDD}}",
+      "path": "Runeforge/AI_Intel",
+      "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\ncreated: \"{{date:YYYY-MM-DD HH:mm:ss}}\"\nmodelo: \"{{modelo}}\"\nsolucion: \"{{solucion}}\"\nprompt_resumen: \"{{prompt_resumen}}\"\nlenguaje: \"{{lenguaje}}\"\nsello: \"forneus-astaroth\"\nenn: \"Tasa Forneus\"\nstatus: \"documentado\"\ntags: [runeforge/clipping, sello/forneus, sello/astaroth, ai/{{modelo}}, ai/chat, runeforge/solucion]\nobsidian_link: \"{{obsidianUrl}}\"\n---\n\n# 🧠 {{title}} [SELLO #30 Forneus]\n\n> **Extractor:** Forneus-Astaroth (`Tasa Forneus`) - Retórica + Knowledge Graph\n> **Modelo:** `{{modelo}}` | **Fuente:** [{{url}}]({{url}})\n> **Capturado:** {{date:YYYY-MM-DD HH:mm:ss}}\n\n---\n\n## 🎯 Prompt Original [Forneus]\n\n> {{prompt_resumen}}\n\n## ✅ Solución Extraída [Astaroth #29]\n\n**Resumen:** {{solucion}}\n\n**Lenguaje:** `{{lenguaje}}`\n\n### Código / Comandos clave:\n\n```{{lenguaje}}\n{{content}}\n```\n\n## 🧠 Análisis Forneus-Astaroth\n\n### Qué se resolvió:\n- [ ] Error / Bug identificado\n- [ ] Solución implementada\n- [ ] Probado en RUNEFORGE\n\n### Para reutilizar:\n- [ ] Copiar a `C:\\RUNEFORGE_V2_CORE\\scripts\\`\n- [ ] Probar: `Invoke-Purson`, `Invoke-Forneus`\n- [ ] Documentar en `docs/WHISPER-BACKEND.md` o `docs/RUNEGEA.md`\n\n> Invocado con: `Invoke-Forneus` + `Invoke-Astaroth` desde RUNEFORGE-Goetia-Final.psm1\n> Trigger: chat.deepseek.com, chatgpt.com, claude.ai, gemini.google.com\n",
+      "properties": [
+        {
+          "id": "prop_ai_title",
+          "name": "title",
+          "type": "text",
+          "value": "{{title}}"
+        },
+        {
+          "id": "prop_ai_source",
+          "name": "source",
+          "type": "text",
+          "value": "{{url}}"
+        },
+        {
+          "id": "prop_ai_modelo",
+          "name": "modelo",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "id": "prop_ai_solucion",
+          "name": "solucion",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "id": "prop_ai_sello",
+          "name": "sello",
+          "type": "text",
+          "value": "forneus-astaroth"
+        }
+      ],
+      "triggers": [
+        "https://chat.deepseek.com/*",
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://*.claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://aistudio.google.com/*",
+        "https://www.deepseek.com/*"
+      ]
+    },
+    {
+      "behavior": "create",
+      "id": "tgl_quick_log",
+      "name": "📝 Runeforge - Log Rápido Operativo",
+      "noteNameFormat": "LOG-{{date:YYYYMMDD}}-{{title|slugify}}",
+      "path": "Runeforge/Quick_Logs",
+      "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\ncreated: \"{{date:YYYY-MM-DD HH:mm:ss}}\"\nsello: \"astaroth\"\nenn: \"Tasa alora foren Astaroth\"\ntags: [runeforge/quicklog, sello/astaroth]\nobsidian_link: \"{{obsidianUrl}}\"\n---\n\n# {{title}} [QuickLog]\n\n> {{url}} | {{date:YYYY-MM-DD HH:mm:ss}}\n\n{{content}}\n\n## Check\n\n- [ ] Revisar\n- [ ] Mover a Fleet_Intel o AI_Intel si aplica\n",
+      "properties": [
+        {
+          "id": "prop_ql_title",
+          "name": "title",
+          "type": "text",
+          "value": "{{title}}"
+        },
+        {
+          "id": "prop_ql_source",
+          "name": "source",
+          "type": "text",
+          "value": "{{url}}"
+        }
+      ],
+      "triggers": []
+    },
+    {
+      "behavior": "create",
+      "id": "predeterminado_runegea",
+      "name": "📦 Predeterminado - Runegea [SELLO #29 Astaroth]",
+      "noteNameFormat": "{{title|slugify}}-{{date:YYYYMMDD}}",
+      "path": "Clippings/Runegea",
+      "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\nauthor: \"{{author|split:\", \"|wikilink|join}}\"\npublished: \"{{published}}\"\ncreated: \"{{date:YYYY-MM-DD HH:mm:ss}}\"\ndescription: \"{{description}}\"\nsello: \"astaroth-base\"\nenn: \"Tasa alora foren Astaroth\"\ntags: [clippings, runeforge/clipping, sello/astaroth]\nobsidian_link: \"{{obsidianUrl}}\"\n---\n\n# {{title}}\n\n> Fuente: [{{url}}]({{url}})\n\n{{content}}\n\n---\n*Extraído con Sello #29 Astaroth - {{date:YYYY-MM-DD}}*\n",
+      "properties": [
+        {
+          "id": "pred_t",
+          "name": "title",
+          "type": "text",
+          "value": "{{title}}"
+        },
+        {
+          "id": "pred_s",
+          "name": "source",
+          "type": "text",
+          "value": "{{url}}"
+        }
+      ],
+      "triggers": []
+    }
+  ]
+}

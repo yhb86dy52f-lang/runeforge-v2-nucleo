@@ -1,0 +1,168 @@
+<#
+.SYNOPSIS
+    Clona apps\_template -> apps\<Name> y ajusta identificadores.
+.DESCRIPTION
+    Ruta canonica: C:\RUNEFORGE_V2_CORE\scripts
+    Correcciones aplicadas:
+    - UTF-8 sin BOM (compatible con Cargo/Rust).
+    - Compila desde src-tauri (no requiere workspace raiz).
+    - Verifica cada ruta antes de tocarla.
+    - Falla rapido con mensajes claros.
+.PARAMETER Name
+    Nombre de la nueva app (kebab-case, solo [a-z0-9-]).
+.EXAMPLE
+    .\New-RuneforgeApp.ps1 -Name "mi-app-nueva"
+#>
+param(
+    [Parameter(Mandatory=$false)]
+    [string]$Name = "esp32-scanner-pro"
+)
+
+$ErrorActionPreference = "Stop"
+
+# --- Rutas absolutas ---
+$root      = "C:\RUNEFORGE_V2_CORE"
+$appsDir   = Join-Path $root "apps"
+$template  = Join-Path $appsDir "_template"
+$newApp    = Join-Path $appsDir $Name
+$srcTauri  = Join-Path $newApp "src-tauri"
+$cargoToml = Join-Path $srcTauri "Cargo.toml"
+$tauriConf = Join-Path $srcTauri "tauri.conf.json"
+$srcHtml   = Join-Path $newApp "src\index.html"
+$iconsSrc  = Join-Path $appsDir "dictate-studio-v2\src-tauri\icons"
+$iconsDst  = Join-Path $srcTauri "icons"
+
+# --- Helper: escribir UTF-8 sin BOM ---
+function Write-Utf8NoBom {
+    param([string]$Path, [string]$Content)
+    $enc = [System.Text.UTF8Encoding]::new($false)
+    [IO.File]::WriteAllText($Path, $Content, $enc)
+}
+
+function Read-Utf8 {
+    param([string]$Path)
+    return [IO.File]::ReadAllText($Path, [System.Text.UTF8Encoding]::new($false))
+}
+
+# --- 0. Validaciones previas ---
+Write-Host ""
+Write-Host "=== VALIDACION PREVIA ===" -ForegroundColor Cyan
+
+if (-not (Test-Path $root))     { throw "[X] No existe $root" }
+if (-not (Test-Path $appsDir))  { throw "[X] No existe $appsDir" }
+if (-not (Test-Path $template)) { throw "[X] No existe el template $template" }
+if ($Name -notmatch '^[a-z0-9\-]+$') {
+    throw "[X] Nombre invalido '$Name'. Solo minusculas, numeros y guiones."
+}
+if ($Name -eq "_template") {
+    throw "[X] No puedes crear una app llamada _template"
+}
+
+Write-Host "[OK] Template: $template"  -ForegroundColor Green
+Write-Host "[OK] Destino:  $newApp"    -ForegroundColor Green
+Write-Host "[OK] Nombre:   $Name"      -ForegroundColor Green
+
+# --- 1. Limpiar destino si existe ---
+Write-Host ""
+Write-Host "=== PASO 1/5: Limpiar destino previo ===" -ForegroundColor Cyan
+
+if (Test-Path $newApp) {
+    Write-Host "[--] $newApp ya existe. Eliminando..." -ForegroundColor Yellow
+    Get-Process "$Name" -EA SilentlyContinue | Stop-Process -Force
+    Start-Sleep -Milliseconds 400
+    Remove-Item $newApp -Recurse -Force
+    Write-Host "[OK] Eliminado" -ForegroundColor Green
+} else {
+    Write-Host "[--] Nada que limpiar" -ForegroundColor DarkGray
+}
+
+# --- 2. Copiar template ---
+Write-Host ""
+Write-Host "=== PASO 2/5: Copiar template ===" -ForegroundColor Cyan
+
+Copy-Item -Path $template -Destination $newApp -Recurse -Force
+Write-Host "[OK] $template -> $newApp" -ForegroundColor Green
+
+# --- 3. Reemplazar __APPNAME__ en archivos clave ---
+Write-Host ""
+Write-Host "=== PASO 3/5: Reemplazar __APPNAME__ ===" -ForegroundColor Cyan
+
+$archivos = @(
+    @{ Path = $cargoToml; Nombre = "Cargo.toml" },
+    @{ Path = $tauriConf; Nombre = "tauri.conf.json" },
+    @{ Path = $srcHtml;   Nombre = "src\index.html" }
+)
+
+foreach ($a in $archivos) {
+    if (-not (Test-Path $a.Path)) {
+        Write-Host "[!] Falta $($a.Nombre) - se omite" -ForegroundColor Yellow
+        continue
+    }
+    $c = Read-Utf8 $a.Path
+    $c2 = $c -replace '__APPNAME__', $Name
+    if ($c -ne $c2) {
+        Write-Utf8NoBom -Path $a.Path -Content $c2
+        $count = ([regex]::Matches($c, '__APPNAME__')).Count
+        Write-Host "[OK] $($a.Nombre): $count reemplazos" -ForegroundColor Green
+    } else {
+        Write-Host "[--] $($a.Nombre): sin __APPNAME__ que reemplazar" -ForegroundColor DarkGray
+    }
+}
+
+# --- 4. Copiar iconos si faltan ---
+Write-Host ""
+Write-Host "=== PASO 4/5: Iconos ===" -ForegroundColor Cyan
+
+if (-not (Test-Path $iconsDst)) {
+    if (Test-Path $iconsSrc) {
+        Copy-Item -Path $iconsSrc -Destination $iconsDst -Recurse -Force
+        Write-Host "[OK] Iconos copiados desde dictate-studio-v2" -ForegroundColor Green
+    } else {
+        Write-Host "[!] No hay iconos de origen ($iconsSrc)" -ForegroundColor Yellow
+        Write-Host "    Crea src-tauri\icons manualmente antes de compilar" -ForegroundColor Gray
+    }
+} else {
+    Write-Host "[--] Iconos ya existen en el template" -ForegroundColor DarkGray
+}
+
+# --- 5. Verificar compilacion con sccache ---
+Write-Host ""
+Write-Host "=== PASO 5/5: cargo check (sccache caliente = rapido) ===" -ForegroundColor Cyan
+Write-Host "Directorio: $srcTauri" -ForegroundColor Gray
+Write-Host ""
+
+if (-not (Test-Path $srcTauri)) {
+    throw "[X] No existe $srcTauri - el template esta mal estructurado"
+}
+if (-not (Test-Path $cargoToml)) {
+    throw "[X] No existe $cargoToml"
+}
+
+Push-Location $srcTauri
+try {
+    $t0 = Get-Date
+    & cargo check 2>&1 | Tee-Object -Variable cargoOut
+    $exit = $LASTEXITCODE
+    $elapsed = (Get-Date) - $t0
+} finally {
+    Pop-Location
+}
+
+if ($exit -ne 0) {
+    Write-Host ""
+    Write-Host "[X] cargo check fallo (exit=$exit)" -ForegroundColor Red
+    Write-Host "    Ultimas lineas del error:" -ForegroundColor Yellow
+    $cargoOut | Select-Object -Last 15 | ForEach-Object { Write-Host "    $_" }
+    throw "Compilacion fallida"
+}
+
+# --- Exito ---
+Write-Host ""
+Write-Host "=== EXITO ===" -ForegroundColor Green
+Write-Host "  App creada:  $newApp" -ForegroundColor Green
+Write-Host "  Duracion:    $([math]::Round($elapsed.TotalSeconds,1))s" -ForegroundColor Green
+Write-Host ""
+Write-Host "Siguiente paso:" -ForegroundColor Cyan
+Write-Host "  cd $srcTauri" -ForegroundColor Gray
+Write-Host "  cargo build --release" -ForegroundColor Gray
+Write-Host "  # .exe queda en target\release\$Name.exe" -ForegroundColor Gray
