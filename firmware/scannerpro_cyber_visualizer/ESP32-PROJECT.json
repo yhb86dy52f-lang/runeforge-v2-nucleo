@@ -1,0 +1,168 @@
+{
+  "version_canon": "2026-10-09T00:49:00Z",
+  "sincronia_ias": {
+    "deepseek": "SELLADA 2026-10-09T00:12:08-06:00",
+    "meta_ai": "SELLADA 2026-10-09T00:12:08-06:00",
+    "gemini": "ACTUALIZANDO_A_ESTE_CANON - APP 11 AGREGADA"
+  },
+  "registro_sistema": {
+    "fecha_actualizacion": "2026-10-09T00:49:00Z",
+    "hostname": "RUNEFORGE-PC",
+    "so": "Windows 10 Build 19045 x64",
+    "ruta_forja": "C:\\RUNEFORGE_V2_CORE",
+    "estado_forja": "SELLADA + APP 11",
+    "hardware_host": {
+      "cpu": "AMD Ryzen 3 3200G",
+      "ram_gb": 16,
+      "gpu": "NVIDIA GeForce GTX 1660 SUPER 6GB",
+      "driver_nvidia": "610.47",
+      "cuda": "13.3"
+    },
+    "entorno_desarrollo": {
+      "rustc": "1.98.1",
+      "cargo": "1.98.1",
+      "rustup": "1.29.1",
+      "sccache": "0.18.0",
+      "sccache_cache_dir": "C:\\RUNEFORGE_V2_CORE\\.sccache",
+      "validacion_cargo_check": "7.34s -p dictate-studio-v2 / 7s -p esp32-scanner-pro"
+    }
+  },
+  "forja_runforge_v2_core": {
+    "cargo_toml_raiz": {
+      "members": [
+        "apps/*/src-tauri"
+      ],
+      "exclude": [
+        "apps/_template/src-tauri"
+      ],
+      "resolver": "2"
+    },
+    "apps_validadas": {
+      "total_carpetas": 11,
+      "tauri": 9,
+      "lista_tauri": [
+        "dictate-studio",
+        "dictate-studio-v2",
+        "nexus-lab",
+        "openwash-real",
+        "openwash-real-v2",
+        "opt-verify",
+        "panel-relevadores",
+        "sms-hub-hmi",
+        "esp32-scanner-pro"
+      ],
+      "backends_no_tauri": [
+        "dictate-backend",
+        "sms-hub"
+      ],
+      "ultima_creada": {
+        "nombre": "esp32-scanner-pro",
+        "fecha": "2026-10-09T00:47:32Z",
+        "comando": ".\\scripts\\new-app.ps1 -Name \"esp32-scanner-pro\"",
+        "resultado": "Clonando _template -> esp32-scanner-pro, Finished dev profile 31.57s, cargo check 7s",
+        "path": "C:\\RUNEFORGE_V2_CORE\\apps\\esp32-scanner-pro"
+      }
+    },
+    "scripts_canonicos": {
+      "ruta": "C:\\RUNEFORGE_V2_CORE\\scripts",
+      "canon_app": "new-app.ps1",
+      "build_estable": "Build-Release-Estable.ps1"
+    }
+  },
+  "subsistema_esp32_scannerpro": {
+    "firmware_flasheado": {
+      "nombre_sketch": "ScannerPRO_v9_COLLAB.ino",
+      "resultado_ultimo_flasheo": "EXITOSO FLASH OK",
+      "bytes": 1770736
+    },
+    "red_y_telemetria": {
+      "ip_esp32_sta": "192.168.100.3",
+      "mqtt_broker_host": "192.168.100.10",
+      "mqtt_port_tcp": 1883,
+      "mqtt_port_ws": 9001,
+      "estado_mqtt": "OPERATIVO",
+      "cliente_esp32": "SCANNER-14-a11f8a3c CONNACK 0,0",
+      "cliente_bridge": "RuneforgeBLEBridge SUBSCRIBE scannerpro/dispositivos"
+    }
+  },
+  "subsistema_dashboard_visualizer": {
+    "archivo_html": "C:\\RUNEFORGE_V2_CORE\\firmware\\scannerpro_cyber_visualizer\\scannerpro_cyber_visualizer.html",
+    "size": "1197.6 KB offline-first",
+    "json_canonico": "ESP32-PROJECT.json 9.8KB"
+  },
+  "app_esp32_scanner_pro": {
+    "nombre": "esp32-scanner-pro",
+    "tipo": "tauri",
+    "ruta": "C:\\RUNEFORGE_V2_CORE\\apps\\esp32-scanner-pro",
+    "frontend": "C:\\RUNEFORGE_V2_CORE\\apps\\esp32-scanner-pro\\src",
+    "backend": "C:\\RUNEFORGE_V2_CORE\\apps\\esp32-scanner-pro\\src-tauri",
+    "icons_source": "apps/dictate-studio-v2/src-tauri/icons (copiados ok)",
+    "integracion_visualizer": {
+      "comando": "Copy-Item \"C:\\RUNEFORGE_V2_CORE\\firmware\\scannerpro_cyber_visualizer\\scannerpro_cyber_visualizer.html\" \"C:\\RUNEFORGE_V2_CORE\\apps\\esp32-scanner-pro\\src\\index.html\" -Force",
+      "descripcion": "Incrusta radar 360, waterfall, TD-BLE, Geiger, WS ws://192.168.100.10:9001 en la app Tauri"
+    },
+    "build_release": {
+      "comando": ".\\scripts\\Build-Release-Estable.ps1 -Apps @('esp32-scanner-pro')",
+      "destino_exe": "C:\\RUNEFORGE_V2_CORE\\target\\release\\esp32-scanner-pro.exe",
+      "destino_lnk": "Escritorio\\esp32-scanner-pro.lnk",
+      "tiempo_estimado": "60-90s con sccache caliente"
+    }
+  },
+  "hoja_de_ruta": {
+    "pasos_ejecutados": [
+      {
+        "paso": 1,
+        "descripcion": "HTML visualizer offline-first 1197.6KB",
+        "estado": "COMPLETADO"
+      },
+      {
+        "paso": 2,
+        "descripcion": "Firmware ScannerPRO_v9_COLLAB flasheado COM5 BOOT+EN",
+        "estado": "COMPLETADO"
+      },
+      {
+        "paso": 3,
+        "descripcion": "JSON canon ESP32-PROJECT.json 9.8KB",
+        "estado": "COMPLETADO"
+      },
+      {
+        "paso": 4,
+        "descripcion": "Forja sellada cargo check 7.34s exclude _template",
+        "estado": "COMPLETADO"
+      },
+      {
+        "paso": 5,
+        "descripcion": "Mosquitto 2.1.2 operativo SCANNER-14 conectado rc=-2 resuelto",
+        "estado": "COMPLETADO"
+      },
+      {
+        "paso": 6,
+        "descripcion": "Build-Release-Estable.ps1 creado en scripts",
+        "estado": "COMPLETADO"
+      },
+      {
+        "paso": 7,
+        "descripcion": "new-app.ps1 esp32-scanner-pro 31.57s dev",
+        "estado": "COMPLETADO"
+      }
+    ],
+    "paso_actual": {
+      "paso": 8,
+      "descripcion": "Integrar visualizer HTML en esp32-scanner-pro/src/index.html y compilar release para escritorio",
+      "comandos": [
+        "Copy-Item \"C:\\RUNEFORGE_V2_CORE\\firmware\\scannerpro_cyber_visualizer\\scannerpro_cyber_visualizer.html\" \"C:\\RUNEFORGE_V2_CORE\\apps\\esp32-scanner-pro\\src\\index.html\" -Force",
+        ".\\scripts\\Build-Release-Estable.ps1 -Apps @('esp32-scanner-pro')"
+      ]
+    },
+    "pendientes": [
+      {
+        "paso": 9,
+        "descripcion": "Validar exe en escritorio y test WS a broker 192.168.100.10:9001"
+      },
+      {
+        "paso": 10,
+        "descripcion": "Instalar Mosquitto como servicio persistente"
+      }
+    ]
+  }
+}

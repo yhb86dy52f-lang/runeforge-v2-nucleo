@@ -1,0 +1,35 @@
+# RUNEFORGE V2 CORE - App Creation Script
+# Target App Name: esp32-scanner-pro
+
+param(
+    [Parameter(Mandatory=$false)]
+    [string]$Name = "esp32-scanner-pro"
+)
+
+$ErrorActionPreference = "Stop"
+Set-Location "C:\RUNEFORGE_V2_CORE"
+
+if (Test-Path "apps\$Name") {
+    Write-Host "La app apps\$Name ya existe. Eliminando versión previa para recreación..." -ForegroundColor Yellow
+    Remove-Item -Recurse -Force "apps\$Name"
+}
+
+Write-Host "Clonando plantilla _template -> $Name..." -ForegroundColor Cyan
+Copy-Item -Recurse "apps\_template" "apps\$Name"
+
+# Reemplazar identificadores en Cargo.toml y tauri.conf.json
+(Get-Content "apps\$Name\src-tauri\Cargo.toml" -Raw) -replace '__APPNAME__', $Name | Set-Content "apps\$Name\src-tauri\Cargo.toml" -Encoding UTF8
+(Get-Content "apps\$Name\src-tauri\tauri.conf.json" -Raw) -replace '__APPNAME__', $Name | Set-Content "apps\$Name\src-tauri\tauri.conf.json" -Encoding UTF8
+
+if (Test-Path "apps\$Name\src\index.html") {
+    (Get-Content "apps\$Name\src\index.html" -Raw) -replace '__APPNAME__', $Name | Set-Content "apps\$Name\src\index.html" -Encoding UTF8
+}
+
+if (-not (Test-Path "apps\$Name\src-tauri\icons")) {
+    Copy-Item -Recurse "apps\dictate-studio-v2\src-tauri\icons" "apps\$Name\src-tauri\icons"
+}
+
+Write-Host "Ejecutando verificacion de compilacion con sccache para $Name..." -ForegroundColor Yellow
+cargo check -p $Name
+
+Write-Host "✅ Proceso finalizado con éxito: apps\$Name listo." -ForegroundColor Green

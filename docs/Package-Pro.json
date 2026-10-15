@@ -1,0 +1,37 @@
+
+{
+  "name": "runeforge-pro",
+  "version": "10.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "tauri": "tauri",
+    "build:sidecar-flota": "pyinstaller --onefile --noconsole --name flota-x86_64-pc-windows-msvc --distpath src-tauri/bin --add-data \"C:/RUNEFORGE_V2_CORE/models;models\" --exclude-module torch.distributed --collect-submodules faster_whisper --hidden-import=uvicorn src/backends/main.py",
+    "build:sidecar-flota-win": "powershell -ExecutionPolicy Bypass -File scripts/build-flota.ps1",
+    "build:sidecar-dictate": "pkg src/whisper-server.js -t node20-win-x64 --compress GZip -o src-tauri/bin/dictate-x86_64-pc-windows-msvc.exe",
+    "build:sidecar-dictate:yao": "npx @yao-pkg/pkg src/whisper-server.js -t node20-win-x64 --compress GZip --output src-tauri/bin/dictate-x86_64-pc-windows-msvc.exe",
+    "build:sidecars": "pnpm build:sidecar-flota && pnpm build:sidecar-dictate:yao",
+    "build:icons": "tauri icon",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "tauri:build:debug": "tauri build --debug",
+    "sign:generate": "tauri signer generate -w ~/.tauri/runeforge.key",
+    "diagnostico": "powershell -ExecutionPolicy Bypass -File RUNEFORGE_AutoDiagnostico_PRO.ps1"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/plugin-updater": "^2.0.0",
+    "@tauri-apps/plugin-shell": "^2.0.0",
+    "@tauri-apps/plugin-dialog": "^2.0.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0",
+    "vite": "^5.0.0",
+    "@yao-pkg/pkg": "^6.0.0"
+  },
+  "pkg": {
+    "assets": ["src/dashboard/**/*", "resources/**/*"],
+    "scripts": ["src/**/*.js"]
+  }
+}

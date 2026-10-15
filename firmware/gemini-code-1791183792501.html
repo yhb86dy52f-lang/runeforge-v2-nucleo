@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Telemetry & Operations Suite</title>
+    <style>
+        :root {
+            --bg-base: #080b10;
+            --panel-bg: rgba(16, 23, 38, 0.65);
+            --panel-border: rgba(0, 240, 255, 0.15);
+            --accent-cyan: #00f0ff;
+            --accent-green: #00ff88;
+            --accent-red: #ff3366;
+            --text-main: #f0f4f8;
+            --text-dim: #64748b;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            height: 100vh;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: 56px 1fr 28px;
+        }
+
+        /* Ambient Canvas Engine BG */
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Top Navigation Header */
+        header {
+            position: relative;
+            z-index: 10;
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--panel-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+        }
+
+        .brand-icon {
+            width: 12px;
+            height: 12px;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-cyan);
+            transform: rotate(45deg);
+        }
+
+        .system-status {
+            display: flex;
+            gap: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        .metric-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        /* App Workspace Layout */
+        main {
+            position: relative;
+            z-index: 5;
+            display: grid;
+            grid-template-columns: 320px 1fr 360px;
+            gap: 16px;
+            padding: 16px;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .glass-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--panel-border);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .panel-header {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--panel-border);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-body {
+            padding: 16px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        /* UI Control Elements */
+        .control-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+            font-family: var(--font-mono);
+        }
+
+        input, select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--panel-border);
+            border-radius: 6px;
+            padding: 10px;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(0,240,255,0.2) 0%, rgba(0,255,136,0.1) 100%);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 12px;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-base);
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+
+        /* Telemetry Stream Display */
+        .stream-container {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stream-row {
+            background: rgba(0,0,0,0.3);
+            border-left: 3px solid var(--accent-cyan);
+            padding: 8px 12px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            justify-content: space-between;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Telemetry Visualizer Canvas */
+        .visualizer-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #telemetry-canvas {
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+        }
+
+        /* Bottom Status Bar */
+        footer {
+            position: relative;
+            z-index: 10;
+            background: var(--panel-bg);
+            border-top: 1px solid var(--panel-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Scrollbar Minimalista */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--panel-border); border-radius: 2px; }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header>
+        <div class="brand">
+            <div class="brand-icon"></div>
+            NEXUS ARCHITECT // ENGINE v4.2
+        </div>
+        <div class="system-status">
+            <div class="metric-tag"><div class="dot"></div> ENGINE: ACTIVE</div>
+            <div class="metric-tag" id="fps-display">FPS: 60</div>
+            <div class="metric-tag" id="db-status">DB: READY</div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Panel Izquierdo: Controles de Entrada -->
+        <section class="glass-panel">
+            <div class="panel-header">
+                Control de Telemetría
+            </div>
+            <div class="panel-body">
+                <form id="telemetry-form" onsubmit="event.preventDefault();">
+                    <div class="control-group">
+                        <label for="asset-id">ID de Activo / Unidad</label>
+                        <input type="text" id="asset-id" value="KW-X15-8021" required>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="sensor-type">Canal de Transmisión</label>
+                        <select id="sensor-type">
+                            <option value="CAN_J1939">CAN-Bus / J1939 (64 Bytes)</option>
+                            <option value="RS485_ESCORT">Sensor RS-485 (Combustible)</option>
+                            <option value="BLE_TELEM">BLE Beacon Telemetry</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="sample-rate">Frecuencia de Muestreo (ms)</label>
+                        <input type="number" id="sample-rate" value="100" min="16" max="2000">
+                    </div>
+
+                    <button class="btn" id="btn-toggle-stream">Iniciar Captura</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Panel Central: Visualización en Tiempo Real -->
+        <section class="glass-panel">
+            <div class="panel-header">
+                Telemetría en Tiempo Real (Aceleración GPU)
+                <span id="canvas-metrics" style="color: var(--text-dim);">BUFFER: 0 PNT</span>
+            </div>
+            <div class="panel-body visualizer-wrapper">
+                <canvas id="telemetry-canvas"></canvas>
+            </div>
+        </section>
+
+        <!-- Panel Derecho: Data Log Local (IndexedDB) -->
+        <section class="glass-panel">
+            <div class="panel-header">
+                Persistencia Local
+                <button id="btn-clear-db" style="background:none; border:none; color:var(--accent-red); cursor:pointer; font-family:var(--font-mono); font-size:0.75rem;">PURGAR</button>
+            </div>
+            <div class="panel-body">
+                <div class="stream-container" id="stream-log"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>RUNTIME ENVIRONMENT: LOCAL_STANDALONE</span>
+        <span id="memory-usage">RAM ALLOCATED: ~8.4 MB</span>
+    </footer>
+
+    <script>
+        /**
+         * NEXUS ENGINE - Core Architecture
+         */
+        class StorageEngine {
+            constructor() {
+                this.dbName = 'NexusTelemetryDB';
+                this.db = null;
+            }
+
+            async init() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(this.dbName, 1);
+                    request.onupgradeneeded = (e) => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains('logs')) {
+                            db.createObjectStore('logs', { keyPath: 'id', autoIncrement: true });
+                        }
+                    };
+                    request.onsuccess = (e) => {
+                        this.db = e.target.result;
+                        resolve(true);
+                    };
+                    request.onerror = (e) => reject(e);
+                });
+            }
+
+            async insert(data) {
+                if (!this.db) return;
+                const tx = this.db.transaction('logs', 'readwrite');
+                const store = tx.objectStore('logs');
+                store.add({ ...data, timestamp: Date.now() });
+            }
+
+            async clear() {
+                if (!this.db) return;
+                const tx = this.db.transaction('logs', 'readwrite');
+                tx.objectStore('logs').clear();
+            }
+        }
+
+        class RenderEngine {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d', { alpha: false, desynchronized: true });
+                this.dataBuffer = [];
+                this.maxPoints = 150;
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+            }
+
+            resize() {
+                const rect = this.canvas.parentElement.getBoundingClientRect();
+                this.canvas.width = rect.width * window.devicePixelRatio;
+                this.canvas.height = rect.height * window.devicePixelRatio;
+                this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+                this.width = rect.width;
+                this.height = rect.height;
+            }
+
+            pushData(val) {
+                this.dataBuffer.push(val);
+                if (this.dataBuffer.length > this.maxPoints) {
+                    this.dataBuffer.shift();
+                }
+            }
+
+            render() {
+                const ctx = this.ctx;
+                const w = this.width;
+                const h = this.height;
+
+                // Clear & Grid Background
+                ctx.fillStyle = '#0a0e17';
+                ctx.fillRect(0, 0, w, h);
+
+                ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
+                ctx.lineWidth = 1;
+
+                const gridSize = 30;
+                for (let x = 0; x < w; x += gridSize) {
+                    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+                }
+                for (let y = 0; y < h; y += gridSize) {
+                    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+                }
+
+                if (this.dataBuffer.length < 2) return;
+
+                // Waveform Rendering
+                ctx.beginPath();
+                ctx.strokeStyle = '#00f0ff';
+                ctx.lineWidth = 2;
+                ctx.shadowColor = '#00f0ff';
+                ctx.shadowBlur = 8;
+
+                const step = w / (this.maxPoints - 1);
+                for (let i = 0; i < this.dataBuffer.length; i++) {
+                    const x = i * step;
+                    const y = h - (this.dataBuffer[i] / 100) * (h * 0.8) - (h * 0.1);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+                ctx.shadowBlur = 0; // Reset Shadow
+            }
+        }
+
+        // Particle Ambient Background Engine
+        class AmbientEngine {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                this.initParticles();
+                window.addEventListener('resize', () => this.resize());
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            initParticles() {
+                this.particles = Array.from({ length: 40 }, () => ({
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1
+                }));
+            }
+
+            render() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.fillStyle = 'rgba(0, 240, 255, 0.2)';
+
+                this.particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
+
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+            }
+        }
+
+        /* App Controller Initialization */
+        document.addEventListener('DOMContentLoaded', async () => {
+            const storage = new StorageEngine();
+            await storage.init();
+
+            const renderer = new RenderEngine('telemetry-canvas');
+            const ambient = new AmbientEngine('bg-canvas');
+
+            let isStreaming = false;
+            let streamTimer = null;
+            let lastFrameTime = performance.now();
+            let frameCount = 0;
+
+            const btnToggle = document.getElementById('btn-toggle-stream');
+            const streamLog = document.getElementById('stream-log');
+            const fpsDisplay = document.getElementById('fps-display');
+            const metricsDisplay = document.getElementById('canvas-metrics');
+
+            // Data Generator Signal
+            let signalPhase = 0;
+            const generateTelemetry = () => {
+                signalPhase += 0.1;
+                const noise = (Math.random() - 0.5) * 10;
+                const value = Math.min(100, Math.max(0, Math.sin(signalPhase) * 40 + 50 + noise));
+                
+                renderer.pushData(value);
+                
+                const assetId = document.getElementById('asset-id').value;
+                const payload = { assetId, value: value.toFixed(2), channel: document.getElementById('sensor-type').value };
+
+                storage.insert(payload);
+
+                // UI Stream Update
+                const row = document.createElement('div');
+                row.className = 'stream-row';
+                row.innerHTML = `<span>${assetId}</span><strong>${value.toFixed(2)} %</strong>`;
+                streamLog.prepend(row);
+                if (streamLog.children.length > 10) streamLog.removeChild(streamLog.lastChild);
+
+                metricsDisplay.innerText = `BUFFER: ${renderer.dataBuffer.length} PNT`;
+            };
+
+            btnToggle.addEventListener('click', () => {
+                isStreaming = !isStreaming;
+                if (isStreaming) {
+                    btnToggle.innerText = 'Detener Captura';
+                    btnToggle.style.borderColor = 'var(--accent-red)';
+                    btnToggle.style.color = 'var(--accent-red)';
+                    const interval = parseInt(document.getElementById('sample-rate').value, 10) || 100;
+                    streamTimer = setInterval(generateTelemetry, interval);
+                } else {
+                    btnToggle.innerText = 'Iniciar Captura';
+                    btnToggle.style.borderColor = 'var(--accent-cyan)';
+                    btnToggle.style.color = 'var(--accent-cyan)';
+                    clearInterval(streamTimer);
+                }
+            });
+
+            document.getElementById('btn-clear-db').addEventListener('click', async () => {
+                await storage.clear();
+                streamLog.innerHTML = '';
+            });
+
+            // Master Render Loop (60 FPS Engine)
+            const loop = (now) => {
+                frameCount++;
+                if (now - lastFrameTime >= 1000) {
+                    fpsDisplay.innerText = `FPS: ${frameCount}`;
+                    frameCount = 0;
+                    lastFrameTime = now;
+                }
+
+                ambient.render();
+                renderer.render();
+                requestAnimationFrame(loop);
+            };
+
+            requestAnimationFrame(loop);
+        });
+    </script>
+</body>
+</html>

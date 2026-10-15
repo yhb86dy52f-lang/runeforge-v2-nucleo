@@ -1,0 +1,87 @@
+{
+  "defaultProvider": "ollama",
+  "version": "2.0",
+  "profiles": {
+    "ollama": {
+      "type": "ollama",
+      "enabled": true,
+      "baseUrl": "${OLLAMA_BASE_URL:-http://127.0.0.1:11434}",
+      "keepAlive": "${OLLAMA_KEEP_ALIVE:-10m}",
+      "timeoutMs": 120000,
+      "maxConcurrent": 1,
+      "models": {
+        "fast": "${OLLAMA_MODEL_FAST:-qwen2.5:1.5b}",
+        "chat": "${OLLAMA_MODEL_CHAT:-gemma2:2b}",
+        "code": "${OLLAMA_MODEL_CODE:-deepseek-coder}",
+        "embed": "${OLLAMA_MODEL_EMBED:-nomic-embed-text}",
+        "vision": "${OLLAMA_MODEL_VISION:-llava:7b}"
+      },
+      "options": {
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "num_ctx": 4096,
+        "num_predict": 1024
+      },
+      "notes": "Local-first, MAX=1 para evitar OOM thrashing 15-22s en 6GB VRAM, VRAM ~2768/6144"
+    },
+    "deepseek": {
+      "type": "openai-compatible",
+      "enabled": false,
+      "baseUrl": "${DEEPSEEK_BASE_URL:-https://api.deepseek.com}",
+      "apiKey": "${DEEPSEEK_API_KEY}",
+      "models": {
+        "chat": "deepseek-chat",
+        "code": "deepseek-coder",
+        "reasoner": "deepseek-reasoner"
+      },
+      "options": {
+        "temperature": 0.7
+      }
+    },
+    "gemini": {
+      "type": "gemini",
+      "enabled": false,
+      "baseUrl": "${GEMINI_BASE_URL:-https://generativelanguage.googleapis.com}",
+      "apiKey": "${GEMINI_API_KEY}",
+      "models": {
+        "fast": "gemini-1.5-flash",
+        "pro": "gemini-1.5-pro",
+        "embed": "text-embedding-004"
+      },
+      "options": {
+        "temperature": 0.7
+      }
+    },
+    "meta": {
+      "type": "meta-whatsapp",
+      "enabled": false,
+      "baseUrl": "${META_WA_BASE_URL:-https://graph.facebook.com/v20.0}",
+      "phoneNumberId": "${META_WA_PHONE_NUMBER_ID}",
+      "apiKey": "${META_WA_TOKEN}",
+      "businessAccountId": "${META_WA_BUSINESS_ID}",
+      "notes": "Solo Etapa 3 con Evolution API local. Etapa 1 usar Telegram/Form para evitar trampa tiempo Meta"
+    }
+  },
+  "routing": {
+    "telemetria": "ollama:fast",
+    "bitacora": "ollama:chat",
+    "problema": "ollama:chat",
+    "habito": "ollama:fast",
+    "codigo": "ollama:code",
+    "embedding": "ollama:embed",
+    "fallback": "ollama:fast"
+  },
+  "benchmarks": {
+    "expected": {
+      "gtx1660Super_6GB_q4": {
+        "qwen2.5_1.5b": "28-32 tok/s",
+        "qwen2.5_3b": "26.28 tok/s",
+        "deepseek-r1_1.5b": "30.16 tok/s",
+        "gemma2_2b": "26-28 tok/s"
+      },
+      "fastify_bare": "41,779 req/s",
+      "fastify_optimized": "77,193 req/s"
+    },
+    "honestyRule": "Reportar medido en tu hardware, no oficial hello-world como propio"
+  }
+}

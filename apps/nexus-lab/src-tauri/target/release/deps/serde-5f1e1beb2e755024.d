@@ -1,0 +1,14 @@
+C:\RUNEFORGE_V2_CORE\apps\nexus-lab\src-tauri\target\release\deps\serde-5f1e1beb2e755024.d: C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\lib.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\integer128.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\mod.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\de.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\ser.rs C:\RUNEFORGE_V2_CORE\apps\nexus-lab\src-tauri\target\release\build\serde-3ea0e268674b7a1e\out/private.rs
+
+C:\RUNEFORGE_V2_CORE\apps\nexus-lab\src-tauri\target\release\deps\libserde-5f1e1beb2e755024.rlib: C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\lib.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\integer128.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\mod.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\de.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\ser.rs C:\RUNEFORGE_V2_CORE\apps\nexus-lab\src-tauri\target\release\build\serde-3ea0e268674b7a1e\out/private.rs
+
+C:\RUNEFORGE_V2_CORE\apps\nexus-lab\src-tauri\target\release\deps\libserde-5f1e1beb2e755024.rmeta: C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\lib.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\integer128.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\mod.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\de.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\ser.rs C:\RUNEFORGE_V2_CORE\apps\nexus-lab\src-tauri\target\release\build\serde-3ea0e268674b7a1e\out/private.rs
+
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\lib.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\integer128.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\mod.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\de.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.229\src\private\ser.rs:
+C:\RUNEFORGE_V2_CORE\apps\nexus-lab\src-tauri\target\release\build\serde-3ea0e268674b7a1e\out/private.rs:
+
+# env-dep:OUT_DIR=C:\\RUNEFORGE_V2_CORE\\apps\\nexus-lab\\src-tauri\\target\\release\\build\\serde-3ea0e268674b7a1e\\out

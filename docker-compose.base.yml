@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  lancedb:
+    image: lancedb/lancedb:latest
+    container_name: runeforge-lancedb
+    volumes:
+      - ./data/lancedb:/data
+    ports:
+      - "6333:6333"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  graphjin:
+    image: dosco/graphjin:latest
+    container_name: runeforge-graphjin
+    volumes:
+      - ./data/graphjin:/app/config
+      - ./data:[STRIPPED]
+    ports:
+      - "8080:8080"
+    command: serve --path /app/config
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=sqlite:///app/data/runeforge.db
+      - READ_ONLY=true
+      - PORT=8080

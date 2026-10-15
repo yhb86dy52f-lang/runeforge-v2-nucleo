@@ -1,0 +1,77 @@
+{
+  "timestamp": "2026-09-26T11:58:52.4075544-06:00",
+  "hostname": "RUNEFORGE-PC",
+  "user": "nesth",
+  "ps_version": "7.6.6",
+  "rust": {
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+    "rustup": "rustup 1.29.1 (d95a37b6a 2026-08-13)"
+  },
+  "sccache": {
+    "cache_location": "Local disk: \"C:\\\\RUNEFORGE_V2_CORE\\\\.sccache\"",
+    "max_size": "50 GiB",
+    "hit_rate": "0",
+    "compile_count": 0,
+    "cache_hits": 0,
+    "cache_misses": 0
+  },
+  "cargo_config": {
+    "path": "C:\\Users\\nesth\\.cargo\\config.toml",
+    "exists": true,
+    "size_bytes": 453,
+    "has_target_dir": true,
+    "has_multiplexing": true
+  },
+  "env": {
+    "CARGO_TARGET_DIR": "C:\\RUNEFORGE_V2_CORE\\target",
+    "RUSTC_WRAPPER": "C:\\Users\\nesth\\.cargo\\bin\\sccache.exe",
+    "SCCACHE_CACHE_SIZE": "50G",
+    "SCCACHE_DIR": "C:\\RUNEFORGE_V2_CORE\\.sccache",
+    "CARGO_BUILD_JOBS": null
+  },
+  "factory": {
+    "exists": true,
+    "size_bytes": 5367,
+    "last_modified": "2026-09-22T03:48:58.3457082-06:00",
+    "injects_plugins": false
+  },
+  "apps": [
+    {
+      "name": "nexus-lab",
+      "exists": true,
+      "size_mb": 2.94
+    },
+    {
+      "name": "openwash-real",
+      "exists": true,
+      "size_mb": 3.38
+    },
+    {
+      "name": "openwash-real-v2",
+      "exists": true,
+      "size_mb": 4.35
+    },
+    {
+      "name": "dictate-studio",
+      "exists": false,
+      "size_mb": 0
+    },
+    {
+      "name": "panel-relevadores",
+      "exists": false,
+      "size_mb": 0
+    }
+  ],
+  "shared_target": {
+    "path": "C:\\RUNEFORGE_V2_CORE\\target",
+    "exists": true,
+    "size_gb": 2.71,
+    "has_release": true,
+    "crates_count": 739
+  },
+  "sccache_disk": {
+    "path": "C:\\Users\\nesth\\AppData\\Local\\Mozilla\\sccache\\cache",
+    "exists": false
+  }
+}

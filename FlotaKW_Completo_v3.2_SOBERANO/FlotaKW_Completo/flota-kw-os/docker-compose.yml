@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: flotakw-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "FlotaKW2024!"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./sql/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "FlotaKW2024!", "-Q", "SELECT 1"]
+      interval: 10s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: flotakw-backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "mssql+pyodbc://sa:FlotaKW2024!@sqlserver:1433/FlotaKW_CT?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes"
+      DB_ECHO: "False"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+
+  flutter-web:
+    image: ghcr.io/cirruslabs/flutter:stable
+    container_name: flotakw-flutter-web
+    ports:
+      - "8080:8080"
+    working_dir: /app
+    volumes:
+      - ./mobile-app:/app
+    command: ["bash", "-c", "flutter pub get && flutter run -d web-server --web-port 8080 --web-hostname 0.0.0.0"]
+
+volumes:
+  sqlserver_data:

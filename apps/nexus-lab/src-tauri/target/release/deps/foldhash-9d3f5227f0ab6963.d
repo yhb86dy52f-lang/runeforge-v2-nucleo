@@ -1,0 +1,11 @@
+C:\RUNEFORGE_V2_CORE\apps\nexus-lab\src-tauri\target\release\deps\foldhash-9d3f5227f0ab6963.d: C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\lib.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\fast.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\quality.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\seed.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\convenience.rs
+
+C:\RUNEFORGE_V2_CORE\apps\nexus-lab\src-tauri\target\release\deps\libfoldhash-9d3f5227f0ab6963.rlib: C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\lib.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\fast.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\quality.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\seed.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\convenience.rs
+
+C:\RUNEFORGE_V2_CORE\apps\nexus-lab\src-tauri\target\release\deps\libfoldhash-9d3f5227f0ab6963.rmeta: C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\lib.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\fast.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\quality.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\seed.rs C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\convenience.rs
+
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\lib.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\fast.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\quality.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\seed.rs:
+C:\Users\nesth\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\foldhash-0.2.0\src\convenience.rs:

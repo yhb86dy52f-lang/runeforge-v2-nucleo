@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "__APPNAME__",
+  "version": "0.1.0",
+  "identifier": "com.runeforge.__APPNAME__",
+  "build": { "frontendDist": "../src" },
+  "app": {
+    "windows": [{ "title": "__APPNAME__", "width": 900, "height": 640 }],
+    "security": { "csp": null }
+  }
+}

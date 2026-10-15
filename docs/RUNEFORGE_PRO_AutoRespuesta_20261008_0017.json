@@ -1,0 +1,9 @@
+﻿{
+    "licencia_mit":  true,
+    "host":  "RUNEFORGE-PC",
+    "gpu":  "NVIDIA GeForce GTX 1660 SUPER, 6144 MiB, 610.47",
+    "fecha":  "2026-10-08T00:17:43.2749419-06:00",
+    "decision":  "Tauri v2 + @tauri-apps/plugin-sql (reemplaza sqlite3) + PyInstaller sin torch (25-55 MB) + downloadBootstrapper (0 MB) + SignPath gratis",
+    "sqlite_detectado":  true,
+    "webview2":  true
+}

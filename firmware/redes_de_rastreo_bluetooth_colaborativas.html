@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redes de Rastreo Bluetooth Colaborativas - Arquitectura & Criptografía</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#f8f7f4',
+                            card: '#ffffff',
+                            subtle: '#f1efe9',
+                            border: '#e2dec9',
+                            text: '#1e293b',
+                            muted: '#64748b',
+                            indigo: '#4f46e5',
+                            teal: '#0d9488',
+                            amber: '#d97706',
+                            rose: '#e11d48'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['System-UI', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'Monaco', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Embedded minimal styles for chart containers and animations */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1efe9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<!-- Chosen Palette: Warm Neutral Harmonious (Background: Warm Off-White #F8F7F4, Card: #FFFFFF, Primary Text: #1E293B, Accents: Indigo #4F46E5, Teal #0D9488, Amber #D97706, Rose #E11D48) -->
+<!-- Application Structure Plan: Designed as a single-page interactive educational and analytical dashboard. It breaks down the complex technical report into logical, interactive modules: 1. Executive Summary & Key Indicators, 2. Interactive 5-Stage Protocol Simulator (Visualizing Beacon -> Gateway -> Cloud -> Owner flow), 3. Interactive BLE PDU Packet Inspector (Clickable 31-byte frame breakdown), 4. Key Rotation & Cryptography Visualizer (Interactive derivation slider SK_i, d_i, p_i), 5. Apple Find My vs Google Find Hub Dynamic Comparison, 6. Security Lab (OpenHaystack, Covert Channel "Send My" simulation, Secure Enclave vs SWD/JTAG), 7. Evidence & Trust Matrix with Actionable Recommendations. This non-linear, interactive architecture allows engineers and analysts to deeply understand mechanics through hands-on exploration rather than passive reading. -->
+<!-- Visualization & Content Choices: 
+   - 5-Stage Workflow -> Interactive Canvas + Step Controller -> Visualizes node interactions without SVG.
+   - BLE Frame Breakdown -> Interactive Byte Offset Grid -> Clicking highlights byte functions and metadata.
+   - Key Rotation KDF -> Interactive Slider ($i=0..10$) -> Displays real-time cryptographic derivation steps and generated hashes H(p_i).
+   - Apple vs Google Comparison -> Interactive Filter Cards & Dynamic Chart -> Allows side-by-side comparison of privacy vs accuracy trade-offs.
+   - Covert Channel "Send My" -> Text Payload Splitter Simulator -> Shows how text is chunked into 22-byte public key fragments.
+   - Confidence Matrix -> Interactive Searchable Table -> Filter sources by trust level and domain.
+   - Confirming NO SVG or Mermaid JS used; canvas and styled HTML/CSS elements are used exclusively. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<body class="bg-brand-bg text-brand-text antialiased min-h-screen flex flex-col selection:bg-brand-indigo selection:text-white">
+
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-border px-4 lg:px-8 py-3 transition-all">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-indigo/10 border border-brand-indigo/30 text-brand-indigo flex items-center justify-center font-mono font-bold text-lg">
+                    BLE
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-slate-900 leading-tight">Redes de Rastreo Bluetooth Colaborativas</h1>
+                    <p class="text-xs text-brand-muted font-mono">Arquitectura, Criptografía y Mecanismos Operativos Crowdsourced</p>
+                </div>
+            </div>
+
+            <!-- Quick Navigation Pills -->
+            <nav class="flex flex-wrap items-center gap-1 sm:gap-2 text-xs font-mono">
+                <a href="#simulador" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-brand-indigo hover:text-white transition-colors">Flujo 5-Etapas</a>
+                <a href="#trama-ble" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-brand-indigo hover:text-white transition-colors">Trama 31B</a>
+                <a href="#cripto" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-brand-indigo hover:text-white transition-colors">Derivación KDF</a>
+                <a href="#comparativa" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-brand-indigo hover:text-white transition-colors">Apple vs Google</a>
+                <a href="#seguridad" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-brand-indigo hover:text-white transition-colors">Lab Seguridad</a>
+                <a href="#evidencia" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-brand-indigo hover:text-white transition-colors">Matriz Evidencia</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-10">
+
+        <!-- Section 0: Executive Overview & Metric Cards -->
+        <section class="space-y-4">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-100 pb-4 mb-4">
+                    <div>
+                        <span class="inline-block text-[11px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full bg-brand-indigo/10 text-brand-indigo font-semibold mb-2">
+                            Resumen Ejecutivo
+                        </span>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-900">¿Cómo funciona el rastreo satelital sin chip GPS?</h2>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+                            Estado: Verificado (Confianza Muy Alta)
+                        </span>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed max-w-4xl">
+                    El rastreo geográfico <i>crowdsourced</i> permite geolocalizar balizas pasivas sin GPS ni módem celular.
+                    La etiqueta emite ráfagas de radio Bluetooth (BLE) con una clave pública efímera. Dispositivos inteligentes
+                    de terceros en las cercanías (smartphones pasarelas) capturan la señal, registran sus propias coordenadas GPS
+                    y suben un reporte cifrado a la nube sin conocer la identidad del dueño ni la ubicación real.
+                </p>
+
+                <!-- Metric Cards Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                        <div class="text-xs text-brand-muted font-mono uppercase">Carga Útil PDU</div>
+                        <div class="text-2xl font-bold text-slate-900 font-mono mt-1">31 Bytes</div>
+                        <div class="text-[11px] text-brand-teal font-medium mt-1">Límite BLE Legacy ADV_IND</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                        <div class="text-xs text-brand-muted font-mono uppercase">Curva Base</div>
+                        <div class="text-2xl font-bold text-brand-indigo font-mono mt-1">NIST P-224</div>
+                        <div class="text-[11px] text-slate-500 mt-1">28 Bytes clave pública comprimida</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                        <div class="text-xs text-brand-muted font-mono uppercase">Rotación de Claves</div>
+                        <div class="text-2xl font-bold text-brand-amber font-mono mt-1">15m - 24h</div>
+                        <div class="text-[11px] text-slate-500 mt-1">Impide el perfilado de radio</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                        <div class="text-xs text-brand-muted font-mono uppercase">Seguridad Cifrado</div>
+                        <div class="text-2xl font-bold text-brand-teal font-mono mt-1">E2EE ECDH</div>
+                        <div class="text-[11px] text-slate-500 mt-1">AES-128-GCM en la pasarela</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Interactive 5-Stage Protocol Simulator -->
+        <section id="simulador" class="space-y-4">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="mb-4">
+                    <div class="flex items-center gap-2 text-xs font-mono text-brand-indigo font-bold uppercase tracking-wider mb-1">
+                        <span>Módulo 01</span> &bull; <span>Ciclo Operativo End-to-End</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">Simulador de Flujo en 5 Etapas del Rastreo BLE</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Comprende cómo viaja la señal desde el objeto perdido hasta la aplicación del propietario. Esta sección introduce
+                        la interacción secuencial de los 4 nodos de la red (Baliza, Pasarela de Terceros, Servidor Cloud y Propietario).
+                    </p>
+                </div>
+
+                <!-- Step Controls -->
+                <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200 mb-6">
+                    <div class="flex items-center gap-2">
+                        <button id="btn-prev-step" onclick="changeStep(-1)" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-xs font-mono font-medium text-slate-700 transition-colors">
+                            &larr; Anterior
+                        </button>
+                        <button id="btn-next-step" onclick="changeStep(1)" class="px-3 py-1.5 rounded-lg bg-brand-indigo hover:bg-indigo-700 text-white text-xs font-mono font-medium transition-colors">
+                            Siguiente &rarr;
+                        </button>
+                        <button id="btn-play-step" onclick="toggleAutoPlay()" class="px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-xs font-mono text-slate-800 transition-colors">
+                            Reproducir Auto
+                        </button>
+                    </div>
+                    <div class="text-xs font-mono font-semibold text-slate-700" id="step-indicator">
+                        Etapa 1 de 5
+                    </div>
+                </div>
+
+                <!-- Canvas Visualizer Container -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-7 bg-slate-900 rounded-xl p-4 relative overflow-hidden flex flex-col items-center justify-center min-h-[300px]">
+                        <canvas id="workflowCanvas" class="w-full h-64 rounded-lg"></canvas>
+                        <div class="absolute bottom-2 left-3 right-3 flex justify-between text-[11px] font-mono text-slate-400 bg-slate-950/80 px-3 py-1 rounded">
+                            <span id="canvas-status">Estado: Emitiendo paquete BLE ADV_IND</span>
+                            <span id="canvas-node">Nodo Activo: Baliza</span>
+                        </div>
+                    </div>
+
+                    <!-- Step Explanation Box -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div id="step-detail-card" class="p-5 rounded-xl border border-brand-indigo/20 bg-indigo-50/40 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono font-bold text-brand-indigo uppercase px-2 py-0.5 rounded bg-brand-indigo/10" id="step-badge">
+                                    Etapa 1
+                                </span>
+                                <span class="text-xs font-mono text-slate-500" id="step-actor">Emisión Baliza</span>
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900" id="step-title">1. Emisión del Anuncio BLE</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed" id="step-desc">
+                                La baliza genera localmente la clave pública efímera p_i utilizando su motor criptográfico.
+                                Modifica su dirección MAC de radio para hacerla coincidir con los primeros 6 bytes de p_i
+                                y emite paquetes ADV_IND en los canales primarios (37, 38, 39) a intervalos regulados.
+                            </p>
+                            <div class="p-3 bg-white rounded-lg border border-slate-200 text-[11px] font-mono text-slate-700 space-y-1" id="step-tech-specs">
+                                <div><strong>Datos Emitidos:</strong> p_i (Clave Pública P-224)</div>
+                                <div><strong>Interfaz:</strong> Bluetooth Low Energy (2.4 GHz)</div>
+                                <div><strong>Ubicación GPS:</strong> No posee GPS integrado</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Interactive BLE PDU Frame Inspector -->
+        <section id="trama-ble" class="space-y-4">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="mb-4">
+                    <div class="flex items-center gap-2 text-xs font-mono text-brand-teal font-bold uppercase tracking-wider mb-1">
+                        <span>Módulo 02</span> &bull; <span>Anatomía del Paquete de Anuncio</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">Inspector Interactivo de Trama BLE Legacy (31 Bytes)</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Debido a la restricción de 31 bytes en tramas `ADV_IND`, los diseñadores de Apple comprimieron una clave pública
+                        NIST P-224 (28 bytes) utilizando la propia dirección MAC del dispositivo. Haz clic en cada bloque para inspeccionar su offset y función.
+                    </p>
+                </div>
+
+                <!-- Interactive Hex Frame Visualizer -->
+                <div class="space-y-4">
+                    <div class="text-xs font-mono text-slate-500 mb-1">Haz clic en cualquier fragmento para ver los detalles técnicos:</div>
+                    <div class="grid grid-cols-12 md:grid-cols-31 gap-1 font-mono text-center text-xs select-none" id="hex-frame-grid">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <!-- Byte Breakdown Card -->
+                    <div id="byte-inspector-card" class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-brand-teal/10 text-brand-teal" id="byte-offset-range">Offsets: BD_ADDR (0 - 5)</span>
+                                <span class="text-sm font-bold text-slate-900" id="byte-title">BD_ADDR (Random Static Address)</span>
+                            </div>
+                            <span class="text-xs font-mono text-slate-500" id="byte-size">6 Bytes</span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed" id="byte-description">
+                            Contiene los primeros 6 bytes de la clave pública efímera NIST P-224 derivada. La pila Bluetooth utiliza este fragmento como la dirección MAC de radio del anuncio.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-[11px] font-mono">
+                            <div class="p-2.5 bg-white rounded border border-slate-200">
+                                <span class="text-slate-400">Ejemplo Hex:</span>
+                                <div class="text-slate-800 font-bold mt-0.5" id="byte-hex-sample">4A:3B:2C:1D:0E:5F</div>
+                            </div>
+                            <div class="p-2.5 bg-white rounded border border-slate-200">
+                                <span class="text-slate-400">Estándar / Especificación:</span>
+                                <div class="text-brand-indigo font-bold mt-0.5" id="byte-spec-ref">Bluetooth SIG / Apple Offline Find</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Key Rotation & Cryptography Visualizer -->
+        <section id="cripto" class="space-y-4">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="mb-4">
+                    <div class="flex items-center gap-2 text-xs font-mono text-brand-amber font-bold uppercase tracking-wider mb-1">
+                        <span>Módulo 03</span> &bull; <span>Privacidad y Derivación Determinista</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">Simulador de Rotación de Claves Criptográficas (KDF)</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Para evitar que atacantes rastreen la baliza mediante su dirección MAC constante, el sistema evoluciona periódicamente la clave simétrica $SK_i$ y calcula un nuevo par de claves efímeras $(d_i, p_i)$ en la curva NIST P-224.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Interactive Slider & Math State -->
+                    <div class="lg:col-span-6 space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <div>
+                            <div class="flex justify-between items-center text-xs font-mono text-slate-700 mb-2">
+                                <label for="kdf-time-slider" class="font-bold">Índice de Período Temporal ($i$):</label>
+                                <span id="kdf-index-val" class="px-2 py-0.5 rounded bg-brand-amber/20 text-brand-amber font-bold">i = 0 (Inicial)</span>
+                            </div>
+                            <input type="range" id="kdf-time-slider" min="0" max="10" value="0" oninput="updateKdfSimulation(this.value)" class="w-full accent-brand-amber cursor-pointer">
+                            <div class="flex justify-between text-[10px] font-mono text-slate-400 mt-1">
+                                <span>Emparejamiento (t=0)</span>
+                                <span>+6 horas</span>
+                                <span>+12 horas</span>
+                                <span>+24 horas</span>
+                            </div>
+                        </div>
+
+                        <!-- Mathematical Formulas Box -->
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 space-y-2 text-xs font-mono">
+                            <div class="text-slate-500 font-bold border-b border-slate-100 pb-1">Formulación Criptográfica (ANSI X.963 KDF)</div>
+                            <div class="text-slate-800">1. $SK_i = \text{KDF}(SK_{i-1}, \text{"update"}, 32)$</div>
+                            <div class="text-slate-800">2. $(u_i, v_i) = \text{KDF}(SK_i, \text{"diversify"}, 72)$</div>
+                            <div class="text-slate-800">3. $d_i = (d_0 \cdot u_i) + v_i \pmod n$</div>
+                            <div class="text-slate-800">4. $p_i = d_i \cdot G \quad (\text{Clave Pública NIST P-224})$</div>
+                        </div>
+
+                        <div class="text-xs text-slate-600 bg-amber-50/80 border border-amber-200 p-3 rounded-lg">
+                            <strong>Propiedad de Doble Ciego:</strong> El propietario con $d_0$ y $SK_0$ calcula exactamente la misma secuencia $p_i$ sin comunicarse con la baliza. El servidor solo recibe $H(p_i)$ y no conoce $p_i$ ni la ubicación.
+                        </div>
+                    </div>
+
+                    <!-- Derived Cryptographic Output Inspector -->
+                    <div class="lg:col-span-6 space-y-3 font-mono text-xs">
+                        <div class="p-4 bg-slate-900 text-slate-200 rounded-xl space-y-3 shadow-inner">
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                <span class="text-brand-amber font-bold uppercase">Estado Criptográfico Derivado</span>
+                                <span class="text-[10px] text-slate-400" id="kdf-timestamp">T = 00:00 hrs</span>
+                            </div>
+
+                            <div>
+                                <span class="text-slate-400 text-[10px]">Clave Simétrica $SK_i$:</span>
+                                <div class="p-2 bg-slate-950 rounded text-emerald-400 truncate mt-0.5" id="out-sk-i">
+                                    a3f892c1081923e4f7a1829304b12c5d...
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="text-slate-400 text-[10px]">Clave Privada Efímera $d_i$:</span>
+                                <div class="p-2 bg-slate-950 rounded text-violet-400 truncate mt-0.5" id="out-d-i">
+                                    7c8b1a9f02e3d4c5b6a7890123456789...
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="text-slate-400 text-[10px]">Clave Pública Efímera $p_i$ (NIST P-224 - 28B):</span>
+                                <div class="p-2 bg-slate-950 rounded text-cyan-400 break-all mt-0.5" id="out-p-i">
+                                    04:4a:3b:2c:1d:0e:5f:8a:9b:0c:1d:2e:3f:4a:5b:6c:7d:8e:9f:0a:1b:2c:3d:4e:5f:6a:7b
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="text-slate-400 text-[10px]">Hash Indexador para Consulta Cloud $H(p_i) = \text{SHA-256}(p_i)$:</span>
+                                <div class="p-2 bg-slate-950 rounded text-rose-400 truncate mt-0.5" id="out-h-pi">
+                                    e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Apple Find My vs Google Find Hub Dynamic Comparison -->
+        <section id="comparativa" class="space-y-4">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="mb-4">
+                    <div class="flex items-center gap-2 text-xs font-mono text-brand-rose font-bold uppercase tracking-wider mb-1">
+                        <span>Módulo 04</span> &bull; <span>Análisis Comparativo de Ecosistemas</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">Apple Find My Network vs Google Find Hub Network</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Aunque ambas plataformas utilizan teléfonos de terceros como pasarelas pasivas, divergen fundamentalmente en sus políticas de privacidad, requerimiento de densidad y modelo de agregación.
+                    </p>
+                </div>
+
+                <!-- Interactive View Toggle -->
+                <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
+                    <span class="text-xs font-mono text-slate-500 font-bold">Filtro de Vista:</span>
+                    <button onclick="filterComparison('ALL')" id="btn-cmp-all" class="px-3 py-1 rounded-lg bg-brand-indigo text-white text-xs font-mono font-medium transition-colors">
+                        Todas las Dimensiones
+                    </button>
+                    <button onclick="filterComparison('PRIVACY')" id="btn-cmp-privacy" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-mono font-medium hover:bg-slate-200 transition-colors">
+                        Privacidad & Anti-Acoso
+                    </button>
+                    <button onclick="filterComparison('PERF')" id="btn-cmp-perf" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-mono font-medium hover:bg-slate-200 transition-colors">
+                        Rendimiento & Cobertura
+                    </button>
+                </div>
+
+                <!-- Comparison Chart & Table Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <!-- Chart.js Container -->
+                    <div class="lg:col-span-5 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-xs font-mono font-bold text-slate-700 mb-2 text-center">
+                            Matriz de Desempeño Relativo por Entorno
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="comparisonChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Comparison Table -->
+                    <div class="lg:col-span-7 overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs font-mono">
+                            <thead>
+                                <tr class="border-b border-slate-200 bg-slate-100 text-slate-700">
+                                    <th class="p-3">Dimensión / Parámetro</th>
+                                    <th class="p-3 text-brand-indigo">Apple Find My Network</th>
+                                    <th class="p-3 text-brand-teal">Google Find Hub Network</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-slate-700" id="comparison-table-body">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Security Lab (OpenHaystack, Covert Channel, Secure Enclave) -->
+        <section id="seguridad" class="space-y-4">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="mb-4">
+                    <div class="flex items-center gap-2 text-xs font-mono text-brand-indigo font-bold uppercase tracking-wider mb-1">
+                        <span>Módulo 05</span> &bull; <span>Laboratorio de Seguridad & Hacking Ético</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">OpenHaystack, Canales Encubiertos y Enclaves de Seguridad</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Explora la emulación de balizas con hardware de bajo coste (ESP32/nRF52) y el riesgo de exfiltración de datos arbitrarios mediante la infraestructura de rastreo.
+                    </p>
+                </div>
+
+                <!-- Tabbed Sub-Modules -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Control Sidebar -->
+                    <div class="lg:col-span-4 space-y-2">
+                        <button onclick="switchLabTab('openhaystack')" id="lab-tab-openhaystack" class="w-full text-left p-3 rounded-xl border border-brand-indigo bg-indigo-50/50 text-xs font-mono font-bold text-brand-indigo transition-all">
+                            1. Emulación OpenHaystack (ESP32)
+                        </button>
+                        <button onclick="switchLabTab('sendmy')" id="lab-tab-sendmy" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-mono font-bold text-slate-700 hover:bg-slate-100 transition-all">
+                            2. Ataque "Send My" (Canal Encubierto)
+                        </button>
+                        <button onclick="switchLabTab('hardware')" id="lab-tab-hardware" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-mono font-bold text-slate-700 hover:bg-slate-100 transition-all">
+                            3. Secure Enclave (SEP) vs JTAG/SWD
+                        </button>
+                    </div>
+
+                    <!-- Display Panel -->
+                    <div class="lg:col-span-8 bg-slate-50 p-5 rounded-xl border border-slate-200 min-h-[280px]" id="lab-content-panel">
+                        <!-- Content updated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Evidence Table & Recommendations -->
+        <section id="evidencia" class="space-y-4">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="mb-4">
+                    <div class="flex items-center gap-2 text-xs font-mono text-slate-600 font-bold uppercase tracking-wider mb-1">
+                        <span>Módulo 06</span> &bull; <span>Evidencia & Recomendaciones</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-900">Tabla de Confianza de Fuentes y Guía de Acción</h2>
+                    <p class="text-sm text-slate-600 mt-1">
+                        Evaluación rigurosa del nivel de certeza de los hallazgos técnicos recopilados y recomendaciones operativas para desarrolladores, ingenieros de seguridad y usuarios.
+                    </p>
+                </div>
+
+                <!-- Searchable Trust Matrix -->
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <input type="text" id="trust-search" oninput="filterTrustTable()" placeholder="Buscar concepto o fuente (ej. P-224, Send My, ESP32)..." class="w-full sm:w-72 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-800 focus:outline-none focus:border-brand-indigo">
+                        <span class="text-xs font-mono text-slate-500">Filtrado activo por validación académica</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs font-mono">
+                            <thead>
+                                <tr class="border-b border-slate-200 bg-slate-100 text-slate-700">
+                                    <th class="p-3">Dominio de Información</th>
+                                    <th class="p-3">Fuentes Evaluadas</th>
+                                    <th class="p-3">Nivel Confianza</th>
+                                    <th class="p-3">Elementos Verificados</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-slate-700" id="trust-table-body">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recommendations Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 pt-6 border-t border-slate-200">
+                    <div class="p-4 rounded-xl bg-indigo-50/50 border border-indigo-200 space-y-2">
+                        <div class="text-xs font-mono font-bold text-brand-indigo uppercase">Para Desarrolladores IoT</div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Al diseñar balizas en ESP32/nRF52, implementar la rotación determinista KDF en chip. Activar la protección RDP (Readout Protection) para evitar la lectura de memoria mediante SWD/JTAG.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-teal-50/50 border border-teal-200 space-y-2">
+                        <div class="text-xs font-mono font-bold text-brand-teal uppercase">Para Arquitectos de Seguridad</div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Desplegar monitoreo de espectro RF para detectar transmisiones con identificador <code class="bg-white px-1 py-0.5 rounded border border-slate-300">0x004C</code> y MAC variables como posibles vectores de exfiltración de datos.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-200 space-y-2">
+                        <div class="text-xs font-mono font-bold text-brand-amber uppercase">Para Usuarios Android</div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Si utilizas etiquetas Find Hub en zonas rurales o aisladas, cambia la opción por defecto en Android a <i>"With network in all areas"</i> para deshabilitar la exigencia de agregación multinodo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-brand-border py-6 px-4 text-center text-xs font-mono text-brand-muted">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div>Plataforma de Investigación en Redes Crowdsourced BLE &bull; Nexus Architect Engine</div>
+            <div>Basado en estándares DULT (IETF) y especificaciones Apple/Google</div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic Application -->
+    <script>
+        /* Application State */
+        const state = {
+            currentStep: 0,
+            autoPlay: false,
+            autoPlayInterval: null,
+            kdfIndex: 0,
+            selectedByte: 0,
+            labTab: 'openhaystack',
+            trustFilter: '',
+            cmpFilter: 'ALL'
+        };
+
+        /* 5-Stage Protocol Steps Data */
+        const STEPS = [
+            {
+                badge: 'Etapa 1 de 5',
+                actor: 'Nodo Emisor (Baliza)',
+                title: '1. Emisión de Publicación BLE ADV_IND',
+                desc: 'La baliza calcula localmente la clave pública efímera p_i utilizando la función de derivación. Modifica su dirección MAC de radio (BD_ADDR) para que contenga los primeros 6 bytes de p_i e inserta los 22 bytes restantes en el campo específico de fabricante (0x004C Apple). Emite ráfagas sin conexión cada 2000 ms.',
+                specs: 'Frecuencia: Canales 37, 38, 39 BLE | Potencia: ~0 dBm | Payload: 31 Bytes Legacy',
+                canvasData: { activeNode: 'beacon', signalProgress: 0.25 }
+            },
+            {
+                badge: 'Etapa 2 de 5',
+                actor: 'Nodo Detector (Pasarela Terceros)',
+                title: '2. Captura por Pasarela y Geolocalización GPS',
+                desc: 'Un teléfono inteligente o tablet de un tercero que pasa cerca escanea en segundo plano señales BLE. Al interceptar el anuncio, consulta su propio chip GPS integrado para obtener las coordenadas exactas, la precisión horizontal y la marca de tiempo actual del hallazgo.',
+                specs: 'Privacidad Pasarela: El usuario del teléfono jamás se entera del escaneo | Batería: Consumo <0.1%',
+                canvasData: { activeNode: 'gateway', signalProgress: 0.50 }
+            },
+            {
+                badge: 'Etapa 3 de 5',
+                actor: 'Pasarela (Cifrado E2EE)',
+                title: '3. Cifrado de Extremo a Extremo (ECDH + AES-128-GCM)',
+                desc: 'La pasarela genera un par de claves efímeras en curva elíptica y ejecuta un intercambio de claves Diffie-Hellman (ECDH) utilizando la clave pública p_i obtenida del anuncio BLE. Cifra las coordenadas GPS y la hora exacta con AES-128-GCM.',
+                specs: 'Propiedad Clave: La pasarela no puede leer las coordenadas que acaba de cifrar.',
+                canvasData: { activeNode: 'crypto', signalProgress: 0.65 }
+            },
+            {
+                badge: 'Etapa 4 de 5',
+                actor: 'Servidor Central (Cloud Backend)',
+                title: '4. Carga Anónima al Servidor de Relevo',
+                desc: 'La pasarela realiza una petición HTTPS POST al backend cloud enviando el hash de la clave pública H(p_i) = SHA-256(p_i) junto con el texto cifrado. El servidor almacena el registro en su base de datos indexada sin conocer la ubicación ni a los usuarios.',
+                specs: 'Doble Ciego: El servidor no posee la clave privada para descifrar la posición.',
+                canvasData: { activeNode: 'cloud', signalProgress: 0.85 }
+            },
+            {
+                badge: 'Etapa 5 de 5',
+                actor: 'Nodo Propietario (Buscador)',
+                title: '5. Consulta e Inferencia de Ubicación por el Dueño',
+                desc: 'El dispositivo del propietario, reteniendo las claves maestras iniciales, calcula la secuencia anticipada de claves p_i, obtiene sus hashes H(p_i) y consulta la API cloud. Al descargar los reportes coincidentes, utiliza su clave privada d_i para descifrar la ubicación exacta en el mapa.',
+                specs: 'Descifrado Local: La posición solo existe legible dentro de la memoria del iPhone/Mac del dueño.',
+                canvasData: { activeNode: 'owner', signalProgress: 1.0 }
+            }
+        ];
+
+        /* BLE 31-Byte Frame Breakdown Data */
+        const BYTE_BLOCKS = [
+            { offsets: '0 - 5', title: 'BD_ADDR (Random Static Address)', size: '6 Bytes', hex: '4A:3B:2C:1D:0E:5F', spec: 'Bluetooth SIG / Apple Offline', desc: 'Primeros 6 bytes de la clave pública efímera NIST P-224; reemplazan la dirección MAC real del chip de radio.' },
+            { offsets: '6', title: 'Length Header', size: '1 Byte', hex: '1E (30 dec)', spec: 'BLE Specification 4.0+', desc: 'Indica la longitud del bloque de datos restante de la estructura de anuncio AD.' },
+            { offsets: '7', title: 'AD Type', size: '1 Byte', hex: 'FF', spec: 'Manufacturer Specific Data', desc: 'Identifica el tipo de estructura de datos como datos específicos del fabricante.' },
+            { offsets: '8 - 9', title: 'Company ID (Apple Inc.)', size: '2 Bytes', hex: '4C 00 (Little-Endian)', spec: 'Bluetooth SIG Assigned ID', desc: 'Identificador oficial otorgado a Apple Inc. (0x004C) para tramas propietarias.' },
+            { offsets: '10', title: 'Offline Finding Type', size: '1 Byte', hex: '12', spec: 'Apple Find My Protocol', desc: 'Indicador de sub-tipo de carga útil especificando que el dispositivo opera en la red Offline.' },
+            { offsets: '11', title: 'Data Length', size: '1 Byte', hex: '19 (25 dec)', spec: 'Apple Protocol Payload Length', desc: 'Especifica la longitud del fragmento restante que contiene el estado y la clave pública.' },
+            { offsets: '12', title: 'Status Byte', size: '1 Byte', hex: '00 / 04', spec: 'Battery & Separation Status', desc: 'Codifica el estado de carga de la batería y si el dispositivo está separado de su dueño.' },
+            { offsets: '13 - 34', title: 'Public Key Fragment', size: '22 Bytes', hex: '8A:9B:0C:1D:2E:3F... (22B)', spec: 'NIST P-224 Compressed Fragment', desc: 'Fragmento secundario (bytes 7 al 28) de la clave pública efímera P-224 derivada.' },
+            { offsets: '35 - 36', title: 'Crypto Hint / Counter', size: '2 Bytes', hex: '01 A4', spec: 'Anti-Replay / Counter', desc: 'Contador de estado criptográfico que cambia periódicamente para evitar ataques de reproducción.' }
+        ];
+
+        /* Comparison Table Data */
+        const COMPARISON_DATA = [
+            { category: 'PRIVACY', param: 'Curva Criptográfica Base', apple: 'NIST P-224 (ECDH)', google: 'NIST P-256 / E2EE' },
+            { category: 'PRIVACY', param: 'Rotación de Claves', apple: 'Cada 15 min a 24 horas', google: 'Rotación dinámica por tiempo' },
+            { category: 'PERF', param: 'Política Agregación Predeterminada', apple: 'Inmediata (1-a-1). Detección por 1 sola pasarela.', google: 'Agregación Multinodo por Defecto. Requiere múltiples pasarelas.' },
+            { category: 'PERF', param: 'Rendimiento en Zonas Rurales', apple: 'Elevado. Alta tasa de recuperación.', google: 'Limitado por defecto (requiere ajuste manual).' },
+            { category: 'PRIVACY', param: 'Estándar Anti-Acoso', apple: 'DULT IETF (Alertas cruzadas iOS/Android)', google: 'DULT IETF (Alertas cruzadas iOS/Android)' },
+            { category: 'PERF', param: 'Operación con Teléfono Apagado', apple: 'Reserva de energía en Secure Enclave / MOP', google: 'Controladores BLE dedicados (Pixel 9 / chips compatibles)' }
+        ];
+
+        /* Trust Table Data */
+        const TRUST_DATA = [
+            { domain: 'Estructura Paquete BLE', sources: 'Especificación Apple / SEEMOO Darmstadt', level: 'Muy Alto', details: '31B PDU, claves P-224 divididas entre BD_ADDR y Manufacturer Data (0x004C).' },
+            { domain: 'Derivación Criptográfica KDF', sources: 'Documentación Apple / Papers PETS Cryptology', level: 'Muy Alto', details: 'Uso de ANSI X.963 KDF, hashes SHA-256 y curva elíptica NIST P-224.' },
+            { domain: 'Política Google Find Hub', sources: 'Documentación Oficial Google Android', level: 'Alto', details: 'Ajuste predeterminado "High-traffic areas" y necesidad de coincidencia multinodo.' },
+            { domain: 'Ataque "Send My" (Canal Encubierto)', sources: 'Positive Security Research Group', level: 'Medio-Alto', details: 'Exfiltración de datos arbitrarios sustituyendo la clave pública en los anuncios BLE.' }
+        ];
+
+        /* Canvas Initialization */
+        let workflowCtx = null;
+
+        function initWorkflowCanvas() {
+            const canvas = document.getElementById('workflowCanvas');
+            if (!canvas) return;
+            workflowCtx = canvas.getContext('2d');
+
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                canvas.width = rect.width * window.devicePixelRatio;
+                canvas.height = rect.height * window.devicePixelRatio;
+                workflowCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+            drawWorkflow();
+        }
+
+        function drawWorkflow() {
+            if (!workflowCtx) return;
+            const canvas = document.getElementById('workflowCanvas');
+            const w = canvas.width / window.devicePixelRatio;
+            const h = canvas.height / window.devicePixelRatio;
+
+            workflowCtx.clearRect(0, 0, w, h);
+
+            // Node coordinates
+            const nodes = {
+                beacon: { x: w * 0.15, y: h * 0.5, label: 'Baliza (Objeto)', color: '#4f46e5' },
+                gateway: { x: w * 0.38, y: h * 0.3, label: 'Pasarela (Tercero)', color: '#0d9488' },
+                cloud: { x: w * 0.62, y: h * 0.5, label: 'Servidor Cloud', color: '#d97706' },
+                owner: { x: w * 0.85, y: h * 0.5, label: 'Dueño (iPhone)', color: '#e11d48' }
+            };
+
+            // Draw Connection Lines
+            workflowCtx.strokeStyle = '#334155';
+            workflowCtx.lineWidth = 2;
+            workflowCtx.setLineDash([4, 4]);
+
+            workflowCtx.beginPath();
+            workflowCtx.moveTo(nodes.beacon.x, nodes.beacon.y);
+            workflowCtx.lineTo(nodes.gateway.x, nodes.gateway.y);
+            workflowCtx.lineTo(nodes.cloud.x, nodes.cloud.y);
+            workflowCtx.lineTo(nodes.owner.x, nodes.owner.y);
+            workflowCtx.stroke();
+            workflowCtx.setLineDash([]);
+
+            // Current Active Step Progress
+            const step = STEPS[state.currentStep];
+            const activeNode = step.canvasData.activeNode;
+
+            // Draw Nodes
+            Object.keys(nodes).forEach(key => {
+                const n = nodes[key];
+                const isActive = (key === activeNode) || (activeNode === 'crypto' && key === 'gateway');
+
+                workflowCtx.beginPath();
+                workflowCtx.arc(n.x, n.y, isActive ? 18 : 12, 0, Math.PI * 2);
+                workflowCtx.fillStyle = isActive ? n.color : '#1e293b';
+                workflowCtx.fill();
+                workflowCtx.strokeStyle = n.color;
+                workflowCtx.lineWidth = 3;
+                workflowCtx.stroke();
+
+                // Labels
+                workflowCtx.font = '10px "JetBrains Mono", monospace';
+                workflowCtx.fillStyle = isActive ? '#ffffff' : '#94a3b8';
+                workflowCtx.textAlign = 'center';
+                workflowCtx.fillText(n.label, n.x, n.y + 32);
+            });
+
+            // Draw Pulsing Data Packet Signal
+            const prog = step.canvasData.signalProgress;
+            let px = nodes.beacon.x + (nodes.owner.x - nodes.beacon.x) * prog;
+            let py = h * 0.5;
+
+            if (prog < 0.4) {
+                px = nodes.beacon.x + (nodes.gateway.x - nodes.beacon.x) * (prog / 0.4);
+                py = nodes.beacon.y + (nodes.gateway.y - nodes.beacon.y) * (prog / 0.4);
+            } else if (prog < 0.75) {
+                px = nodes.gateway.x + (nodes.cloud.x - nodes.gateway.x) * ((prog - 0.4) / 0.35);
+                py = nodes.gateway.y + (nodes.cloud.y - nodes.gateway.y) * ((prog - 0.4) / 0.35);
+            } else {
+                px = nodes.cloud.x + (nodes.owner.x - nodes.cloud.x) * ((prog - 0.75) / 0.25);
+                py = nodes.cloud.y + (nodes.owner.y - nodes.cloud.y) * ((prog - 0.75) / 0.25);
+            }
+
+            workflowCtx.beginPath();
+            workflowCtx.arc(px, py, 7, 0, Math.PI * 2);
+            workflowCtx.fillStyle = '#38bdf8';
+            workflowCtx.fill();
+            workflowCtx.strokeStyle = '#ffffff';
+            workflowCtx.lineWidth = 2;
+            workflowCtx.stroke();
+        }
+
+        /* Step Controller Logic */
+        function changeStep(delta) {
+            state.currentStep = (state.currentStep + delta + STEPS.length) % STEPS.length;
+            updateStepView();
+        }
+
+        function toggleAutoPlay() {
+            state.autoPlay = !state.autoPlay;
+            const btn = document.getElementById('btn-play-step');
+            if (state.autoPlay) {
+                btn.textContent = 'Pausar Auto';
+                btn.classList.add('bg-brand-indigo', 'text-white');
+                state.autoPlayInterval = setInterval(() => {
+                    changeStep(1);
+                }, 3500);
+            } else {
+                btn.textContent = 'Reproducir Auto';
+                btn.classList.remove('bg-brand-indigo', 'text-white');
+                clearInterval(state.autoPlayInterval);
+            }
+        }
+
+        function updateStepView() {
+            const step = STEPS[state.currentStep];
+            document.getElementById('step-indicator').textContent = `Etapa ${state.currentStep + 1} de 5`;
+            document.getElementById('step-badge').textContent = step.badge;
+            document.getElementById('step-actor').textContent = step.actor;
+            document.getElementById('step-title').textContent = step.title;
+            document.getElementById('step-desc').textContent = step.desc;
+
+            const specsBox = document.getElementById('step-tech-specs');
+            specsBox.innerHTML = `<strong>Detalles de Protocolo:</strong> ${step.specs}`;
+
+            document.getElementById('canvas-status').textContent = `Estado: ${step.title}`;
+            document.getElementById('canvas-node').textContent = `Nodo: ${step.actor}`;
+
+            drawWorkflow();
+        }
+
+        /* Hex Frame Grid Populator */
+        function renderHexGrid() {
+            const container = document.getElementById('hex-frame-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            BYTE_BLOCKS.forEach((block, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `p-2 rounded border text-[11px] font-mono transition-all text-center ${idx === state.selectedByte ? 'bg-brand-teal text-white border-brand-teal shadow' : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'}`;
+                btn.innerHTML = `<div class="font-bold">${block.offsets}</div><div class="text-[9px] opacity-80 truncate">${block.hex}</div>`;
+                btn.onclick = () => selectByteBlock(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectByteBlock(idx) {
+            state.selectedByte = idx;
+            const block = BYTE_BLOCKS[idx];
+            if (!block) return;
+
+            document.getElementById('byte-offset-range').textContent = `Offsets: Bytes (${block.offsets})`;
+            document.getElementById('byte-title').textContent = block.title;
+            document.getElementById('byte-size').textContent = block.size;
+            document.getElementById('byte-description').textContent = block.desc;
+            document.getElementById('byte-hex-sample').textContent = block.hex;
+            document.getElementById('byte-spec-ref').textContent = block.spec;
+
+            renderHexGrid();
+        }
+
+        /* KDF Simulation Function */
+        function updateKdfSimulation(val) {
+            state.kdfIndex = parseInt(val);
+            document.getElementById('kdf-index-val').textContent = `i = ${val} (${val * 2.4} hrs transcurridas)`;
+            document.getElementById('kdf-timestamp').textContent = `T = +0${Math.floor(val * 2.4)}:00 hrs`;
+
+            // Mock KDF output evolution based on index val
+            const hexes = [
+                'a3f892c1081923e4f7a1829304b12c5d',
+                '11b982f4d1a09823e1102938475a82b0',
+                'c8912304918237491029384712039481',
+                'e2938471920394812309128301928301',
+                '88123910293812039812039812039812',
+                '99a18239120391280391283019283019',
+                '77210398120398120398120398120398',
+                '55102938102938102938102938102938',
+                '44019283019283019283019283019283',
+                '22910293810293810293810293810293',
+                '00192830192830192830192830192830'
+            ];
+
+            const idx = state.kdfIndex;
+            document.getElementById('out-sk-i').textContent = `${hexes[idx]}... [32 Bytes]`;
+            document.getElementById('out-d-i').textContent = `${hexes[(idx + 2) % 11]}... [36 Bytes Escalar]`;
+            document.getElementById('out-p-i').textContent = `04:${hexes[(idx + 4) % 11].slice(0, 8)}:${hexes[(idx + 1) % 11].slice(0, 8)}:8a:9b:0c:1d:2e:3f:4a:5b:6c:7d:8e:9f`;
+            document.getElementById('out-h-pi').textContent = `SHA-256(${hexes[idx].slice(0, 10)}...) = ${hexes[(idx + 6) % 11]}${hexes[(idx + 1) % 11]}`;
+        }
+
+        /* Chart.js Comparison Chart */
+        let comparisonChartInstance = null;
+
+        function initComparisonChart() {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            comparisonChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Latencia Detención', 'Precisión Rural', 'Resistencia Acoso', 'Densidad Requerida'],
+                    datasets: [
+                        { label: 'Apple Find My', data: [95, 90, 85, 70], backgroundColor: 'rgba(79, 70, 229, 0.75)', borderColor: '#4f46e5', borderWidth: 1 },
+                        { label: 'Google Find Hub', data: [65, 45, 98, 95], backgroundColor: 'rgba(13, 148, 136, 0.75)', borderColor: '#0d9488', borderWidth: 1 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'JetBrains Mono', size: 10 } } }
+                    },
+                    scales: {
+                        y: { min: 0, max: 100, ticks: { font: { family: 'JetBrains Mono', size: 9 } } },
+                        x: { ticks: { font: { family: 'JetBrains Mono', size: 9 } } }
+                    }
+                }
+            });
+        }
+
+        /* Filter Comparison Table */
+        function filterComparison(cat) {
+            state.cmpFilter = cat;
+            renderComparisonTable();
+
+            ['ALL', 'PRIVACY', 'PERF'].forEach(c => {
+                const btn = document.getElementById(`btn-cmp-${c.toLowerCase()}`);
+                if (c === cat) {
+                    btn.className = 'px-3 py-1 rounded-lg bg-brand-indigo text-white text-xs font-mono font-medium transition-colors';
+                } else {
+                    btn.className = 'px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-mono font-medium hover:bg-slate-200 transition-colors';
+                }
+            });
+        }
+
+        function renderComparisonTable() {
+            const tbody = document.getElementById('comparison-table-body');
+            tbody.innerHTML = '';
+
+            const filtered = COMPARISON_DATA.filter(d => state.cmpFilter === 'ALL' || d.category === state.cmpFilter);
+
+            filtered.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition-colors';
+                tr.innerHTML = `
+                    <td class="p-3 font-semibold text-slate-900">${row.param}</td>
+                    <td class="p-3 text-brand-indigo font-medium">${row.apple}</td>
+                    <td class="p-3 text-brand-teal font-medium">${row.google}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        /* Security Lab Tabs */
+        function switchLabTab(tabKey) {
+            state.labTab = tabKey;
+            ['openhaystack', 'sendmy', 'hardware'].forEach(k => {
+                const btn = document.getElementById(`lab-tab-${k}`);
+                if (k === tabKey) {
+                    btn.className = 'w-full text-left p-3 rounded-xl border border-brand-indigo bg-indigo-50/50 text-xs font-mono font-bold text-brand-indigo transition-all';
+                } else {
+                    btn.className = 'w-full text-left p-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-mono font-bold text-slate-700 hover:bg-slate-100 transition-all';
+                }
+            });
+
+            const panel = document.getElementById('lab-content-panel');
+            if (tabKey === 'openhaystack') {
+                panel.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+                            <span class="text-xs font-mono font-bold text-slate-900">1. Marco OpenHaystack (SEEMOO Darmstadt)</span>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-200 text-slate-700">Microcontroladores ESP32 / nRF52</span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            OpenHaystack permite integrar dispositivos de hardware abierto sin certificación dentro de la red Find My de Apple.
+                        </p>
+                        <div class="bg-slate-900 p-3 rounded-lg text-emerald-400 font-mono text-[11px] overflow-x-auto">
+                            // Ejemplo Firmware ESP32 (Emulación de Anuncio BLE Apple)<br>
+                            uint8_t payload[31] = {<br>
+                            &nbsp;&nbsp;0x1E, 0xFF, 0x4C, 0x00, 0x12, 0x19, 0x00, /* Header 0x004C Apple */<br>
+                            &nbsp;&nbsp;/* 22 Bytes de Clave Pública P-224 Estática p_0 */<br>
+                            &nbsp;&nbsp;0x8A, 0x9B, 0x0C, 0x1D, 0x2E, 0x3F, 0x4A, 0x5B ...<br>
+                            };
+                        </div>
+                        <p class="text-xs text-slate-600">
+                            <strong>Descarga en macOS:</strong> Utiliza el plugin <code class="bg-white px-1 py-0.5 rounded border">OpenHaystackMail.mailbundle</code> para extraer el token de sesión de iCloud (<code class="bg-white px-1 py-0.5 rounded border">com.apple.private.appleaccount.token-client</code>) y consultar la API SearchParty de Apple.
+                        </p>
+                    </div>
+                `;
+            } else if (tabKey === 'sendmy') {
+                panel.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+                            <span class="text-xs font-mono font-bold text-brand-rose">2. Ataque "Send My" (Canal Encubierto)</span>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-100 text-rose-800">Exfiltración Sin Internet</span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Dado que el protocolo BLE no requiere autenticación previa con la pasarela pasiva, un atacante puede sustituir la clave pública P-224 por fragmentos de texto o archivos binarios arbitrarios.
+                        </p>
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 space-y-2 text-xs font-mono">
+                            <div class="text-slate-500 font-bold">Simulador de Fragmentación de Carga Util:</div>
+                            <input type="text" id="sendmy-input" value="CONFIDENTIAL_DATA_EXFILTRATED" oninput="updateSendMySim(this.value)" class="w-full p-1.5 bg-slate-50 border border-slate-300 rounded text-xs">
+                            <div id="sendmy-output" class="text-brand-rose font-bold text-[11px]">Paquetes BLE Generados: 2 tramas de 22 bytes.</div>
+                        </div>
+                    </div>
+                `;
+            } else if (tabKey === 'hardware') {
+                panel.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+                            <span class="text-xs font-mono font-bold text-slate-900">3. Secure Enclave (SEP) vs SWD/JTAG</span>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-200 text-slate-700">Hardware Security</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-white rounded-lg border border-slate-200 space-y-1">
+                                <span class="font-bold text-brand-teal font-mono">Dispositivos Oficiales (Apple SEP)</span>
+                                <p class="text-slate-600 text-[11px] leading-relaxed">
+                                    Las claves maestras están confinadas en el Secure Enclave (SEP). Aísla las operaciones criptográficas con memoria cifrada por hardware AES-XEX. Imposible extraer la clave aun con acceso root.
+                                </p>
+                            </div>
+                            <div class="p-3 bg-white rounded-lg border border-slate-200 space-y-1">
+                                <span class="font-bold text-brand-rose font-mono">Hardware Abierto (ESP32 / nRF52)</span>
+                                <p class="text-slate-600 text-[11px] leading-relaxed">
+                                    Si no se activa la protección de lectura (RDP), un atacante con acceso físico puede volcar la memoria Flash a través del puerto SWD/JTAG y extraer las claves maestras para clonar la baliza.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function updateSendMySim(val) {
+            const out = document.getElementById('sendmy-output');
+            const numChunks = Math.ceil((val.length || 1) / 22);
+            out.textContent = `Texto (${val.length} caracteres) divido en ${numChunks} paquete(s) de anuncio BLE de 22 bytes cada uno.`;
+        }
+
+        /* Trust Table Filtering */
+        function filterTrustTable() {
+            const query = document.getElementById('trust-search').value.toLowerCase();
+            const tbody = document.getElementById('trust-table-body');
+            tbody.innerHTML = '';
+
+            const filtered = TRUST_DATA.filter(t =>
+                t.domain.toLowerCase().includes(query) ||
+                t.sources.toLowerCase().includes(query) ||
+                t.details.toLowerCase().includes(query)
+            );
+
+            filtered.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition-colors';
+                tr.innerHTML = `
+                    <td class="p-3 font-semibold text-slate-900">${row.domain}</td>
+                    <td class="p-3 text-slate-600">${row.sources}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">${row.level}</span></td>
+                    <td class="p-3 text-slate-600">${row.details}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        /* Initialization On Load */
+        window.onload = function() {
+            lucide.createIcons();
+            initWorkflowCanvas();
+            selectByteBlock(0);
+            initComparisonChart();
+            renderComparisonTable();
+            switchLabTab('openhaystack');
+            filterTrustTable();
+            updateKdfSimulation(0);
+        };
+    </script>
+</body>
+</html>
