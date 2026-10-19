@@ -1,0 +1,207 @@
+{
+  "main": {
+    "id": "a820a87d7074c555",
+    "type": "split",
+    "children": [
+      {
+        "id": "cabf4cd32d21ab04",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d9bdad153ed22660",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Vista gráfica"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d1d9cf249512b245",
+    "type": "split",
+    "children": [
+      {
+        "id": "b6deada56b69c172",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "42765804d3e170b4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byModifiedTime",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de archivos"
+            }
+          },
+          {
+            "id": "55b9a0316e3d61bd",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#gratis",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Buscar"
+            }
+          },
+          {
+            "id": "677da5e890126bd9",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "54cba79d3f30c4c0",
+    "type": "split",
+    "children": [
+      {
+        "id": "12f94b7ba415a935",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "09cbc7c9028e1ead",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Enlaces entrantes"
+            }
+          },
+          {
+            "id": "04ef8a795f9851a8",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Enlaces salientes"
+            }
+          },
+          {
+            "id": "ce02ff43480808e6",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "394ff5061e078ea6",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas las propiedades"
+            }
+          },
+          {
+            "id": "7845c2ab85c50aef",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Esquema"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir selector rápido": false,
+      "graph:Abrir vista gráfica": false,
+      "canvas:Crear nuevo lienzo": false,
+      "daily-notes:Abrir la nota de hoy": false,
+      "templates:Insertar plantilla": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Crear nueva base": false
+    }
+  },
+  "active": "d9bdad153ed22660",
+  "lastOpenFiles": [
+    "Runeforge/MOCs/MOC-AI_Intel.md",
+    "clippings/DeepSeek.md",
+    "RUNEFORGE META‑PROMPT UNIFICA.md",
+    "MANIFIESTO.md",
+    "Pront Arquitecto de sistemas críticos.md",
+    "Sin título.md",
+    "Get-Runegea-Validacion-Bodega.ps1",
+    "scripts/Get-Runegea-Validacion-Bodega.ps1",
+    "scripts/Sin confirmar 27078.crdownload",
+    "scripts/Obsidian-Clipper-Settings-RUNEGEA-FINAL-V1.json",
+    "scripts/Invoke-Runegea-Root-Restructure.ps1",
+    "scripts/Sin confirmar 301899.crdownload",
+    "FlotaKW_Completo_v3.2_SOBERANO/FlotaKW_Completo/flota-kw-os/README.md",
+    "FlotaKW_Completo_v3.2_SOBERANO/FlotaKW_Completo/flota-kw-os/backend/flotakw.db",
+    "FlotaKW_Completo_v3.2_SOBERANO/FlotaKW_Completo/flota-kw-os/backend/RUN_SOBERANO.bat",
+    "FlotaKW_Completo_v3.2_SOBERANO/FlotaKW_Completo/flota-kw-os/backend/Sin confirmar 25210.crdownload",
+    "FlotaKW_Completo_v3.2_SOBERANO/FlotaKW_Completo/flota-kw-os/mobile-app/lib/screens/scanner_familia.dart",
+    "apps/runeforge-mobile/node_modules/ora/node_modules/ansi-styles/readme.md"
+  ]
+}

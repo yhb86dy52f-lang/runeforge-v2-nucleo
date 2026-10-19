@@ -1,0 +1,107 @@
+{
+  "Vulkan_1_3_Support": "Requiere GPU con 2GB VRAM + VK_KHR_swapchain + VK_KHR_push_descriptor para ShadPS4. Tu GTX 16 cumple si driver actualizado.",
+  "Software": {
+    "winget": "C:\\Users\\nesth\\AppData\\Local\\Microsoft\\WindowsApps\\winget.exe | v1.29.380",
+    "python3": "C:\\Users\\nesth\\AppData\\Local\\Microsoft\\WindowsApps\\python3.exe | ",
+    "pm2": "C:\\Users\\nesth\\AppData\\Roaming\\npm\\pm2.ps1 | 7.0.4",
+    "rustc": "C:\\Users\\nesth\\.cargo\\bin\\rustc.exe | rustc 1.98.1 (48a229cea 2026-09-01)",
+    "npm": "C:\\Program Files\\nodejs\\npm.ps1 | 11.17.0",
+    "ollama": "C:\\Users\\nesth\\AppData\\Local\\Programs\\Ollama\\ollama.exe | Warning: could not connect to a running Ollama instance Warning: client version is 0.32.13",
+    "python": "C:\\Users\\nesth\\AppData\\Local\\Programs\\Python\\Python311\\python.exe | Python 3.11.9",
+    "node": "C:\\Program Files\\nodejs\\node.exe | v24.19.0",
+    "code": "C:\\Users\\nesth\\AppData\\Local\\Programs\\Microsoft VS Code\\bin\\code.cmd | 1.138.0 7debcd0e2acdea1c52de81bf9ee1620444407dda x64",
+    "git": "C:\\Program Files\\Git\\cmd\\git.exe | git version 2.44.0.windows.1",
+    "cargo": "C:\\Users\\nesth\\.cargo\\bin\\cargo.exe | cargo 1.98.1 (797e8a9bc 2026-08-05)"
+  },
+  "RAM_Free_GB": 0.01,
+  "Recommendations_Prelim": [],
+  "InstalledApps": {
+    "ShareX": {
+      "DisplayName": "Recorder Devices for ShareX 0.12.10",
+      "DisplayVersion": "0.12.10",
+      "Publisher": null,
+      "InstallLocation": "C:\\Program Files\\Recorder Devices for ShareX\\"
+    },
+    "Lossless Scaling": {
+      "DisplayName": "Lossless Scaling",
+      "DisplayVersion": null,
+      "Publisher": "THS",
+      "InstallLocation": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Lossless Scaling"
+    }
+  },
+  "Ollama_PS": null,
+  "NVIDIA_SMI_VRAM": "6144 MiB",
+  "GameMode": 1,
+  "Computer": "To Be Filled By O.E.M. To Be Filled By O.E.M.",
+  "RuneforgeRoot": {
+    "Exists": true,
+    "Apps": [
+      "_template",
+      "dictate-backend",
+      "dictate-studio",
+      "dictate-studio-v2",
+      "esp32-scanner-pro",
+      "nexus-lab",
+      "openwash-real",
+      "openwash-real-v2",
+      "opt-verify",
+      "panel-relevadores",
+      "sms-hub",
+      "sms-hub-hmi"
+    ],
+    "Size_GB": 35.37
+  },
+  "Ports": {
+    "3198": "OFFLINE",
+    "3100": "LISTENING PID 10612",
+    "11434": "OFFLINE"
+  },
+  "Vulkan_DLL": true,
+  "PowerPlan": "GUID de plan de energía: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c  (Alto rendimiento)",
+  "CPU": "AMD Ryzen 3 3200G with Radeon Vega Graphics     | Cores: 4 Threads: 4 | Arch: 9 | AVX2: False",
+  "RAM_GB": 16.0,
+  "OS": "Microsoft Windows 10 Pro Build 19045 64 bits",
+  "Ollama_List": null,
+  "GPUs": [
+    {
+      "Name": "USB Mobile Monitor Virtual Display",
+      "Status": "OK",
+      "Resolution": "x @ Hz",
+      "DriverVersion": "2.0.0.1",
+      "VRAM_GB": "Unknown"
+    },
+    {
+      "Name": "NVIDIA GeForce GTX 1660 SUPER",
+      "Status": "OK",
+      "Resolution": "1228x690 @ 60Hz",
+      "DriverVersion": "32.0.16.1047",
+      "VRAM_GB": 4.0
+    }
+  ],
+  "Displays": [
+    {
+      "Name": "USB Mobile Monitor Virtual Display",
+      "CurrentHorizontalResolution": null,
+      "CurrentVerticalResolution": null,
+      "CurrentRefreshRate": null,
+      "CurrentBitsPerPixel": null
+    },
+    {
+      "Name": "NVIDIA GeForce GTX 1660 SUPER",
+      "CurrentHorizontalResolution": 1228,
+      "CurrentVerticalResolution": 690,
+      "CurrentRefreshRate": 60,
+      "CurrentBitsPerPixel": 32
+    }
+  ],
+  "NVIDIA_SMI": "NVIDIA GeForce GTX 1660 SUPER, 610.47, 6144, 4107, 23, 40",
+  "DirectX": "4.09.00.0904",
+  "Tailscale": [
+    "100.83.105.117  runeforge-pc   forgerrune@  windows  -                          ",
+    "100.95.173.89   iphone-14-pro  forgerrune@  iOS      offline, last seen 1d ago  ",
+    "",
+    "# Funnel on:",
+    "#     - https://runeforge-pc.tail12b297.ts.net",
+    ""
+  ]
+}

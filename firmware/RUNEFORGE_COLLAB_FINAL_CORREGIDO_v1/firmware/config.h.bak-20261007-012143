@@ -1,0 +1,129 @@
+#pragma once
+// RUNEFORGE COLLAB v2.0 — config.h con persistencia NVS
+// Defaults: red real Torreón + MQTT 192.168.100.5 (Docker PC)
+
+#include <Arduino.h>
+#include <Preferences.h>
+
+// ============ DEFAULTS (fábrica) ============
+#define DEF_WIFI_SSID_1   "517388haieksja_2.4G"
+#define DEF_WIFI_PASS_1   "bebecillogordillo"
+#define DEF_WIFI_SSID_2   "RUNE FORGE-PC 8808"
+#define DEF_WIFI_PASS_2   "12345678"
+#define DEF_WIFI_SSID_3   "ScannerPRO-Setup"
+#define DEF_WIFI_PASS_3   "12345678"
+
+#define DEF_AP_SSID       "ScannerPRO-Setup"
+#define DEF_AP_PASS       "12345678"
+#define DEF_AP_CHANNEL    6
+#define DEF_AP_ALWAYS_ON  true
+
+#define DEF_MDNS          "scanner-pro"
+
+#define DEF_MQTT_SERVER   "192.168.100.5"
+#define DEF_MQTT_PORT     1883
+#define DEF_MQTT_TOPIC    "scannerpro/collab"
+#define DEF_MQTT_CLIENT   "SCANNER-14"
+
+#define DEF_SCAN_INTERVAL 400
+#define DEF_SCAN_WINDOW   100
+#define DEF_SCAN_TIME     0
+#define DEF_ACTIVE_SCAN   false
+#define DEF_RSSI_MIN      (-90)
+#define DEF_MAC_PREFIXES  "c3:00,bdva,4c:00,50:2b:73,55:17,50:55,c5:fa"
+#define DEF_NAME_FILTERS  "CICLOPE,BDVA,LMU,EX7,SAMSARA,AT11,PB705,KW-,RUNEFORGE,RF-"
+#define DEF_KQ            0.01f
+#define DEF_KR            0.1f
+#define DEF_KP            1.0f
+#define DEF_KX0           (-70.0f)
+
+#define DEF_FINDER_LAT    25.5428
+#define DEF_FINDER_LON    (-103.4068)
+#define DEF_FINDER_ID     "SCANNER-14-TORREON"
+
+// ============ STRUCT ============
+struct Config {
+  char     ssid[64]           = DEF_WIFI_SSID_1;
+  char     pass[64]           = DEF_WIFI_PASS_1;
+  char     wifiSSID2[64]      = DEF_WIFI_SSID_2;
+  char     wifiPass2[64]      = DEF_WIFI_PASS_2;
+  char     wifiSSID3[64]      = DEF_WIFI_SSID_3;
+  char     wifiPass3[64]      = DEF_WIFI_PASS_3;
+  char     ssidActivo[64]     = "";
+
+  char     apSSID[32]         = DEF_AP_SSID;
+  char     apPass[64]         = DEF_AP_PASS;
+  int      apChannel          = DEF_AP_CHANNEL;
+  bool     apAlwaysOn         = DEF_AP_ALWAYS_ON;
+
+  char     mdns[32]           = DEF_MDNS;
+
+  char     mqttServer[64]     = DEF_MQTT_SERVER;
+  uint16_t mqttPort           = DEF_MQTT_PORT;
+  char     mqttFallbackServer[64] = "";
+  uint16_t mqttFallbackPort   = 1883;
+  bool     mqttFallbackEnabled    = false;
+  char     mqttTopic[64]      = DEF_MQTT_TOPIC;
+  char     mqttClient[32]     = DEF_MQTT_CLIENT;
+  bool     mqttEnabled        = true;
+
+  bool     activeScan         = DEF_ACTIVE_SCAN;
+  int      scanInterval       = DEF_SCAN_INTERVAL;
+  int      scanWindow         = DEF_SCAN_WINDOW;
+  int      scanTime           = DEF_SCAN_TIME;
+
+  bool     filterEnabled      = true;
+  int      rssiMin            = DEF_RSSI_MIN;
+  char     macPrefixes[256]   = DEF_MAC_PREFIXES;
+  char     nameFilters[256]   = DEF_NAME_FILTERS;
+
+  float    kQ                 = DEF_KQ;
+  float    kR                 = DEF_KR;
+  float    kP                 = DEF_KP;
+  float    kX0                = DEF_KX0;
+
+  bool     debugLogAll        = false;
+};
+
+// ============ INSTANCIA GLOBAL ============
+// config.h se incluye SOLO desde ScannerPRO_v9_COLLAB.ino (una TU)
+Config cfg;
+
+// ============ PERSISTENCIA ============
+inline void configSave() {
+  Preferences prefs;
+  prefs.begin("runeforge", false);
+  prefs.putBytes("cfg", &cfg, sizeof(cfg));
+  prefs.end();
+  Serial.printf("[CFG] guardado (%u bytes)\n", (unsigned)sizeof(cfg));
+}
+
+inline void configFactoryReset() {
+  memset(&cfg, 0, sizeof(cfg));
+  Config def;
+  memcpy(&cfg, &def, sizeof(Config));
+  Serial.println("[CFG] factory reset aplicado");
+}
+
+inline void configLoad() {
+  Preferences prefs;
+  prefs.begin("runeforge", true); // read-only
+  size_t stored = prefs.getBytesLength("cfg");
+  if (stored == sizeof(cfg)) {
+    prefs.getBytes("cfg", &cfg, sizeof(cfg));
+    Serial.println("[CFG] cargado desde NVS");
+  } else {
+    Serial.printf("[CFG] NVS vacío o schema cambiado (%u vs %u), usando defaults\n",
+                  (unsigned)stored, (unsigned)sizeof(cfg));
+    prefs.end();
+    configFactoryReset();
+    configSave();
+    return;
+  }
+  prefs.end();
+}
+
+// ============ CONSTANTES FINDER ============
+#define FINDER_LAT  DEF_FINDER_LAT
+#define FINDER_LON  DEF_FINDER_LON
+#define FINDER_ID   DEF_FINDER_ID

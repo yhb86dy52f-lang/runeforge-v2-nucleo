@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runeforge Chat SSE</title>
+    <style>
+        :root { --bg: #0f172a; --panel: #1e293b; --text: #e2e8f0; --accent: #38bdf8; --user-msg: #0369a1; }
+        body { font-family: monospace; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; height: 85vh; }
+        #chat-box { flex: 1; overflow-y: auto; background: var(--panel); border-radius: 8px; padding: 15px; margin-bottom: 10px; border: 1px solid #334155; }
+        .msg { margin-bottom: 12px; padding: 10px 14px; border-radius: 6px; max-width: 85%; line-height: 1.4; word-break: break-word; white-space: pre-wrap; }
+        .user { background: var(--user-msg); align-self: flex-end; margin-left: auto; }
+        .bot { background: #334155; border-left: 3px solid var(--accent); }
+        .input-area { display: flex; gap: 10px; }
+        input { flex: 1; padding: 12px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 4px; font-family: inherit; }
+        button { padding: 12px 20px; background: var(--accent); border: none; color: #0f172a; font-weight: bold; border-radius: 4px; cursor: pointer; }
+        .typing { font-style: italic; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <h2>Runeforge Local SSE Stream (qwen2.5:1.5b)</h2>
+    <div id="chat-box"></div>
+    <div class="input-area">
+        <input type="text" id="prompt" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter') sendMsg()">
+        <button onclick="sendMsg()">Enviar</button>
+    </div>
+
+    <script>
+        async function sendMsg() {
+            const input = document.getElementById('prompt');
+            const box = document.getElementById('chat-box');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const userDiv = document.createElement('div');
+            userDiv.className = 'msg user';
+            userDiv.textContent = text;
+            box.appendChild(userDiv);
+            input.value = '';
+
+            const botDiv = document.createElement('div');
+            botDiv.className = 'msg bot typing';
+            botDiv.textContent = 'Pensando...';
+            box.appendChild(botDiv);
+            box.scrollTop = box.scrollHeight;
+
+            try {
+                const response = await fetch('/api/chat/stream', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: text })
+                });
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                botDiv.textContent = '';
+                botDiv.classList.remove('typing');
+
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n\n');
+                    buffer = lines.pop(); // Mantener el fragmento incompleto en el buffer
+
+                    for (const line of lines) {
+                        const trimmed = line.trim();
+                        if (trimmed.startsWith('data: ')) {
+                            const dataStr = trimmed.replace('data: ', '').trim();
+                            if (dataStr === '[DONE]') break;
+                            try {
+                                const parsed = JSON.parse(dataStr);
+                                if (parsed.response) {
+                                    botDiv.textContent += parsed.response;
+                                    box.scrollTop = box.scrollHeight;
+                                }
+                            } catch(e) {}
+                        }
+                    }
+                }
+            } catch (err) {
+                botDiv.textContent = '[ERROR] Fallo de comunicacion SSE con Ollama.';
+                botDiv.classList.remove('typing');
+            }
+        }
+    </script>
+</body>
+</html>

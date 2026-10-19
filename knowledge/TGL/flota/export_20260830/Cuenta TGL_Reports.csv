@@ -1,0 +1,23 @@
+Name;Type;Tables;Description
+eventos;Unit;Estadísticas, Eventos, Infracciones;
+Exceso de velocidad grupo;Unit Group;Estadísticas, Excesos de velocidad;
+Geocerca visitada especial 2;Unit Group;Estadísticas, Geocercas;
+Geotab - Bitacora de viaje;Unit;Estadisticas, Viajes, Detalle de movimientos, Paradas, Estacionamientos;Bitacora operativa de viajes, paradas y estacionamientos
+Geotab - Excepciones;Unit;Estadisticas, Excepciones Geotab;Eventos estructurados de excepciones Geotab
+Geotab - Fallas y eventos;Unit;Estadisticas, Fallas Geotab;Eventos estructurados de fallas Geotab
+Geotab - Niveles CAN;Unit;Resumen ejecutivo, Niveles combinados - Excel, Detalle CAN operativo, Datos crudos Geotab, Grafica - Niveles (Combustible y DEF), Grafica - Combustible, DEF e Ignicion, Grafica - Kilometraje (Odometro), Grafica - Motor (RPM, temperatura y voltaje);Reporte ejecutivo de niveles Geotab/CAN: combustible OEM, DEF, odometro, motor y temperatura para Excel y graficas.
+Geotab - Senales y motor;Unit;Estadisticas, Resumen de viajes, Operacion y disponibilidad, Motor y temperatura, Todos los sensores Geotab;Vista operativa de senales reales detectadas en KW 708
+horas calculo;Unit;Estadísticas, Horas de motor;
+Horas de motor;Unit Group;Estadísticas, Horas de motor;
+horas fuera de geocercas;Unit Group;Estadísticas, Viajes;
+Informe  km total;Unit Group;Estadísticas, Viajes;
+Informe Anual;Unit;Estadísticas, Dibujar geocercas, Paradas, Estacionamientos, Estadísticas, Estadísticas, Estacionamientos, Viajes, Estadísticas, Últimos datos de la unidad, Viajes, Estacionamientos, Geocercas Visitadas;
+Informe Anual km;Unit;Estadísticas, Dibujar geocercas, Paradas, Estacionamientos, Estadísticas, Estadísticas, Estacionamientos, Viajes, Estadísticas, Últimos datos de la unidad, Viajes, Estacionamientos, Geocercas Visitadas, Viajes entre geocercas;
+Kilometraje (PRUEBA);Unit;Estadísticas, Horas de motor;
+Kilometraje Por Conductor;Driver;Asignaciones, Estadísticas, Asignaciones;
+Nuevo informe;Unit Group;Estadísticas, Estadísticas, Eventos;
+Relenti Largo;Unit Group;Estadísticas, Estadísticas, Horas de motor;
+reporte de temperaturas Geotab;Unit;Resumen ejecutivo, Temperaturas - Excel suavizado 15 min, Datos crudos Geotab, Grafica - Temperaturas, Ignicion y KM GPS;Reporte de temperaturas Geotab para cajas refrigeradas: sensores 1 y 2, ignicion DiagnosticIgnitionId y kilometraje GPS.
+tabla unidades;Unit Group;Estadísticas, Perfil;
+Velocidad -40;Unit Group;Estadísticas, Viajes;
+Velocidad 40-60;Unit Group;Estadísticas, Viajes, Resumen;

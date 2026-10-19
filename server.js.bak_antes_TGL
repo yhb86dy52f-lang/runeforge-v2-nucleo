@@ -1,0 +1,58 @@
+const fastify=require('fastify')({logger:true});
+const path=require('path');
+const fs=require('fs');
+
+fastify.register(require('@fastify/cors'),{origin:true});
+fastify.register(require('@fastify/static'),{root:path.join(__dirname,'public')});
+
+const clipDir=path.join(__dirname,'clippings'); 
+if(!fs.existsSync(clipDir)) fs.mkdirSync(clipDir,{recursive:true});
+
+fastify.get('/health', async ()=>{
+  return {
+    ok:true,
+    ts:new Date().toISOString(),
+    clippings: fs.readdirSync(clipDir).length,
+    status: "TGL LAB V7 ONLINE"
+  }
+});
+
+// ENDPOINT UNIVERSAL - SOPORTA AMBOS FORMATOS
+fastify.post('/api/clipping', async(req)=>{
+  const b=req.body||{}; 
+  // Formato 1: V5 PRO {filename, content}
+  // Formato 2: V7 {esn, raw, markdown}
+  let fname, md;
+  if(b.filename){
+    fname = b.filename.replace(/[^a-zA-Z0-9_.-]/g,'_');
+    md = b.content || b.markdown || '';
+  } else {
+    const esn=(b.esn||'NOESN').toString().replace(/[^0-9A-Z]/gi,'').slice(0,20);
+    const ts=new Date().toISOString().replace(/[:.]/g,'-'); 
+    fname=`${esn}_${ts}.md`;
+    md=b.markdown||`# ${esn}\nRAW ${b.raw||''}\n\n${b.content||''}`;
+  }
+  fs.writeFileSync(path.join(clipDir,fname), md,'utf8');
+  console.log(`[CLIP OK] ${fname}`);
+  return {ok:true,file:fname,name:fname};
+});
+
+// Alias plural para V5 PRO
+fastify.post('/api/clippings', async(req)=>{
+  const b=req.body||{};
+  let fname = (b.filename || `CLIP_${Date.now()}.md`).replace(/[^a-zA-Z0-9_.-]/g,'_');
+  let md = b.content || b.markdown || '';
+  fs.writeFileSync(path.join(clipDir,fname), md,'utf8');
+  console.log(`[CLIP OK] ${fname}`);
+  return {ok:true,file:fname,name:fname};
+});
+
+fastify.get('/api/clippings', async()=>{
+  const files = fs.readdirSync(clipDir).map(f=>{
+    const stat = fs.statSync(path.join(clipDir,f));
+    return { name:f, size:stat.size, mtime:stat.mtime };
+  }).sort((a,b)=>b.mtime-a.mtime);
+  return {ok:true, files};
+});
+
+fastify.listen({port:3001,host:'0.0.0.0'},()=>console.log('TGL LAB V7 http://localhost:3001'));

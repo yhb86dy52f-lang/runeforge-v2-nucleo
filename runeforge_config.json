@@ -1,0 +1,62 @@
+{
+  "project": "RUNEFORGE_V2_CORE",
+  "module": "Open-Frame-gen (Nano AI)",
+  "version": "2.6.2",
+  "status": "Operational_Success",
+  "timestamp": "2026-10-19T00:00:00Z",
+  "hardware": {
+    "cpu": "AMD Ryzen 3 3200G",
+    "gpu": "NVIDIA GeForce GTX 1660 SUPER",
+    "monitor_primary": {
+      "name": "XZ3015",
+      "resolution": "1920x1080",
+      "refresh_rate": "165Hz"
+    },
+    "monitor_secondary": {
+      "name": "SYLVANIA",
+      "resolution": "1228x690",
+      "refresh_rate": "60Hz",
+      "role": "Capture Target"
+    }
+  },
+  "runtime_metrics": {
+    "pipeline_status": "Live",
+    "ai_enabled": true,
+    "output_fps": 60,
+    "game_fps": 60,
+    "cuda_enabled": true,
+    "torch_version": "2.5.1+cu121"
+  },
+  "fixes_applied": [
+    {
+      "id": "V6",
+      "issue": "Python IndentationError in ui_overlay.py",
+      "solution": "Reconstructed try/except block using 'del cam' anchor."
+    },
+    {
+      "id": "V3",
+      "issue": "Torch not compiled with CUDA",
+      "solution": "Replaced CPU torch with CUDA 12.1 build using resumable download script."
+    },
+    {
+      "id": "V8",
+      "issue": "DXGI_ERROR_ACCESS_LOST (0x887A0026) due to 165Hz monitor",
+      "solution": "Disabled Windows MPO via Registry (OverlayTestMode=5)."
+    },
+    {
+      "id": "V9",
+      "issue": "DXCam capturing primary monitor instead of secondary",
+      "solution": "Forced output_idx=1 and auto-detection (region=None)."
+    },
+    {
+      "id": "V11",
+      "issue": "DXCamera instance already exists (stale cache)",
+      "solution": "Injected dxcam._factory.cameras.clear() before camera recreation."
+    }
+  ],
+  "best_practices": {
+    "opera_gx": "Must be closed before running pipeline",
+    "game_mode": "Borderless Windowed (Not Fullscreen Exclusive)",
+    "nan_ai_location": "Place UI on primary monitor (165Hz)"
+  }
+}

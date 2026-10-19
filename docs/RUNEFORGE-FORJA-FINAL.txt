@@ -1,0 +1,85 @@
+# ============================================
+# RUNEFORGE V2 - SCRIPT FINAL SELLADO
+# Copia y pega TODO esto en PowerShell
+# Ubicacion: C:\RUNEFORGE_V2_CORE
+# ============================================
+
+Write-Host "=== CIERRE FINAL RUNEFORGE V2 ===" -ForegroundColor Cyan
+Set-Location "C:\RUNEFORGE_V2_CORE"
+New-Item -Force -ItemType Directory -Path "scripts" | Out-Null
+
+# 1. RAIZ SELLADA
+@"
+[workspace]
+members = ["apps/*/src-tauri"]
+exclude = ["apps/_template/src-tauri"]
+resolver = "2"
+
+[workspace.dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri-build = { version = "2", features = [] }
+tauri-plugin-http = { version = "2" }
+tauri-plugin-updater = { version = "2" }
+tauri-plugin-process = { version = "2" }
+tauri-plugin-fs = { version = "2" }
+
+[profile.dev]
+incremental = true
+[profile.dev.package."*"]
+opt-level = 0
+"@ | Set-Content "Cargo.toml" -Encoding UTF8
+
+# 2. TEMPLATE SELLADO
+@"
+[package]
+name = "__APPNAME__"
+version = "0.1.0"
+edition = "2021"
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+[dependencies]
+tauri = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tauri-plugin-http = { workspace = true }
+tauri-plugin-updater = { workspace = true }
+tauri-plugin-process = { workspace = true }
+tauri-plugin-fs = { workspace = true }
+"@ | Set-Content "apps\_template\src-tauri\Cargo.toml" -Encoding UTF8
+
+@"
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+     .plugin(tauri_plugin_http::init())
+     .plugin(tauri_plugin_fs::init())
+     .plugin(tauri_plugin_process::init())
+     .plugin(tauri_plugin_updater::Builder::new().build())
+     .run(tauri::generate_context!()).expect("error");
+}
+"@ | Set-Content "apps\_template\src-tauri\src\lib.rs" -Encoding UTF8
+
+# 3. CREADOR DE APPS
+@"
+param([Parameter(Mandatory=`$true)][string]`$Name)
+`$ErrorActionPreference = "Stop"
+Set-Location "C:\RUNEFORGE_V2_CORE"
+if (Test-Path "apps\`$Name") { Write-Host "Ya existe apps\`$Name" -ForegroundColor Red; exit 1 }
+Write-Host "Clonando _template -> `$Name..." -ForegroundColor Cyan
+Copy-Item -Recurse "apps\_template" "apps\`$Name"
+(Get-Content "apps\`$Name\src-tauri\Cargo.toml" -Raw) -replace '__APPNAME__', `$Name | Set-Content "apps\`$Name\src-tauri\Cargo.toml" -Encoding UTF8
+(Get-Content "apps\`$Name\src-tauri\tauri.conf.json" -Raw) -replace '__APPNAME__', `$Name | Set-Content "apps\`$Name\src-tauri\tauri.conf.json" -Encoding UTF8
+if (Test-Path "apps\`$Name\src\index.html") { (Get-Content "apps\`$Name\src\index.html" -Raw) -replace '__APPNAME__', `$Name | Set-Content "apps\`$Name\src\index.html" -Encoding UTF8 }
+if (-not (Test-Path "apps\`$Name\src-tauri\icons")) { Copy-Item -Recurse "apps\dictate-studio-v2\src-tauri\icons" "apps\`$Name\src-tauri\icons" }
+Write-Host "Compilando `$Name..." -ForegroundColor Yellow
+cargo check -p `$Name
+Write-Host "Listo: apps\`$Name" -ForegroundColor Green
+"@ | Set-Content "scripts\new-app.ps1" -Encoding UTF8
+
+# 4. VALIDACION
+cargo check -p dictate-studio-v2
+sccache --show-stats
+
+Write-Host "=== FORJA SELLADA ===" -ForegroundColor Green

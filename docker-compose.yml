@@ -1,0 +1,24 @@
+services:
+  runeforge-ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: runeforge-ntfy
+    restart: unless-stopped
+    ports:
+      - "8085:80"
+    volumes:
+      - ./ntfy-cache:/var/cache/ntfy
+      - ./ntfy-config:/etc/ntfy
+    command: serve
+
+# Si tienes backend en C:\RUNEFORGE_V2_CORE\src\backend descomenta:
+#  runeforge-backend:
+#    build:
+#      context: ./src/backend
+#    container_name: runeforge-backend
+#    restart: unless-stopped
+#    ports:
+#      - "3100:3100"
+#    environment:
+#      - NTFY_URL=http://runeforge-ntfy/runeforge-estatus
+#    depends_on:
+#      - runeforge-ntfy

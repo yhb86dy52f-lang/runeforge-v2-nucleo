@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runeforge v2.0 | Mission Control</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        rf: {
+                            bg: '#09090b',
+                            panel: '#18181b',
+                            border: '#27272a',
+                            primary: '#0ea5e9', // Sky blue for core
+                            ai: '#a855f7', // Purple for AI
+                            git: '#10b981', // Emerald for Git
+                            alert: '#f59e0b', // Amber for warnings
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.4s ease-out forwards',
+                        'slide-up': 'slideUp 0.3s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #09090b; color: #e4e4e7; overflow: hidden; }
+        
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(39, 39, 42, 0.8);
+        }
+        
+        .glass-card {
+            background: linear-gradient(145deg, rgba(39,39,42,0.4) 0%, rgba(24,24,27,0.8) 100%);
+            border: 1px solid rgba(63,63,70,0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+
+        /* Hide tab content by default */
+        .tab-content { display: none; opacity: 0; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease forwards; }
+
+        /* Custom glow effects */
+        .glow-primary { box-shadow: 0 0 15px rgba(14, 165, 233, 0.2); }
+        .glow-ai { box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+        .glow-git { box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
+    </style>
+</head>
+<body class="h-screen flex flex-col md:flex-row antialiased selection:bg-rf-primary selection:text-white">
+
+    <div id="toast-container" class="fixed bottom-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+    <nav class="md:w-20 lg:w-64 flex-shrink-0 glass border-r border-rf-border flex flex-col justify-between z-50 md:h-full fixed md:relative bottom-0 w-full md:w-auto order-last md:order-first">
+        
+        <!-- Logo Area (Desktop only) -->
+        <div class="hidden md:flex items-center gap-3 p-6 border-b border-rf-border">
+            <div class="w-8 h-8 rounded-lg bg-rf-primary/20 border border-rf-primary flex items-center justify-center text-rf-primary glow-primary shrink-0">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <div class="hidden lg:block">
+                <h1 class="text-sm font-bold text-white tracking-wide">RUNEFORGE</h1>
+                <p class="text-[10px] text-zinc-500 font-mono">v2.0 NÚCLEO</p>
+            </div>
+        </div>
+
+        <!-- Menú de Navegación -->
+        <div class="flex md:flex-col p-2 md:p-4 gap-1 md:gap-2 overflow-x-auto md:overflow-visible justify-around md:justify-start">
+            <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn active flex items-center gap-3 p-3 rounded-xl transition-all duration-200 text-zinc-400 hover:text-white hover:bg-white/5 group">
+                <i class="fa-solid fa-border-all text-lg group-[.active]:text-rf-primary transition-colors"></i>
+                <span class="hidden lg:block text-sm font-medium group-[.active]:text-white">Resumen General</span>
+                <div class="hidden md:block absolute left-0 w-1 h-8 bg-rf-primary rounded-r opacity-0 group-[.active]:opacity-100 transition-opacity"></div>
+            </button>
+
+            <button onclick="switchTab('git')" id="nav-git" class="nav-btn flex items-center gap-3 p-3 rounded-xl transition-all duration-200 text-zinc-400 hover:text-white hover:bg-white/5 group">
+                <i class="fa-brands fa-git-alt text-lg group-[.active]:text-rf-git transition-colors"></i>
+                <span class="hidden lg:block text-sm font-medium group-[.active]:text-white">Repositorio</span>
+                <div class="hidden md:block absolute left-0 w-1 h-8 bg-rf-git rounded-r opacity-0 group-[.active]:opacity-100 transition-opacity"></div>
+            </button>
+
+            <button onclick="switchTab('ai')" id="nav-ai" class="nav-btn flex items-center gap-3 p-3 rounded-xl transition-all duration-200 text-zinc-400 hover:text-white hover:bg-white/5 group">
+                <i class="fa-solid fa-sparkles text-lg group-[.active]:text-rf-ai transition-colors"></i>
+                <span class="hidden lg:block text-sm font-medium group-[.active]:text-white">Matriz IA</span>
+                <div class="hidden md:block absolute left-0 w-1 h-8 bg-rf-ai rounded-r opacity-0 group-[.active]:opacity-100 transition-opacity"></div>
+            </button>
+
+            <button onclick="switchTab('network')" id="nav-network" class="nav-btn flex items-center gap-3 p-3 rounded-xl transition-all duration-200 text-zinc-400 hover:text-white hover:bg-white/5 group">
+                <i class="fa-solid fa-network-wired text-lg group-[.active]:text-rf-primary transition-colors"></i>
+                <span class="hidden lg:block text-sm font-medium group-[.active]:text-white">Topología de Red</span>
+            </button>
+
+            <button onclick="switchTab('system')" id="nav-system" class="nav-btn flex items-center gap-3 p-3 rounded-xl transition-all duration-200 text-zinc-400 hover:text-white hover:bg-white/5 group">
+                <i class="fa-solid fa-terminal text-lg group-[.active]:text-zinc-300 transition-colors"></i>
+                <span class="hidden lg:block text-sm font-medium group-[.active]:text-white">Consola & Parches</span>
+            </button>
+        </div>
+
+        <!-- Estado Inferior (Desktop only) -->
+        <div class="hidden md:flex p-4 mt-auto border-t border-rf-border items-center gap-3">
+            <div class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+            </div>
+            <div class="hidden lg:block">
+                <p class="text-xs text-white font-medium">Sistema en línea</p>
+                <p class="text-[10px] text-zinc-500 font-mono">Latencia: 12ms</p>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-zinc-900 via-rf-bg to-rf-bg pb-16 md:pb-0">
+        
+        <!-- Header Global (Search & Quick Actions) -->
+        <header class="h-16 px-6 border-b border-rf-border flex items-center justify-between z-10 glass">
+            <div class="flex items-center bg-zinc-900/50 border border-rf-border rounded-lg px-3 py-1.5 w-64 focus-within:border-rf-primary/50 transition-colors">
+                <i class="fa-solid fa-magnifying-glass text-zinc-500 text-xs"></i>
+                <input type="text" placeholder="Buscar módulos..." class="bg-transparent border-none text-xs text-white focus:outline-none focus:ring-0 ml-2 w-full placeholder-zinc-600">
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="refreshData()" class="text-zinc-400 hover:text-white transition-colors" title="Sincronizar Datos">
+                    <i id="refresh-icon" class="fa-solid fa-rotate-right"></i>
+                </button>
+                <div class="h-5 w-px bg-rf-border"></div>
+                <div class="flex items-center gap-2 cursor-pointer group">
+                    <img src="https://ui-avatars.com/api/?name=Operador&background=18181b&color=0ea5e9&rounded=true" alt="User" class="w-7 h-7 rounded-full border border-rf-border group-hover:border-rf-primary transition-colors">
+                    <span class="text-xs font-medium text-zinc-300 hidden sm:block">Admin Local</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Área de Pestañas (Contenido Dinámico) -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar">
+
+            <section id="view-overview" class="tab-content active max-w-6xl mx-auto space-y-6">
+                
+                <!-- Encabezado de Sección -->
+                <div>
+                    <h2 class="text-2xl font-semibold text-white">Visión General</h2>
+                    <p class="text-sm text-zinc-400 mt-1">Estado consolidado de los sistemas de Runeforge v2.0</p>
+                </div>
+
+                <!-- Tarjetas de Métricas Clave (Sin saturar) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    
+                    <!-- Core Status -->
+                    <div class="glass-card rounded-2xl p-5 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-rf-primary/10 rounded-full blur-2xl -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-rf-primary/10 rounded-lg text-rf-primary"><i class="fa-solid fa-server"></i></div>
+                            <span class="px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-mono border border-emerald-500/20">ESTABLE</span>
+                        </div>
+                        <h3 class="text-zinc-400 text-xs font-medium uppercase tracking-wider mb-1">Carga del Core</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-bold text-white">32.4<span class="text-sm text-zinc-500">%</span></span>
+                            <span class="text-xs text-zinc-500 font-mono">/ 32GB RAM</span>
+                        </div>
+                    </div>
+
+                    <!-- Git Status -->
+                    <div class="glass-card rounded-2xl p-5 relative overflow-hidden group cursor-pointer" onclick="switchTab('git')">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-rf-git/10 rounded-full blur-2xl -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-rf-git/10 rounded-lg text-rf-git"><i class="fa-brands fa-git-alt"></i></div>
+                            <span class="px-2 py-1 rounded bg-zinc-800 text-zinc-400 text-[10px] font-mono border border-zinc-700">SINCRONIZADO</span>
+                        </div>
+                        <h3 class="text-zinc-400 text-xs font-medium uppercase tracking-wider mb-1">Rama Activa</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xl font-bold text-white truncate">main</span>
+                            <i class="fa-solid fa-check text-emerald-500 text-xs"></i>
+                        </div>
+                    </div>
+
+                    <!-- AI Status -->
+                    <div class="glass-card rounded-2xl p-5 relative overflow-hidden group cursor-pointer" onclick="switchTab('ai')">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-rf-ai/10 rounded-full blur-2xl -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-rf-ai/10 rounded-lg text-rf-ai"><i class="fa-solid fa-brain"></i></div>
+                            <span class="px-2 py-1 rounded bg-rf-ai/10 text-rf-ai text-[10px] font-mono border border-rf-ai/20 animate-pulse">ESPERANDO</span>
+                        </div>
+                        <h3 class="text-zinc-400 text-xs font-medium uppercase tracking-wider mb-1">Matriz Gemini</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xl font-bold text-white">En línea</span>
+                        </div>
+                    </div>
+
+                    <!-- Network Status -->
+                    <div class="glass-card rounded-2xl p-5 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-orange-500/10 rounded-full blur-2xl -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-orange-500/10 rounded-lg text-orange-400"><i class="fa-solid fa-bolt"></i></div>
+                            <span class="px-2 py-1 rounded bg-zinc-800 text-zinc-400 text-[10px] font-mono border border-zinc-700">P2P ACTIVO</span>
+                        </div>
+                        <h3 class="text-zinc-400 text-xs font-medium uppercase tracking-wider mb-1">Nodos Tailscale</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-bold text-white">2</span>
+                            <span class="text-xs text-zinc-500 font-mono">Enlazados</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Minimapa de Logs (Vista simplificada) -->
+                <div class="glass-card rounded-2xl p-1 overflow-hidden">
+                    <div class="bg-zinc-900/80 p-4 rounded-xl flex flex-col gap-3">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="text-xs font-semibold text-zinc-300 uppercase tracking-wide flex items-center gap-2">
+                                <i class="fa-solid fa-list-ul text-zinc-500"></i> Eventos Recientes
+                            </h3>
+                            <button onclick="switchTab('system')" class="text-xs text-rf-primary hover:text-sky-300 transition-colors">Ver Consola Completa &rarr;</button>
+                        </div>
+                        <div class="space-y-2 font-mono text-[11px]">
+                            <div class="flex gap-3 text-zinc-400"><span class="w-16 shrink-0 text-zinc-500">10:24:00</span> <span><span class="text-rf-primary">[SYS]</span> Arranque de servicios completado (4829).</span></div>
+                            <div class="flex gap-3 text-zinc-400"><span class="w-16 shrink-0 text-zinc-500">10:25:12</span> <span><span class="text-emerald-500">[GIT]</span> Repositorio runeforge-v2-nucleo verificado.</span></div>
+                            <div class="flex gap-3 text-zinc-400"><span class="w-16 shrink-0 text-zinc-500">10:30:45</span> <span><span class="text-rf-ai">[IA]</span> Motor cognitivo inicializado. Esperando prompts.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-git" class="tab-content max-w-6xl mx-auto h-full flex flex-col space-y-6">
+                
+                <div>
+                    <h2 class="text-2xl font-semibold text-white flex items-center gap-3">
+                        Control de Versiones <i class="fa-brands fa-git-alt text-rf-git"></i>
+                    </h2>
+                    <p class="text-sm text-zinc-400 mt-1">Gestión del repositorio <code class="text-rf-git/80 bg-rf-git/10 px-1 rounded">runeforge-v2-nucleo</code></p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">
+                    
+                    <!-- Panel Izquierdo: Estado y Acciones -->
+                    <div class="lg:col-span-1 space-y-6 flex flex-col">
+                        <!-- URL del Repo -->
+                        <div class="glass-card rounded-2xl p-5">
+                            <label class="text-[10px] text-zinc-500 font-mono uppercase tracking-wider mb-2 block">Repositorio Remoto (Origin)</label>
+                            <div class="flex bg-zinc-900 rounded-lg border border-rf-border p-1">
+                                <input type="text" readonly value="https://github.com/yhb86dy52f-lang/runeforge-v2-nucleo.git" class="bg-transparent text-xs font-mono text-zinc-300 w-full px-2 focus:outline-none truncate">
+                                <button onclick="copyToClipboard('https://github.com/yhb86dy52f-lang/runeforge-v2-nucleo.git')" class="p-2 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-400 transition-colors" title="Copiar">
+                                    <i class="fa-regular fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Acciones Principales -->
+                        <div class="glass-card rounded-2xl p-5 flex-1">
+                            <h3 class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-4">Flujo de Trabajo</h3>
+                            
+                            <div class="space-y-3">
+                                <button onclick="simulateGitAction('fetch')" class="w-full flex items-center justify-between p-3 rounded-xl bg-zinc-900 border border-rf-border hover:border-rf-git/50 hover:bg-rf-git/5 transition-all group">
+                                    <div class="text-left">
+                                        <div class="text-sm font-medium text-zinc-200 group-hover:text-rf-git transition-colors">Verificar Cambios (Fetch)</div>
+                                        <div class="text-[10px] text-zinc-500">Consulta actualizaciones sin fusionar.</div>
+                                    </div>
+                                    <i class="fa-solid fa-rotate text-zinc-500 group-hover:text-rf-git transition-colors"></i>
+                                </button>
+
+                                <button onclick="simulateGitAction('pull')" class="w-full flex items-center justify-between p-3 rounded-xl bg-zinc-900 border border-rf-border hover:border-rf-git/50 hover:bg-rf-git/5 transition-all group">
+                                    <div class="text-left">
+                                        <div class="text-sm font-medium text-zinc-200 group-hover:text-rf-git transition-colors">Sincronizar (Pull)</div>
+                                        <div class="text-[10px] text-zinc-500">Trae e integra los cambios remotos.</div>
+                                    </div>
+                                    <i class="fa-solid fa-cloud-arrow-down text-zinc-500 group-hover:text-rf-git transition-colors"></i>
+                                </button>
+
+                                <button onclick="simulateGitAction('push')" class="w-full flex items-center justify-between p-3 rounded-xl bg-rf-git/10 border border-rf-git/30 hover:bg-rf-git hover:text-zinc-900 transition-all group text-rf-git">
+                                    <div class="text-left">
+                                        <div class="text-sm font-bold group-hover:text-zinc-900 transition-colors">Publicar Parches (Push)</div>
+                                        <div class="text-[10px] opacity-80 group-hover:text-zinc-800">Sube tus commits al repositorio remoto.</div>
+                                    </div>
+                                    <i class="fa-solid fa-cloud-arrow-up text-lg group-hover:-translate-y-1 transition-transform"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel Derecho: Historial y Asistente -->
+                    <div class="lg:col-span-2 flex flex-col gap-6 h-full">
+                        
+                        <!-- Historial (Visualmente limpio) -->
+                        <div class="glass-card rounded-2xl p-0 flex flex-col flex-1 overflow-hidden min-h-[250px]">
+                            <div class="p-4 border-b border-rf-border flex justify-between items-center bg-zinc-900/50">
+                                <h3 class="text-xs font-semibold text-zinc-300 uppercase tracking-wide">Registro de Commits (Simulado)</h3>
+                                <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded">Rama: main</span>
+                            </div>
+                            <div class="p-4 overflow-y-auto custom-scrollbar flex-1 space-y-4">
+                                <!-- Elemento Historial -->
+                                <div class="flex gap-4 relative">
+                                    <div class="w-px bg-rf-border absolute left-[15px] top-6 bottom-[-20px]"></div>
+                                    <div class="w-8 h-8 rounded-full bg-zinc-800 border border-rf-border flex items-center justify-center shrink-0 z-10 text-zinc-400 text-xs">
+                                        <i class="fa-solid fa-code-commit"></i>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-baseline gap-2 mb-1">
+                                            <h4 class="text-sm font-medium text-zinc-200">Refactorización del Dashboard UI</h4>
+                                            <span class="text-[10px] text-zinc-500 font-mono">a1b2c3d</span>
+                                        </div>
+                                        <p class="text-xs text-zinc-400 mb-1">Mejora de la arquitectura de la interfaz para evitar saturación de información.</p>
+                                        <p class="text-[10px] text-zinc-600">Hace 10 minutos por Operador</p>
+                                    </div>
+                                </div>
+                                <!-- Elemento Historial -->
+                                <div class="flex gap-4 relative">
+                                    <div class="w-8 h-8 rounded-full bg-zinc-800 border border-rf-border flex items-center justify-center shrink-0 z-10 text-zinc-400 text-xs">
+                                        <i class="fa-solid fa-code-commit"></i>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-baseline gap-2 mb-1">
+                                            <h4 class="text-sm font-medium text-zinc-200">Initial integration of Gemini API</h4>
+                                            <span class="text-[10px] text-zinc-500 font-mono">f8e7d6c</span>
+                                        </div>
+                                        <p class="text-[10px] text-zinc-600">Ayer por Admin</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Asistente de Commits IA (Minimizado) -->
+                        <div class="glass-card rounded-2xl p-4 flex gap-4 items-center bg-gradient-to-r from-zinc-900 to-rf-ai/5 border-l-2 border-l-rf-ai">
+                            <div class="p-3 rounded-full bg-rf-ai/10 text-rf-ai shrink-0">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-sm font-medium text-white">Generador de Mensajes IA</h4>
+                                <p class="text-[10px] text-zinc-400">Analiza los archivos modificados y sugiere un mensaje semántico.</p>
+                            </div>
+                            <button onclick="generateCommitMsg()" id="btn-gen-commit" class="px-4 py-2 bg-rf-ai/20 text-rf-ai hover:bg-rf-ai hover:text-white rounded-lg text-xs font-semibold transition-colors flex items-center gap-2">
+                                Generar
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-ai" class="tab-content max-w-4xl mx-auto h-full flex flex-col">
+                <div class="mb-4">
+                    <h2 class="text-2xl font-semibold text-white flex items-center gap-3">
+                        Matriz Cognitiva <i class="fa-solid fa-sparkles text-rf-ai"></i>
+                    </h2>
+                    <p class="text-sm text-zinc-400 mt-1">Conectado a Gemini Engine. Modo de asistencia técnica.</p>
+                </div>
+
+                <div class="flex-1 glass-card rounded-2xl flex flex-col overflow-hidden mb-6">
+                    <!-- Chat History -->
+                    <div id="ai-chat-history" class="flex-1 p-6 overflow-y-auto space-y-6 custom-scrollbar bg-zinc-900/30">
+                        <!-- Bienvenida -->
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-rf-ai/20 border border-rf-ai flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-robot text-rf-ai text-xs"></i>
+                            </div>
+                            <div class="flex-1 space-y-2">
+                                <div class="text-xs font-medium text-zinc-500">Sistema IA</div>
+                                <div class="text-sm text-zinc-300 leading-relaxed bg-zinc-800/50 p-4 rounded-2xl rounded-tl-none border border-rf-border inline-block max-w-[85%]">
+                                    En línea. Puedo analizar código, revisar logs o explicar directivas de tu repositorio. ¿En qué te ayudo?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="p-4 bg-zinc-900 border-t border-rf-border">
+                        <div class="relative flex gap-2 items-end">
+                            <textarea id="ai-input" rows="1" class="w-full bg-zinc-950 border border-rf-border rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-rf-ai focus:ring-1 focus:ring-rf-ai resize-none custom-scrollbar transition-all" placeholder="Escribe tu consulta..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendAIMessage(); }"></textarea>
+                            
+                            <button onclick="sendAIMessage()" id="btn-send-ai" class="h-[46px] w-[46px] shrink-0 rounded-xl bg-rf-ai hover:bg-purple-500 text-white flex items-center justify-center transition-colors shadow-lg">
+                                <i class="fa-solid fa-paper-plane text-sm"></i>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 px-1">
+                            <span class="text-[10px] text-zinc-500">Shift + Enter para nueva línea</span>
+                            <button onclick="clearChat()" class="text-[10px] text-zinc-500 hover:text-zinc-300"><i class="fa-solid fa-eraser mr-1"></i> Limpiar memoria</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-network" class="tab-content max-w-5xl mx-auto space-y-6">
+                 <div>
+                    <h2 class="text-2xl font-semibold text-white">Topología de Red</h2>
+                    <p class="text-sm text-zinc-400 mt-1">Conexiones y puertos activos del entorno local.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Nodo Host -->
+                    <div class="glass-card rounded-2xl p-6 relative overflow-hidden group">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-rf-primary"></div>
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 rounded bg-rf-primary/10 text-rf-primary"><i class="fa-solid fa-desktop"></i></div>
+                                <div>
+                                    <h3 class="text-sm font-semibold text-white">Servidor Principal</h3>
+                                    <p class="text-[10px] text-zinc-500 font-mono">localhost / host-node</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-mono">ONLINE</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-zinc-900 p-3 rounded-lg border border-rf-border flex justify-between items-center">
+                                <span class="text-xs text-zinc-400 font-mono">Tailscale IP</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-rf-primary font-mono select-all">100.111.32.10</span>
+                                    <button class="text-zinc-500 hover:text-white" onclick="copyToClipboard('100.111.32.10')"><i class="fa-regular fa-copy text-[10px]"></i></button>
+                                </div>
+                            </div>
+                            <div class="bg-zinc-900 p-3 rounded-lg border border-rf-border flex justify-between items-center">
+                                <span class="text-xs text-zinc-400 font-mono">Puertos Activos</span>
+                                <span class="text-xs text-zinc-300 font-mono">8080 (API), 3000 (UI)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gateway Info -->
+                    <div class="glass-card rounded-2xl p-6 flex flex-col justify-center items-center text-center border-dashed border-rf-border/50">
+                        <div class="w-16 h-16 rounded-full border-2 border-emerald-500/20 flex items-center justify-center mb-4 relative">
+                            <i class="fa-solid fa-globe text-emerald-400 text-2xl"></i>
+                            <span class="absolute top-0 right-0 w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                        </div>
+                        <h3 class="text-base font-semibold text-white mb-2">Conexión Segura</h3>
+                        <p class="text-xs text-zinc-400 max-w-xs leading-relaxed">El tráfico está siendo enrutado correctamente a través de la malla Tailscale. No se detectan anomalías en la capa de red.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-system" class="tab-content max-w-5xl mx-auto h-full flex flex-col space-y-6">
+                <div>
+                    <h2 class="text-2xl font-semibold text-white">Consola del Sistema</h2>
+                    <p class="text-sm text-zinc-400 mt-1">Telemetría cruda y aplicación de parches en tiempo real.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-[400px]">
+                    <!-- Terminal Realista -->
+                    <div class="glass-card rounded-2xl p-0 flex flex-col overflow-hidden h-full border-rf-border bg-black/80">
+                        <div class="px-4 py-2 border-b border-rf-border/50 flex items-center justify-between bg-zinc-900/50">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/50"></div>
+                            </div>
+                            <span class="text-[10px] text-zinc-500 font-mono">bash - telemetry</span>
+                            <button onclick="clearConsole()" class="text-zinc-600 hover:text-white"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                        </div>
+                        <div id="sys-console" class="p-4 overflow-y-auto flex-1 font-mono text-[11px] space-y-1.5 custom-scrollbar">
+                            <div class="text-zinc-400">Runeforge OS v2.0 - Inicializando subsistemas...</div>
+                            <div class="text-emerald-400">[OK] Base de datos en memoria lista.</div>
+                            <div class="text-rf-primary">[INFO] API Gateway escuchando en el puerto 8080.</div>
+                            <div class="text-zinc-400">> Esperando comandos... <span class="animate-pulse">_</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Inyector de Parches -->
+                    <div class="glass-card rounded-2xl p-6 flex flex-col">
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-bolt text-orange-400"></i>
+                            <h3 class="text-sm font-semibold text-white uppercase tracking-wide">Inyector de Parches JS</h3>
+                        </div>
+                        <p class="text-[10px] text-zinc-400 mb-4">Ejecuta código directamente en el contexto de la aplicación para arreglos en caliente (Hotfixes).</p>
+                        
+                        <textarea id="patch-input" class="w-full flex-1 bg-zinc-950 border border-rf-border rounded-xl p-4 text-xs font-mono text-emerald-300 focus:outline-none focus:border-orange-500/50 resize-none custom-scrollbar mb-4" placeholder="// Escribe tu script aquí...&#10;showToast('Hola desde el inyector', 'info');"></textarea>
+                        
+                        <button onclick="applyPatch()" class="w-full py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-colors">
+                            Ejecutar Parche
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // --- UTILIDADES GLOBALES ---
+
+        // Mostrar Notificaciones Toast en lugar de Alerts
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            // Colores y iconos por tipo
+            let bg = 'bg-zinc-800';
+            let border = 'border-zinc-700';
+            let icon = '<i class="fa-solid fa-circle-info text-rf-primary"></i>';
+            
+            if (type === 'success') {
+                border = 'border-emerald-500/50';
+                icon = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+            } else if (type === 'error') {
+                border = 'border-red-500/50';
+                icon = '<i class="fa-solid fa-circle-exclamation text-red-400"></i>';
+            }
+
+            toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg border ${bg} ${border} text-xs text-white animate-slide-up`;
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            // Eliminar después de 3s
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Copiar al portapapeles
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copiado al portapapeles', 'success');
+            }).catch(err => {
+                console.error('Error:', err);
+                showToast('Error al copiar', 'error');
+            });
+        }
+
+        // Log en la consola virtual del sistema
+        function logToSystem(msg, type = 'info') {
+            const consoleEl = document.getElementById('sys-console');
+            const now = new Date().toLocaleTimeString('es-ES', {hour12:false});
+            let color = 'text-zinc-400';
+            let prefix = '[INFO]';
+
+            if(type==='success') { color = 'text-emerald-400'; prefix = '[OK]'; }
+            if(type==='error') { color = 'text-red-400'; prefix = '[ERR]'; }
+            if(type==='git') { color = 'text-rf-git'; prefix = '[GIT]'; }
+
+            const div = document.createElement('div');
+            div.className = `${color} flex gap-2`;
+            div.innerHTML = `<span class="text-zinc-600 shrink-0">[${now}]</span> <span>${prefix} ${msg}</span>`;
+            
+            consoleEl.insertBefore(div, consoleEl.lastElementChild); // Insertar antes del cursor parpadeante
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        function clearConsole() {
+            const consoleEl = document.getElementById('sys-console');
+            consoleEl.innerHTML = '<div class="text-zinc-400">> Consola limpiada. Esperando comandos... <span class="animate-pulse">_</span></div>';
+            showToast('Consola vaciada');
+        }
+
+        // --- NAVEGACIÓN DE PESTAÑAS ---
+        function switchTab(tabId) {
+            // Actualizar botones
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`nav-${tabId}`).classList.add('active');
+
+            // Actualizar contenido
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`view-${tabId}`).classList.add('active');
+        }
+
+        // --- FUNCIONES GLOBALES DEL HEADER ---
+        function refreshData() {
+            const icon = document.getElementById('refresh-icon');
+            icon.classList.add('fa-spin');
+            
+            setTimeout(() => {
+                icon.classList.remove('fa-spin');
+                showToast('Módulos sincronizados correctamente', 'success');
+                logToSystem('Sincronización manual de sensores completada.', 'success');
+            }, 800);
+        }
+
+        // --- FUNCIONES GIT ---
+        function simulateGitAction(action) {
+            const msgs = {
+                'fetch': 'Buscando cambios en origin/main...',
+                'pull': 'Integrando cambios remotos...',
+                'push': 'Subiendo parches locales al repositorio...'
+            };
+            
+            showToast(msgs[action]);
+            logToSystem(`Ejecutando git ${action} origin main...`, 'git');
+
+            setTimeout(() => {
+                showToast(`Acción '${action}' completada`, 'success');
+                logToSystem(`git ${action} finalizado con éxito.`, 'success');
+            }, 1500);
+        }
+
+        function generateCommitMsg() {
+            const btn = document.getElementById('btn-gen-commit');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // Añadir al historial chat o mostrar como sugerencia (simulado)
+                copyToClipboard("feat(core): consolidar arquitectura SPA y sistema de notificaciones");
+                showToast('Mensaje sugerido copiado al portapapeles', 'success');
+                logToSystem('Generado mensaje de commit mediante IA.', 'info');
+            }, 1200);
+        }
+
+        // --- FUNCIONES IA (Gemini) ---
+        function autoResizeTextarea(el) {
+            el.style.height = 'auto';
+            el.style.height = (el.scrollHeight) + 'px';
+            if(el.value === '') el.style.height = 'auto';
+        }
+
+        function appendAIChat(text, isUser) {
+            const history = document.getElementById('ai-chat-history');
+            const div = document.createElement('div');
+            
+            if(isUser) {
+                div.className = "flex gap-4 flex-row-reverse animate-fade-in";
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-zinc-800 border border-rf-border flex items-center justify-center shrink-0 text-xs text-zinc-400">TÚ</div>
+                    <div class="text-sm text-white leading-relaxed bg-zinc-800 p-4 rounded-2xl rounded-tr-none max-w-[85%] whitespace-pre-wrap">${text}</div>
+                `;
+            } else {
+                div.className = "flex gap-4 animate-fade-in";
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-lg bg-rf-ai/20 border border-rf-ai flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-robot text-rf-ai text-xs"></i>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                        <div class="text-xs font-medium text-zinc-500">Sistema IA</div>
+                        <div class="text-sm text-zinc-300 leading-relaxed bg-zinc-800/50 p-4 rounded-2xl rounded-tl-none border border-rf-border inline-block max-w-[85%] whitespace-pre-wrap">${text}</div>
+                    </div>
+                `;
+            }
+            
+            history.appendChild(div);
+            history.scrollTop = history.scrollHeight;
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById('ai-input');
+            const text = input.value.trim();
+            if(!text) return;
+
+            appendAIChat(text, true);
+            input.value = '';
+            input.style.height = 'auto';
+            
+            const btn = document.getElementById('btn-send-ai');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+            btn.disabled = true;
+
+            // Simulación de respuesta rápida y limpia
+            setTimeout(() => {
+                let response = "He procesado tu directiva. Como interfaz estática actual, opero en modo demostración. ";
+                if(text.toLowerCase().includes("git")) {
+                    response += "Tu repositorio `runeforge-v2-nucleo` está enlazado. Puedes usar la pestaña de repositorio para operaciones visuales.";
+                } else if(text.toLowerCase().includes("estado")) {
+                    response += "Los sistemas Core y la red Tailscale operan al 100% de eficiencia.";
+                }
+                
+                appendAIChat(response, false);
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane text-sm"></i>';
+                btn.disabled = false;
+            }, 1000);
+        }
+
+        function clearChat() {
+            const history = document.getElementById('ai-chat-history');
+            history.innerHTML = `
+                <div class="flex gap-4">
+                    <div class="w-8 h-8 rounded-lg bg-rf-ai/20 border border-rf-ai flex items-center justify-center shrink-0"><i class="fa-solid fa-robot text-rf-ai text-xs"></i></div>
+                    <div class="text-sm text-zinc-300 leading-relaxed bg-zinc-800/50 p-4 rounded-2xl rounded-tl-none border border-rf-border inline-block">Memoria borrada. Nuevo contexto iniciado.</div>
+                </div>
+            `;
+            showToast('Historial de IA limpiado');
+        }
+
+        // --- SISTEMA DE PARCHES ---
+        function applyPatch() {
+            const code = document.getElementById('patch-input').value.trim();
+            if(!code) {
+                showToast("El script está vacío", "error");
+                return;
+            }
+            
+            try {
+                // Función segura para inyectar código de demostración
+                const patchFn = new Function(code);
+                patchFn();
+                showToast("Parche ejecutado correctamente", "success");
+                logToSystem("Script en caliente inyectado en el DOM.", "success");
+                document.getElementById('patch-input').value = '';
+            } catch(e) {
+                showToast("Error de sintaxis en el parche", "error");
+                logToSystem(`Fallo al ejecutar parche: ${e.message}`, "error");
+            }
+        }
+
+    </script>
+</body>
+</html>

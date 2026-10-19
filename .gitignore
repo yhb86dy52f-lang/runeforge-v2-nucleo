@@ -1,0 +1,40 @@
+# SISTEMA
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# ENTORNOS
+node_modules/
+venv/
+.env
+.venv/
+__pycache__/
+*.pyc
+target/
+dist/
+build/
+out/
+bin/
+obj/
+
+# BINARIOS Y PESADOS
+*.whl
+*.zip
+*.tar.gz
+*.exe
+*.dll
+*.pdb
+*.lib
+*.so
+*.dylib
+*.iso
+*.img
+*.bak
+*.bak.*
+*.log
+*.tmp
+
+# BASURA
+backups/
+_archived_backups_*
+logs/

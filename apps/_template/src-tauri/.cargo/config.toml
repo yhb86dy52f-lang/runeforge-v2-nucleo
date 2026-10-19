@@ -1,0 +1,2 @@
+[build]
+# target-dir se reescribe en `forge build` con la ruta absoluta por app.

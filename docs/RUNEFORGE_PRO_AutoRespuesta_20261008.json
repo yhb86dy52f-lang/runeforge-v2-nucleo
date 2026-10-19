@@ -1,0 +1,44 @@
+﻿{
+    "gpu":  "NVIDIA GeForce GTX 1660 SUPER",
+    "host":  "RUNEFORGE-PC",
+    "respuestas":  [
+                       {
+                           "gpu":  "NVIDIA GeForce GTX 1660 SUPER, 6144 MiB, 610.47",
+                           "estimacion":  "OK: sin torch, PyInstaller ~25-55 MB estimado",
+                           "accion":  "Ejecutar: pyinstaller --onefile --collect-submodules whisper --exclude-module torch si usas faster-whisper",
+                           "torch_detectado":  false,
+                           "pregunta":  "FlotaKW CUDA size"
+                       },
+                       {
+                           "detectados":  [
+                                              "sqlite3"
+                                          ],
+                           "package_json":  "C:\\RUNEFORGE_V2_CORE\\package.json",
+                           "pkg_compatible":  false,
+                           "accion":  "Usar Node SEA con asarUnpack o Tauri sidecar con externalBin + @yao-pkg/pkg --no-bytecode requiere rebuild",
+                           "pregunta":  "Fastify native addons"
+                       },
+                       {
+                           "es_oss":  true,
+                           "firma_recomendada":  "SignPath Foundation GRATIS (publisher=SignPath Foundation)",
+                           "archivo":  "C:\\RUNEFORGE_V2_CORE\\LICENSE",
+                           "contenido_preview":  "MIT License\n\nCopyright (c) 2026 CINER / Runeforge v2.0\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"",
+                           "pregunta":  "Licencia final"
+                       },
+                       {
+                           "recomendacion_torreon":  "Torreon PCs: asumir WebView2 presente en Win10 21H2+ y Win11. Usar downloadBootstrapper para instalador ligero 7.7 MB",
+                           "instalado_local":  true,
+                           "estrategia":  "Usar downloadBootstrapper (0 MB extra) - tu PC ya tiene WebView2",
+                           "pregunta":  "WebView2 instalado"
+                       },
+                       {
+                           "winget":  "Acepta NSIS .exe directo, sin firma obligatoria, ideal para PRO",
+                           "accion":  "wingetcreate new para RUNEFORGE_PRO -- acepta tu NSIS",
+                           "recomendacion":  "Fase PRO: solo winget. Fase PRO+STORE: usar electron-builder appx target o envolver Tauri en MSIX con makeappx.exe",
+                           "pregunta":  "Store",
+                           "tauri_msix":  "Tauri no tiene bundler MSIX oficial, requiere wrapper manual"
+                       }
+                   ],
+    "decision_exe":  "Tauri v2 + sidecars (PyInstaller + @yao-pkg/pkg) + NSIS + embedBootstrapper",
+    "fecha":  "2026-10-08T00:13:46.9712198-06:00"
+}

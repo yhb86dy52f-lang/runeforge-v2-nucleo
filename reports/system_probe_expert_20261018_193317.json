@@ -1,0 +1,42 @@
+{
+  "Timestamp": "2026-10-18 19:33:17",
+  "OS": "Microsoft Windows 10 Pro",
+  "Tailscale": {
+    "Status": 4,
+    "StartType": 2
+  },
+  "NodeVersion": "v24.19.0",
+  "OllamaStatus": null,
+  "ActivePorts": [
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 11434
+    },
+    {
+      "LocalAddress": "0.0.0.0",
+      "LocalPort": 3100
+    }
+  ],
+  "DiskSpace": [
+    {
+      "Name": "C",
+      "FreeGB": 90.96
+    },
+    {
+      "Name": "D",
+      "FreeGB": 318.73
+    },
+    {
+      "Name": "E",
+      "FreeGB": 0.55
+    },
+    {
+      "Name": "G",
+      "FreeGB": 118.06
+    },
+    {
+      "Name": "Temp",
+      "FreeGB": 90.96
+    }
+  ]
+}

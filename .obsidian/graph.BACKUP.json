@@ -1,0 +1,58 @@
+{
+  "collapse-filter": true,
+  "search": "-path:node_modules -path:target -path:.git",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": true,
+  "showOrphans": false,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "sello:Purson OR tag:Purson",
+      "color": {
+        "a": 1,
+        "rgb": 3394611
+      }
+    },
+    {
+      "query": "sello:Forneus OR tag:Forneus",
+      "color": {
+        "a": 1,
+        "rgb": 11795861
+      }
+    },
+    {
+      "query": "path:knowledge OR path:canon",
+      "color": {
+        "a": 1,
+        "rgb": 4358943
+      }
+    },
+    {
+      "query": "path:clippings",
+      "color": {
+        "a": 1,
+        "rgb": 16746939
+      }
+    },
+    {
+      "query": "path:FlotaKW_Completo",
+      "color": {
+        "a": 1,
+        "rgb": 16753408
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": true,
+  "textFadeMultiplier": -0.5,
+  "nodeSizeMultiplier": 1.2,
+  "lineSizeMultiplier": 1.1,
+  "collapse-forces": false,
+  "centerStrength": 0.3,
+  "repelStrength": 2.5,
+  "linkStrength": 0.5,
+  "linkDistance": 150,
+  "scale": 0.8,
+  "close": false
+}

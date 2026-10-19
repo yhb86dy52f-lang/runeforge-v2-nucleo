@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RUNEFORGE SCANNER-PRO v16.0 APEX • ULTRA MAX WAR EDITION</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=JetBrains+Mono:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/mqtt@5.3.4/dist/mqtt.min.js"></script>
+<style>
+:root{
+  --bg:#02060a;--panel:#0a1520;--panel2:#0f1e2e;--line:#17324a;--line2:#1e4a60;
+  --cyan:#00f0ff;--cyan2:#7dd3fc;--lime:#a3ff12;--lime2:#d4ff4a;
+  --amber:#ffb700;--amber2:#ffd54d;--red:#ff2a4a;--text:#c8eaff;--dim:#5a7a8a;--white:#eaf6ff
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(140% 120% at 10% 0%, #0c2a3e 0%, #07131c 35%, #02060a 70%, #000 100%);color:var(--text);font-family:'JetBrains Mono',monospace;overflow:hidden;height:100vh;display:flex;flex-direction:column;letter-spacing:.2px}
+.topbar{height:48px;display:flex;align-items:center;gap:14px;padding:0 16px;background:linear-gradient(90deg,#08141e 0%,#0b1d2c 50%,#08141e 100%);border-bottom:1px solid var(--line);box-shadow:0 0 30px rgba(0,240,255,.18),inset 0 1px 0 rgba(0,240,255,.15);position:relative;z-index:10}
+.topbar::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.5}
+.logo{font-family:'Orbitron';font-weight:800;font-size:15px;letter-spacing:3px;color:white;text-shadow:0 0 14px var(--cyan),0 0 30px rgba(0,240,255,.4);white-space:nowrap} .logo span{color:var(--lime)}
+.meta{font-size:9px;opacity:.6;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.badge{padding:5px 11px;border-radius:999px;font-size:10px;letter-spacing:1px;border:1px solid;backdrop-filter:blur(10px);display:flex;align-items:center;font-weight:700;box-shadow:0 2px 12px rgba(0,0,0,.4);white-space:nowrap;gap:6px}
+.online{background:linear-gradient(180deg,rgba(16,185,129,.2),rgba(16,185,129,.08));border-color:#10b981;color:#6ee7b7;box-shadow:0 0 18px rgba(16,185,129,.5),inset 0 1px 0 rgba(255,255,255,.1);animation:pulse 2s infinite}
+.connecting{background:linear-gradient(180deg,rgba(245,158,11,.2),rgba(245,158,11,.08));border-color:#f59e0b;color:#fcd34d;animation:pulse 1s infinite}
+.offline{background:rgba(239,68,68,.15);border-color:#ef4444;color:#fca5a5}
+.badge-neutral{border-color:#2a3a4a;color:#7a8a9a;background:rgba(0,0,0,.3)}
+.badge-cyan{border-color:var(--cyan);color:var(--cyan);background:rgba(0,240,255,.08)}
+.badge-lime{border-color:rgba(163,255,18,.4);color:var(--lime);background:rgba(163,255,18,.07)}
+.pulse-dot{width:8px;height:8px;border-radius:50%;display:inline-block;box-shadow:0 0 8px currentColor;animation:pulseDot 1.2s infinite;flex:0 0 auto}
+.main{flex:1;display:flex;gap:0;overflow:hidden}
+.radar-wrap{flex:1.6;position:relative;display:flex;flex-direction:column;padding:12px;gap:8px;min-width:0}
+.panel-title{font-family:'Share Tech Mono';font-size:11px;letter-spacing:2.5px;color:var(--cyan);opacity:.9;text-shadow:0 0 10px rgba(0,240,255,.5)}
+.radar-box{flex:1;position:relative;background:radial-gradient(90% 80% at 50% 50%, #0a1f2e 0%, #06111a 40%, #02080d 75%);border:1px solid #1a3f5a;border-radius:20px;overflow:hidden;box-shadow:inset 0 0 100px rgba(0,240,255,.1), inset 0 1px 0 rgba(255,255,255,.06), 0 8px 40px rgba(0,0,0,.8), 0 0 0 1px rgba(0,240,255,.1);min-height:0}
+.radar-box::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0px,transparent 2px,rgba(0,240,255,.02) 3px);pointer-events:none;z-index:2}
+canvas{width:100%;height:100%;display:block}
+.side{flex:0 0 405px;display:flex;flex-direction:column;gap:10px;padding:12px;background:linear-gradient(180deg,#080f18 0%,#050a10 100%);border-left:1px solid var(--line);overflow-y:auto;box-shadow:-10px 0 40px rgba(0,0,0,.5)}
+.card{background:linear-gradient(180deg,rgba(18,45,65,.7),rgba(10,25,38,.9));border:1px solid #1e4a60;border-radius:14px;padding:11px;backdrop-filter:blur(16px);box-shadow:0 8px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08), 0 0 0 1px rgba(0,240,255,.08);position:relative;overflow:hidden;flex-shrink:0}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.6}
+.card h3{margin:0 0 9px 0;font-size:10px;letter-spacing:2.5px;color:var(--cyan);font-family:'Share Tech Mono';display:flex;align-items:center;gap:8px}
+.card h3::after{content:'';flex:1;height:1px;background:linear-gradient(90deg, rgba(0,240,255,.3), transparent)}
+.card h3 .cnt{margin-left:auto;font-size:9px;color:var(--lime);border:1px solid rgba(163,255,18,.3);border-radius:999px;padding:1px 8px;background:rgba(163,255,18,.06)}
+.target-row{display:flex;align-items:center;gap:9px;padding:9px;border-radius:10px;background:linear-gradient(90deg, rgba(0,240,255,.06), rgba(0,240,255,.02));border:1px solid rgba(0,240,255,.12);margin-bottom:6px;transition:.25s;position:relative;overflow:hidden;cursor:pointer}
+.target-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--cyan);opacity:0;transition:.25s}
+.target-row:hover{background:linear-gradient(90deg, rgba(0,240,255,.14), rgba(0,240,255,.04));transform:translateX(3px);border-color:rgba(0,240,255,.3);box-shadow:0 4px 20px rgba(0,240,255,.15)} .target-row:hover::before{opacity:1}
+.target-row.fuel{border-color:rgba(255,183,0,.25);background:linear-gradient(90deg, rgba(255,183,0,.08), rgba(255,183,0,.02))} .target-row.fuel::before{background:var(--amber)}
+.target-row.locked{border-color:var(--lime);box-shadow:0 0 16px rgba(163,255,18,.25), inset 0 0 20px rgba(163,255,18,.04)} .target-row.locked::before{background:var(--lime);opacity:1}
+.mac{font-weight:700;color:white;letter-spacing:.6px;font-size:11.5px}
+.rssi-green{color:#4ade80;text-shadow:0 0 8px #4ade80} .rssi-yellow{color:#fbbf24;text-shadow:0 0 8px #fbbf24} .rssi-red{color:#f87171}
+.sigbars{display:flex;align-items:flex-end;gap:2px;height:14px}
+.sigbars i{width:3px;background:#1a3a4a;border-radius:1px;display:block}
+.fuel-bar{height:7px;background:#102030;border-radius:999px;overflow:hidden;flex:1;border:1px solid #1a2a3a}
+.fuel-fill{height:100%;background:linear-gradient(90deg,var(--amber),#ffd54d);box-shadow:0 0 12px var(--amber);position:relative;overflow:hidden;transition:width .6s}
+.fuel-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shine 2s infinite}
+.scope-wrap{height:150px;position:relative;border-radius:10px;overflow:hidden;background:radial-gradient(80% 100% at 50% 0%, #0a1a25, #020a10);border:1px solid #123;box-shadow:inset 0 0 30px rgba(0,240,255,.1)}
+.console{height:148px;background:linear-gradient(180deg,#010408,#020a10);border:1px solid #102030;border-radius:10px;padding:8px;font-size:10px;overflow:auto;line-height:1.5;box-shadow:inset 0 0 20px rgba(0,0,0,.8);font-family:'JetBrains Mono';flex-shrink:0}
+.console div{white-space:nowrap;border-left:2px solid transparent;padding-left:6px;margin:2px 0}
+.controls{display:flex;gap:7px;flex-wrap:wrap;align-items:center;flex-shrink:0}
+.btn{padding:7px 12px;border-radius:10px;border:1px solid #1e4a60;background:linear-gradient(180deg,#132a3a,#0a1a25);color:var(--cyan);font-size:10px;letter-spacing:1.2px;cursor:pointer;transition:.25s;font-weight:700;box-shadow:0 2px 10px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.08);font-family:'JetBrains Mono'}
+.btn:hover{border-color:var(--cyan);box-shadow:0 0 18px rgba(0,240,255,.5), 0 4px 15px rgba(0,0,0,.5);transform:translateY(-1px)}
+.btn-lime{color:var(--lime);border-color:rgba(163,255,18,.35);background:linear-gradient(180deg,#1a2e12,#101e0a)} .btn-lime:hover{box-shadow:0 0 18px rgba(163,255,18,.5);border-color:var(--lime)}
+.btn-amber{color:var(--amber);border-color:rgba(255,183,0,.35)}
+.btn-red{color:#f87171;border-color:rgba(239,68,68,.35)}
+.fb{padding:6px 10px;font-size:9px;opacity:.55;border-radius:8px}
+.fb.active{opacity:1;background:linear-gradient(180deg,rgba(0,240,255,.28),rgba(0,240,255,.08));border-color:var(--cyan);color:#fff;box-shadow:0 0 14px rgba(0,240,255,.35)}
+.fb.active.amber{background:linear-gradient(180deg,rgba(255,183,0,.28),rgba(255,183,0,.08));border-color:var(--amber);box-shadow:0 0 14px rgba(255,183,0,.3)}
+.fb.active.lime{background:linear-gradient(180deg,rgba(163,255,18,.25),rgba(163,255,18,.06));border-color:var(--lime);color:var(--lime)}
+.flab{font-size:9px;color:var(--dim);letter-spacing:2px;margin-right:2px}
+.fsep{width:1px;height:22px;background:#1a3a4a;margin:0 4px}
+.empty{color:var(--dim);font-size:11px;padding:20px;text-align:center;line-height:1.8}
+.chip{font-size:9px;padding:3px 8px;border-radius:999px;font-weight:700}
+.hrow{display:flex;gap:8px;font-size:9.5px;padding:4px 6px;border-left:2px solid rgba(0,240,255,.25);margin:2px 0;background:rgba(0,240,255,.03);border-radius:0 6px 6px 0;white-space:nowrap;overflow:hidden}
+.hrow .ht{color:var(--dim);flex:0 0 62px} .hrow .hm{color:var(--white);flex:0 0 118px;overflow:hidden;text-overflow:ellipsis} .hrow .he{font-weight:700;flex:0 0 62px} .hrow .hv{color:var(--cyan2);flex:1;text-align:right}
+.lockico{width:26px;height:26px;border-radius:8px;border:1px solid rgba(0,240,255,.25);display:flex;align-items:center;justify-content:center;font-size:12px;flex:0 0 auto;transition:.2s;background:rgba(0,240,255,.05)}
+.target-row:hover .lockico{border-color:var(--cyan);box-shadow:0 0 10px rgba(0,240,255,.4)}
+.target-row.locked .lockico{border-color:var(--lime);box-shadow:0 0 12px rgba(163,255,18,.5);background:rgba(163,255,18,.1)}
+.age{font-size:8.5px;color:var(--dim)}
+.tank-low{animation:lowfuel 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes pulseDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.7}}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+@keyframes lowfuel{0%,100%{box-shadow:0 0 25px #ffb700}50%{box-shadow:0 0 45px #ff2a4a;border-color:#ff2a4a}}
+::-webkit-scrollbar{width:6px;height:6px} ::-webkit-scrollbar-thumb{background:#1a3a4a;border-radius:999px} ::-webkit-scrollbar-track{background:#02060a}
+@media(max-width:1150px){.main{flex-direction:column;overflow-y:auto}.side{flex:0 0 auto;width:100%;border-left:none;border-top:1px solid var(--line)}.radar-box{min-height:400px;flex:0 0 55vh}body{overflow-y:auto}.meta{display:none}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo">RUNEFORGE <span>SCANNER-PRO</span> v16.0</div>
+  <div class="meta">SCANNER-14-TORREON • COM5 ESP32-D0WD-V3 • 192.168.100.3 → 192.168.100.10:1883/9001 • <span style="color:var(--lime)">APEX WAR EDITION</span></div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <div id="mqttStatus" class="badge connecting"><span class="pulse-dot" style="background:#f59e0b"></span>CONNECTING MQTT...</div>
+    <div id="targetBadge" class="badge badge-cyan">0/0 TARGETS</div>
+    <div id="fpsBadge" class="badge badge-neutral"><span id="fpsVal">--</span> FPS • KALMAN</div>
+    <div id="rangeBadge" class="badge badge-lime">RNG 15M</div>
+  </div>
+</div>
+<div class="main">
+  <div class="radar-wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-shrink:0">
+      <div class="panel-title">RADAR TÁCTICO POLAR 360° • HEATMAP • TRAILS • GEIGER AUDIO • KALMAN R:1.2 Q:0.02</div>
+      <div class="panel-title" style="color:var(--lime)">LOCK ON CLICK • TD-BLE 400L 28PT • STALE 30S</div>
+    </div>
+    <div class="radar-box"><canvas id="radar" width="1600" height="1200"></canvas></div>
+    <div class="controls">
+      <button class="btn" onclick="clearTargets()">CLEAR</button>
+      <button class="btn" onclick="testFake()">TEST FAKE</button>
+      <button class="btn btn-lime" onclick="startScan()">SCAN BLE</button>
+      <button class="btn btn-amber" onclick="toggleSim()" id="simBtn">SIM OFF</button>
+      <div class="fsep"></div>
+      <span class="flab">FILTER</span>
+      <button class="btn fb active" id="f_ALL" onclick="setFilter('ALL')">ALL</button>
+      <button class="btn fb" id="f_tile" onclick="setFilter('tile')">TILE</button>
+      <button class="btn fb" id="f_fuel" onclick="setFilter('fuel')">FUEL</button>
+      <button class="btn fb" id="f_unknown" onclick="setFilter('unknown')">UNK</button>
+      <div class="fsep"></div>
+      <button class="btn fb lime active" id="heatBtn" onclick="toggleHeat()">HEAT</button>
+      <button class="btn fb lime active" id="trailBtn" onclick="toggleTrails()">TRAILS</button>
+      <button class="btn fb" id="soundBtn" onclick="toggleSound()">SOUND OFF</button>
+      <button class="btn fb amber" onclick="exportCSV()">EXPORT CSV</button>
+      <div class="fsep"></div>
+      <span class="flab">RANGE</span>
+      <button class="btn fb active" id="r15" onclick="setRange(15)">15M</button>
+      <button class="btn fb" id="r30" onclick="setRange(30)">30M</button>
+      <button class="btn fb" id="r50" onclick="setRange(50)">50M</button>
+      <span id="espStatus" style="margin-left:6px;font-size:10px;color:#4ade80;white-space:nowrap"><span class="pulse-dot" style="background:#4ade80"></span>ESP32: 192.168.100.3 ONLINE</span>
+      <span style="margin-left:auto;font-size:9px;color:var(--dim);white-space:nowrap">KEYS: T test • C clear • S scan • G sound • H heat • R trails • E csv</span>
+    </div>
+    <div class="console" id="console"></div>
+  </div>
+  <div class="side">
+    <div class="card"><h3>🎯 TARGET LOCK • CLICK PARA LOCK <span class="cnt" id="lockCnt">0</span></h3><div id="meshTable"><div class="empty">Esperando targets BLE...<br/><span style="color:var(--cyan)">MQTT CONNECTING</span><br/>Dale TEST FAKE para probar radar</div></div></div>
+    <div class="card"><h3>📡 OSCILOSCOPIO DUAL • RAW + KALMAN</h3><div class="scope-wrap"><canvas id="scope" width="1000" height="320"></canvas></div><div style="display:flex;gap:14px;margin-top:8px;font-size:9px;flex-wrap:wrap"><span style="color:#5a7a8a">━━ RAW</span><span style="color:var(--cyan)">━━ KALMAN</span><span style="color:var(--lime)">▁ LOW</span><span style="color:var(--red)">▁ HIGH</span><span style="margin-left:auto;color:var(--dim)">-90→-30dBm • 160 PTS</span></div></div>
+    <div class="card"><h3>⛽ TELEMETRY • TD-BLE 400L • ESCORT <span class="cnt" id="fuelState">NO SIG</span></h3><div style="display:flex;gap:14px;align-items:center"><div style="width:70px;height:94px;border:1px solid #1e3a4a;border-radius:10px 10px 14px 14px;position:relative;background:linear-gradient(180deg,#050a0f,#02060a);overflow:hidden;box-shadow:inset 0 0 20px rgba(0,0,0,.8)"><div style="position:absolute;top:0;left:0;right:0;height:15px;background:linear-gradient(180deg,#1a2a3a,#0a1a25);border-bottom:1px solid #1e3a4a"></div><div id="fuelLiquid" style="position:absolute;bottom:0;width:100%;height:0%;background:linear-gradient(180deg,#ffcc33,#ff9900);box-shadow:0 0 25px #ffb700, inset 0 10px 20px rgba(255,255,255,.2);transition:height .8s"></div><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;color:#000;font-size:12px;top:15px" id="fuelPct">--%</div><div style="position:absolute;left:2px;right:2px;top:19px;bottom:2px;background:repeating-linear-gradient(0deg,transparent 0px,transparent 7px,rgba(0,0,0,.15) 8px);pointer-events:none"></div></div><div style="flex:1;font-size:11px;line-height:1.8"><div style="display:flex;justify-content:space-between"><span>CAP:</span><span style="color:white;font-weight:700">400L</span></div><div style="display:flex;justify-content:space-between"><span>CUR:</span><span id="fuelLiters" style="color:var(--amber);font-weight:700">--L</span></div><div style="display:flex;justify-content:space-between"><span>VOLT:</span><span id="voltVal" style="color:var(--cyan2)">--V</span></div><div style="display:flex;justify-content:space-between"><span>TEMP:</span><span id="tempVal" style="color:var(--cyan2)">--°C</span></div><div class="fuel-bar" style="margin:8px 0"><div id="fuelBar" class="fuel-fill" style="width:0%"></div></div><div style="color:var(--dim);font-size:9.5px">KALMAN R:1.2 Q:0.02 • DIST: 2.5N • TX -59dBm</div></div></div></div>
+    <div class="card"><h3>📜 HISTÓRICO EVENTOS <span class="cnt" id="histCnt">0</span></h3><div id="histTable" style="max-height:180px;overflow-y:auto"><div class="empty" style="padding:12px">Sin eventos aún. Esperando RX...</div></div></div>
+    <div class="card" style="opacity:.92"><h3>🛠️ SYSTEM</h3><div style="font-size:10px;line-height:1.75;color:var(--dim)">Broker: 192.168.100.10:1883 / WS 9001 ✅<br/>Device: SCANNER-14-TORREON • ClientId: Random anti-takeover ✅<br/>Build: v16.0 APEX • Geiger • Heatmap • Trails • CSV • Lock<br/>Stale sweep: 30s • Trails: 48 pts • Scope: 160 pts dual</div></div>
+  </div>
+</div>
+<script>
+'use strict';
+/* ================= RUNEFORGE v16.0 APEX — CORE ================= */
+const BROKER_HOST="192.168.100.10"; // FUENTE DE VERDAD ÚNICA — NO CAMBIAR A .5
+const DEV="SCANNER-14-TORREON";
+const MQTT_URLS=[`ws://${BROKER_HOST}:9001`,`ws://${BROKER_HOST}:9001/mqtt`,`ws://192.168.100.10:9001`,`ws://192.168.100.5:9001`,`ws://127.0.0.1:9001`,`ws://localhost:9001`];
+const CFG={tx:-59,n:2.5,kr:1.2,kq:0.02,maxTargets:35,staleMs:30000,trailLen:48,scopeMax:160};
+
+let targets=[],historyArr=[],scopeRaw=new Array(CFG.scopeMax).fill(-70),scopeKal=new Array(CFG.scopeMax).fill(-70);
+let mqttClient=null,currentIdx=0,simMode=false,simInt=null;
+let familyFilter='ALL',heatOn=true,trailsOn=true,soundOn=false;
+let maxRange=15,focusedId=null;
+let fps=0,frames=0,fpsT=performance.now();
+
+function newKalman(){return{x:-60,p:1,r:CFG.kr,q:CFG.kq,filter(z){this.p+=this.q;const k=this.p/(this.p+this.r);this.x+=k*(z-this.x);this.p*=(1-k);return this.x}}}
+
+/* ================= LOG + BADGES ================= */
+function log(msg,color="#7dd3fc"){const c=document.getElementById('console');const d=document.createElement('div');d.style.color=color;
+  if(color==='#4ade80')d.style.borderLeftColor='#4ade80';else if(color==='orange')d.style.borderLeftColor='#f59e0b';else if(color.includes('red'))d.style.borderLeftColor='#ef4444';else if(color==='lime')d.style.borderLeftColor='#a3ff12';else d.style.borderLeftColor='rgba(0,240,255,.3)';
+  d.textContent=`[${new Date().toLocaleTimeString()}] ${msg}`;c.appendChild(d);c.scrollTop=c.scrollHeight;if(c.children.length>500)c.removeChild(c.firstChild)}
+function updateBadge(s,u=""){const el=document.getElementById('mqttStatus');
+  if(s==='online'){el.className='badge online';el.innerHTML=`<span class="pulse-dot" style="background:#10b981"></span>MQTT ONLINE ${u}`}
+  else if(s==='connecting'){el.className='badge connecting';el.innerHTML=`<span class="pulse-dot" style="background:#f59e0b"></span>CONNECTING ${u}`}
+  else{el.className='badge offline';el.innerHTML=`<span class="pulse-dot" style="background:#ef4444"></span>OFFLINE SIM MODE`}}
+
+/* ================= MATH ================= */
+function rssiToDist(r){return Math.pow(10,(CFG.tx-r)/(10*CFG.n))}
+function hashAngle(id){let h=0;for(let i=0;i<id.length;i++)h=(h*31+id.charCodeAt(i))&0xFFFF;return (h%360)*Math.PI/180}
+function rssiColor(r){if(r>-55)return 'rssi-green';if(r>-70)return 'rssi-yellow';return 'rssi-red'}
+function sigBars(r){const lvl=r>-50?4:r>-60?3:r>-72?2:1;let h='';for(let i=1;i<=4;i++)h+=`<i style="height:${i*3}px;background:${i<=lvl?(lvl>=3?'#4ade80':lvl===2?'#fbbf24':'#f87171'):'#1a3a4a'}${i<=lvl?';box-shadow:0 0 4px currentColor':''}"></i>`;return `<div class="sigbars">${h}</div>`}
+function visibleTargets(){return familyFilter==='ALL'?targets:targets.filter(t=>t.family===familyFilter)}
+
+/* ================= HISTÓRICO ================= */
+function pushHist(evt,mac,val,col){historyArr.unshift({t:Date.now(),evt,mac,val:val||'',col:col||'var(--cyan)'});if(historyArr.length>60)historyArr.pop();document.getElementById('histCnt').innerText=historyArr.length;renderHistory()}
+function renderHistory(){const el=document.getElementById('histTable');if(!historyArr.length){el.innerHTML='<div class="empty" style="padding:12px">Sin eventos aún. Esperando RX...</div>';return}
+  el.innerHTML=historyArr.slice(0,16).map(h=>`<div class="hrow"><span class="ht">${new Date(h.t).toLocaleTimeString()}</span><span class="hm">${h.mac}</span><span class="he" style="color:${h.col}">${h.evt}</span><span class="hv">${h.val}</span></div>`).join('')}
+
+/* ================= AUDIO GEIGER ================= */
+let audioCtx=null;
+function initAudio(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume()}
+function blip(f,dur,vol){if(!audioCtx)return;const t0=audioCtx.currentTime;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='square';o.frequency.setValueAtTime(f,t0);g.gain.setValueAtTime(vol,t0);g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);o.connect(g);g.connect(audioCtx.destination);o.start(t0);o.stop(t0+dur+0.02)}
+function chime(){if(!soundOn||!audioCtx)return;blip(880,.09,.12);setTimeout(()=>blip(1318,.13,.12),110)}
+function geigerLoop(){if(!soundOn)return;const vis=visibleTargets();
+  if(vis.length){const ref=(focusedId&&vis.find(t=>t.id===focusedId))||vis.reduce((a,b)=>a.dist<b.dist?a:b);
+    const d=Math.max(ref.dist,0.25);const rate=Math.min(900,Math.max(70,180/(d*d+0.08)));
+    blip(2200+Math.random()*900,0.006,Math.min(0.22,0.04+0.10/d));
+    setTimeout(geigerLoop,rate)}else setTimeout(geigerLoop,500)}
+setInterval(()=>{if(!soundOn)return;const f=targets.find(t=>t.family==='fuel');if(f&&(f.fuelPct||0)>0&&(f.fuelPct||100)<15){blip(520,.15,.15);setTimeout(()=>blip(420,.2,.15),200)}},4000);
+
+/* ================= RENDER TARGET LOCK ================= */
+function rowHTML(t){const isF=t.family==='fuel',pct=t.fuelPct||0,lit=Math.round(400*pct/100);
+  const age=((Date.now()-t.last)/1000).toFixed(0);
+  return `<div class="target-row ${isF?'fuel':''} ${focusedId===t.id?'locked':''}" onclick="focusTarget('${t.id}')">
+    <div style="width:12px;height:12px;border-radius:50%;background:${isF?'#ffb700':'#00f0ff'};box-shadow:0 0 14px ${isF?'#ffb700':'#00f0ff'}, inset 0 1px 0 rgba(255,255,255,.5);flex:0 0 auto"></div>
+    <div style="flex:1;min-width:0"><div class="mac">${t.id.slice(0,17).toUpperCase()}</div>
+      <div style="font-size:9.5px;color:var(--dim);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name.slice(0,20)} • CH${t.chan||37} • ${t.dist<2?'CLOSE':t.dist<5?'MED':'FAR'} • <span class="age">${age}s</span></div></div>
+    ${sigBars(t.rssi_kalman)}
+    <div style="text-align:right;min-width:66px"><div class="${rssiColor(t.rssi_kalman)}" style="font-weight:800;font-size:12px">${t.rssi_kalman.toFixed(0)}dBm</div><div style="font-size:11px;color:var(--white)">${t.dist.toFixed(2)}m</div></div>
+    <div style="width:78px;text-align:right;flex:0 0 auto"><span class="chip" style="background:${isF?'rgba(255,183,0,.15)':'rgba(0,240,255,.12)'};border:1px solid ${isF?'rgba(255,183,0,.3)':'rgba(0,240,255,.25)'};color:${isF?'var(--amber)':'var(--cyan)'}">${t.family.toUpperCase()}</span>
+      ${isF?`<div style="font-size:10.5px;color:var(--amber);margin-top:4px;font-weight:700">${pct}% • ${lit}L</div>`:`<div class="lockico" style="margin-left:auto;margin-top:4px">${focusedId===t.id?'◎':'◎'}</div>`}</div></div>`}
+function renderLock(){const tbl=document.getElementById('meshTable');const vis=visibleTargets();
+  document.getElementById('targetBadge').innerText=`${vis.length}/${targets.length} TARGETS`;
+  document.getElementById('lockCnt').innerText=vis.length;
+  if(vis.length===0){tbl.innerHTML=`<div class="empty">${familyFilter!=='ALL'?`Sin targets en filtro <b style="color:var(--cyan)">${familyFilter.toUpperCase()}</b>`:'Sin targets...<br/>Esperando BLE real de ESP32<br/>Dale TEST FAKE para probar'}</div>`;return}
+  tbl.innerHTML=vis.slice().sort((a,b)=>a.dist-b.dist).map(rowHTML).join('');
+  const f=targets.find(t=>t.family==='fuel');
+  const fs=document.getElementById('fuelState');
+  if(f){const pct=f.fuelPct||0;document.getElementById('fuelLiquid').style.height=pct+'%';document.getElementById('fuelBar').style.width=pct+'%';document.getElementById('fuelPct').innerText=pct+'%';document.getElementById('fuelLiters').innerText=Math.round(400*pct/100)+'L';
+    fs.innerText=pct<15?'LOW ⚠':pct>0?'LIVE':'NO DAT';fs.style.color=pct<15?'#f87171':'var(--lime)';
+    document.getElementById('fuelLiquid').parentElement.classList.toggle('tank-low',pct>0&&pct<15)}
+  else{fs.innerText='NO SIG';fs.style.color='var(--dim)'}}
+function focusTarget(id){focusedId=focusedId===id?null:id;renderLock();log(focusedId?`🎯 LOCK → ${id.toUpperCase()} • crosshair activo + geiger prioridad`:'🔓 LOCK liberado',focusedId?'lime':'cyan')}
+
+/* ================= RADAR ================= */
+const radar=document.getElementById('radar'),rctx=radar.getContext('2d');let sweepAng=0;
+const RPX=440;
+function drawRadar(now){const w=radar.width,h=radar.height,cx=w/2,cy=h/2;const CA=a=>a-Math.PI/2;
+  rctx.clearRect(0,0,w,h);
+  let bg=rctx.createRadialGradient(cx,cy,0,cx,cy,500);bg.addColorStop(0,'rgba(0,240,255,.07)');bg.addColorStop(0.4,'rgba(10,30,50,.15)');bg.addColorStop(1,'rgba(0,0,0,0)');rctx.fillStyle=bg;rctx.fillRect(0,0,w,h);
+  // anillos + labels distancia
+  rctx.lineWidth=1;rctx.shadowBlur=0;
+  for(let i=1;i<=5;i++){const rr=RPX*i/5;rctx.strokeStyle='#0f2f44';rctx.beginPath();rctx.arc(cx,cy,rr,0,Math.PI*2);rctx.stroke();rctx.fillStyle='rgba(0,240,255,.05)';rctx.beginPath();rctx.arc(cx,cy,rr,0,Math.PI*2);rctx.fill();
+    rctx.fillStyle='#2a5570';rctx.font='700 12px JetBrains Mono';rctx.fillText((maxRange*i/5).toFixed(0)+'m',cx+7,cy-rr-5)}
+  // cruz + radios 30°
+  rctx.strokeStyle='rgba(0,240,255,.07)';rctx.beginPath();rctx.moveTo(cx-RPX,cy);rctx.lineTo(cx+RPX,cy);rctx.moveTo(cx,cy-RPX);rctx.lineTo(cx,cy+RPX);rctx.stroke();
+  rctx.strokeStyle='#0a2535';for(let a=0;a<360;a+=30){const rad=CA(a*Math.PI/180);rctx.beginPath();rctx.moveTo(cx,cy);rctx.lineTo(cx+(RPX+8)*Math.cos(rad),cy+(RPX+8)*Math.sin(rad));rctx.stroke()}
+  // brújula N E S W + grados
+  rctx.font='800 15px Orbitron, JetBrains Mono';rctx.textAlign='center';
+  [['N',0],['E',90],['S',180],['W',270]].forEach(([L,a])=>{const rad=CA(a*Math.PI/180);rctx.fillStyle=a===0?'#a3ff12':'#3d6a85';rctx.shadowBlur=a===0?12:0;rctx.shadowColor='#a3ff12';rctx.fillText(L,cx+(RPX+34)*Math.cos(rad),cy+(RPX+34)*Math.sin(rad)+5);rctx.shadowBlur=0});
+  rctx.font='600 10px JetBrains Mono';rctx.fillStyle='#2a4a60';for(let a=30;a<360;a+=30){if(a%90===0)continue;const rad=CA(a*Math.PI/180);rctx.fillText(a+'°',cx+(RPX+30)*Math.cos(rad),cy+(RPX+30)*Math.sin(rad)+3)}rctx.textAlign='left';
+  // sweep con estela 40°
+  for(let i=17;i>=0;i--){const a1=sweepAng-i*0.040,a2=a1-0.048;const al=0.22*(1-i/18);rctx.fillStyle=`rgba(163,255,18,${al.toFixed(3)})`;rctx.beginPath();rctx.moveTo(cx,cy);rctx.arc(cx,cy,RPX+16,CA(a1),CA(a2),true);rctx.closePath();rctx.fill()}
+  sweepAng+=0.020;if(sweepAng>Math.PI*2)sweepAng-=Math.PI*2;
+  const sx=cx+(RPX+16)*Math.cos(CA(sweepAng)),sy=cy+(RPX+16)*Math.sin(CA(sweepAng));
+  let sg=rctx.createLinearGradient(cx,cy,sx,sy);sg.addColorStop(0,'rgba(163,255,18,0)');sg.addColorStop(0.7,'rgba(163,255,18,.25)');sg.addColorStop(1,'rgba(163,255,18,.9)');
+  rctx.strokeStyle=sg;rctx.lineWidth=3;rctx.shadowBlur=14;rctx.shadowColor='#a3ff12';rctx.beginPath();rctx.moveTo(cx,cy);rctx.lineTo(sx,sy);rctx.stroke();rctx.shadowBlur=0;
+  // partículas
+  rctx.fillStyle='rgba(0,240,255,.18)';for(let i=0;i<40;i++){const pr=30+Math.random()*(RPX+10);const pa=Math.random()*Math.PI*2+now*0.00015;rctx.beginPath();rctx.arc(cx+pr*Math.cos(pa),cy+pr*Math.sin(pa),Math.random()*1.8,0,Math.PI*2);rctx.fill()}
+  // heatmap
+  if(heatOn){visibleTargets().forEach(t=>{const d=Math.min(t.dist/maxRange,1)*RPX;const [x,y]=[cx+d*Math.cos(CA(t.angle)),cy+d*Math.sin(CA(t.angle))];
+    const k=t.rssi_kalman;const col=k>-55?'0,240,255':k>-70?'255,183,0':'255,42,74';const rad=70+(1-Math.min(t.dist/maxRange,1))*90;
+    const g=rctx.createRadialGradient(x,y,0,x,y,rad);g.addColorStop(0,`rgba(${col},.14)`);g.addColorStop(1,`rgba(${col},0)`);rctx.fillStyle=g;rctx.beginPath();rctx.arc(x,y,rad,0,Math.PI*2);rctx.fill()})}
+  // trails
+  if(trailsOn){visibleTargets().forEach(t=>{if(!t.trail||t.trail.length<2)return;const col=t.family==='fuel'?'255,183,0':'0,240,255';
+    t.trail.forEach((p,i)=>{const al=(i/t.trail.length)*0.45;const d=Math.min(p.d/maxRange,1)*RPX;const sz=0.6+2.2*(i/t.trail.length);
+      rctx.fillStyle=`rgba(${col},${al.toFixed(3)})`;rctx.beginPath();rctx.arc(cx+d*Math.cos(CA(p.a)),cy+d*Math.sin(CA(p.a)),sz,0,Math.PI*2);rctx.fill()})})}
+  // blips
+  visibleTargets().forEach((t,idx)=>{const d=Math.min(t.dist/maxRange,1)*RPX;const x=cx+d*Math.cos(CA(t.angle)),y=cy+d*Math.sin(CA(t.angle));
+    const col=t.family==='fuel'?'#ffb700':'#00f0ff';const pulse=1+Math.sin(now*0.005+idx)*0.2;
+    let diff=((sweepAng-t.angle)%(Math.PI*2)+Math.PI*2)%(Math.PI*2);const boost=Math.max(0,1-diff/1.1); // glow al pasar sweep
+    rctx.shadowBlur=14+26*boost;rctx.shadowColor=col;rctx.fillStyle=col;rctx.beginPath();rctx.arc(x,y,(t.dist<2?11:7)*pulse,0,Math.PI*2);rctx.fill();rctx.shadowBlur=0;
+    rctx.strokeStyle=col;rctx.lineWidth=1;rctx.fillStyle='rgba(255,255,255,.12)';rctx.beginPath();rctx.arc(x,y,(t.dist<2?16:12)*pulse,0,Math.PI*2);rctx.stroke();
+    if(focusedId===t.id){ // lock crosshair rotatorio
+      rctx.save();rctx.translate(x,y);rctx.rotate(now*0.0012);
+      rctx.strokeStyle='#a3ff12';rctx.lineWidth=1.6;rctx.setLineDash([6,5]);rctx.strokeRect(-26,-26,52,52);rctx.setLineDash([]);
+      rctx.rotate(-now*0.0024);rctx.strokeStyle='rgba(163,255,18,.6)';rctx.beginPath();rctx.moveTo(-34,0);rctx.lineTo(-22,0);rctx.moveTo(22,0);rctx.lineTo(34,0);rctx.moveTo(0,-34);rctx.lineTo(0,-22);rctx.moveTo(0,22);rctx.lineTo(0,34);rctx.stroke();rctx.restore();
+      rctx.strokeStyle='rgba(163,255,18,.35)';rctx.setLineDash([3,6]);rctx.beginPath();rctx.moveTo(cx,cy);rctx.lineTo(x,y);rctx.stroke();rctx.setLineDash([]);
+      rctx.fillStyle='#a3ff12';rctx.font='800 11px JetBrains Mono';rctx.shadowBlur=8;rctx.shadowColor='#000';rctx.fillText('LOCK',x-14,y-32);rctx.shadowBlur=0}
+    else if(t.dist<6){rctx.strokeStyle=col;rctx.lineWidth=1.2;rctx.setLineDash([4,4]);rctx.strokeRect(x-20,y-20,40,40);rctx.setLineDash([]);
+      rctx.fillStyle=col;rctx.fillRect(x-20,y-24,8,3);rctx.fillRect(x+12,y-24,8,3);rctx.fillRect(x-20,y+21,8,3);rctx.fillRect(x+12,y+21,8,3)}
+    rctx.fillStyle='white';rctx.font='700 12px JetBrains Mono';rctx.shadowBlur=8;rctx.shadowColor='black';rctx.fillText(t.name.slice(0,16),x+16,y-12);
+    rctx.fillStyle='#7dd3fc';rctx.font='600 10px JetBrains Mono';rctx.fillText(`${t.dist.toFixed(1)}m • ${t.rssi_kalman.toFixed(0)}dBm • ${t.family}`,x+16,y+2);rctx.shadowBlur=0});
+  // HUD esquinas
+  rctx.font='600 11px JetBrains Mono';rctx.fillStyle='rgba(0,240,255,.55)';
+  rctx.fillText(`SWEEP ${(sweepAng*180/Math.PI|0)}°`,14,22);rctx.fillText(`RANGE ${maxRange}M`,14,38);rctx.fillText(`TGT ${visibleTargets().length}`,14,54);
+  rctx.fillStyle='rgba(163,255,18,.5)';rctx.textAlign='right';rctx.fillText(`GEIGER ${soundOn?'ON':'OFF'} • HEAT ${heatOn?'ON':'OFF'} • TRAILS ${trailsOn?'ON':'OFF'}`,w-14,22);rctx.textAlign='left';
+  // FPS real
+  frames++;const tn=performance.now();if(tn-fpsT>=1000){fps=frames;frames=0;fpsT=tn;document.getElementById('fpsVal').innerText=fps}
+  requestAnimationFrame(drawRadar)}
+requestAnimationFrame(drawRadar);
+
+/* ================= OSCILOSCOPIO DUAL ================= */
+const scope=document.getElementById('scope'),sctx=scope.getContext('2d');
+function drawScope(){const w=scope.width,h=scope.height;sctx.clearRect(0,0,w,h);
+  sctx.strokeStyle='#0e2430';sctx.lineWidth=1;sctx.setLineDash([2,6]);for(let y=0;y<h;y+=32){sctx.beginPath();sctx.moveTo(0,y);sctx.lineTo(w,y);sctx.stroke()}sctx.setLineDash([]);
+  const Y=v=>h-((v+90)/60*h);
+  const path=(arr)=>{sctx.beginPath();arr.forEach((v,i)=>{const x=i/arr.length*w;const y=Y(v);i===0?sctx.moveTo(x,y):sctx.lineTo(x,y)})};
+  // RAW gris
+  sctx.strokeStyle='rgba(120,150,170,.45)';sctx.lineWidth=1.2;path(scopeRaw);sctx.stroke();
+  // KALMAN fill + glow
+  let grad=sctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,'rgba(0,240,255,.25)');grad.addColorStop(0.6,'rgba(0,240,255,.05)');grad.addColorStop(1,'rgba(0,240,255,0)');
+  sctx.fillStyle=grad;sctx.beginPath();sctx.moveTo(0,h);scopeKal.forEach((v,i)=>{sctx.lineTo(i/scopeKal.length*w,Y(v))});sctx.lineTo(w,h);sctx.closePath();sctx.fill();
+  sctx.strokeStyle='#00f0ff';sctx.lineWidth=2.2;sctx.shadowBlur=10;sctx.shadowColor='#00f0ff';path(scopeKal);sctx.stroke();sctx.shadowBlur=0;
+  // valor actual
+  const cur=scopeKal[scopeKal.length-1];sctx.font='700 15px JetBrains Mono';sctx.fillStyle=cur>-55?'#4ade80':cur>-70?'#fbbf24':'#f87171';sctx.fillText(cur.toFixed(1)+'dBm',w-110,26);
+  requestAnimationFrame(drawScope)}
+drawScope();
+
+/* ================= ACCIONES ================= */
+function testFake(){targets=[
+  {id:'b4:0e:cf:44:fe:ba',name:'TL-B40ECF44FEB9',family:'tile',rssiRaw:-48,kf:newKalman(),rssi_kalman:-48,dist:1.2,angle:Math.PI*0.8,chan:37,fuelPct:0,last:Date.now(),trail:[],real:false},
+  {id:'d1:6d:2a:5b:be:07',name:'Escort TD-BLE 400L',family:'fuel',rssiRaw:-58,kf:newKalman(),rssi_kalman:-58,dist:3.5,angle:Math.PI*1.35,chan:38,fuelPct:65,last:Date.now(),trail:[],real:false,volt:3.9,temp:27}];
+  scopeRaw=scopeRaw.map(()=>-50-Math.random()*16);scopeKal=scopeKal.map(()=>-50-Math.random()*12);renderLock();
+  pushHist('TEST','fake-inject','2 tgt','var(--amber)');log('TEST FAKE 2 targets • Tile 1.2m + Fuel 3.5m 65%','orange')}
+function clearTargets(){targets=[];focusedId=null;renderLock();pushHist('CLEAR','--','radar limpio','var(--cyan)');log('CLEAR targets • radar limpio')}
+function startScan(){log('BLE SCAN trigger → ESP32 192.168.100.3 vía MQTT','cyan');
+  if(mqttClient&&mqttClient.connected){mqttClient.publish(`scannerpro/collab/${DEV}/cmd`,JSON.stringify({cmd:'scan',dur:5}));pushHist('CMD','scan','dur 5s','#a3ff12');log('CMD scan publicado','lime')}else log('MQTT no conectado - no se puede scanear','red')}
+function toggleSim(){simMode=!simMode;document.getElementById('simBtn').innerText=simMode?'SIM ON':'SIM OFF';
+  if(simMode){log('SIM MODE ON • targets flotando','orange');simInt=setInterval(()=>{targets.forEach(t=>{t.rssiRaw=t.rssi_kalman+(Math.random()-0.5)*4;t.rssi_kalman=t.kf?t.kf.filter(t.rssiRaw):t.rssi_kalman+(Math.random()-0.5)*0.8;t.dist=rssiToDist(t.rssi_kalman);t.angle+=0.006;t.last=Date.now()});renderLock();scopeRaw.push(-55+Math.random()*14);scopeKal.push(-55+Math.random()*8);if(scopeRaw.length>CFG.scopeMax){scopeRaw.shift();scopeKal.shift()}},350)}
+  else{log('SIM MODE OFF','cyan');clearInterval(simInt)}}
+function setFilter(f){familyFilter=f;['ALL','tile','fuel','unknown'].forEach(k=>document.getElementById('f_'+k).classList.toggle('active',k===f));renderLock();log(`FILTER → ${f.toUpperCase()}`,'cyan')}
+function toggleHeat(){heatOn=!heatOn;document.getElementById('heatBtn').classList.toggle('active',heatOn)}
+function toggleTrails(){trailsOn=!trailsOn;document.getElementById('trailBtn').classList.toggle('active',trailsOn)}
+function toggleSound(){soundOn=!soundOn;initAudio();const b=document.getElementById('soundBtn');b.classList.toggle('active',soundOn);b.innerText=soundOn?'SOUND ON':'SOUND OFF';
+  if(soundOn){log('🔊 GEIGER AUDIO ON • proximidad + chime + alarma fuel','lime');geigerLoop();chime()}else log('🔊 AUDIO OFF','cyan')}
+function setRange(r){maxRange=r;[15,30,50].forEach(v=>document.getElementById('r'+v).classList.toggle('active',v===r));
+  document.getElementById('rangeBadge').innerText='RNG '+r+'M';pushHist('RANGE',r+'M','anillos recalc','var(--cyan)');log(`RANGE → ${r}m • anillos cada ${(r/5).toFixed(0)}m`,'cyan')}
+function exportCSV(){let csv=`# RUNEFORGE v16.0 APEX EXPORT • ${new Date().toISOString()} • ${DEV}\n`;
+  csv+=`# == TARGETS SNAPSHOT ==\ntimestamp,mac,name,family,rssi_raw,rssi_kalman,dist_m,angle_deg,fuel_pct,volt,temp,ch\n`;
+  targets.forEach(t=>{csv+=[new Date(t.last).toISOString(),t.id,t.name,t.family,t.rssiRaw.toFixed(1),t.rssi_kalman.toFixed(1),t.dist.toFixed(2),(t.angle*180/Math.PI).toFixed(1),t.family==='fuel'?(t.fuelPct||0):'',t.volt||'',t.temp||'',t.chan||''].join(',')+'\n'});
+  csv+=`\n# == HISTORICO EVENTOS ==\ntimestamp,event,mac,valor\n`;
+  historyArr.forEach(h=>{csv+=[new Date(h.t).toISOString(),h.evt,h.mac,(h.val||'').toString().replace(/,/g,';')].join(',')+'\n'});
+  const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`runeforge_scan_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.csv`;a.click();
+  pushHist('CSV','export',`${targets.length} tgt + ${historyArr.length} evt`,'#a3ff12');log(`📥 CSV exportado: ${targets.length} targets + ${historyArr.length} eventos`,'lime')}
+
+/* ================= SHORTCUTS ================= */
+document.addEventListener('keydown',e=>{const k=e.key.toLowerCase();
+  if(k==='t')testFake();else if(k==='c')clearTargets();else if(k==='s')startScan();
+  else if(k==='g')toggleSound();else if(k==='h')toggleHeat();else if(k==='r')toggleTrails();
+  else if(k==='e')exportCSV();else if(k==='1')setRange(15);else if(k==='2')setRange(30);else if(k==='3')setRange(50)});
+
+/* ================= TRAILS TICKER + STALE SWEEPER ================= */
+setInterval(()=>{targets.forEach(t=>{if(!t.trail)t.trail=[];t.trail.push({d:t.dist,a:t.angle});if(t.trail.length>CFG.trailLen)t.trail.shift()})},220);
+setInterval(()=>{const now=Date.now();const before=targets.length;
+  targets=targets.filter(t=>!t.real||(now-t.last)<CFG.staleMs);
+  if(targets.length!==before){log(`⏱ STALE: ${before-targets.length} target(s) expirados (>${CFG.staleMs/1000}s sin señal)`,'orange');
+    if(focusedId&&!targets.find(t=>t.id===focusedId))focusedId=null;renderLock();pushHist('STALE','timeout',`${before-targets.length} removed`,'var(--amber)')}},5000);
+
+/* ================= SIM FALLBACK ================= */
+function startSimFallback(){updateBadge('offline','SIM');log('SIM MODE fallback - WS bloqueado, radar fake activo','orange');simMode=true;document.getElementById('simBtn').innerText='SIM ON';
+  simInt=setInterval(()=>{if(targets.length===0)testFake();targets.forEach(t=>{t.rssiRaw+=(Math.random()-0.5);t.rssi_kalman=t.kf?t.kf.filter(t.rssiRaw):t.rssi_kalman;t.dist=rssiToDist(t.rssi_kalman);t.angle+=0.004;t.last=Date.now()});renderLock();scopeRaw.push(-55+Math.random()*12);scopeKal.push(-55+Math.random()*8);if(scopeRaw.length>CFG.scopeMax){scopeRaw.shift();scopeKal.shift()}},400)}
+
+/* ================= MQTT (LÓGICA CRÍTICA INTACTA) ================= */
+function initMqtt(){const tryUrl=MQTT_URLS[currentIdx%MQTT_URLS.length];updateBadge('connecting',tryUrl);
+  log(`Intentando MQTT ${tryUrl} (intento ${currentIdx+1}/${MQTT_URLS.length})`,'cyan');
+  try{if(typeof mqtt==='undefined'){log('mqtt.js CDN no cargado - verifica internet','red');startSimFallback();return}
+    mqttClient=mqtt.connect(tryUrl,{clientId:'web-v160-'+Math.random().toString(16).slice(2,10),keepalive:30,clean:true,reconnectPeriod:0,connectTimeout:6000});
+    let connected=false;
+    mqttClient.on('connect',()=>{connected=true;updateBadge('online',tryUrl);chime();
+      log(`✅ MQTT ONLINE ${tryUrl} • ${DEV} listo`,'#4ade80');
+      mqttClient.subscribe('scannerpro/#');mqttClient.subscribe('scannerpro/collab/+/report');
+      log('Suscrito a scannerpro/# + scannerpro/collab/+/report','cyan');pushHist('CONN','broker',tryUrl,'#4ade80');
+      if(targets.length===0)setTimeout(testFake,800)});
+    mqttClient.on('message',(topic,payload)=>{try{const txt=payload.toString();let data;try{data=JSON.parse(txt)}catch{data={mac:'unknown',rssi:-60,name:txt.slice(0,20)}}
+      const mac=(data.mac||data.id||'').toLowerCase()||'unknown-'+Date.now();
+      const rRaw=Number(data.rssi||data.rssiRaw||-60);
+      let ex=targets.find(t=>t.id===mac);
+      if(!ex){ex={id:mac,name:data.name||mac.slice(0,12),family:data.family||(mac.startsWith('d1:6d')||/escort|td-?ble/i.test(data.name||'')?'fuel':'tile'),kf:newKalman(),rssiRaw:rRaw,rssi_kalman:rRaw,angle:hashAngle(mac),dist:rssiToDist(rRaw),chan:data.channel||data.chan||37,fuelPct:0,last:Date.now(),trail:[],real:true};targets.push(ex);
+        if(targets.length>CFG.maxTargets)targets.shift();pushHist('NEW',mac.slice(0,14),ex.family,'var(--lime)')}
+      const rKal=ex.kf.filter(rRaw);const dist=rssiToDist(rKal);
+      ex.rssiRaw=rRaw;ex.rssi_kalman=rKal;ex.dist=dist;ex.last=Date.now();ex.real=true;
+      if(data.name)ex.name=data.name;if(data.channel||data.chan)ex.chan=data.channel||data.chan;
+      if(data.fuel!==undefined)ex.fuelPct=typeof data.fuel==='object'?(data.fuel.pct||0):Number(data.fuel)||0;
+      if(data.fuelPct!==undefined)ex.fuelPct=Number(data.fuelPct)||ex.fuelPct;
+      if(data.volt){ex.volt=Number(data.volt);document.getElementById('voltVal').innerText=ex.volt.toFixed(2)+'V'}
+      if(data.temp){ex.temp=Number(data.temp);document.getElementById('tempVal').innerText=ex.temp.toFixed(0)+'°C'}
+      scopeRaw.push(rRaw);scopeKal.push(rKal);if(scopeRaw.length>CFG.scopeMax){scopeRaw.shift();scopeKal.shift()}
+      renderLock();pushHist('RX',mac.slice(0,14),`${rRaw}→${rKal.toFixed(0)}dBm ${dist.toFixed(1)}m`,'var(--cyan)');
+      log(`RX ${mac.toUpperCase()} ${rRaw}→${rKal.toFixed(1)}dBm ${dist.toFixed(2)}m ${topic}`,'#7dd3fc')}
+      catch(e){log('msg error '+e,'red')}});
+    mqttClient.on('error',(e)=>{log(`MQTT ERROR ${tryUrl} ${e.message||e}`,'red');try{mqttClient.end(true)}catch{}
+      if(!connected){currentIdx++;if(currentIdx<MQTT_URLS.length*2)setTimeout(initMqtt,1300);else{log('Todas WS fallaron - SIM MODE','orange');startSimFallback()}}});
+    mqttClient.on('close',()=>{if(!connected)log(`MQTT CLOSE ${tryUrl} - reintentando`,'orange')});
+    setTimeout(()=>{if(!connected&&mqttClient){log(`TIMEOUT ${tryUrl} 5.5s`,'orange');try{mqttClient.end(true)}catch{}currentIdx++;if(currentIdx<10)initMqtt();else startSimFallback()}},6000)}
+  catch(e){log('init exception '+e,'red');currentIdx++;setTimeout(initMqtt,1300)}}
+
+/* ================= BOOT (idéntico orden crítico) ================= */
+setTimeout(()=>{log('Probando WS raw ws://192.168.100.10:9001 ...','#888');
+  try{const ws=new WebSocket(`ws://${BROKER_HOST}:9001`);
+    ws.onopen=()=>{log(`WS raw OPEN ws://${BROKER_HOST}:9001 - puerto WS accesible ✅`,'#4ade80');ws.close()};
+    ws.onerror=()=>{log(`WS raw ERROR ws://${BROKER_HOST}:9001 - revisa firewall o mosquitto WS config`,'red')}}catch(e){log('WS test exc '+e,'red')}},1200);
+setTimeout(initMqtt,1800);
+setTimeout(()=>{log('RUNEFORGE v16.0 APEX iniciado • 192.168.100.10 • SCANNER-14-TORREON','cyan');
+  log('NUEVO v16: Geiger audio + heatmap + trails + lock-on-click + filtro familia + histórico + CSV + FPS real + rango 15/30/50 + stale 30s + scope dual','lime');
+  log('Intacto: IP .10 • MQTT_URLS fallback • clientId random • Kalman R:1.2 Q:0.02 • TX -59 N:2.5','cyan')},500);
+</script>
+</body>
+</html>

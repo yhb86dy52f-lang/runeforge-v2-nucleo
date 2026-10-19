@@ -1,0 +1,235 @@
+{
+  "proyecto": "ScannerPRO RUNEFORGE v9.0 COLLAB",
+  "fecha_canon": "2026-10-07",
+  "estado": "operativo",
+  "host_pc": "RUNEFORGE-PC",
+
+  "hardware": {
+    "mcu": {
+      "modelo": "ESP32-D0WD-V3",
+      "revision": "v3.1",
+      "mac": "3c:8a:1f:a1:aa:84",
+      "features": ["WiFi", "BT", "Dual Core + LP Core", "240MHz"],
+      "cristal": "40MHz",
+      "flash": "4MB",
+      "auto_reset": false,
+      "secuencia_flash": "manual BOOT+EN"
+    },
+    "puerto_serial": {
+      "windows": "COM5",
+      "driver": "Silicon Labs CP210x USB to UART Bridge",
+      "baud_monitor": 115200,
+      "baud_flash": 115200
+    },
+    "gpu_pc": {
+      "modelo": "NVIDIA GeForce GTX 1660 SUPER",
+      "vram_gb": 6,
+      "driver": "610.47",
+      "cuda_umd": "13.3"
+    }
+  },
+
+  "red": {
+    "wifi_sta": {
+      "ssid": "517388haieksja_2.4G",
+      "ip_esp32": "192.168.100.3",
+      "rssi_dbm": -67,
+      "modo": "AP+STA"
+    },
+    "wifi_ap_setup": {
+      "ssid": "ScannerPRO-Setup",
+      "password": "12345678",
+      "canal": 6,
+      "ip": "192.168.4.1"
+    },
+    "mqtt_broker": {
+      "host_pc": "192.168.100.10",
+      "puerto_tcp": 1883,
+      "puerto_websocket": 9001,
+      "software": "Eclipse Mosquitto 2.1.2",
+      "config": "C:\\Program Files\\mosquitto\\mosquitto.conf",
+      "servicio_windows": "mosquitto",
+      "estado": "running"
+    },
+    "mdns": {
+      "hostname": "scanner-pro",
+      "url": "http://scanner-pro.local"
+    }
+  },
+
+  "firmware": {
+    "nombre": "ScannerPRO_v9_COLLAB.ino",
+    "rol": "Scanner",
+    "archivos": {
+      "principal": "ScannerPRO_v9_COLLAB.ino",
+      "config": "config.h",
+      "web_ui": "index_html.h",
+      "settings": "settings_html.h",
+      "tag_alt": "Tag_RUNEFORGE_FINAL_v2.ino"
+    },
+    "ruta_fuente": "C:\\RUNEFORGE_V2_CORE\\firmware\\RUNEFORGE_COLLAB_FINAL_CORREGIDO_v1\\firmware",
+    "config_h_defaults": {
+      "DEF_MDNS": "scanner-pro",
+      "DEF_MQTT_SERVER": "192.168.100.10",
+      "DEF_MQTT_PORT": 1883,
+      "DEF_MQTT_TOPIC": "scannerpro/collab",
+      "DEF_MQTT_CLIENT": "SCANNER-14"
+    },
+    "persistencia": "NVS (Preferences.h)",
+    "roles_disponibles": ["Scanner", "Tag", "Finder"],
+    "features": [
+      "BLE scanning continuo",
+      "Filtro RSSI configurable",
+      "Filtro Kalman para RSSI",
+      "GPS lat/lon (Torreon 25.5428,-103.4068)",
+      "Web UI embebida",
+      "WebSocket push",
+      "MQTT publish",
+      "EID rotation cada 15min",
+      "Deep sleep opcional"
+    ]
+  },
+
+  "toolchain": {
+    "arduino_cli": "C:\\Program Files\\Arduino CLI\\arduino-cli.exe",
+    "esp32_core": "esp32:esp32@3.3.12",
+    "esp32_core_alt": "arduino:esp32@2.0.18-arduino.5",
+    "esptool": "C:\\Users\\nesth\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esptool_py\\5.3.1\\esptool.exe",
+    "toolchains": {
+      "esp-x32": "C:\\Users\\nesth\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2601",
+      "esp-rv32": "C:\\Users\\nesth\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2601"
+    },
+    "cache_huggingface": "%USERPROFILE%\\.cache\\huggingface"
+  },
+
+  "flash": {
+    "script_principal": "C:\\RUNEFORGE_V2_CORE\\flash.ps1",
+    "script_manual": "C:\\RUNEFORGE_V2_CORE\\flash-manual.ps1",
+    "script_auto": "C:\\RUNEFORGE_V2_CORE\\flash-auto.ps1",
+    "layout": {
+      "0x1000": "bootloader.bin",
+      "0x8000": "partitions.bin",
+      "0xe000": "boot_app0.bin",
+      "0x10000": "app.bin"
+    },
+    "comandos": {
+      "compilar": "arduino-cli compile --fqbn esp32:esp32:esp32",
+      "flashear": "esptool.exe --chip esp32 --port COM5 --baud 115200 --before no_reset write_flash",
+      "borrar_nvs": "esptool.exe erase_region 0x9000 0x6000",
+      "monitor": "arduino-cli monitor -p COM5 -c baudrate=115200"
+    },
+    "problemas_resueltos": [
+      "esptool_py faltaba",
+      "toolchains anidados (esp-x32, esp-rv32)",
+      "sysroot faltante (stdint.h)",
+      "11 paquetes con nivel extra anidado",
+      "config.h apuntaba a IP incorrecta .5",
+      "NVS guardaba IP vieja"
+    ]
+  },
+
+  "dashboard_esp32": {
+    "url": "http://scanner-pro.local",
+    "endpoints": {
+      "status": "/api/status",
+      "scan_start": "/api/scan/start",
+      "scan_stop": "/api/scan/stop",
+      "config": "/api/config"
+    },
+    "contadores": {
+      "escaneados": "total BLE devices",
+      "filtrados": "pasan filtro RSSI >= -90",
+      "publicados": "enviados por MQTT",
+      "unicos": "MACs distintas"
+    }
+  },
+
+  "dashboard_visualizador": {
+    "archivo": "RUNEFORGE_COLLAB_DASHBOARD.html",
+    "ruta": "C:\\RUNEFORGE_V2_CORE\\firmware\\RUNEFORGE_COLLAB_FINAL_CORREGIDO_v1\\dashboard",
+    "servidor_local": "python -m http.server 8090",
+    "url": "http://127.0.0.1:8090/RUNEFORGE_COLLAB_DASHBOARD.html",
+    "componentes": [
+      "Finder Stats",
+      "Dual View (Radar + MAP)",
+      "Live Collab Table",
+      "Inspector RSSI/Kalman",
+      "RSSI Heatmap",
+      "MQTT Log",
+      "Family Breakdown"
+    ],
+    "mqtt_ws": "ws://192.168.100.10:9001",
+    "topics_suscritos": "scannerpro/collab/#",
+    "modo_demo": "detectado cuando no hay conexion WS"
+  },
+
+  "mqtt_payload": {
+    "topic": "scannerpro/collab/SCANNER-14-TORREON/report",
+    "formato": {
+      "mac": "b4:0e:cf:44:fe:ba",
+      "name": "TL-B40ECF44FEB9",
+      "family": "tile|airtag|runeforge|fdmdn|lm u|other",
+      "rssi_raw": -46,
+      "rssi_kalman": -49.1,
+      "count": 17,
+      "eid": "",
+      "batt": 0,
+      "epoch": 0,
+      "finder_id": "SCANNER-14-TORREON",
+      "lat": 25.5428,
+      "lon": -103.4068,
+      "ts": 46
+    }
+  },
+
+  "tags_detectados": [
+    {
+      "mac": "b4:0e:cf:44:fe:ba",
+      "name": "TL-B40ECF44FEB9",
+      "familia": "tile",
+      "rssi_promedio": -50
+    },
+    {
+      "mac": "7a:8b:11:98:82:db",
+      "name": "",
+      "familia": "other",
+      "rssi_promedio": -65
+    }
+  ],
+
+  "lanzador_diario": {
+    "script": "C:\\RUNEFORGE_V2_CORE\\DICTATE.bat",
+    "flujo": [
+      "1. Arrancar Mosquitto (broker MQTT)",
+      "2. Arrancar DICTATE Studio (backend Whisper)",
+      "3. Alimentar ESP32 por USB (arranca solo)",
+      "4. Abrir dashboard en navegador"
+    ]
+  },
+
+  "integrados_runeforge": {
+    "whisper_backend": {
+      "url": "http://127.0.0.1:8081",
+      "modelo": "large-v3-turbo",
+      "device": "cuda",
+      "docs": "C:\\RUNEFORGE_V2_CORE\\docs\\WHISPER-BACKEND.md"
+    },
+    "pm2": "online",
+    "tailscale": "online",
+    "ollama": "offline",
+    "fastify": "offline"
+  },
+
+  "docs_generados": [
+    "C:\\RUNEFORGE_V2_CORE\\docs\\WHISPER-BACKEND.md",
+    "C:\\RUNEFORGE_V2_CORE\\docs\\ESP32-PROJECT.json"
+  ],
+
+  "proximos_pasos": [
+    "Cambiar modo demo del dashboard a LIVE",
+    "Agregar segundo ESP32 como Tag",
+    "Documentar pipeline ESP32 en docs/ESP32-FLASH-PIPELINE.md",
+    "Integrar dashboard al RUNEFORGE_REPORT",
+    "Automatizar arranque de Mosquitto con Windows"
+  ]
+}

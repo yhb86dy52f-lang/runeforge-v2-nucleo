@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "Super Metroid Launcher",
+      "repository": "RadzPrower/Super-Metroid-Launcher",
+      "folderName": "SuperMetroidLauncher",
+      "installPath": null,
+      "appIconUrl": "https://cdn2.steamgriddb.com/icon/26e3dcb90aa10011db5b660c463f325f/32/256x256.png",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null
+    }
+  ]
+}

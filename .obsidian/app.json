@@ -1,0 +1,29 @@
+{
+  "legacyEditor": false,
+  "livePreview": true,
+  "userIgnoreFilters": [
+    "node_modules",
+    "target",
+    ".git",
+    ".sccache",
+    ".tmp.driveupload",
+    "dist",
+    "build",
+    "public/documentacion y propuestas",
+    ".fingerprint",
+    ".cargo",
+    "venv",
+    "__pycache__"
+  ],
+  "attachmentFolderPath": "./99_Atlas/attachments",
+  "newLinkFormat": "shortest",
+  "useMarkdownLinks": false,
+  "showFrontmatter": true,
+  "enabledPlugins": [
+    "file-explorer",
+    "global-search",
+    "graph",
+    "backlink",
+    "properties"
+  ]
+}

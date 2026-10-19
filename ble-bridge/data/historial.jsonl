@@ -1,0 +1,5 @@
+{"mac": "c3:00:00:6b:9b:c8", "name": "TEST-CICLOPE", "rssi_raw": -70, "rssi_kalman": -71.5, "ts_server": "2026-10-03T23:42:16.404173", "ts_unix": 1791092536.4041736}
+{"mac": "c3:00:00:6b:9b:c8", "name": "TEST-CICLOPE", "rssi_raw": -68, "rssi_kalman": -70.2, "ts_server": "2026-10-04T00:52:10.013289", "ts_unix": 1791096730.013289}
+{"mac": "c3:00:00:6b:9b:c8", "name": "TEST-CICLOPE", "rssi_raw": -68, "rssi_kalman": -70.2, "ts_server": "2026-10-04T00:52:18.089431", "ts_unix": 1791096738.0894313}
+{"mac": "c3:00:00:6b:9b:c8", "name": "TEST-CICLOPE", "rssi_raw": -68, "rssi_kalman": -70.2, "ts_server": "2026-10-04T00:52:49.856716", "ts_unix": 1791096769.8567169}
+{"mac": "c3:00:00:6b:9b:c8", "name": "TEST-CICLOPE", "rssi_raw": -68, "rssi_kalman": -70.2, "ts_server": "2026-10-04T00:53:03.296227", "ts_unix": 1791096783.296228}
