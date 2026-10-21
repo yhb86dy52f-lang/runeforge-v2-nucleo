@@ -1,5 +1,26 @@
-import os, tempfile, time
-from fastapi import FastAPI, File, UploadFile, HTTPException
+import os, tempfile, time, site, glob
+
+# --- INYECCIÓN DE DIRECTORIOS DE DLLs (MÉTODO WINDOWS) ---
+site_packages = site.getsitepackages()[0]
+paths_to_add = []
+
+# Buscar carpetas de NVIDIA instaladas por pip
+for p in glob.glob(os.path.join(site_packages, "nvidia", "*", "bin")):
+    paths_to_add.append(p)
+    
+# Buscar librerías de PyTorch
+torch_lib = os.path.join(site_packages, "torch", "lib")
+if os.path.exists(torch_lib):
+    paths_to_add.append(torch_lib)
+
+print(f"[INIT] Agregando {len(paths_to_add)} directorios de DLLs al sistema:")
+for p in paths_to_add:
+    if os.path.exists(p):
+        os.add_dll_directory(p)
+        os.environ["PATH"] = p + os.pathsep + os.environ["PATH"]
+        print(f"  - {p}")
+
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from faster_whisper import WhisperModel
 
@@ -7,44 +28,41 @@ MODEL_SIZE = "large-v3-turbo"
 DEVICE     = "cuda"
 COMPUTE    = "int8_float16"
 LANG       = "es"
-BEAM_SIZE  = 1
 
-print(f"[WHISPER] Cargando {MODEL_SIZE} en {DEVICE} ({COMPUTE})...")
+print(f"[WHISPER] Cargando {MODEL_SIZE} en {DEVICE}...")
 t0 = time.time()
 model = WhisperModel(MODEL_SIZE, device=DEVICE, compute_type=COMPUTE)
 print(f"[WHISPER] Modelo cargado en {time.time()-t0:.1f}s")
 
-app = FastAPI(title="Whisper Backend")
+app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 @app.post("/api/transcribe")
 async def transcribe(audio: UploadFile = File(...)):
     try:
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".webm") as tmp:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp:
             content = await audio.read()
             tmp.write(content)
             tmp_path = tmp.name
+
         t1 = time.time()
         segments, info = model.transcribe(
             tmp_path,
-            language=LANG if LANG != "auto" else None,
-            beam_size=BEAM_SIZE,
-            vad_filter=True,
-            vad_parameters=dict(min_silence_duration_ms=500),
-            condition_on_previous_text=False,
-            without_timestamps=True,
-            no_speech_threshold=0.8,
-            log_prob_threshold=-1.0,
+            language=LANG,
+            beam_size=1,
+            vad_filter=False,
+            no_speech_threshold=1.0,
             temperature=0.0,
         )
         text = " ".join(seg.text.strip() for seg in segments).strip()
         elapsed = time.time() - t1
+        
+        print(f"[TRANSCRIBE] {elapsed:.2f}s | TEXTO: '{text}'")
         os.unlink(tmp_path)
-        print(f"[TRANSCRIBE] {elapsed:.2f}s | {len(content)/1024:.0f}KB | {text[:80]!r}")
-        return {"text": text, "language": info.language, "duration": info.duration}
+        return {"text": text, "language": info.language}
     except Exception as e:
         print(f"[ERROR] {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"text": "", "error": str(e)}
 
 @app.get("/health")
 async def health():

@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-10-19T20:28:46",
+  "core": {
+    "cpu_percent": 5.0,
+    "ram_percent": 37.3
+  },
+  "network": {
+    "Adapter_Name": "Wi-Fi",
+    "Driver": "MediaTek, Inc.",
+    "IPv6_Enabled": false,
+    "WARP_Running": false,
+    "Ping_Cloudflare": 0.0
+  },
+  "hardware": {
+    "CPU_Name": "AMD Ryzen 3 3200G with Radeon Vega Graphics",
+    "CPU_Cores": 4,
+    "CPU_Threads": 4,
+    "RAM_Total_GB": 15.93,
+    "RAM_Used_GB": 5.94,
+    "RAM_Percent": 37.3,
+    "GPU_Name": "NVIDIA GeForce GTX 1660 SUPER",
+    "Disk_Type": "HDD"
+  }
+}
