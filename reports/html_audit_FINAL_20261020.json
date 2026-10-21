@@ -1,0 +1,142 @@
+[
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\firmware\\grimorio_x5f_completo_x5f_72_x5f_ia.html",
+    "MB": 1.1718,
+    "KB": 1199.87,
+    "Tipo": "Firmware Pesado / Grimorio",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\firmware\\grimorio_x5f_completo_x5f_72_x5f_ia (1).html",
+    "MB": 1.1718,
+    "KB": 1199.87,
+    "Tipo": "Firmware Pesado / Grimorio",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\firmware\\scannerpro_cyber_visualizer\\scannerpro_cyber_visualizer.html",
+    "MB": 1.1695,
+    "KB": 1197.56,
+    "Tipo": "Firmware Pesado / Grimorio",
+    "Scripts": 5
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\firmware\\fusionada_x5f_sonar_x5f_instalaciones_x5f_sepcolgps.html",
+    "MB": 0.5072,
+    "KB": 519.32,
+    "Tipo": "Firmware Pesado / Grimorio",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\runeforge-v2-nucleo\\simulador\\index.html",
+    "MB": 0.2203,
+    "KB": 225.62,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\runeforge-v2-nucleo\\simulador\\LMU2630_GitHub_Pages_Ready\\index.html",
+    "MB": 0.2203,
+    "KB": 225.62,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\public\\index.html",
+    "MB": 0.2202,
+    "KB": 225.53,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\runeforge-v2-nucleo\\simulador\\LMU2630_GitHub_Pages_Ready\\simulador.html",
+    "MB": 0.2094,
+    "KB": 214.43,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 4
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\public\\simulador.html",
+    "MB": 0.2094,
+    "KB": 214.43,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 4
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\runeforge-v2-nucleo\\simulador\\simulador.html",
+    "MB": 0.2094,
+    "KB": 214.43,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 4
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\forja\\laboratorio.html",
+    "MB": 0.2013,
+    "KB": 206.1,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\forja\\dictate-src\\Dictate-Whisper.html",
+    "MB": 0.1998,
+    "KB": 204.64,
+    "Tipo": "SPA / Tauri",
+    "Scripts": 4
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\runeforge-v2-nucleo\\simulador\\LMU2630_GitHub_Pages_Ready\\Lmu2630-Sim-Pro-V5.html",
+    "MB": 0.1985,
+    "KB": 203.23,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\forja\\dictate-src\\Dictate-Unified.html",
+    "MB": 0.1935,
+    "KB": 198.16,
+    "Tipo": "SPA / Tauri",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\firmware\\scanner-v72-decoder.html",
+    "MB": 0.1882,
+    "KB": 192.74,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\firmware\\forge_x5f_sms_x5f_hub_x5f_mobile.html",
+    "MB": 0.1876,
+    "KB": 192.06,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\firmware\\RUNEFORGE_COLLAB_FINAL_CORREGIDO_v1\\dashboard\\RUNEFORGE_COLLAB_DASHBOARD.html",
+    "MB": 0.1822,
+    "KB": 186.59,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\firmware\\dashboard\\RUNEFORGE_COLLAB_DASHBOARD.html",
+    "MB": 0.1822,
+    "KB": 186.59,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\docs\\RUNEFORGE_COLLAB_FINAL_CORREGIDO_v1\\dashboard\\RUNEFORGE_COLLAB_DASHBOARD.html",
+    "MB": 0.1822,
+    "KB": 186.59,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  },
+  {
+    "Ruta": "C:\\RUNEFORGE_V2_CORE\\docs\\dashboard\\RUNEFORGE_COLLAB_DASHBOARD.html",
+    "MB": 0.1822,
+    "KB": 186.59,
+    "Tipo": "Dashboard / Panel",
+    "Scripts": 3
+  }
+]
