@@ -2,188 +2,84 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUNEFORGE V2 CORE - NEXUS TABAJO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SEPCOLGPS NEXUS - TACTICAL COMMAND CENTER</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
-:root {
-  --bg-base: #05070a;
-  --glass-bg: rgba(15, 23, 42, 0.6);
-  --glass-border: rgba(56, 189, 248, 0.15);
-  --neon-green: #3dd598;
-  --neon-red: #ff4757;
-  --neon-blue: #2d6cdf;
-  --neon-yellow: #feca57;
-  --text-main: #e2e8f0;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0; background-color: var(--bg-base);
-  background-image: radial-gradient(circle at 15% 50%, rgba(45, 108, 223, 0.08), transparent 25%),
-                    radial-gradient(circle at 85% 30%, rgba(61, 213, 152, 0.05), transparent 25%);
-  color: var(--text-main); font-family: system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased; overflow-x: hidden;
-}
-.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-.glass-panel {
-  background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  border-radius: 20px;
-}
-.glow-green { box-shadow: 0 0 15px rgba(61, 213, 152, 0.4); border-color: var(--neon-green); }
-.glow-red { box-shadow: 0 0 15px rgba(255, 71, 87, 0.4); border-color: var(--neon-red); }
-.glow-blue { box-shadow: 0 0 15px rgba(45, 108, 223, 0.4); border-color: var(--neon-blue); }
-.header { padding: 16px; background: linear-gradient(135deg, #122033, #1a2f4a); border-bottom: 1px solid #24344f; position: sticky; top: 0; z-index: 10; text-align: center; }
-.header h1 { margin: 0; font-size: 20px; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
-.header p { margin: 4px 0 0 0; opacity: 0.7; font-size: 12px; }
-.container { padding: 12px; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
-.tabs { display: flex; gap: 4px; background: rgba(0,0,0,0.4); padding: 4px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
-.tab-btn { flex: 1; padding: 10px; border-radius: 8px; border: none; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.3s; background: transparent; color: #94a3b8; }
-.tab-btn.active { background: var(--neon-blue); color: white; box-shadow: 0 0 12px rgba(45, 108, 223, 0.5); }
-textarea { width: 100%; height: 100px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); border-radius: 12px; padding: 12px; font-family: ui-monospace, monospace; font-size: 12px; resize: none; transition: all 0.2s; }
-textarea:focus { outline: none; border-color: var(--neon-blue); box-shadow: 0 0 0 2px rgba(45, 108, 223, 0.3); }
-.btn { width: 100%; padding: 14px; border-radius: 12px; border: none; font-weight: 800; font-size: 14px; cursor: pointer; transition: all 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
-.btn-primary { background: var(--neon-blue); color: white; box-shadow: 0 0 15px rgba(45, 108, 223, 0.4); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(45, 108, 223, 0.6); }
-.badge { padding: 4px 10px; border-radius: 99px; font-weight: 800; font-size: 11px; display: inline-block; }
-.badge-green { background: rgba(61, 213, 152, 0.2); color: var(--neon-green); border: 1px solid rgba(61, 213, 152, 0.3); }
-.badge-red { background: rgba(255, 71, 87, 0.2); color: var(--neon-red); border: 1px solid rgba(255, 71, 87, 0.3); }
-.badge-yellow { background: rgba(254, 202, 87, 0.2); color: var(--neon-yellow); border: 1px solid rgba(254, 202, 87, 0.3); }
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.gauge-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; }
-.gauge-svg { width: 90px; height: 90px; transform: rotate(-90deg); }
-.gauge-text { font-size: 20px; font-weight: 900; font-family: ui-monospace, monospace; }
-.truck-wrap { display: flex; justify-content: center; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 12px; }
-.sensor-dot { transition: all 0.5s; }
-pre { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 10px; overflow: auto; font-size: 11px; white-space: pre-wrap; word-break: break-all; color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); }
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@500;700;900&display=swap');
+  
+  :root {
+    --bg-base: #030508;
+    --neon-green: #3dd598;
+    --neon-red: #ff4757;
+    --neon-blue: #2d6cdf;
+    --neon-yellow: #feca57;
+    --neon-cyan: #5eead4;
+    --panel-bg: rgba(10, 16, 30, 0.75);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--bg-base);
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(45, 108, 223, 0.15), transparent 30%),
+      radial-gradient(circle at 90% 80%, rgba(61, 213, 152, 0.1), transparent 30%),
+      radial-gradient(circle at 50% 50%, rgba(255, 71, 87, 0.03), transparent 50%);
+    color: #e2e8f0;
+    font-family: 'JetBrains Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+
+  .glass {
+    background: var(--panel-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+  }
+
+  .glow-text { text-shadow: 0 0 15px currentColor; }
+
+  .scanline {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.6) 51%);
+    background-size: 100% 4px; z-index: 10; pointer-events: none; opacity: 0.2;
+  }
+
+  @keyframes radar-sweep {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .radar-line {
+    position: absolute; top: 50%; left: 50%; width: 50%; height: 2px;
+    background: linear-gradient(90deg, var(--neon-green), transparent);
+    transform-origin: left center; animation: radar-sweep 3s linear infinite;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-base); }
+  ::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.3); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--neon-green); }
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>NEXUS <span style="color:var(--neon-green)">TABAJO</span></h1>
-  <p>RUNEFORGE V2 // MASTER CONSOLIDADO (OFFLINE)</p>
-</div>
+<div id="root"></div>
 
-<div class="container">
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('thermo', this)">🔋 THERMO</button>
-    <button class="tab-btn" onclick="switchTab('telemetry', this)">📡 RADAR</button>
-    <button class="tab-btn" onclick="switchTab('etiqueta', this)">🏷️ ETIQUETA</button>
-  </div>
-
-  <!-- THERMO TAB -->
-  <div id="tab-thermo" class="glass-panel" style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
-    <textarea id="hexInput" placeholder="Pega el HEX de CalAmp (!r4...)" oninput="decodeHex()"></textarea>
-    
-    <div id="thermoResult" style="display: none; flex-direction: column; gap: 12px;">
-      <div id="statusPanel" class="glass-panel" style="padding: 16px; text-align: center;">
-        <div style="font-size: 10px; color: #94a3b8; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px;">ESTADO DE FLOTA</div>
-        <div id="estadoText" class="mono" style="font-size: 18px; font-weight: 900;"></div>
-        <div id="recText" style="font-size: 11px; color: #94a3b8; margin-top: 8px; line-height: 1.4;"></div>
-      </div>
-
-      <div class="grid2">
-        <div class="glass-panel gauge-container">
-          <svg class="gauge-svg" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/>
-            <circle id="gaugeV" cx="50" cy="50" r="40" fill="none" stroke="var(--neon-green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="0 251"/>
-          </svg>
-          <div id="voltU" class="gauge-text">--</div>
-          <div style="font-size: 9px; color: #94a3b8; font-weight: 700;">VOLT UNIDAD</div>
-        </div>
-        <div class="glass-panel gauge-container">
-          <svg class="gauge-svg" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/>
-            <circle id="gaugeG" cx="50" cy="50" r="40" fill="none" stroke="var(--neon-green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="0 251"/>
-          </svg>
-          <div id="voltG" class="gauge-text">--</div>
-          <div style="font-size: 9px; color: #94a3b8; font-weight: 700;">VOLT GPS</div>
-        </div>
-      </div>
-
-      <div class="glass-panel" style="padding: 16px;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-          <span style="font-size: 10px; color: #94a3b8; font-weight: 700;">SENSORES 1-WIRE</span>
-          <span id="counts" class="mono" style="font-size: 9px; color: #64748b;">3E70: 0 | FFFF: 0</span>
-        </div>
-        <div class="truck-wrap">
-          <svg viewBox="0 0 340 140" style="width: 100%; max-width: 300px;">
-            <rect x="10" y="20" width="200" height="90" rx="8" fill="rgba(15,23,42,0.8)" stroke="var(--neon-blue)" stroke-width="2"/>
-            <text x="20" y="35" fill="var(--neon-blue)" font-size="10" font-family="monospace">CAJA TERMO</text>
-            <circle id="s1" cx="60" cy="75" r="18" fill="#334155" stroke="#0f172a" stroke-width="3" class="sensor-dot"/>
-            <text x="60" y="79" text-anchor="middle" fill="#0f172a" font-size="11" font-weight="900">S1</text>
-            <circle id="s2" cx="160" cy="75" r="18" fill="#334155" stroke="#0f172a" stroke-width="3" class="sensor-dot"/>
-            <text x="160" y="79" text-anchor="middle" fill="#0f172a" font-size="11" font-weight="900">S2</text>
-            <path d="M210 40 L270 40 L300 70 L300 110 L210 110 Z" fill="#1e293b" stroke="#334155" stroke-width="2"/>
-            <circle cx="240" cy="115" r="12" fill="#0f172a" stroke="#334155" stroke-width="2"/>
-            <circle cx="290" cy="115" r="12" fill="#0f172a" stroke="#334155" stroke-width="2"/>
-          </svg>
-        </div>
-        <pre id="jsonOut" style="margin-top: 12px;">{}</pre>
-      </div>
-    </div>
-  </div>
-
-  <!-- TELEMETRY TAB (Original Master IDs) -->
-  <div id="tab-telemetry" class="glass-panel" style="padding: 16px; display: none; flex-direction: column; gap: 12px;">
-    <h2 style="margin: 0; font-size: 14px; color: var(--neon-green);">RADAR + SPECTRUM</h2>
-    <div class="grid2">
-      <canvas id="radarCanvas" style="width:100%; height:160px; background:rgba(0,0,0,0.5); border-radius:12px; border:1px solid #1e293b;"></canvas>
-      <canvas id="spectrumCanvas" style="width:100%; height:160px; background:rgba(0,0,0,0.5); border-radius:12px; border:1px solid #1e293b;"></canvas>
-    </div>
-    <div style="display:flex; gap:8px; font-size:11px; font-family:monospace; padding:8px; background:rgba(0,0,0,0.3); border-radius:8px;">
-      <span id="targetMac">MAC: --</span> | <span id="targetRssi">RSSI: --</span>
-    </div>
-    <h2 style="margin: 12px 0 0 0; font-size: 14px; color: var(--neon-yellow);">FUEL TELEMETRY</h2>
-    <div class="grid2">
-      <div style="text-align:center;">
-        <div id="fuelGaugeCircle" style="width:100px; height:100px; border-radius:50%; border:6px solid var(--neon-blue); margin:0 auto; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:20px;">0%</div>
-      </div>
-      <div style="font-size:11px; font-family:monospace; display:flex; flex-direction:column; gap:4px;">
-        <div>ADC: <span id="fuelAdc">0</span></div>
-        <div>Batt: <span id="fuelBatt">0V</span></div>
-      </div>
-    </div>
-    <h2 style="margin: 12px 0 0 0; font-size: 14px; color: var(--neon-red);">DEVICES</h2>
-    <table style="width:100%; font-size:11px; text-align:left; border-collapse:collapse;">
-      <thead><tr style="border-bottom:1px solid #1e293b;"><th>MAC</th><th>RSSI</th></tr></thead>
-      <tbody id="deviceTableBody"><tr><td colspan="2">Esperando scan...</td></tr></tbody>
-    </table>
-    <div style="margin-top:8px;"><span id="mqttStatusBadge" class="badge badge-green">MQTT OK</span></div>
-  </div>
-
-  <!-- ETIQUETA TAB -->
-  <div id="tab-etiqueta" class="glass-panel" style="padding: 16px; display: none; flex-direction: column; gap: 12px;">
-    <h2 style="margin:0; font-size:14px; color:var(--neon-blue);">ETIQUETA / QR</h2>
-    <div style="background:white; color:black; padding:16px; border-radius:8px; font-family:monospace;">
-      <div style="float:right; width:60px; height:60px; border:1px dashed #000; display:flex; align-items:center; justify-content:center;">QR</div>
-      <h3 style="margin:0 0 8px 0;">RUNEFORGE V2</h3>
-      <div>MAC: <span id="etiquetaMac">00:00:00:00:00:00</span></div>
-      <div>GPS: <span id="etiquetaGps">0,0</span></div>
-      <div>Fuel: <span id="etiquetaFuel">0%</span></div>
-      <div id="cppCodeBlock" style="margin-top:12px; font-size:10px;">CODE: --</div>
-    </div>
-    <button class="btn btn-primary" onclick="window.print()">🖨️ IMPRIMIR ETIQUETA</button>
-  </div>
-
-</div>
-
-<script>
-// ==========================================
-// LÓGICA DE PESTAÑAS
-// ==========================================
-function switchTab(tabId, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.container > div[id^="tab-"]').forEach(d => d.style.display = 'none');
-  document.getElementById('tab-' + tabId).style.display = 'flex';
-}
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef } = React;
 
 // ==========================================
-// DECODIFICADOR CALAMP (Vanilla JS puro)
+// 1. LÓGICA DE DECODIFICACIÓN (TRI-PROTOCOLO)
 // ==========================================
-function decodeCalamp(hexRaw) {
-  if (!hexRaw) return null;
-  let clean = hexRaw.toUpperCase().replace(/[^0-9A-F]/g, '');
+const decodeCT = (hex) => {
+  let clean = hex.toUpperCase().replace(/[^0-9A-F]/g, '');
   if (clean.length % 2 === 1) clean = '0' + clean;
   if (clean.length < 20) return null;
 
@@ -200,72 +96,366 @@ function decodeCalamp(hexRaw) {
   const voltU = voltU_cand.length ? voltU_cand[voltU_cand.length - 1] : null;
   const voltG = voltG_cand.length ? voltG_cand[voltG_cand.length - 1] : null;
 
-  let estado, colorClass, rec, s1Color, s2Color;
+  let estado, badge, rec, s1Color, s2Color;
 
   if (c3E70 >= 2) {
-    estado = "FALLA DOBLE TERMO"; colorClass = "badge-red"; rec = "Ambas sondas en 15984 (circuito abierto). Revisar cableado 1-Wire.";
-    s1Color = s2Color = "var(--neon-red)";
+    estado = "FALLA DOBLE TERMO"; badge = "bg-red-500/20 text-red-400 border-red-500/30"; rec = "Ambas sondas en 15984 (circuito abierto). Revisar cableado 1-Wire.";
+    s1Color = s2Color = "#ff4757";
   } else if (c3E70 === 1) {
-    estado = "FALLA SIMPLE RESIDUAL"; colorClass = "badge-yellow"; rec = "1 sonda OK, 1 en 15984. Operativo con 1 sonda.";
-    s1Color = "var(--neon-green)"; s2Color = "var(--neon-red)";
+    estado = "FALLA SIMPLE RESIDUAL"; badge = "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"; rec = "1 sonda OK, 1 en 15984. Operativo con 1 sonda.";
+    s1Color = "#3dd598"; s2Color = "#ff4757";
   } else if (cFFFF >= 2) {
-    estado = "OK DESHABILITADO"; colorClass = "badge-blue"; rec = "Acumuladores en FFFF (deshabilitados). No es falla física.";
+    estado = "OK DESHABILITADO"; badge = "bg-blue-500/20 text-blue-400 border-blue-500/30"; rec = "Acumuladores en FFFF (deshabilitados). No es falla física.";
     s1Color = s2Color = "#475569";
   } else {
-    estado = "BUENO PERFECTO"; colorClass = "badge-green"; rec = "Sensores Dallas operando correctamente.";
-    s1Color = s2Color = "var(--neon-green)";
+    estado = "BUENO PERFECTO"; badge = "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"; rec = "Sensores Dallas operando correctamente.";
+    s1Color = s2Color = "#3dd598";
   }
 
-  return { voltU, voltG, c3E70, cFFFF, estado, colorClass, rec, s1Color, s2Color, u16 };
-}
+  return { type:'CT', voltU, voltG, c3E70, cFFFF, estado, badge, rec, s1Color, s2Color, raw: hex };
+};
 
-function decodeHex() {
-  const input = document.getElementById('hexInput').value;
-  const res = decodeCalamp(input);
-  const container = document.getElementById('thermoResult');
+const decodeKW = (text) => {
+  const accum = {}, esc = {};
+  let rssi = null, hdop = null;
+  let m;
+  if ((m = text.match(/rssi\s*=\s*(-?\d+)/i))) rssi = parseInt(m[1]);
+  if ((m = text.match(/hdop\s*=\s*([0-9.]+)/i))) hdop = parseFloat(m[1]);
   
-  if (!res) { container.style.display = 'none'; return; }
-  container.style.display = 'flex';
+  const rAccum = /accum_(\d+)\s*=\s*(-?\d+)/gi;
+  while ((m = rAccum.exec(text)) !== null) accum['accum_'+m[1]] = parseInt(m[2]);
+  
+  const rEsc = /esc_(temp|lev)_(\d+)\s*=\s*(-?\d+)/gi;
+  while ((m = rEsc.exec(text)) !== null) esc['esc_'+m[1]+'_'+m[2]] = parseInt(m[3]);
 
-  document.getElementById('estadoText').textContent = res.estado;
-  document.getElementById('estadoText').className = 'mono badge ' + res.colorClass;
-  document.getElementById('recText').textContent = res.rec;
-  document.getElementById('counts').textContent = 3E70:  | FFFF: ;
+  const lev1 = esc.esc_lev_0 || 0;
+  const lev2 = esc.esc_lev_1 || 0;
+  const pct1 = Math.min(100, Math.max(0, lev1/4095*100));
+  const pct2 = Math.min(100, Math.max(0, lev2/4095*100));
+  
+  let odo = null;
+  if (accum.accum_5 && accum.accum_5 >= 29000000 && accum.accum_5 <= 29200000) odo = accum.accum_5;
 
-  // Gauges
-  if (res.voltU) {
-    document.getElementById('voltU').textContent = (res.voltU / 1000).toFixed(2) + 'V';
-    const pct = Math.min(100, (res.voltU / 15000) * 100);
-    document.getElementById('gaugeV').setAttribute('stroke-dasharray', ${pct * 2.51} 251);
-  }
-  if (res.voltG) {
-    document.getElementById('voltG').textContent = (res.voltG / 1000).toFixed(2) + 'V';
-    const pct = Math.min(100, (res.voltG / 5000) * 100);
-    document.getElementById('gaugeG').setAttribute('stroke-dasharray', ${pct * 2.51} 251);
-  }
+  let estado = "COMBUSTIBLE OK", badge = "bg-emerald-500/20 text-emerald-400 border-emerald-500/30";
+  if (rssi < -85) { estado = "SEÑAL MALA"; badge = "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"; }
 
-  // Sensores
-  document.getElementById('s1').setAttribute('fill', res.s1Color);
-  document.getElementById('s2').setAttribute('fill', res.s2Color);
+  return { type:'KW', rssi, hdop, lev1, lev2, pct1, pct2, odo, estado, badge, raw: text };
+};
 
-  // JSON output
-  document.getElementById('jsonOut').textContent = JSON.stringify({
-    volt_unidad: res.voltU ? (res.voltU/1000).toFixed(2) : null,
-    volt_gps: res.voltG ? (res.voltG/1000).toFixed(2) : null,
-    estado: res.estado,
-    ults_u16: res.u16.slice(-8)
-  }, null, 2);
-}
+const decodeR0 = (text) => {
+  let app = null, apn = null, mid = null, inp = null;
+  let m;
+  if ((m = text.match(/APP:(\d+)\s+([^\s]+)/i))) app = m[1] + ' ' + m[2];
+  if ((m = text.match(/DA\.\s*([^\s]+)/i))) apn = m[1];
+  if ((m = text.match(/MID:(\d+)/i))) mid = m[1];
+  if ((m = text.match(/INP:([01]+)/i))) inp = m[1];
 
-// Precargar un demo al inicio
-document.getElementById('hexInput').value = "E4672144079FFFFFF0100006AD7AD6F6AD7AD6F0F39DD9EC24A588B00000002005C11000014FFAB8F070700FFFF0400002C0E00000FE400003E7000003E70";
-decodeHex();
+  return { type:'R0', app, apn, mid, inp, estado: "STATUS OK", badge: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30", raw: text };
+};
 
-// Inicialización básica de Telemetría (Canvas vacío para evitar errores)
-document.getElementById('radarCanvas').width = 300;
-document.getElementById('radarCanvas').height = 160;
-document.getElementById('spectrumCanvas').width = 300;
-document.getElementById('spectrumCanvas').height = 160;
+// ==========================================
+// 2. COMPONENTES UI
+// ==========================================
+const RadarCanvas = () => {
+  const canvasRef = useRef(null);
+  
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let angle = 0;
+
+    const draw = () => {
+      const w = canvas.width, h = canvas.height;
+      const cx = w / 2, cy = h / 2;
+      const radius = Math.min(w, h) / 2 - 10;
+
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.strokeStyle = 'rgba(61, 213, 152, 0.2)';
+      ctx.lineWidth = 1;
+      for (let i = 1; i <= 4; i++) {
+        ctx.beginPath(); ctx.arc(cx, cy, (radius / 4) * i, 0, Math.PI * 2); ctx.stroke();
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - radius); ctx.lineTo(cx, cy + radius);
+      ctx.moveTo(cx - radius, cy); ctx.lineTo(cx + radius, cy);
+      ctx.stroke();
+
+      ctx.save(); ctx.translate(cx, cy); ctx.rotate(angle);
+      const gradient = ctx.createLinearGradient(0, 0, radius, 0);
+      gradient.addColorStop(0, 'rgba(61, 213, 152, 0.8)');
+      gradient.addColorStop(1, 'rgba(61, 213, 152, 0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, radius, 0, Math.PI / 4); ctx.lineTo(0, 0); ctx.fill();
+      ctx.restore();
+
+      angle += 0.05;
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
+
+  return <canvas ref={canvasRef} width={300} height={300} className="w-full max-w-[280px] h-auto mx-auto opacity-80 mix-blend-screen" />;
+};
+
+const Gauge = ({ value, max, label, unit, color }) => {
+  const pct = value ? Math.min(100, Math.max(0, (value / max) * 100)) : 0;
+  const activeColor = value ? color : '#334155';
+  
+  return (
+    <div className="flex flex-col items-center justify-center p-3 glass rounded-2xl relative overflow-hidden">
+      <div className="absolute inset-0 opacity-10" style={{background: adial-gradient(circle at top,  0%, transparent 70%)}}></div>
+      <div className="relative w-24 h-24">
+        <svg width="100" height="100" viewBox="0 0 100 100" className="rotate-[-90deg]">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="8"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke={activeColor} strokeWidth="8" 
+                  strokeLinecap="round" strokeDasharray={${pct/100*251} 251} 
+                  style={{transition: 'stroke-dasharray 0.8s ease', filter: drop-shadow(0 0 6px )}}/>
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-xl font-bold font-mono" style={{color: activeColor}}>
+            {value !== null ? value.toFixed(2) : "--"}
+          </span>
+          <span className="text-[9px] text-gray-400 font-bold uppercase">{unit}</span>
+        </div>
+      </div>
+      <div className="mt-2 text-[10px] text-gray-300 font-bold tracking-widest uppercase">{label}</div>
+    </div>
+  );
+};
+
+// ==========================================
+// 3. APP PRINCIPAL (TACTICAL COMMAND CENTER)
+// ==========================================
+const App = () => {
+  const [input, setInput] = useState("E4672144079FFFFFF0100006AD7AD6F6AD7AD6F0F39DD9EC24A588B00000002005C11000014FFAB8F070700FFFF0400002C0E00000FE400003E7000003E70");
+  const [data, setData] = useState(null);
+  const [history, setHistory] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('rf_history') || '[]'); } catch { return []; }
+  });
+  const [activeTab, setActiveTab] = useState('diag');
+
+  useEffect(() => {
+    let d = null;
+    if (input.includes('accum_') || input.includes('esc_')) d = decodeKW(input);
+    else if (input.includes('APP:') || input.includes('MID:')) d = decodeR0(input);
+    else d = decodeCT(input);
+
+    setData(d);
+
+    if (d) {
+      const newEntry = { time: new Date().toLocaleTimeString(), type: d.type, status: d.estado, raw: input.slice(0, 50) + (input.length > 50 ? '...' : '') };
+      setHistory(prev => {
+        const updated = [newEntry, ...prev].slice(0, 10);
+        localStorage.setItem('rf_history', JSON.stringify(updated));
+        return updated;
+      });
+    }
+  }, [input]);
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+  };
+
+  const downloadJSON = () => {
+    if (!data) return;
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = uneforge__.json;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="min-h-screen p-4 flex justify-center relative">
+      <div className="scanline"></div>
+      
+      <div className="w-full max-w-[480px] flex flex-col gap-4 relative z-20">
+        
+        {/* HEADER */}
+        <div className="glass p-5 text-center relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#3dd598] to-transparent"></div>
+          <h1 className="text-2xl font-black tracking-widest text-white glow-text">NEXUS <span className="text-[#3dd598]">TACTICAL</span></h1>
+          <p className="text-[10px] text-gray-400 tracking-[0.3em] mt-1">MULTI-PROTOCOL COMMAND CENTER</p>
+        </div>
+
+        {/* TABS */}
+        <div className="flex gap-2 p-1 glass rounded-xl">
+          {['diag', 'history', 'sms'].map(t => (
+            <button key={t} onClick={() => setActiveTab(t)}
+              className={lex-1 py-2 rounded-lg text-[11px] font-black tracking-widest uppercase transition-all }>
+              {t === 'diag' ? '🔋 Diagnóstico' : t === 'history' ? '📜 Historial' : '📡 SMS Termux'}
+            </button>
+          ))}
+        </div>
+
+        {/* TAB: DIAGNÓSTICO */}
+        {activeTab === 'diag' && (
+          <div className="flex flex-col gap-4 animate-[fadeIn_0.3s_ease]">
+            <div className="glass p-4 flex flex-col gap-3">
+              <div className="flex justify-between items-center">
+                <span className="text-[10px] font-bold text-gray-400 tracking-widest">INPUT STREAM</span>
+                {data && <span className={px-3 py-1 rounded-full text-[10px] font-black border }>{data.type}</span>}
+              </div>
+              <textarea 
+                value={input} 
+                onChange={(e) => setInput(e.target.value)}
+                className="w-full h-28 bg-black/50 border border-white/10 rounded-xl p-3 text-[11px] text-[#3dd598] font-mono resize-none focus:outline-none focus:border-[#3dd598] transition-colors"
+                placeholder="Pega trama CT, KW o R0..."
+              />
+              <div className="flex gap-2">
+                <button onClick={() => copyToClipboard(input)} className="flex-1 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-[10px] font-bold tracking-widest text-white transition-all">COPIAR TRAMA</button>
+                <button onClick={downloadJSON} className="flex-1 py-2 bg-[#3dd598] hover:brightness-110 rounded-lg text-[10px] font-bold tracking-widest text-black transition-all">EXPORTAR JSON</button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="glass p-2 flex flex-col items-center justify-center col-span-2 relative">
+                <span className="absolute top-2 left-3 text-[9px] text-gray-500 tracking-widest">LIVE SCAN</span>
+                <RadarCanvas />
+              </div>
+              
+              {data && data.type === 'CT' && (
+                <>
+                  <Gauge value={data.voltU ? data.voltU/1000 : null} max={15} label="VOLT UNIDAD" unit="V" color="#3dd598" />
+                  <Gauge value={data.voltG ? data.voltG/1000 : null} max={5} label="VOLT GPS" unit="V" color="#2d6cdf" />
+                </>
+              )}
+            </div>
+
+            {data && (
+              <div className="glass p-5 flex flex-col gap-4">
+                <div className="text-center">
+                  <div className="text-[10px] text-gray-400 font-bold tracking-widest mb-1">SYSTEM STATUS</div>
+                  <div className={	ext-xl font-black }>{data.estado}</div>
+                  {data.rec && <div className="text-[11px] text-gray-400 mt-2">{data.rec}</div>}
+                </div>
+
+                {data.type === 'CT' && (
+                  <div className="flex flex-col gap-4">
+                    <div className="flex justify-between text-[11px] font-mono text-gray-400">
+                      <span>3E70: {data.c3E70}</span>
+                      <span>FFFF: {data.cFFFF}</span>
+                    </div>
+                    <svg viewBox="0 0 340 140" className="w-full drop-shadow-2xl">
+                      <rect x="10" y="20" width="200" height="90" rx="8" fill="rgba(15,23,42,0.8)" stroke="#2d6cdf" strokeWidth="2"/>
+                      <text x="20" y="35" fill="#2d6cdf" fontSize="10" fontFamily="monospace">TERMO KING</text>
+                      <circle cx="60" cy="75" r="18" fill={data.s1Color} stroke="#0f172a" strokeWidth="3" style={{transition:'fill 0.5s', filter:drop-shadow(0 0 10px )}}/>
+                      <text x="60" y="79" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="900">S1</text>
+                      <circle cx="160" cy="75" r="18" fill={data.s2Color} stroke="#0f172a" strokeWidth="3" style={{transition:'fill 0.5s', filter:drop-shadow(0 0 10px )}}/>
+                      <text x="160" y="79" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="900">S2</text>
+                      <path d="M210 40 L270 40 L300 70 L300 110 L210 110 Z" fill="#1e293b" stroke="#334155" strokeWidth="2"/>
+                      <circle cx="240" cy="115" r="12" fill="#0f172a" stroke="#334155" strokeWidth="2"/>
+                      <circle cx="290" cy="115" r="12" fill="#0f172a" stroke="#334155" strokeWidth="2"/>
+                    </svg>
+                  </div>
+                )}
+
+                {data.type === 'KW' && (
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col items-center">
+                      <div className="w-full h-32 bg-black/50 border border-white/10 rounded-xl relative overflow-hidden">
+                        <div className="absolute bottom-0 w-full bg-gradient-to-t from-[#2d6cdf] to-[#3dd598] transition-all duration-1000" style={{height: ${data.pct1}%}}></div>
+                      </div>
+                      <div className="mt-2 text-center font-mono font-black text-lg">{Math.round(data.pct1)}%</div>
+                      <div className="text-[9px] text-gray-400">TANQUE 1</div>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-full h-32 bg-black/50 border border-white/10 rounded-xl relative overflow-hidden">
+                        <div className="absolute bottom-0 w-full bg-gradient-to-t from-[#2d6cdf] to-[#3dd598] transition-all duration-1000" style={{height: ${data.pct2}%}}></div>
+                      </div>
+                      <div className="mt-2 text-center font-mono font-black text-lg">{Math.round(data.pct2)}%</div>
+                      <div className="text-[9px] text-gray-400">TANQUE 2</div>
+                    </div>
+                  </div>
+                )}
+
+                {data.type === 'R0' && (
+                  <div className="grid grid-cols-2 gap-4 text-[11px] font-mono">
+                    <div><span className="text-gray-500 block text-[9px]">APP</span>{data.app || '--'}</div>
+                    <div><span className="text-gray-500 block text-[9px]">APN</span>{data.apn || '--'}</div>
+                    <div><span className="text-gray-500 block text-[9px]">MID</span>{data.mid || '--'}</div>
+                    <div><span className="text-gray-500 block text-[9px]">INP</span>{data.inp || '--'}</div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB: HISTORIAL */}
+        {activeTab === 'history' && (
+          <div className="glass p-5 flex flex-col gap-3 animate-[fadeIn_0.3s_ease]">
+            <div className="text-[10px] text-gray-400 tracking-widest mb-2 border-b border-white/10 pb-2">ÚLTIMOS 10 REGISTROS (LOCALSTORAGE)</div>
+            {history.length === 0 && <div className="text-center text-gray-500 text-[12px] py-4">Sin registros aún...</div>}
+            {history.map((h, i) => (
+              <div key={i} className="flex flex-col gap-1 bg-black/30 p-3 rounded-lg border border-white/5">
+                <div className="flex justify-between text-[10px] font-mono">
+                  <span className="text-gray-500">[{h.time}]</span>
+                  <span className="text-[#3dd598] font-bold">{h.type}</span>
+                </div>
+                <div className="text-[11px] text-gray-300">{h.status}</div>
+                <div className="text-[9px] text-gray-600 font-mono truncate">{h.raw}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* TAB: SMS TERMUX */}
+        {activeTab === 'sms' && (
+          <div className="glass p-5 flex flex-col gap-4 animate-[fadeIn_0.3s_ease]">
+            <div className="text-[10px] text-gray-400 tracking-widest border-b border-white/10 pb-2">GENERADOR DE COMANDOS TERMUX</div>
+            
+            <div>
+              <label className="text-[9px] text-gray-500 block mb-1">NÚMERO DE SIM (GPS)</label>
+              <input id="phoneInput" type="text" placeholder="521XXXXXXXXX" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-[12px] text-white font-mono focus:outline-none focus:border-[#3dd598]" />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              {[
+                { cmd: '!r4', desc: 'Trama HEX de temperatura' },
+                { cmd: '!r0', desc: 'Status general del módem' },
+                { cmd: '!rg', desc: 'Registro de IP y servidor' },
+                { cmd: '!ra', desc: 'Todas las entradas analógicas' }
+              ].map((c, i) => (
+                <div key={i} className="flex justify-between items-center bg-black/30 p-3 rounded-lg border border-white/5">
+                  <div>
+                    <div className="text-[12px] font-black text-[#3dd598]">{c.cmd}</div>
+                    <div className="text-[9px] text-gray-400">{c.desc}</div>
+                  </div>
+                  <button 
+                    onClick={() => {
+                      const phone = document.getElementById('phoneInput').value || '521XXXXXXXXX';
+                      copyToClipboard(	ermux-sms-send -n + "");
+                      alert(Comando  copiado al portapapeles);
+                    }}
+                    className="px-4 py-2 bg-white text-black font-black text-[10px] rounded-lg hover:bg-gray-200 transition-colors">
+                    COPIAR
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-[9px] text-gray-500 leading-relaxed mt-2 p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+              <b className="text-blue-400">Tip de Termux:</b> Una vez enviado el SMS, puedes leer la respuesta con: <br/>
+              <code className="text-[#3dd598] block mt-1">termux-sms-list -l 1</code>
+            </div>
+          </div>
+        )}
+
+      </div>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 </script>
 </body>
 </html>
+

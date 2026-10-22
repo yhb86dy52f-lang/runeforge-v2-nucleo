@@ -3,38 +3,47 @@ desktop.ini
 Thumbs.db
 .DS_Store
 
-# ENTORNOS
-node_modules/
+# ENTORNOS VIRTUALES Y DEPENDENCIAS
 venv/
-.env
 .venv/
+env/
+node_modules/
 __pycache__/
 *.pyc
+
+# COMPILACIONES Y BINARIOS
 target/
 dist/
 build/
 out/
 bin/
 obj/
-
-# BINARIOS Y PESADOS
-*.whl
-*.zip
-*.tar.gz
 *.exe
 *.dll
 *.pdb
 *.lib
 *.so
 *.dylib
+*.whl
+*.zip
+*.tar.gz
 *.iso
 *.img
-*.bak
-*.bak.*
+*.pt
+*.pth
+*.onnx
+*.gguf
+*.safetensors
+
+# CACHÉS (SCCACHE, etc)
+.sccache/
+.cargo/
+
+# BASURA Y LOGS
 *.log
 *.tmp
-
-# BASURA
+*.bak
+*.bak.*
 backups/
-_archived_backups_*
 logs/
+_archived_backups_*

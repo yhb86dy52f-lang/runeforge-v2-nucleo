@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SEPCOLGPS NEXUS - V23 LIVE TELEMETRY</title>
+<style>
+  :root {
+    --bg-base: #030508;
+    --neon-green: #3dd598;
+    --neon-red: #ff4757;
+    --neon-blue: #2d6cdf;
+    --neon-cyan: #5eead4;
+    --text-main: #e2e8f0;
+    --text-muted: #7a869e;
+    --panel-bg: rgba(10, 16, 30, 0.75);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: var(--bg-base);
+    background-image: radial-gradient(circle at 10% 20%, rgba(45, 108, 223, 0.15), transparent 30%),
+                      radial-gradient(circle at 90% 80%, rgba(61, 213, 152, 0.1), transparent 30%);
+    color: var(--text-main);
+    font-family: ui-monospace, monospace;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+  }
+  .glass {
+    background: var(--panel-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 16px; }
+  
+  .header { padding: 20px; text-align: center; }
+  .header h1 { font-size: 20px; font-weight: 900; color: white; text-shadow: 0 0 15px var(--neon-green); }
+  .header p { font-size: 10px; color: var(--text-muted); letter-spacing: 0.2em; margin-top: 4px; }
+
+  .tabs { display: flex; gap: 4px; padding: 4px; border-radius: 16px; background: rgba(0,0,0,0.4); flex-wrap: wrap; }
+  .tab-btn { flex: 1; padding: 10px; border-radius: 12px; border: none; font-weight: 700; font-size: 11px; cursor: pointer; background: transparent; color: var(--text-muted); }
+  .tab-btn.active { background: var(--neon-green); color: black; }
+
+  .input-group { display: flex; flex-direction: column; gap: 8px; }
+  textarea { width: 100%; height: 100px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); border-radius: 12px; padding: 12px; font-family: inherit; font-size: 11px; outline: none; resize: none; }
+  .btn { padding: 10px; border-radius: 12px; border: none; font-weight: 700; font-size: 11px; cursor: pointer; }
+  .btn-primary { background: var(--neon-green); color: black; }
+  .btn-danger { background: var(--neon-red); color: white; }
+  .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); }
+  
+  .db-controls { display: flex; gap: 8px; margin-bottom: 12px; }
+  .history-list { display: flex; flex-direction: column; gap: 8px; max-height: 300px; overflow-y: auto; }
+  .history-item { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); font-size: 11px; }
+  .history-time { color: var(--text-muted); font-size: 9px; }
+  .history-status { color: white; margin-top: 4px; font-weight: 700; }
+  
+  .badge { padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 700; }
+  .badge-CT { background: rgba(61,213,152,0.15); color: var(--neon-green); }
+  .badge-KW { background: rgba(45,108,223,0.15); color: var(--neon-blue); }
+  .badge-R0 { background: rgba(94,234,212,0.15); color: var(--neon-cyan); }
+
+  .chart-wrapper { width: 100%; height: 250px; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  canvas { width: 100%; height: 100%; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="glass header">
+    <h1>NEXUS TACTICAL V23</h1>
+    <p>LIVE TELEMETRY WEBSOCKETS</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('live', this)">🔴 LIVE</button>
+    <button class="tab-btn" onclick="switchTab('db', this)">DB</button>
+    <button class="tab-btn" onclick="switchTab('charts', this)">GRÁFICAS</button>
+  </div>
+
+  <!-- LIVE MODULE -->
+  <div id="tab-live" class="glass" style="padding: 16px; display: flex; flex-direction: column; gap: 16px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:10px; color:var(--text-muted);">ESTADO DEL SIMULADOR</span>
+      <span id="wsStatus" class="badge badge-R0">DESCONECTADO</span>
+    </div>
+    
+    <div style="display:flex; gap:8px;">
+      <button id="btnStart" class="btn btn-primary" style="flex:1" onclick="toggleSimulator()">INICIAR SIMULADOR</button>
+    </div>
+
+    <div class="history-item" style="border-color: rgba(61,213,152,0.3);">
+      <div class="history-time">Última trama recibida en vivo:</div>
+      <div id="liveData" class="history-status" style="word-break: break-all; font-size: 10px; color: var(--text-muted);">Esperando datos...</div>
+    </div>
+  </div>
+
+  <!-- BASE DE DATOS -->
+  <div id="tab-db" class="glass hidden" style="padding: 16px;">
+    <div class="db-controls">
+      <input type="text" id="dbSearch" class="db-search" placeholder="Buscar..." oninput="renderDB()" style="flex:1; padding:8px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:white;">
+    </div>
+    <div id="historyList" class="history-list"></div>
+  </div>
+
+  <!-- GRAFICAS -->
+  <div id="tab-charts" class="glass hidden" style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:10px; color:var(--text-muted);">EVOLUCIÓN EN VIVO</span>
+      <select id="chartMetric" onchange="drawChart()" style="background:rgba(0,0,0,0.4); color:white; border:1px solid rgba(255,255,255,0.1); padding:4px; border-radius:8px; font-size:11px;">
+        <option value="volt">Voltaje Unidad (CT)</option>
+        <option value="fuel">Nivel Combustible (KW)</option>
+      </select>
+    </div>
+    <div class="chart-wrapper">
+      <canvas id="chartCanvas" width="400" height="250"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ==========================================
+  // 1. LÓGICA DE DECODIFICACIÓN
+  // ==========================================
+  function decodeData(input) {
+    let val = input.trim();
+    if (!val) return null;
+    
+    if (!val.includes('accum_') && !val.includes('APP:') && val.replace(/[^0-9A-F]/gi,'').length > 20) {
+      let clean = val.toUpperCase().replace(/[^0-9A-F]/g, '');
+      if (clean.length % 2 === 1) clean = '0' + clean;
+      const bytes = [];
+      for (let i = 0; i < clean.length; i += 2) bytes.push(parseInt(clean.substr(i, 2), 16));
+      const u16 = [];
+      for (let i = 0; i < bytes.length - 1; i += 2) u16.push((bytes[i] << 8) | bytes[i + 1]);
+      const voltU = u16.filter(v => v >= 10000 && v <= 16000).pop() || 0;
+      return { type: 'CT', status: 'Trama CT', raw: val, valToGraph: voltU / 1000 };
+    }
+    else if (val.includes('accum_')) {
+      let m = val.match(/esc_lev_0\s*=\s*(-?\d+)/i);
+      let fuel = m ? (parseInt(m[1]) / 4095) * 100 : 0;
+      return { type: 'KW', status: 'Trama KW', raw: val, valToGraph: fuel };
+    }
+    return { type: 'R0', status: 'Trama R0', raw: val, valToGraph: 0 };
+  }
+
+  // ==========================================
+  // 2. INDEXEDDB
+  // ==========================================
+  let db;
+  const DB_NAME = 'RuneforgeTelemetryDB';
+  const STORE_NAME = 'tramas';
+
+  function initDB() {
+    const request = indexedDB.open(DB_NAME, 1);
+    request.onupgradeneeded = function(e) {
+      db = e.target.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+      }
+    };
+    request.onsuccess = function(e) {
+      db = e.target.result;
+      renderDB();
+    };
+  }
+
+  function saveRecordToDB(decoded) {
+    if (!db) return;
+    const transaction = db.transaction([STORE_NAME], 'readwrite');
+    const store = transaction.objectStore(STORE_NAME);
+    const record = {
+      type: decoded.type,
+      status: decoded.status,
+      raw: decoded.raw,
+      valToGraph: decoded.valToGraph,
+      timestamp: new Date().toISOString()
+    };
+    store.add(record).onsuccess = () => {
+      renderDB();
+      if (!document.getElementById('tab-charts').classList.contains('hidden')) {
+        drawChart();
+      }
+    };
+  }
+
+  function renderDB() {
+    if (!db) return;
+    const list = document.getElementById('historyList');
+    const transaction = db.transaction([STORE_NAME], 'readonly');
+    const store = transaction.objectStore(STORE_NAME);
+    
+    store.getAll().onsuccess = (e) => {
+      let data = e.target.result || [];
+      data.sort((a, b) => b.id - a.id);
+      if (data.length === 0) {
+        list.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-muted)">Base de datos vacía</div>';
+        return;
+      }
+      list.innerHTML = data.slice(0, 50).map(item => `
+        <div class="history-item">
+          <div style="display:flex; justify-content:space-between;">
+            <span class="history-time">${new Date(item.timestamp).toLocaleTimeString()}</span>
+            <span class="badge badge-${item.type}">${item.type}</span>
+          </div>
+          <div class="history-status">${item.status} (${item.valToGraph.toFixed(2)})</div>
+        </div>
+      `).join('');
+    };
+  }
+
+  // ==========================================
+  // 3. CANVAS CHARTS ENGINE
+  // ==========================================
+  function drawChart() {
+    if (!db) return;
+    const canvas = document.getElementById('chartCanvas');
+    const ctx = canvas.getContext('2d');
+    const metric = document.getElementById('chartMetric').value;
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const transaction = db.transaction([STORE_NAME], 'readonly');
+    const store = transaction.objectStore(STORE_NAME);
+    
+    store.getAll().onsuccess = (e) => {
+      let allData = e.target.result || [];
+      let data = allData.filter(d => {
+        if (metric === 'volt') return d.type === 'CT';
+        if (metric === 'fuel') return d.type === 'KW';
+        return false;
+      });
+
+      if (data.length < 2) {
+        ctx.fillStyle = '#7a869e';
+        ctx.font = '12px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('Se necesitan al menos 2 datos', w/2, h/2);
+        return;
+      }
+
+      data.sort((a, b) => a.id - b.id);
+      let maxVal = Math.max(...data.map(d => d.valToGraph));
+      let minVal = Math.min(...data.map(d => d.valToGraph));
+      maxVal = maxVal + (maxVal * 0.1);
+      minVal = Math.max(0, minVal - (minVal * 0.1));
+      if (maxVal === minVal) maxVal = minVal + 1;
+
+      ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let i = 0; i <= 4; i++) {
+        let y = h - (i / 4) * h;
+        ctx.moveTo(0, y); ctx.lineTo(w, y);
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = metric === 'volt' ? '#3dd598' : '#2d6cdf';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      let stepX = w / (data.length - 1);
+      data.forEach((d, i) => {
+        let x = i * stepX;
+        let normY = (d.valToGraph - minVal) / (maxVal - minVal);
+        let y = h - (normY * h);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      ctx.fillStyle = '#fff';
+      data.forEach((d, i) => {
+        let x = i * stepX;
+        let normY = (d.valToGraph - minVal) / (maxVal - minVal);
+        let y = h - (normY * h);
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      ctx.fillStyle = '#7a869e';
+      ctx.font = '10px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText(maxVal.toFixed(2), 5, 12);
+      ctx.fillText(minVal.toFixed(2), 5, h - 5);
+    };
+  }
+
+  // ==========================================
+  // 4. SIMULADOR DE TELEMETRÍA EN VIVO
+  // ==========================================
+  let simulatorInterval = null;
+
+  function toggleSimulator() {
+    const btn = document.getElementById('btnStart');
+    const status = document.getElementById('wsStatus');
+    const liveData = document.getElementById('liveData');
+
+    if (simulatorInterval) {
+      // Detener
+      clearInterval(simulatorInterval);
+      simulatorInterval = null;
+      btn.textContent = 'INICIAR SIMULADOR';
+      btn.className = 'btn btn-primary';
+      status.textContent = 'DETENIDO';
+      status.className = 'badge badge-R0';
+    } else {
+      // Iniciar
+      btn.textContent = 'DETENER SIMULADOR';
+      btn.className = 'btn btn-danger';
+      status.textContent = 'EN LÍNEA';
+      status.className = 'badge badge-CT';
+      
+      simulatorInterval = setInterval(() => {
+        // Generar trama falsa aleatoria (CT o KW)
+        const isCT = Math.random() > 0.5;
+        let raw, decoded;
+
+        if (isCT) {
+          // Simular voltaje entre 11V y 14.5V
+          const volt = Math.floor((Math.random() * 3500) + 11000);
+          // Construir una trama HEX ficticia que contenga ese voltaje
+          const hexVolt = volt.toString(16).padStart(4, '0').toUpperCase();
+          raw = `E4672144079FFFFFF0100006AD7AD6F${hexVolt}000003E7000003E70`;
+        } else {
+          // Simular nivel de combustible entre 10% y 100%
+          const level = Math.floor((Math.random() * 3686) + 409); 
+          raw = `rssi=-70, hdop=0.8, accum_0=12585, esc_lev_0=${level}`;
+        }
+
+        decoded = decodeData(raw);
+        
+        // Actualizar UI
+        liveData.textContent = raw;
+        
+        // Guardar en DB y actualizar gráfica
+        saveRecordToDB(decoded);
+
+      }, 3000); // Cada 3 segundos
+    }
+  }
+
+  // ==========================================
+  // 5. UTILIDADES Y UI
+  // ==========================================
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.container > div[id^="tab-"]').forEach(d => d.classList.add('hidden'));
+    document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+    if (tabId === 'db') renderDB();
+    if (tabId === 'charts') drawChart();
+  }
+
+  initDB();
+</script>
+</body>
+</html>

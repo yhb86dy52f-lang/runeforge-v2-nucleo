@@ -1,0 +1,20 @@
+:root {
+  --bg-core: #0D0211;
+  --neon-green: #39FF14;
+  --glass-bg: rgba(13, 2, 17, 0.75);
+  --border-neon: rgba(57, 255, 20, 0.3);
+  --text-main: #E0E0E0;
+}
+body {
+  background-color: var(--bg-core);
+  color: var(--text-main);
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0; padding: 0; overflow-x: hidden;
+}
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-neon);
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.15);
+}
