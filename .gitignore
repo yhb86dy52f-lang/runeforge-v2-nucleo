@@ -1,17 +1,11 @@
-# SISTEMA
-desktop.ini
-Thumbs.db
-.DS_Store
-
-# ENTORNOS VIRTUALES Y DEPENDENCIAS
+# ENTORNOS Y DEPENDENCIAS PESADAS
 venv/
 .venv/
-env/
 node_modules/
 __pycache__/
 *.pyc
 
-# COMPILACIONES Y BINARIOS
+# COMPILADOS
 target/
 dist/
 build/
@@ -23,27 +17,15 @@ obj/
 *.pdb
 *.lib
 *.so
-*.dylib
-*.whl
-*.zip
-*.tar.gz
-*.iso
-*.img
-*.pt
-*.pth
-*.onnx
-*.gguf
-*.safetensors
 
-# CACHÉS (SCCACHE, etc)
+# CACHÉS
 .sccache/
 .cargo/
 
-# BASURA Y LOGS
+# RESPALDOS Y BASURA
+RUNEFORGE_BIG_FILES_ARCHIVE/
+RUNEFORGE_BACKUPS/
 *.log
 *.tmp
 *.bak
-*.bak.*
 backups/
-logs/
-_archived_backups_*

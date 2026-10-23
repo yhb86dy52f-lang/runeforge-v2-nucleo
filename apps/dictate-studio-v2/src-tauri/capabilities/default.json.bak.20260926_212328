@@ -1,0 +1,15 @@
+{
+  "windows": [
+    "main"
+  ],
+  "description": "Permissions for DICTATE Studio",
+  "permissions": [
+    "core:default",
+    "http:default",
+    "http:allow-fetch",
+    "core:webview:allow-internal-toggle-devtools",
+    "core:window:allow-set-title"
+  ],
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default"
+}

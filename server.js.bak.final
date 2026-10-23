@@ -1,0 +1,65 @@
+const path = require('path');
+const fastify = require('fastify')({ logger: true });
+fastify.register(require('@fastify/cors'), { origin: true });
+fastify.register(require('@fastify/static'), { root: path.join(__dirname, 'public'), prefix: '/' });
+
+fastify.get('/health', async () => ({ ok:true, service:'runeforge-backend', port:3100, ts:new Date().toISOString() }));
+fastify.get('/api/estatus', async () => ({ ok:true, backend:'online', relay:'online', ollama:'online', ts:new Date().toISOString() }));
+fastify.get('/api/ollama/status', async () => {
+  try { const r = await fetch('http://127.0.0.1:11434/api/tags'); const j = await r.json(); return { ok:true, count:(j.models||[]).length }; }
+  catch(e){ return { ok:false, error:e.message }; }
+});
+fastify.post('/api/chat', async (req) => {
+  const { message, model } = req.body || {};
+  try {
+    const r = await fetch('http://127.0.0.1:11434/api/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ model: model||'qwen2.5:1.5b', prompt: message||'Hola', stream:false }) });
+    const j = await r.json(); return { ok:true, response:j.response };
+  } catch(e){ return { ok:false, error:e.message }; }
+});
+fastify.listen({ port:3100, host:'0.0.0.0' }, (err, addr) => { if(err){ fastify.log.error(err); process.exit(1);} console.log('BACKEND V2.6 OK '+addr); });
+
+
+// --- RAG ENDPOINT START ---
+app.post('/api/rag/query', async (req, res) => {
+    const { question } = req.body;
+    if (!question) return res.status(400).json({ error: "Question required" });
+
+    try {
+        // 1. Obtener embedding de la pregunta
+        const embedResp = await axios.post('http://localhost:11434/api/embeddings', {
+            model: "nomic-embed-text",
+            prompt: question
+        });
+        const questionEmbedding = embedResp.data.embedding;
+
+        // 2. Buscar en ChromaDB
+        const { ChromaClient } = require('chromadb');
+        const client = new ChromaClient({ path: "http://localhost:8000" });
+        const collection = await client.getCollection({ name: "runeforge_knowledge" });
+        const results = await collection.query({
+            query_embeddings: [questionEmbedding],
+            n_results: 3
+        });
+
+        const context = results.documents[0].join('\n\n');
+
+        // 3. Construir prompt y preguntar a Ollama
+        const prompt = `Basándote en el siguiente contexto extraído de mis documentos, responde a la pregunta.
+
+Contexto:
+${context}
+
+Pregunta: ${question}`;
+        const llmResp = await axios.post('http://localhost:11434/api/generate', {
+            model: "qwen2.5:1.5b",
+            prompt: prompt,
+            stream: false
+        });
+
+        res.json({ answer: llmResp.data.response, sources: results.metadatas[0] });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+// --- RAG ENDPOINT END ---
+

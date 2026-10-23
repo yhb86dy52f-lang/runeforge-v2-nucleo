@@ -1,0 +1,105 @@
+const path = require('path');
+const fastify = require('fastify')({ logger: true });
+
+fastify.register(require('@fastify/cors'), { origin: true });
+fastify.register(require('@fastify/static'), { root: path.join(__dirname, 'public'), prefix: '/' });
+
+fastify.get('/health', async () => ({
+    ok: true,
+    service: 'runeforge-backend',
+    port: 3100,
+    ts: new Date().toISOString()
+}));
+
+fastify.get('/healthz', async () => ({
+    status: 'ok',
+    ollama: true,
+    soberania: '100%',
+    timestamp: new Date().toISOString(),
+    port: 3100
+}));
+
+fastify.get('/api/estatus', async () => ({
+    ok: true,
+    backend: 'online',
+    relay: 'online',
+    ollama: 'online',
+    ts: new Date().toISOString()
+}));
+
+fastify.get('/api/ollama/status', async () => {
+    try {
+        const r = await fetch('http://127.0.0.1:11434/api/tags');
+        const j = await r.json();
+        return { ok: true, count: (j.models || []).length };
+    } catch (e) {
+        return { ok: false, error: e.message };
+    }
+});
+
+fastify.post('/api/chat', async (req) => {
+    const { message, model } = req.body || {};
+    try {
+        const r = await fetch('http://127.0.0.1:11434/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ model: model || 'qwen2.5:1.5b', prompt: message || 'Hola', stream: false })
+        });
+        const j = await r.json();
+        return { ok: true, response: j.response };
+    } catch (e) {
+        return { ok: false, error: e.message };
+    }
+});
+
+// RAG corregido para Fastify
+fastify.post('/api/rag/query', async (req, reply) => {
+    const { question } = req.body || {};
+    if (!question) return reply.status(400).send({ error: "Question required" });
+
+    try {
+        const embedResp = await fetch('http://127.0.0.1:11434/api/embeddings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ model: "nomic-embed-text", prompt: question })
+        });
+        const embedJson = await embedResp.json();
+        const questionEmbedding = embedJson.embedding;
+
+        try {
+            const { ChromaClient } = require('chromadb');
+            const client = new ChromaClient({ path: "http://localhost:8000" });
+            const collection = await client.getCollection({ name: "runeforge_knowledge" });
+            const results = await collection.query({
+                query_embeddings: [questionEmbedding],
+                n_results: 3
+            });
+            const context = (results.documents[0] || []).join('\n\n');
+            const prompt = `Basándote en el siguiente contexto:\n${context}\n\nPregunta: ${question}`;
+
+            const llmResp = await fetch('http://127.0.0.1:11434/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ model: "qwen2.5:1.5b", prompt, stream: false })
+            });
+            const llmJson = await llmResp.json();
+            return { answer: llmJson.response, sources: results.metadatas[0] || [] };
+        } catch (chromaErr) {
+            // Si Chroma no está corriendo, responde solo con Ollama
+            const llmResp = await fetch('http://127.0.0.1:11434/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ model: "qwen2.5:1.5b", prompt: question, stream: false })
+            });
+            const llmJson = await llmResp.json();
+            return { answer: llmJson.response, sources: [], note: "Chroma offline: " + chromaErr.message };
+        }
+    } catch (err) {
+        return reply.status(500).send({ error: err.message });
+    }
+});
+
+fastify.listen({ port: 3100, host: '0.0.0.0' }, (err, addr) => {
+    if (err) { fastify.log.error(err); process.exit(1); }
+    console.log('BACKEND V2.6 OK ' + addr);
+});
