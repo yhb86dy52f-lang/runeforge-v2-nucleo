@@ -1,56 +1,26 @@
 {
   "proyecto": "RUNEFORGE_V2_CORE",
-  "fecha_validacion": "2026-10-20",
-  "hostname": "RUNEFORGE-PC",
-  "hardware": {
-    "cpu": "AMD Ryzen 3 3200G",
-    "ram_gb": 16,
-    "gpu": "NVIDIA GeForce GTX 1660 SUPER 6GB",
-    "so": "Windows 10 19045 x64"
+  "fecha_auditoria": "2026-10-22",
+  "estado": "ÓPTIMO",
+  "interfaz_activa": "V25 FINAL COMMAND CENTER (Offline)",
+  "almacenamiento": {
+    "espacio_liberado": "~15 GB",
+    "acciones": "Eliminados BuzzStage, OllamaSetup y Backup de 11.9 GB"
   },
-  "rust_toolchain": {
-    "rustc": "1.98.1",
-    "cargo": "1.98.1",
-    "rustup": "1.29.1",
-    "sccache": "0.18.0"
-  },
-  "rutas_canonicas": {
-    "raiz": "C:\\RUNEFORGE_V2_CORE",
-    "app_principal": "C:\\RUNEFORGE_V2_CORE\\apps\\dictate-studio-v2",
-    "pwa_simulador": "C:\\RUNEFORGE_V2_CORE\\runeforge-v2-nucleo\\simulador",
-    "whisper_backend": "C:\\RUNEFORGE_V2_CORE\\whisper-backend"
-  },
-  "github": {
-    "usuario": "yhb86dy52f-lang",
-    "repositorio": "runeforge-v2-nucleo",
-    "rama_principal": "main",
-    "commit_actual": "a8bf1dc",
-    "estado_purga_lfs": "COMPLETADO - 2.3GB eliminados"
-  },
-  "whisper_backend": {
-    "url": "http://127.0.0.1:8081",
-    "modelo": "large-v3-turbo",
-    "device": "cuda",
-    "compute": "int8_float16"
-  },
-  "esp32": {
-    "chip": "ESP32-D0WD-V3",
-    "mac": "3c:8a:1f:a1:aa:84",
-    "puerto": "COM5",
-    "ip_esp32": "192.168.100.3",
-    "mqtt_broker": "192.168.100.10:1883"
-  },
-  "problemas_resueltos": [
-    "faster-whisper 1.0.3 no reconocia large-v3-turbo",
-    "WebM fragmentado causaba AVERROR_INVALIDDATA",
-    "Saturación de Git por LFS (2.3 GB) resuelto con Purga Nuclear",
-    "Timeouts HTTP 408/500 resueltos con HTTP/1.1 y Buffer de 1GB",
-    "Archivos .gitignore duplicados (.v2.1, .v2.2) consolidados en uno solo"
+  "modulos_activos": [
+    "IndexedDB (Base de datos)",
+    "Canvas (Gráficas)",
+    "Leaflet (Mapa Táctico)",
+    "Live Simulator (Telemetría)"
   ],
-  "pendientes": [
-    "Dashboard visualizador muestra datos DEMO",
-    "Ollama offline",
-    "Fastify offline",
-    "Tailscale offline"
-  ]
+  "herramientas_validadas": {
+    "whisper_models": [
+      "ggml-large-v3-turbo.bin",
+      "ggml-large-v3-turbo-q5_0.bin"
+    ],
+    "scripts_rescatados": [
+      "Deploy-LMU2630-AUTONOMO.ps1",
+      "Deploy-LMU2630-AUTONOMO-GLOBAL-FINAL.ps1"
+    ]
+  }
 }
