@@ -1,12 +1,12 @@
 ﻿**********************
 Inicio de la transcripción de Windows PowerShell
-Hora de inicio: 20261024155025
+Hora de inicio: 20261024171604
 Nombre de usuario: RUNEFORGE-PC\nesth
 Usuario RunAs: RUNEFORGE-PC\nesth
 Nombre de la configuración: 
 Máquina: RUNEFORGE-PC (Microsoft Windows NT 10.0.19045.0)
-Aplicación host: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\RUNEFORGE_V2_CORE\scripts\STOP.ps1
-Id. de proceso: 13396
+Aplicación host: powershell -NoProfile -ExecutionPolicy Bypass -File C:\RUNEFORGE_V2_CORE\scripts\STOP.ps1
+Id. de proceso: 9036
 PSVersion: 5.1.19041.6456
 PSEdition: Desktop
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
@@ -21,11 +21,11 @@ SerializationVersion: 1.1.0.1
 [*] 2. Deteniendo Ollama...
 [*] 3. Deteniendo Tailscale Mesh (Cortando red)...
 [*] 4. Cazando procesos RUNEFORGE (Node, Python, Cargo, App)...
-[*] 5. Liberando puertos huÃ©rfanos (8080, 8081, 3100, 11434, 1420)...
+[*] 5. Liberando puertos huérfanos (8080, 8081, 3100, 11434, 1420)...
 
-[*] 6. Verificando estado final (ApagÃ³n Total)...
+[*] 6. Verificando estado final (Apagón Total)...
 === REPORTE DE AUDITORIA FORENSE RUNEFORGE ===
-Fecha: 2026-10-24 15:50:30
+Fecha: 2026-10-24 17:16:09
 
 [1] ARCHIVOS CRITICOS:
   [OK] C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_BOOT.ps1
@@ -43,7 +43,7 @@ Fecha: 2026-10-24 15:50:30
   [LIMPIO] Ningun proceso del ecosistema activo.
 
 [4] HARDWARE:
-  [CPU] 26% | [RAM] 7.86 GB
+  [CPU] 36% | [RAM] 6.67 GB
 
 =========================================
 [OK] Reporte copiado al portapapeles.
@@ -54,5 +54,5 @@ Fecha: 2026-10-24 15:50:30
 
 **********************
 Fin de la transcripción de Windows PowerShell
-Hora de finalización: 20261024155053
+Hora de finalización: 20261024171625
 **********************

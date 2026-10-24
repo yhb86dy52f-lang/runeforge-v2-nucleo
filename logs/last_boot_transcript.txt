@@ -1,0 +1,56 @@
+﻿**********************
+Inicio de la transcripción de Windows PowerShell
+Hora de inicio: 20261024171631
+Nombre de usuario: RUNEFORGE-PC\nesth
+Usuario RunAs: RUNEFORGE-PC\nesth
+Nombre de la configuración: 
+Máquina: RUNEFORGE-PC (Microsoft Windows NT 10.0.19045.0)
+Aplicación host: powershell -NoProfile -ExecutionPolicy Bypass -File C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_BOOT.ps1
+Id. de proceso: 5900
+PSVersion: 5.1.19041.6456
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
+BuildVersion: 10.0.19041.6456
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[*] Arrancando Servicios...
+
+[*] Esperando 12 segundos a que los servicios inicialicen...
+[*] Verificando estado...
+=== REPORTE DE AUDITORIA FORENSE RUNEFORGE ===
+Fecha: 2026-10-24 17:16:55
+
+[1] ARCHIVOS CRITICOS:
+  [OK] C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_BOOT.ps1
+  [OK] C:\RUNEFORGE_V2_CORE\scripts\brain_hub.py
+  [OK] C:\RUNEFORGE_V2_CORE\nexus-tactical
+
+[2] ESTADO DE SERVICIOS:
+  [OFFLINE] Fastify
+  [ONLINE] Whisper IA
+  [ONLINE] Ollama
+  [OFFLINE] Tauri Core
+  [ONLINE] Tailscale Mesh
+
+[3] PROCESOS ACTIVOS (Forense):
+  [ACTIVO] python.exe (PID: 3456, RAM: 3.34 MB)
+  [ACTIVO] python.exe (PID: 2288, RAM: 14.77 MB)
+  [ACTIVO] node.exe (PID: 15356, RAM: 46.33 MB)
+
+[4] HARDWARE:
+  [CPU] 29% | [RAM] 7.59 GB
+
+=========================================
+[OK] Reporte copiado al portapapeles.
+
+=========================================================
+  [OK] ARRANQUE GLOBAL FINALIZADO.
+=========================================================
+
+**********************
+Fin de la transcripción de Windows PowerShell
+Hora de finalización: 20261024171657
+**********************
