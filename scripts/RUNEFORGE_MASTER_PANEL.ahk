@@ -1,6 +1,6 @@
 ﻿; ================================
-; RUNEFORGE MASTER PANEL V7
-; AutoHotkey v2 - Integración de Memoria y Docs
+; RUNEFORGE MASTER PANEL V8
+; AutoHotkey v2 - Integración de Memoria, Docs y Git
 ; ================================
 
 #Requires AutoHotkey v2.0
@@ -68,6 +68,16 @@ RunBat(path) {
     }
 }
 
+; Lógica para Git Push
+RunGitPush() {
+    gitPs1 := RF["SCRIPTS"] "\rf-git.ps1"
+    if FileExist(gitPs1) {
+        Run('powershell.exe -NoProfile -ExecutionPolicy Bypass -File "' gitPs1 '"')
+    } else {
+        MsgBox("No se encontró rf-git.ps1 en " RF["SCRIPTS"], "Error", "Icon!")
+    }
+}
+
 SearchInRepo(*) {
     ib := InputBox("Texto a buscar en C:\RUNEFORGE_V2_CORE:", "Buscar en Código")
     if (ib.Result != "OK" || Trim(ib.Value) = "")
@@ -104,11 +114,11 @@ CopySnippetPS(*) {
 EnsureBase()
 
 ; ========= GUI =========
-myGui := Gui("+AlwaysOnTop +Resize", "RUNEFORGE COMMAND CENTER V7")
+myGui := Gui("+AlwaysOnTop +Resize", "RUNEFORGE COMMAND CENTER V8")
 myGui.BackColor := "0D0211"
 myGui.SetFont("s10 c39FF14", "Segoe UI")
 
-title := myGui.AddText("xm w430 Center c39FF14", "⚡ RUNEFORGE COMMAND CENTER V7")
+title := myGui.AddText("xm w430 Center c39FF14", "⚡ RUNEFORGE COMMAND CENTER V8")
 title.SetFont("s14 Bold", "Segoe UI")
 
 ; ===== BLOQUE 1: MASTERS =====
@@ -117,41 +127,38 @@ myGui.AddButton("xm+15 yp+28 w125 h30", "📊 Dashboard").OnEvent("Click", (*) =
 myGui.AddButton("x+10 w125 h30", "📡 Radar BLE").OnEvent("Click", (*) => OpenPath(RF["MASTER_RADAR"]))
 myGui.AddButton("x+10 w125 h30", "📍 GPS/Sonar").OnEvent("Click", (*) => OpenPath(RF["MASTER_GPS"]))
 
-; ===== BLOQUE 2: IA / CONTEXTO (Ampliado) =====
+; ===== BLOQUE 2: IA / CONTEXTO =====
 myGui.AddGroupBox("xm y+15 w430 h150 c39FF14", " IA / CONTEXTO ")
-; Fila 1: Memoria Ops y Prompt
 myGui.AddButton("xm+15 yp+28 w125 h30", "🧠 Memoria Ops").OnEvent("Click", (*) => CopyFile(RF["MEMORIA"]))
 myGui.AddButton("x+10 w125 h30", "📜 Prompt Master").OnEvent("Click", (*) => CopyFile(RF["PROMPT_MAESTRO"]))
 myGui.AddButton("x+10 w125 h30", "💬 ChatGPT").OnEvent("Click", (*) => Run("https://chatgpt.com/"))
 
-; Fila 2: Documentación del Proyecto (Nuevos Botones)
 myGui.AddButton("xm+15 y+10 w125 h30", "📄 Manifiesto").OnEvent("Click", (*) => CopyFile(RF["DOC_MANIFIESTO"]))
 myGui.AddButton("x+10 w125 h30", "🏗️ Arquitectura").OnEvent("Click", (*) => CopyFile(RF["DOC_ARQUITECTURA"]))
 myGui.AddButton("x+10 w125 h30", "⚙️ Reglas IA").OnEvent("Click", (*) => CopyFile(RF["DOC_NEXUS"]))
 
-; Fila 3: Edición
 myGui.AddButton("xm+15 y+10 w125 h30", "📝 Editar Mem").OnEvent("Click", (*) => EditFile(RF["MEMORIA"]))
 myGui.AddButton("x+10 w125 h30", "✏️ Editar Prompt").OnEvent("Click", (*) => EditFile(RF["PROMPT_MAESTRO"]))
 myGui.AddButton("x+10 w125 h30", "📂 Docs Dir").OnEvent("Click", (*) => OpenPath(RF["DOCS"]))
 
 ; ===== BLOQUE 3: SISTEMA / CORE =====
-myGui.AddGroupBox("xm y+15 w430 h110 c39FF14", " SISTEMA / CORE ")
+myGui.AddGroupBox("xm y+15 w430 h150 c39FF14", " SISTEMA / CORE ")
 myGui.AddButton("xm+15 yp+30 w125 h30", "🚀 ARRANCAR").OnEvent("Click", (*) => RunBat(RF["BAT_BOOT"]))
 myGui.AddButton("x+10 w125 h30", "🛑 PARAR").OnEvent("Click", (*) => RunBat(RF["BAT_STOP"]))
+myGui.AddButton("x+10 w125 h30", "🐙 GIT PUSH").OnEvent("Click", (*) => RunGitPush()) ; NUEVO BOTÓN GIT PUSH
+
 myGui.AddButton("xm+15 y+10 w125 h30", "🔍 AUDITAR").OnEvent("Click", (*) => RunBat(RF["BAT_AUDIT"]))
 myGui.AddButton("x+10 w125 h30", "⚡ RESET RAM").OnEvent("Click", (*) => RunBat(RF["BAT_RESET"]))
+myGui.AddButton("x+10 w125 h30", "🖥️ Snippet PS").OnEvent("Click", CopySnippetPS)
 
 ; ===== BLOQUE 4: CÓDIGO / FRAMEWORKS =====
-myGui.AddGroupBox("xm y+15 w430 h110 c39FF14", " CÓDIGO / FRAMEWORKS ")
+myGui.AddGroupBox("xm y+15 w430 h80 c39FF14", " CÓDIGO / FRAMEWORKS ")
 myGui.AddButton("xm+15 yp+30 w125 h30", "📁 Root Core").OnEvent("Click", (*) => OpenPath(RF["ROOT"]))
 myGui.AddButton("x+10 w125 h30", "🔎 Buscar Repo").OnEvent("Click", SearchInRepo)
-myGui.AddButton("x+10 w125 h30", "💻 PowerShell").OnEvent("Click", (*) => RunPowerShell('Set-Location -LiteralPath "' RF["SCRIPTS"] '"'))
-myGui.AddButton("xm+15 y+10 w125 h30", "🧱 Crear Módulo").OnEvent("Click", CreateModule)
-myGui.AddButton("x+10 w125 h30", "⚡ Snippet API").OnEvent("Click", CopySnippetFastify)
-myGui.AddButton("x+10 w125 h30", "🖥️ Snippet PS").OnEvent("Click", CopySnippetPS)
+myGui.AddButton("x+10 w125 h30", "🧱 Crear Módulo").OnEvent("Click", CreateModule)
 
 ; ===== PIE =====
 myGui.AddButton("xm+155 y+15 w120 h32", "✖ CERRAR").OnEvent("Click", (*) => ExitApp())
 
-; Ajuste de altura para acomodar el nuevo bloque
+; Ajuste de altura
 myGui.Show("w455 h590")
