@@ -61,7 +61,7 @@ RunBat(path) {
     } else {
         ps1Path := StrReplace(path, ".bat", ".ps1")
         if FileExist(ps1Path) {
-            Run('powershell.exe -NoProfile -ExecutionPolicy Bypass -File "' ps1Path '"')
+            Run('pwsh.exe -NoProfile -ExecutionPolicy Bypass -File "' ps1Path '" ')
         } else {
             MsgBox("No se encontró el script:`n" path, "Error", "Icon!")
         }
@@ -72,7 +72,7 @@ RunBat(path) {
 RunGitPush() {
     gitPs1 := RF["SCRIPTS"] "\rf-git.ps1"
     if FileExist(gitPs1) {
-        Run('powershell.exe -NoProfile -ExecutionPolicy Bypass -File "' gitPs1 '"')
+        Run('pwsh.exe -NoProfile -ExecutionPolicy Bypass -File "' gitPs1 '" ')
     } else {
         MsgBox("No se encontró rf-git.ps1 en " RF["SCRIPTS"], "Error", "Icon!")
     }
