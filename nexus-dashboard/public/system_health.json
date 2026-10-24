@@ -1,7 +1,7 @@
 {
-    "timestamp": "2026-10-24T17:19:20.670465",
+    "timestamp": "2026-10-24T17:20:36.645754",
     "core": {
-        "cpu_percent": 58.6,
+        "cpu_percent": 36.0,
         "ram_percent": 37.9
     },
     "hardware": {

@@ -1,6 +1,6 @@
 ﻿; ================================
-; RUNEFORGE MASTER PANEL V8
-; AutoHotkey v2 - Integración de Memoria, Docs y Git
+; RUNEFORGE MASTER PANEL V9
+; AutoHotkey v2 - Perfil Canónico Integrado
 ; ================================
 
 #Requires AutoHotkey v2.0
@@ -52,27 +52,32 @@ CopyText(text) => A_Clipboard := text
 CopyFile(path) => (FileExist(path) ? A_Clipboard := FileRead(path, "UTF-8") : MsgBox("Archivo no encontrado: " path, "Error"))
 OpenPath(path) => (FileExist(path) || DirExist(path) ? Run(path) : MsgBox("Ruta no encontrada: " path, "Error"))
 EditFile(path) => (FileExist(path) ? Run('notepad.exe "' path '"') : MsgBox("Archivo no encontrado: " path, "Error"))
-RunPowerShell(cmd) => Run('pwsh -NoExit -Command ' cmd)
 
-; Lógica robusta para ejecutar .bat o .ps1 si el .bat no existe
-RunBat(path) {
+; ========= LÓGICA DE EJECUCIÓN CANÓNICA =========
+; Usa pwsh sin -NoProfile para cargar el prompt y las variables.
+; Usa -NoExit para que la ventana no se cierre de golpe al terminar el script.
+RunPowerShellCanonical(cmd) => Run('pwsh.exe -NoExit -Command ' cmd)
+
+RunBatOrPs1(path) {
     if FileExist(path) {
+        ; Ejecuta el .bat (que ya está configurado para llamar a pwsh)
         Run('"' path '"')
     } else {
         ps1Path := StrReplace(path, ".bat", ".ps1")
         if FileExist(ps1Path) {
-            Run('pwsh.exe -NoProfile -ExecutionPolicy Bypass -File "' ps1Path '" ')
+            ; Ejecuta directo el .ps1 usando pwsh con el perfil cargado
+            Run('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' ps1Path '"')
         } else {
             MsgBox("No se encontró el script:`n" path, "Error", "Icon!")
         }
     }
 }
 
-; Lógica para Git Push
 RunGitPush() {
     gitPs1 := RF["SCRIPTS"] "\rf-git.ps1"
     if FileExist(gitPs1) {
-        Run('pwsh.exe -NoProfile -ExecutionPolicy Bypass -File "' gitPs1 '" ')
+        ; Lanza git con tu entorno pwsh
+        Run('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' gitPs1 '"')
     } else {
         MsgBox("No se encontró rf-git.ps1 en " RF["SCRIPTS"], "Error", "Icon!")
     }
@@ -84,6 +89,7 @@ SearchInRepo(*) {
         return
     safeBase := '"' RF["ROOT"] '"'
     safeTerm := StrReplace(Trim(ib.Value), '"', '\"')
+    ; Usamos cmd para rg, es más rápido
     Run('cmd.exe /k cd /d ' safeBase ' && (rg -n --hidden --glob "!node_modules" --glob "!target" "' safeTerm '" || findstr /s /i /n "' safeTerm '" *.*)')
 }
 
@@ -114,11 +120,11 @@ CopySnippetPS(*) {
 EnsureBase()
 
 ; ========= GUI =========
-myGui := Gui("+AlwaysOnTop +Resize", "RUNEFORGE COMMAND CENTER V8")
+myGui := Gui("+AlwaysOnTop +Resize", "RUNEFORGE COMMAND CENTER V9")
 myGui.BackColor := "0D0211"
 myGui.SetFont("s10 c39FF14", "Segoe UI")
 
-title := myGui.AddText("xm w430 Center c39FF14", "⚡ RUNEFORGE COMMAND CENTER V8")
+title := myGui.AddText("xm w430 Center c39FF14", "⚡ RUNEFORGE COMMAND CENTER V9")
 title.SetFont("s14 Bold", "Segoe UI")
 
 ; ===== BLOQUE 1: MASTERS =====
@@ -143,12 +149,12 @@ myGui.AddButton("x+10 w125 h30", "📂 Docs Dir").OnEvent("Click", (*) => OpenPa
 
 ; ===== BLOQUE 3: SISTEMA / CORE =====
 myGui.AddGroupBox("xm y+15 w430 h150 c39FF14", " SISTEMA / CORE ")
-myGui.AddButton("xm+15 yp+30 w125 h30", "🚀 ARRANCAR").OnEvent("Click", (*) => RunBat(RF["BAT_BOOT"]))
-myGui.AddButton("x+10 w125 h30", "🛑 PARAR").OnEvent("Click", (*) => RunBat(RF["BAT_STOP"]))
-myGui.AddButton("x+10 w125 h30", "🐙 GIT PUSH").OnEvent("Click", (*) => RunGitPush()) ; NUEVO BOTÓN GIT PUSH
+myGui.AddButton("xm+15 yp+30 w125 h30", "🚀 ARRANCAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_BOOT"]))
+myGui.AddButton("x+10 w125 h30", "🛑 PARAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_STOP"]))
+myGui.AddButton("x+10 w125 h30", "🐙 GIT PUSH").OnEvent("Click", (*) => RunGitPush())
 
-myGui.AddButton("xm+15 y+10 w125 h30", "🔍 AUDITAR").OnEvent("Click", (*) => RunBat(RF["BAT_AUDIT"]))
-myGui.AddButton("x+10 w125 h30", "⚡ RESET RAM").OnEvent("Click", (*) => RunBat(RF["BAT_RESET"]))
+myGui.AddButton("xm+15 y+10 w125 h30", "🔍 AUDITAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_AUDIT"]))
+myGui.AddButton("x+10 w125 h30", "⚡ RESET RAM").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_RESET"]))
 myGui.AddButton("x+10 w125 h30", "🖥️ Snippet PS").OnEvent("Click", CopySnippetPS)
 
 ; ===== BLOQUE 4: CÓDIGO / FRAMEWORKS =====
@@ -160,5 +166,4 @@ myGui.AddButton("x+10 w125 h30", "🧱 Crear Módulo").OnEvent("Click", CreateMo
 ; ===== PIE =====
 myGui.AddButton("xm+155 y+15 w120 h32", "✖ CERRAR").OnEvent("Click", (*) => ExitApp())
 
-; Ajuste de altura
 myGui.Show("w455 h590")
