@@ -1,8 +1,8 @@
 {
-    "timestamp": "2026-10-24T17:17:09.734660",
+    "timestamp": "2026-10-24T17:17:14.978133",
     "core": {
-        "cpu_percent": 96.8,
-        "ram_percent": 47.4
+        "cpu_percent": 24.0,
+        "ram_percent": 47.1
     },
     "hardware": {
         "GPU_Name": "GTX 1660 SUPER",
