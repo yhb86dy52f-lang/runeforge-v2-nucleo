@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entorno de Trabajo BLE ESP32 + Asistente IA Gemini</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#f8f7f4',
+                            card: '#ffffff',
+                            border: '#e2dec9',
+                            slate: '#1e293b',
+                            indigo: '#4f46e5',
+                            teal: '#0d9488',
+                            amber: '#d97706',
+                            rose: '#e11d48',
+                            purple: '#7c3aed'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['System-UI', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'Monaco', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .animate-pulse-subtle { animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    </style>
+</head>
+<body class="bg-brand-bg text-slate-800 antialiased min-h-screen flex flex-col font-sans selection:bg-brand-indigo selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border px-4 lg:px-8 py-3.5 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-indigo to-brand-purple text-white flex items-center justify-center font-mono font-bold text-lg shadow-sm">
+                    ESP
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-base font-bold text-slate-900 leading-tight">Plataforma ESP32 BLE</h1>
+                        <span class="px-2 py-0.5 text-[10px] font-mono font-bold bg-purple-100 text-purple-700 rounded-full border border-purple-200">
+                            ✨ Gemini AI Enhanced
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-500 font-mono">Firmware C++, WebSerial Monitor &amp; Copiloto IA con Gemini API</p>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="flex flex-wrap items-center gap-1.5 text-xs font-mono">
+                <button onclick="switchTab('roadmap')" id="tab-btn-roadmap" class="px-3 py-1.5 rounded-lg bg-brand-indigo text-white font-medium transition-colors flex items-center gap-1.5">
+                    <i data-lucide="map"></i> 1. Hoja de Ruta
+                </button>
+                <button onclick="switchTab('arduino')" id="tab-btn-arduino" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium transition-colors flex items-center gap-1.5">
+                    <i data-lucide="code-2"></i> 2. Código C++
+                </button>
+                <button onclick="switchTab('flash')" id="tab-btn-flash" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium transition-colors flex items-center gap-1.5">
+                    <i data-lucide="cpu"></i> 3. Flasheo
+                </button>
+                <button onclick="switchTab('workspace')" id="tab-btn-workspace" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium transition-colors flex items-center gap-1.5">
+                    <i data-lucide="layout-dashboard"></i> 4. Workspace &amp; Logs
+                </button>
+                <button onclick="switchTab('ai')" id="tab-btn-ai" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium transition-all shadow-sm flex items-center gap-1.5 hover:opacity-90">
+                    <i data-lucide="sparkles"></i> 5. Asistente IA Gemini
+                </button>
+                <button onclick="switchTab('backend')" id="tab-btn-backend" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium transition-colors flex items-center gap-1.5">
+                    <i data-lucide="server"></i> 6. Backend Cloud
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6">
+
+        <section id="sec-roadmap" class="space-y-6">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="inline-block text-[11px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full bg-brand-indigo/10 text-brand-indigo font-semibold mb-2">
+                        Paso a Paso Desde Cero
+                    </span>
+                    <h2 class="text-2xl font-bold text-slate-900">Arquitectura General del Sistema</h2>
+                    <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                        Para poner en marcha el sistema completo necesitamos tres componentes interconectados:
+                        el <strong>Hardware ESP32</strong> actuando como baliza transmisora BLE, el <strong>Ecosistema de Red / Relevo</strong>, y el <strong>Dashboard Web Inteligente alimentado por la API de Gemini</strong> para optimización de código, análisis de logs y diagnósticos de hardware.
+                    </p>
+                </div>
+
+                <!-- Workflow Phases Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="w-8 h-8 rounded-lg bg-brand-indigo/10 text-brand-indigo font-mono font-bold flex items-center justify-center text-xs">
+                            01
+                        </div>
+                        <h3 class="font-bold text-sm text-slate-900">Hardware ESP32</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Cargar el código C++ mediante Arduino IDE al microcontrolador. Configurar el motor Bluetooth LE para emitir tramas con formato publicitario pasivo.
+                        </p>
+                        <span class="inline-block text-[10px] font-mono text-brand-teal font-semibold">Estado: Código C++ listo</span>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="w-8 h-8 rounded-lg bg-brand-teal/10 text-brand-teal font-mono font-bold flex items-center justify-center text-xs">
+                            02
+                        </div>
+                        <h3 class="font-bold text-sm text-slate-900">Asistente IA Copiloto</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Optimiza código para bajo consumo, diagnostica fallos en directo con Gemini Flash y genera reportes hablados de telemetría mediante síntesis de voz (Gemini TTS).
+                        </p>
+                        <span class="inline-block text-[10px] font-mono text-purple-600 font-semibold">Estado: Gemini 3 Flash / TTS Activo</span>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="w-8 h-8 rounded-lg bg-brand-amber/10 text-brand-amber font-mono font-bold flex items-center justify-center text-xs">
+                            03
+                        </div>
+                        <h3 class="font-bold text-sm text-slate-900">Flasheo e Instalación</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Conectar el ESP32 por USB, seleccionar la placa <code class="bg-white px-1 py-0.5 rounded border text-[11px]">ESP32 Dev Module</code> en Arduino IDE y subir el programa.
+                        </p>
+                        <span class="inline-block text-[10px] font-mono text-brand-amber font-semibold">Estado: Guía Completa</span>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="w-8 h-8 rounded-lg bg-brand-rose/10 text-brand-rose font-mono font-bold flex items-center justify-center text-xs">
+                            04
+                        </div>
+                        <h3 class="font-bold text-sm text-slate-900">Aplicación Web &amp; Esquemas IA</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Panel en HTML/JS con terminal Web Serial API y generador visual de diagramas de pines e imágenes de hardware mediante Gemini Flash Image.
+                        </p>
+                        <span class="inline-block text-[10px] font-mono text-brand-rose font-semibold">Estado: Entorno Interactivo</span>
+                    </div>
+                </div>
+
+                <!-- Hardware Requirement List -->
+                <div class="mt-6 pt-6 border-t border-slate-100 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="flex items-start gap-3 p-3 rounded-lg bg-indigo-50/50 border border-indigo-100">
+                        <i data-lucide="cpu" class="w-5 h-5 text-brand-indigo shrink-0 mt-0.5"></i>
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900 font-mono">Requisito Hardware</h4>
+                            <p class="text-xs text-slate-600 mt-0.5">Placa ESP32 WROOM-32, ESP32-C3 o ESP32-S3 con antena integrada. Cable Micro-USB / USB-C de datos.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-lg bg-purple-50/50 border border-purple-100">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-brand-purple shrink-0 mt-0.5"></i>
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900 font-mono">Servicios IA Gemini Integrados</h4>
+                            <p class="text-xs text-slate-600 mt-0.5">Gemini 3 Flash (Texto), Gemini 2.5 Flash Speech (Audio TTS) y Gemini 3.1 Flash Image (Diagramas Hardware).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-lg bg-amber-50/50 border border-amber-100">
+                        <i data-lucide="globe" class="w-5 h-5 text-brand-amber shrink-0 mt-0.5"></i>
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900 font-mono">Entorno Web Browser</h4>
+                            <p class="text-xs text-slate-600 mt-0.5">Navegador moderno con soporte para Web Serial API (Chrome, Edge o Opera) para comunicación directa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-arduino" class="space-y-6 hidden">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-slate-100 pb-4">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-brand-indigo uppercase tracking-wider">Módulo 02</span>
+                        <h2 class="text-xl font-bold text-slate-900">Código Firmware C++ para ESP32 (Arduino)</h2>
+                        <p class="text-xs text-slate-600 mt-0.5">
+                            Este firmware configura la pila BLE nativa del ESP32 para emitir tramas publicitarias de 31 bytes sin requerir conexión continua.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="aiOptimizeFirmware('low_power')" class="px-3 py-1.5 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-800 text-xs font-mono font-semibold flex items-center gap-1.5 transition-colors border border-purple-200">
+                            <i data-lucide="battery-charging" class="w-3.5 h-3.5"></i> AI: Modo Batería (Deep Sleep)
+                        </button>
+                        <button onclick="aiOptimizeFirmware('encryption')" class="px-3 py-1.5 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-800 text-xs font-mono font-semibold flex items-center gap-1.5 transition-colors border border-indigo-200">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> AI: Añadir Cifrado AES
+                        </button>
+                        <button onclick="copyArduinoCode()" id="btn-copy-code" class="px-3 py-1.5 rounded-lg bg-brand-indigo text-white text-xs font-mono flex items-center gap-1.5 hover:bg-indigo-700 transition-colors">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Código
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Code Customizer Form -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-mono font-bold text-slate-700 mb-1">Nombre de la Baliza (Local Name):</label>
+                        <input type="text" id="cfg-beacon-name" value="ESP32_Tracker_01" oninput="generateArduinoCode()" class="w-full px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs font-mono focus:outline-none focus:border-brand-indigo">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono font-bold text-slate-700 mb-1">Intervalo de Anuncio (ms):</label>
+                        <input type="number" id="cfg-beacon-interval" value="1000" step="100" min="100" max="10000" oninput="generateArduinoCode()" class="w-full px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs font-mono focus:outline-none focus:border-brand-indigo">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono font-bold text-slate-700 mb-1">Clave Pública Efímera (Hex 22B):</label>
+                        <input type="text" id="cfg-public-key" value="8A9B0C1D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6A7B" oninput="generateArduinoCode()" class="w-full px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs font-mono focus:outline-none focus:border-brand-indigo">
+                    </div>
+                </div>
+
+                <!-- Code Block View -->
+                <div class="relative rounded-xl overflow-hidden bg-slate-900 border border-slate-800">
+                    <div class="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800 text-xs font-mono text-slate-400">
+                        <span id="code-filename-label">esp32_ble_beacon.ino</span>
+                        <span class="text-brand-teal flex items-center gap-1.5">
+                            <span id="code-ai-status" class="hidden text-xs text-purple-400 font-sans flex items-center gap-1">
+                                <i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Gemini procesando...
+                            </span>
+                            C++ / Arduino ESP32 BLE
+                        </span>
+                    </div>
+                    <pre class="p-4 text-xs font-mono text-slate-200 overflow-x-auto custom-scrollbar leading-relaxed" id="arduino-code-display">
+                        <!-- Code injected dynamically by JS -->
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-flash" class="space-y-6 hidden">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="mb-6">
+                    <span class="text-xs font-mono font-bold text-brand-teal uppercase tracking-wider">Módulo 03</span>
+                    <h2 class="text-xl font-bold text-slate-900">Guía Pasos de Flasheo e Instalación con Arduino IDE</h2>
+                    <p class="text-xs text-slate-600 mt-1">
+                        Sigue estos pasos detallados para configurar el entorno oficial de desarrollo y cargar el programa en tu placa.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Step 1 -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-brand-indigo text-white font-mono font-bold flex items-center justify-center shrink-0 text-sm">
+                            1
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-sm font-bold text-slate-900">Instalar Arduino IDE 2.x y Soporte para ESP32</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Descarga Arduino IDE desde la web oficial. Abre <i>Archivo &gt; Preferencias</i> e introduce la siguiente URL en <strong>Gestor de URLs Adicionales de Tarjetas</strong>:
+                            </p>
+                            <div class="p-2 bg-white rounded border border-slate-300 font-mono text-[11px] text-slate-800 select-all">
+                                https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-brand-teal text-white font-mono font-bold flex items-center justify-center shrink-0 text-sm">
+                            2
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-sm font-bold text-slate-900">Instalar la Plataforma ESP32 de Espressif</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Ve a <i>Herramientas &gt; Tarjeta &gt; Gestor de Tarjetas</i>, busca <code class="bg-white px-1 py-0.5 rounded border text-[11px]">esp32</code> por Espressif Systems e instálalo.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-brand-amber text-white font-mono font-bold flex items-center justify-center shrink-0 text-sm">
+                            3
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-sm font-bold text-slate-900">Conectar Hardware y Seleccionar Puerto COM</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Conecta tu ESP32 por USB. En Arduino IDE selecciona la tarjeta <strong>ESP32 Dev Module</strong> y elige el puerto serie detectado (ej. <code class="bg-white px-1 py-0.5 rounded border text-[11px]">COM3</code> o <code class="bg-white px-1 py-0.5 rounded border text-[11px]">/dev/ttyUSB0</code>).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-brand-rose text-white font-mono font-bold flex items-center justify-center shrink-0 text-sm">
+                            4
+                        </div>
+                        <div class="space-y-1">
+                            <h3 class="text-sm font-bold text-slate-900">Compilación y Subida (Upload)</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Copia el código generado en la pestaña anterior dentro del editor, pulsa el botón <strong>Subir (&rarr;)</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-workspace" class="space-y-6 hidden">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-slate-100 pb-4">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-brand-amber uppercase tracking-wider">Módulo 04</span>
+                        <h2 class="text-xl font-bold text-slate-900">Entorno Web Serial Interactivo &amp; Telemetría</h2>
+                        <p class="text-xs text-slate-600 mt-0.5">
+                            Monitorea transmisiones en tiempo real, simula la captura de tramas BLE y analiza errores con Gemini IA.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="aiAnalyzeSerialLogs()" id="btn-ai-analyze-logs" class="px-3.5 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs font-mono flex items-center gap-1.5 transition-colors shadow-sm">
+                            <i data-lucide="sparkles"></i> AI: Diagnosticar Logs Serie
+                        </button>
+                        <button onclick="aiSpeakTelemetryReport()" id="btn-ai-speak" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-mono flex items-center gap-1.5 transition-colors shadow-sm">
+                            <i data-lucide="volume-2"></i> Reporte por Voz (TTS)
+                        </button>
+                        <button onclick="connectWebSerial()" id="btn-serial-connect" class="px-3.5 py-1.5 rounded-lg bg-brand-teal text-white text-xs font-mono flex items-center gap-1.5 hover:bg-teal-700 transition-colors">
+                            <i data-lucide="plug"></i> Conectar ESP32 (WebSerial)
+                        </button>
+                        <button onclick="toggleSimulation()" id="btn-sim-toggle" class="px-3.5 py-1.5 rounded-lg bg-slate-800 text-white text-xs font-mono flex items-center gap-1.5 hover:bg-slate-700 transition-colors">
+                            <i data-lucide="play"></i> Simular Tráfico BLE
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Serial Monitor Panel -->
+                    <div class="lg:col-span-7 bg-slate-900 rounded-xl p-4 border border-slate-800 space-y-3 font-mono text-xs flex flex-col h-[420px]">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-2 text-slate-400">
+                            <span class="flex items-center gap-2 text-slate-200 font-bold">
+                                <span id="serial-status-dot" class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+                                Terminal Serie ESP32
+                            </span>
+                            <span id="serial-baud-rate" class="text-[10px]">115200 Baudios</span>
+                        </div>
+
+                        <!-- Logs Container -->
+                        <div id="serial-log-container" class="flex-1 bg-slate-950 rounded-lg p-3 overflow-y-auto space-y-1.5 custom-scrollbar text-slate-300 text-[11px]">
+                            <div class="text-slate-500">// Presiona "Conectar ESP32" o "Simular Tráfico BLE" para iniciar la lectura del puerto serie.</div>
+                        </div>
+
+                        <!-- Command Input -->
+                        <div class="flex gap-2">
+                            <input type="text" id="serial-cmd-input" placeholder="Enviar comando al ESP32 (ej. STATUS, SET_INT 2000)..." class="flex-1 px-3 py-1.5 bg-slate-950 border border-slate-800 rounded text-slate-200 text-xs focus:outline-none focus:border-brand-teal">
+                            <button onclick="sendSerialCommand()" class="px-3 py-1.5 bg-brand-teal hover:bg-teal-700 text-white rounded text-xs">Enviar</button>
+                        </div>
+                    </div>
+
+                    <!-- Telemetry & Live Stats -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                            <h3 class="text-xs font-mono font-bold text-slate-900 uppercase">Telemetría de la Baliza</h3>
+                            
+                            <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+                                <div class="p-3 bg-white rounded-lg border border-slate-200">
+                                    <div class="text-slate-400 text-[10px]">Paquetes Emitidos</div>
+                                    <div class="text-lg font-bold text-brand-indigo mt-0.5" id="stat-pkt-count">0</div>
+                                </div>
+                                <div class="p-3 bg-white rounded-lg border border-slate-200">
+                                    <div class="text-slate-400 text-[10px]">Fuerza Señal (RSSI)</div>
+                                    <div class="text-lg font-bold text-brand-teal mt-0.5" id="stat-rssi">-65 dBm</div>
+                                </div>
+                                <div class="p-3 bg-white rounded-lg border border-slate-200">
+                                    <div class="text-slate-400 text-[10px]">Carga PDU</div>
+                                    <div class="text-lg font-bold text-slate-800 mt-0.5">31 Bytes</div>
+                                </div>
+                                <div class="p-3 bg-white rounded-lg border border-slate-200">
+                                    <div class="text-slate-400 text-[10px]">Estado Radio</div>
+                                    <div class="text-xs font-bold text-emerald-600 mt-1" id="stat-radio-state">ADV_ACTIVE</div>
+                                </div>
+                            </div>
+
+                            <!-- Live RSSI Chart -->
+                            <div class="p-3 bg-white rounded-lg border border-slate-200">
+                                <div class="text-[10px] font-mono text-slate-500 mb-2">Variación del Nivel de Señal RSSI</div>
+                                <div class="h-28">
+                                    <canvas id="rssiChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Log Analysis Output Container -->
+                        <div id="ai-log-analysis-box" class="hidden p-4 rounded-xl bg-purple-50 border border-purple-200 space-y-2 text-xs">
+                            <div class="flex items-center justify-between text-purple-900 font-bold font-mono">
+                                <span class="flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4 text-purple-600"></i> Diagnóstico Gemini AI</span>
+                                <button onclick="document.getElementById('ai-log-analysis-box').classList.add('hidden')" class="text-purple-400 hover:text-purple-700">&times;</button>
+                            </div>
+                            <p id="ai-log-analysis-text" class="text-slate-700 leading-relaxed font-sans text-xs whitespace-pre-line"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-ai" class="space-y-6 hidden">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-slate-100 pb-4">
+                    <div>
+                        <span class="inline-block text-[11px] font-mono font-bold text-purple-700 uppercase tracking-wider px-2 py-0.5 bg-purple-100 rounded-full mb-1">
+                            Powered by Gemini API
+                        </span>
+                        <h2 class="text-xl font-bold text-slate-900">Estudio Copiloto de Inteligencia Artificial</h2>
+                        <p class="text-xs text-slate-600 mt-0.5">
+                            Genera extensiones de firmware personalizadas, analiza el estado del sistema, genera voz sintética y diagramas de hardware.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- AI Grid Tools -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    <!-- Tool 1: Firmware Custom Prompt Generator -->
+                    <div class="p-5 bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-xl space-y-4 border border-indigo-900 shadow-md">
+                        <div class="flex items-center gap-2 border-b border-slate-800 pb-3">
+                            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
+                                <i data-lucide="code" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-slate-100">Generador de Firmware C++ Personalizado</h3>
+                                <p class="text-[11px] text-slate-400">Gemini 3 Flash &bull; Escribe instrucciones en lenguaje natural</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-mono text-slate-300">¿Qué funcionalidad deseas añadir al ESP32 BLE?</label>
+                            <textarea id="ai-custom-code-prompt" rows="3" placeholder="Ejemplo: Agrega la lectura de un sensor BME280 por I2C (temperatura, humedad) e inclúyelos en la trama publicitaria BLE..." class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 focus:outline-none focus:border-purple-500 custom-scrollbar"></textarea>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-1">
+                            <div class="flex gap-2">
+                                <button onclick="setPromptExample('sensor')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-[10px] font-mono text-slate-300">
+                                    + Sensor BME280
+                                </button>
+                                <button onclick="setPromptExample('display')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-[10px] font-mono text-slate-300">
+                                    + Pantalla OLED
+                                </button>
+                            </div>
+
+                            <button onclick="aiGenerateCustomFirmware()" id="btn-ai-gen-code" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-mono font-bold rounded-lg transition-all flex items-center gap-1.5 shadow">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Generar Firmware
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 2: Visual Circuit & Pinout Diagram Generator -->
+                    <div class="p-5 bg-gradient-to-br from-slate-900 to-teal-950 text-white rounded-xl space-y-4 border border-teal-900 shadow-md">
+                        <div class="flex items-center gap-2 border-b border-slate-800 pb-3">
+                            <div class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold">
+                                <i data-lucide="image" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-slate-100">Generador Visual de Esquemas Hardware</h3>
+                                <p class="text-[11px] text-slate-400">Gemini 3.1 Flash Image &bull; Diagrama de conexiones e imagen 3D</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-mono text-slate-300">Descripción del diagrama o circuito deseado:</label>
+                            <input type="text" id="ai-image-prompt" value="Clean electronic pinout diagram of ESP32 WROOM connected to BLE Beacon antenna and LiPo battery module, technical vector art style" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 focus:outline-none focus:border-teal-500">
+                        </div>
+
+                        <div class="flex justify-end pt-1">
+                            <button onclick="aiGenerateHardwareImage()" id="btn-ai-gen-img" class="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white text-xs font-mono font-bold rounded-lg transition-all flex items-center gap-1.5 shadow">
+                                <i data-lucide="wand-2" class="w-3.5 h-3.5"></i> Generar Imagen / Esquema
+                            </button>
+                        </div>
+
+                        <!-- Generated Image Output Container -->
+                        <div id="ai-image-output-box" class="hidden min-h-[160px] bg-slate-950 rounded-lg border border-slate-800 flex flex-col items-center justify-center p-3 text-center">
+                            <div id="ai-image-loader" class="hidden flex flex-col items-center gap-2 py-6">
+                                <i data-lucide="loader-2" class="w-8 h-8 text-teal-400 animate-spin"></i>
+                                <span class="text-xs font-mono text-slate-400">Generando imagen con Gemini 3.1 Flash Image...</span>
+                            </div>
+                            <img id="ai-generated-img" src="" alt="Esquema Hardware" class="hidden max-h-64 rounded border border-slate-800 object-contain shadow-md">
+                        </div>
+                    </div>
+
+                    <!-- Tool 3: AI Code Explanation & Security Audit -->
+                    <div class="p-5 bg-white rounded-xl space-y-3 border border-slate-200 shadow-sm lg:col-span-2">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold">
+                                    <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-sm text-slate-900">Auditoría de Seguridad y Explicación del Código C++</h3>
+                                    <p class="text-xs text-slate-500">Análisis detallado de memoria, buffer overflow, seguridad criptográfica y optimización de antena BLE</p>
+                                </div>
+                            </div>
+
+                            <button onclick="aiAuditFirmwareCode()" id="btn-ai-audit" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-mono font-bold rounded-lg transition-all flex items-center gap-1.5 shadow-sm">
+                                <i data-lucide="search-code" class="w-3.5 h-3.5"></i> Auditar Código Actual
+                            </button>
+                        </div>
+
+                        <div id="ai-audit-output-box" class="p-4 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-700 font-sans leading-relaxed min-h-[80px]">
+                            <p class="text-slate-400 font-mono text-[11px]">// Presiona "Auditar Código Actual" para ejecutar una revisión completa de seguridad y optimización con Gemini 3 Flash.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-backend" class="space-y-6 hidden">
+            <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-sm">
+                <div class="mb-6">
+                    <span class="text-xs font-mono font-bold text-brand-rose uppercase tracking-wider">Módulo 06</span>
+                    <h2 class="text-xl font-bold text-slate-900">Servidor Backend Cloud &amp; API REST</h2>
+                    <p class="text-xs text-slate-600 mt-1">
+                        Código Node.js / Express listo para recibir reportes de las pasarelas, indexar el hash $H(p_i)$ de la clave pública y servir los datos cifrados a la aplicación cliente.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Node.js Express Code -->
+                    <div class="lg:col-span-7 bg-slate-900 rounded-xl p-4 border border-slate-800 font-mono text-xs text-slate-200 overflow-x-auto custom-scrollbar">
+                        <div class="text-brand-amber font-bold mb-2">// server.js - Backend Express API de Relevo BLE</div>
+                        <pre class="text-[11px] leading-relaxed text-slate-300">
+const express = require('express');
+const crypto = require('crypto');
+const app = express();
+app.use(express.json());
+
+// Base de datos en memoria para reportes de ubicación cifrados
+const reportsDB = new Map();
+
+// Endpoint POST: Las pasarelas suben coordenadas cifradas
+app.post('/api/v1/report', (req, res) => {
+    const { keyHash, encryptedPayload, timestamp, rssi } = req.body;
+    
+    if (!keyHash || !encryptedPayload) {
+        return res.status(400).json({ error: 'Parámetros inválidos' });
+    }
+
+    if (!reportsDB.has(keyHash)) {
+        reportsDB.set(keyHash, []);
+    }
+
+    reportsDB.get(keyHash).push({
+        encryptedPayload,
+        timestamp: timestamp || Date.now(),
+        rssi
+    });
+
+    console.log(`[CLOUD] Reporte recibido para Hash H(p_i): ${keyHash.substring(0, 10)}...`);
+    res.status(200).json({ status: 'SUCCESS' });
+});
+
+// Endpoint GET: El propietario consulta los reportes de su baliza
+app.get('/api/v1/reports/:keyHash', (req, res) => {
+    const { keyHash } = req.params;
+    const reports = reportsDB.get(keyHash) || [];
+    res.json({ keyHash, count: reports.length, reports });
+});
+
+app.listen(3000, () => console.log('Servidor Cloud escuchando en puerto 3000'));
+                        </pre>
+                    </div>
+
+                    <!-- Flow Explanation Card -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                            <h3 class="text-xs font-mono font-bold text-slate-900 uppercase">Estructura del Payload POST HTTP</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Cuando una pasarela móvil captura el anuncio del ESP32, empaqueta los datos y realiza la siguiente solicitud JSON cifrada al servidor:
+                            </p>
+
+                            <div class="p-3 bg-white rounded-lg border border-slate-200 font-mono text-[11px] space-y-1">
+                                <div><span class="text-brand-indigo font-bold">"keyHash"</span>: "e3b0c44298fc1c1..."</div>
+                                <div><span class="text-brand-indigo font-bold">"encryptedPayload"</span>: "a9f82c..."</div>
+                                <div><span class="text-brand-indigo font-bold">"timestamp"</span>: 1728130000</div>
+                                <div><span class="text-brand-indigo font-bold">"rssi"</span>: -68</div>
+                            </div>
+
+                            <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-800 font-mono">
+                                <strong>Garantía de Privacidad:</strong> El servidor almacena los datos indexados solo por el hash. Jamás conoce las coordenadas en texto plano ni la identidad del usuario.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-brand-border py-4 px-4 text-center text-xs font-mono text-slate-500 mt-auto">
+        Entorno de Trabajo ESP32 BLE &bull; Gemini AI Powered Dashboard
+    </footer>
+
+    <script>
+        /* Application State */
+        const appState = {
+            beaconName: 'ESP32_Tracker_01',
+            interval: 1000,
+            publicKeyHex: '8A9B0C1D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6A7B',
+            simulationActive: false,
+            simIntervalObj: null,
+            packetCounter: 0,
+            rssiData: [-70, -68, -65, -67, -64, -65],
+            serialPort: null,
+            serialReader: null,
+            serialLogs: []
+        };
+
+        /* Gemini API Helper with Exponential Backoff */
+        async function callGeminiApi(url, payload, retries = 3, delay = 1000) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) {
+                        return await response.json();
+                    }
+                } catch (e) {
+                    if (i === retries - 1) throw e;
+                }
+                await new Promise(res => setTimeout(res, delay * Math.pow(2, i)));
+            }
+            throw new Error("No se pudo establecer conexión con la API de Gemini.");
+        }
+
+        /* Tab Switcher Logic */
+        function switchTab(tabId) {
+            ['roadmap', 'arduino', 'flash', 'workspace', 'ai', 'backend'].forEach(id => {
+                const sec = document.getElementById(`sec-${id}`);
+                const btn = document.getElementById(`tab-btn-${id}`);
+                if (id === tabId) {
+                    sec.classList.remove('hidden');
+                    if (id === 'ai') {
+                        btn.className = 'px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium transition-all shadow-sm flex items-center gap-1.5';
+                    } else {
+                        btn.className = 'px-3 py-1.5 rounded-lg bg-brand-indigo text-white font-medium transition-colors flex items-center gap-1.5';
+                    }
+                } else {
+                    sec.classList.add('hidden');
+                    if (id === 'ai') {
+                        btn.className = 'px-3 py-1.5 rounded-lg bg-purple-100 text-purple-800 hover:bg-purple-200 font-medium transition-colors flex items-center gap-1.5';
+                    } else {
+                        btn.className = 'px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium transition-colors flex items-center gap-1.5';
+                    }
+                }
+            });
+        }
+
+        /* Arduino Code Generator */
+        function generateArduinoCode() {
+            const name = document.getElementById('cfg-beacon-name').value || 'ESP32_Tracker';
+            const interval = document.getElementById('cfg-beacon-interval').value || '1000';
+            const pubKey = document.getElementById('cfg-public-key').value || '8A9B0C1D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6A7B';
+
+            let hexArrayStr = '';
+            for (let i = 0; i < pubKey.length && i < 44; i += 2) {
+                hexArrayStr += `0x${pubKey.substring(i, i+2)}, `;
+            }
+            if (hexArrayStr.endsWith(', ')) hexArrayStr = hexArrayStr.slice(0, -2);
+
+            const code = `#include <Arduino.h>
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEServer.h>
+#include <BLEAdvertising.h>
+
+// Configuración de la Baliza BLE
+#define BEACON_NAME "${name}"
+#define ADV_INTERVAL_MS ${interval}
+
+// Trama de Anuncio Personalizada de 31 Bytes
+uint8_t advertData[] = {
+    0x1E, 0xFF, 0x4C, 0x00, 0x12, 0x19, 0x00,
+    ${hexArrayStr}
+};
+
+BLEAdvertising *pAdvertising;
+
+void setup() {
+    Serial.begin(115200);
+    Serial.println("[ESP32] Inicializando Motor Bluetooth Low Energy...");
+
+    // 1. Inicializar dispositivo BLE
+    BLEDevice::init(BEACON_NAME);
+
+    // 2. Obtener instancia del anunciador
+    pAdvertising = BLEDevice::getAdvertising();
+
+    // 3. Cargar la trama personalizada en la carga util ADV_IND
+    BLEAdvertisementData oAdvertisementData = BLEAdvertisementData();
+    oAdvertisementData.addData(std::string((char*)advertData, sizeof(advertData)));
+    pAdvertising->setAdvertisementData(oAdvertisementData);
+
+    // 4. Configurar intervalo de transmisión
+    pAdvertising->setMinInterval(ADV_INTERVAL_MS / 0.625);
+    pAdvertising->setMaxInterval(ADV_INTERVAL_MS / 0.625);
+
+    // 5. Iniciar emisión
+    pAdvertising->start();
+    Serial.println("[ESP32] Baliza emitida activamente en canales 37, 38 y 39 BLE.");
+}
+
+void loop() {
+    static uint32_t lastLog = 0;
+    if (millis() - lastLog > 5000) {
+        lastLog = millis();
+        Serial.printf("[STATUS] Baliza activa. Uptime: %lu ms\\n", millis());
+    }
+    delay(100);
+}`;
+
+            document.getElementById('arduino-code-display').textContent = code;
+        }
+
+        /* Copy Arduino Code to Clipboard */
+        function copyArduinoCode() {
+            const codeText = document.getElementById('arduino-code-display').textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const btn = document.getElementById('btn-copy-code');
+                btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i> ¡Copiado!`;
+                setTimeout(() => {
+                    btn.innerHTML = `<i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Código`;
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+
+        /* Web Serial API Real Connection */
+        async function connectWebSerial() {
+            if (!("serial" in navigator)) {
+                appendSerialLog("[ERROR] Navegador no soporta Web Serial API. Usa Google Chrome o MS Edge.", "text-rose-400");
+                return;
+            }
+
+            try {
+                appState.serialPort = await navigator.serial.requestPort();
+                await appState.serialPort.open({ baudRate: 115200 });
+
+                document.getElementById('serial-status-dot').className = "w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block";
+                document.getElementById('btn-serial-connect').textContent = "ESP32 Conectado";
+                appendSerialLog("[SISTEMA] Puerto Serie abierto a 115200 baudios. Escuchando datos...", "text-emerald-400");
+
+                const textDecoder = new TextDecoderStream();
+                const readableStreamClosed = appState.serialPort.readable.pipeTo(textDecoder.writable);
+                appState.serialReader = textDecoder.readable.getReader();
+
+                readSerialLoop();
+            } catch (err) {
+                appendSerialLog(`[ERROR] Fallo al abrir puerto serie: ${err.message}`, "text-rose-400");
+            }
+        }
+
+        async function readSerialLoop() {
+            while (true) {
+                const { value, done } = await appState.serialReader.read();
+                if (done) {
+                    appState.serialReader.releaseLock();
+                    break;
+                }
+                if (value) {
+                    appendSerialLog(value, "text-slate-200");
+                }
+            }
+        }
+
+        /* Serial Log Append Helper */
+        function appendSerialLog(text, colorClass = "text-slate-300") {
+            const container = document.getElementById('serial-log-container');
+            const entry = document.createElement('div');
+            entry.className = colorClass;
+            entry.textContent = text;
+            container.appendChild(entry);
+            container.scrollTop = container.scrollHeight;
+
+            appState.serialLogs.push(text);
+            if (appState.serialLogs.length > 50) appState.serialLogs.shift();
+        }
+
+        function sendSerialCommand() {
+            const input = document.getElementById('serial-cmd-input');
+            const val = input.value.trim();
+            if (!val) return;
+            appendSerialLog(`> ${val}`, "text-brand-teal font-bold");
+            input.value = '';
+        }
+
+        /* Simulated BLE Traffic Logic */
+        function toggleSimulation() {
+            appState.simulationActive = !appState.simulationActive;
+            const btn = document.getElementById('btn-sim-toggle');
+
+            if (appState.simulationActive) {
+                btn.innerHTML = `<i data-lucide="square"></i> Detener Simulación`;
+                appendSerialLog("[SIMULACIÓN] Iniciando emisión simulada de la baliza ESP32...", "text-brand-amber");
+                appState.simIntervalObj = setInterval(() => {
+                    appState.packetCounter++;
+                    document.getElementById('stat-pkt-count').textContent = appState.packetCounter;
+
+                    const randomRssi = Math.floor(Math.random() * 10) - 72;
+                    document.getElementById('stat-rssi').textContent = `${randomRssi} dBm`;
+
+                    appendSerialLog(`[ADV_IND PKT #${appState.packetCounter}] MAC: 4A:3B:2C:1D:0E:5F | RSSI: ${randomRssi} dBm | Payload: 0x1EFF4C001219...`, "text-cyan-400");
+
+                    if (rssiChartInstance) {
+                        rssiChartInstance.data.datasets[0].data.push(randomRssi);
+                        if (rssiChartInstance.data.datasets[0].data.length > 10) {
+                            rssiChartInstance.data.datasets[0].data.shift();
+                        }
+                        rssiChartInstance.update();
+                    }
+                }, 1500);
+            } else {
+                btn.innerHTML = `<i data-lucide="play"></i> Simular Tráfico BLE`;
+                clearInterval(appState.simIntervalObj);
+                appendSerialLog("[SIMULACIÓN] Simulación pausada.", "text-slate-400");
+            }
+            lucide.createIcons();
+        }
+
+        /* Chart.js RSSI Realtime Chart */
+        let rssiChartInstance = null;
+
+        function initRssiChart() {
+            const ctx = document.getElementById('rssiChart').getContext('2d');
+            rssiChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['1s', '2s', '3s', '4s', '5s', '6s'],
+                    datasets: [{
+                        label: 'RSSI (dBm)',
+                        data: appState.rssiData,
+                        borderColor: '#0d9488',
+                        backgroundColor: 'rgba(13, 148, 136, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { min: -90, max: -40, ticks: { font: { family: 'JetBrains Mono', size: 9 } } },
+                        x: { ticks: { font: { family: 'JetBrains Mono', size: 9 } } }
+                    }
+                }
+            });
+        }
+
+
+        /* AI Feature 1: Optimize Firmware Code via Gemini 3 Flash */
+        async function aiOptimizeFirmware(mode) {
+            const statusEl = document.getElementById('code-ai-status');
+            statusEl.classList.remove('hidden');
+
+            const currentCode = document.getElementById('arduino-code-display').textContent;
+            let promptText = "";
+
+            if (mode === 'low_power') {
+                promptText = "Modifica este código Arduino C++ para ESP32 BLE implementando Deep Sleep (esp_deep_sleep_start) para optimizar el consumo de batería al máximo. Incluye comentarios claros en español explicando la estrategia de ahorro energético.";
+            } else if (mode === 'encryption') {
+                promptText = "Modifica este código Arduino C++ para ESP32 BLE añadiendo cifrado ligero (mbedtls/aes.h) para proteger los bytes de la carga útil antes de transmitir el anuncio publicitario BLE.";
+            }
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: `${promptText}\n\nCódigo Actual:\n${currentCode}` }]
+                }],
+                systemInstruction: {
+                    parts: [{ text: "Eres un ingeniero experto en firmware C++ para microcontroladores ESP32 y Bluetooth Low Energy. Devuelve el código C++ completo y optimizado envuelto en ```cpp ... ``` con comentarios explicativos en español." }]
+                }
+            };
+
+            try {
+                const result = await callGeminiApi(apiUrl, payload);
+                const responseText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (responseText) {
+                    const cleanCode = responseText.replace(/```cpp/g, '').replace(/```/g, '').trim();
+                    document.getElementById('arduino-code-display').textContent = cleanCode;
+                    document.getElementById('code-filename-label').textContent = mode === 'low_power' ? 'esp32_ble_deepsleep.ino' : 'esp32_ble_encrypted.ino';
+                }
+            } catch (err) {
+                alert("Error al optimizar código con Gemini: " + err.message);
+            } finally {
+                statusEl.classList.add('hidden');
+            }
+        }
+
+        /* AI Feature 2: Custom Firmware Generator from Prompt */
+        async function aiGenerateCustomFirmware() {
+            const userPrompt = document.getElementById('ai-custom-code-prompt').value.trim();
+            if (!userPrompt) {
+                alert("Por favor escribe una indicación para el firmware.");
+                return;
+            }
+
+            const btn = document.getElementById('btn-ai-gen-code');
+            btn.disabled = true;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Generando...`;
+            lucide.createIcons();
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }],
+                systemInstruction: {
+                    parts: [{ text: "Actúa como desarrollador principal de firmware C++ para ESP32 en Arduino IDE. Escribe un programa completo y funcional con librerías estándar (<BLEDevice.h>, <Arduino.h>) satisfaciendo el requerimiento del usuario." }]
+                }
+            };
+
+            try {
+                const result = await callGeminiApi(apiUrl, payload);
+                const codeText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (codeText) {
+                    const cleanCode = codeText.replace(/```cpp/g, '').replace(/```c/g, '').replace(/```/g, '').trim();
+                    document.getElementById('arduino-code-display').textContent = cleanCode;
+                    switchTab('arduino');
+                }
+            } catch (err) {
+                alert("Error al generar código: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Generar Firmware`;
+                lucide.createIcons();
+            }
+        }
+
+        function setPromptExample(type) {
+            const input = document.getElementById('ai-custom-code-prompt');
+            if (type === 'sensor') {
+                input.value = "Agrega lectura del sensor BME280 (I2C) para medir temperatura y presión, e insértalos en el anuncio BLE ADV_IND.";
+            } else if (type === 'display') {
+                input.value = "Agrega soporte para pantalla OLED SSD1306 (128x64) por I2C mostrando el estado de la baliza y el contador de paquetes transmitidos.";
+            }
+        }
+
+        /* AI Feature 3: Diagnostic Serial Logs via Gemini 3 Flash */
+        async function aiAnalyzeSerialLogs() {
+            const box = document.getElementById('ai-log-analysis-box');
+            const textEl = document.getElementById('ai-log-analysis-text');
+            box.classList.remove('hidden');
+            textEl.textContent = "Analizando historial del puerto serie con Gemini AI...";
+
+            const logsSample = appState.serialLogs.join('\n') || "[SIMULADO] [STATUS] Baliza activa. RSSI: -68 dBm. Uptime: 45000 ms";
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: `Analiza las siguientes líneas de log de la consola serie del microcontrolador ESP32 BLE. Identifica la salud del sistema, calidad de la señal RSSI, estabilidad de la pila BLE y proporciona 2 recomendaciones prácticas:\n\nLOGS:\n${logsSample}` }]
+                }]
+            };
+
+            try {
+                const result = await callGeminiApi(apiUrl, payload);
+                const analysisText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                textEl.textContent = analysisText || "No se pudo obtener un diagnóstico.";
+            } catch (err) {
+                textEl.textContent = "Error al diagnosticar logs: " + err.message;
+            }
+        }
+
+
+        /* Helper Functions for Audio PCM to WAV Conversion */
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16Array, sampleRate = 24000) {
+            const numChannels = 1;
+            const bytesPerSample = 2;
+            const blockAlign = numChannels * bytesPerSample;
+            const byteRate = sampleRate * blockAlign;
+            const dataSize = pcm16Array.length * bytesPerSample;
+            const buffer = new ArrayBuffer(44 + dataSize);
+            const view = new DataView(buffer);
+
+            /* RIFF identifier */
+            for (let i = 0; i < 4; i++) view.setUint8(i, "RIFF".charCodeAt(i));
+            /* file length minus 8 */
+            view.setUint32(4, 36 + dataSize, true);
+            /* RIFF type */
+            for (let i = 0; i < 4; i++) view.setUint8(8 + i, "WAVE".charCodeAt(i));
+            /* format chunk identifier */
+            for (let i = 0; i < 4; i++) view.setUint8(12 + i, "fmt ".charCodeAt(i));
+            /* format chunk length */
+            view.setUint32(16, 16, true);
+            /* sample format (1 = PCM) */
+            view.setUint16(20, 1, true);
+            /* channel count */
+            view.setUint16(22, numChannels, true);
+            /* sample rate */
+            view.setUint32(24, sampleRate, true);
+            /* byte rate */
+            view.setUint32(28, byteRate, true);
+            /* block align */
+            view.setUint16(32, blockAlign, true);
+            /* bits per sample */
+            view.setUint16(34, 16, true);
+            /* data chunk identifier */
+            for (let i = 0; i < 4; i++) view.setUint8(36 + i, "data".charCodeAt(i));
+            /* data chunk length */
+            view.setUint32(40, dataSize, true);
+
+            let offset = 44;
+            for (let i = 0; i < pcm16Array.length; i++, offset += 2) {
+                view.setInt16(offset, pcm16Array[i], true);
+            }
+
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        /* AI Feature 4: Spoken Telemetry Report via Gemini 2.5 Flash TTS */
+        async function aiSpeakTelemetryReport() {
+            const btn = document.getElementById('btn-ai-speak');
+            btn.disabled = true;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Sintetizando voz...`;
+            lucide.createIcons();
+
+            const pktCount = appState.packetCounter || 12;
+            const rssiVal = document.getElementById('stat-rssi').textContent || '-65 dBm';
+            const speakPrompt = `Di con un tono profesional e informativo de ingeniería: Reporte de estado de la baliza ESP32. Transmisión BLE activa. Paquetes transmitidos: ${pktCount}. Nivel de señal RSSI actual: ${rssiVal}. Estado del radio: Normal.`;
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: speakPrompt }]
+                }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: "Aoede" }
+                        }
+                    }
+                }
+            };
+
+            try {
+                const result = await callGeminiApi(apiUrl, payload);
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioBase64 = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType || "";
+
+                if (audioBase64) {
+                    const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                    const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 24000;
+                    
+                    const arrayBuffer = base64ToArrayBuffer(audioBase64);
+                    const pcm16 = new Int16Array(arrayBuffer);
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+
+                    const audio = new Audio(audioUrl);
+                    audio.play();
+                } else {
+                    alert("No se recibió fragmento de audio desde la API.");
+                }
+            } catch (err) {
+                alert("Error al generar voz sintética: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i data-lucide="volume-2"></i> Reporte por Voz (TTS)`;
+                lucide.createIcons();
+            }
+        }
+
+
+        /* AI Feature 5: Hardware Schematic & Diagram Image Generation via Gemini 3.1 Flash Image */
+        async function aiGenerateHardwareImage() {
+            const promptText = document.getElementById('ai-image-prompt').value.trim();
+            if (!promptText) {
+                alert("Escribe una descripción para generar el esquema de hardware.");
+                return;
+            }
+
+            const outputBox = document.getElementById('ai-image-output-box');
+            const loader = document.getElementById('ai-image-loader');
+            const imgEl = document.getElementById('ai-generated-img');
+            const btn = document.getElementById('btn-ai-gen-img');
+
+            outputBox.classList.remove('hidden');
+            loader.classList.remove('hidden');
+            imgEl.classList.add('hidden');
+            btn.disabled = true;
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: promptText }]
+                }],
+                generationConfig: {
+                    responseModalities: ['IMAGE'],
+                    imageConfig: { aspectRatio: "16:9" }
+                }
+            };
+
+            try {
+                const result = await callGeminiApi(apiUrl, payload);
+                const part = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+                if (part && part.inlineData) {
+                    const imgUrl = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+                    imgEl.src = imgUrl;
+                    imgEl.classList.remove('hidden');
+                } else {
+                    alert("No se pudo generar la imagen.");
+                }
+            } catch (err) {
+                alert("Error al generar imagen con Gemini: " + err.message);
+            } finally {
+                loader.classList.add('hidden');
+                btn.disabled = false;
+            }
+        }
+
+        /* AI Feature 6: Code Security Audit */
+        async function aiAuditFirmwareCode() {
+            const auditBox = document.getElementById('ai-audit-output-box');
+            auditBox.innerHTML = `<div class="flex items-center gap-2 font-mono text-slate-500"><i data-lucide="loader-2" class="w-4 h-4 animate-spin text-amber-600"></i> Auditando código C++ con Gemini 3 Flash...</div>`;
+            lucide.createIcons();
+
+            const currentCode = document.getElementById('arduino-code-display').textContent;
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: `Realiza un análisis de seguridad, uso de memoria RAM y rendimiento de antena BLE para el siguiente código C++ de ESP32. Proporciona una respuesta en viñetas formateada en HTML (<ul class="list-disc pl-4 space-y-1"><li>...</li></ul>):\n\n${currentCode}` }]
+                }]
+            };
+
+            try {
+                const result = await callGeminiApi(apiUrl, payload);
+                const auditHtml = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                auditBox.innerHTML = auditHtml || "No se obtuvieron resultados de la auditoría.";
+            } catch (err) {
+                auditBox.innerHTML = `<span class="text-rose-600 font-mono">Error al auditar: ${err.message}</span>`;
+            }
+        }
+
+        /* Init on Load */
+        window.onload = function() {
+            lucide.createIcons();
+            generateArduinoCode();
+            initRssiChart();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿==========================================
+ RUNEFORGE - ORQUESTADOR DE INSTANCIAS
+==========================================
+
+[1] Ruta del proyecto establecida: C:\RUNEFORGE_V2_CORE
+
+[2] VERIFICANDO E INSTALANDO DEPENDENCIAS DEL SISTEMA...
+   [INFO] Instalando Ollama (si no existe)...
+   [INFO] Instalando Redis (si no existe)...
+   [OK] Instalación de dependencias verificada.
+[3] ARRANCANDO SERVICIO DE REDIS...
+   [ERROR] No se pudo iniciar Redis. Asegúrate de que esté instalado.
+[4] ARRANCANDO OLLAMA Y DESCARGANDO MODELOS...
+   [PULL] Descargando qwen2.5:1.5b (esto puede tardar varios minutos)...
+       [OK] qwen2.5:1.5b descargado exitosamente.
+   [PULL] Descargando gemma2:2b (esto puede tardar varios minutos)...
+       [OK] gemma2:2b descargado exitosamente.
+   [PULL] Descargando nomic-embed-text (esto puede tardar varios minutos)...
+       [OK] nomic-embed-text descargado exitosamente.
+   [PULL] Descargando deepseek-coder (esto puede tardar varios minutos)...
+       [OK] deepseek-coder descargado exitosamente.
+   [OK] Todos los modelos han sido procesados.
+[5] ARRANCANDO EL SERVIDOR FASTIFY...
+   [OK] Servidor lanzado en una nueva ventana (Puerto 3000).
+   [INFO] Abre tu navegador en http://localhost:3000
+
+==========================================
+ ORQUESTACIÓN COMPLETADA
+==========================================
+
+✅ Instancias levantadas correctamente:
+   - Redis (Colas) en puerto 6379
+   - Ollama (Modelos IA) en puerto 11434
+   - Tu Backend Fastify en puerto 3000
+
+🔴 ATENCIÓN: No cierres las ventanas negras de PowerShell.
+   Todo está corriendo en segundo plano.
+

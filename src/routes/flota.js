@@ -1,0 +1,50 @@
+'use strict'
+module.exports = async function(fastify){
+  const FLOTA='http://127.0.0.1:8000'
+  const LLM='http://127.0.0.1:3100'
+  async function pf(url,opts){
+    const c=new AbortController()
+    const t=setTimeout(()=>c.abort(),15000)
+    try{
+      const r=await fetch(url,{...opts,signal:c.signal})
+      const txt=await r.text()
+      let d
+      try{ d=JSON.parse(txt) }catch{ d={raw:txt} }
+      const x = r.status>=200 && r.status<300
+      return {s:r.status,d:d,x:x}
+    } finally {
+      clearTimeout(t)
+    }
+  }
+  fastify.get('/api/flota/health', async ()=>({runeforge:'UP 3001',flotakw:'check 8000',fusion:'SOBERANA WAL'}))
+  fastify.get('/api/flota/unidades', async (req,reply)=>{
+    const qs=new URLSearchParams(req.query).toString()
+    const url = qs ? `${FLOTA}/unidades?${qs}` : `${FLOTA}/unidades`
+    const r=await pf(url)
+    return reply.status(r.s).send(r.d)
+  })
+  fastify.get('/api/flota/unidades/:codigo', async (req,reply)=>{
+    const r=await pf(`${FLOTA}/unidades/${encodeURIComponent(req.params.codigo)}`)
+    return reply.status(r.s).send(r.d)
+  })
+  fastify.get('/api/flota/tecnicos', async (req,reply)=>{
+    const r=await pf(`${FLOTA}/tecnicos`)
+    return reply.status(r.s).send(r.d)
+  })
+  fastify.get('/api/flota/stats', async (req,reply)=>{
+    const r=await pf(`${FLOTA}/stats`)
+    return reply.status(r.s).send(r.d)
+  })
+  fastify.post('/api/flota/alta', async (req,reply)=>{
+    const trace=req.id
+    const {codigo,mac,tecnico,gps_marca_modelo}=req.body
+    let llm=null
+    try{
+      const lr=await pf(`${LLM}/api/chat`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:`Valida MAC ${mac} ${codigo}`,model:'qwen2.5:1.5b',stream:false,trace_id:trace})})
+      if(lr.x) llm=lr.d
+    }catch{}
+    const fr=await pf(`${FLOTA}/alta`,{method:'POST',headers:{'Content-Type':'application/json','X-Trace-Id':trace},body:JSON.stringify({codigo,mac,tecnico,gps_marca_modelo})})
+    if(!fr.x) return reply.status(fr.s).send({error:'FlotaKW fallo',trace_id:trace,detalle:fr.d,llm})
+    return reply.send({...fr.d,proxy:'runeforge-3001',trace_id:trace,llm,soberano:true})
+  })
+}

@@ -1,0 +1,35 @@
+server_url: http://192.168.100.12:8080
+listen_addr: 0.0.0.0:8080
+metrics_listen_addr: 0.0.0.0:9090
+grpc_listen_addr: 0.0.0.0:50443
+grpc_allow_insecure: true
+private_key_path: /etc/headscale/data/private.key
+noise:
+  private_key_path: /etc/headscale/data/noise_private.key
+prefixes:
+  v4: 100.64.0.0/10
+  v6: fd7a:115c:a1e0::/48
+  allocation: sequential
+derp:
+  server:
+    enabled: true
+    region_id: 999
+    region_code: runeforge
+    region_name: Runeforge DERP
+    stun_listen_addr: "0.0.0.0:3478"
+    private_key_path: /etc/headscale/data/derp_server_private.key
+disable_check_updates: true
+database:
+  type: sqlite3
+  sqlite:
+    path: /etc/headscale/data/db.sqlite
+dns:
+  magic_dns: false
+  base_domain: runeforge.local
+  nameservers:
+    global:
+      - 1.1.1.1
+      - 8.8.8.8
+log:
+  level: info
+  format: text

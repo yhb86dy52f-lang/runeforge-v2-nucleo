@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SEPCOLGPS NEXUS - V22 GRAFICAS</title>
+<style>
+  :root {
+    --bg-base: #030508;
+    --neon-green: #3dd598;
+    --neon-red: #ff4757;
+    --neon-blue: #2d6cdf;
+    --neon-cyan: #5eead4;
+    --text-main: #e2e8f0;
+    --text-muted: #7a869e;
+    --panel-bg: rgba(10, 16, 30, 0.75);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: var(--bg-base);
+    background-image: radial-gradient(circle at 10% 20%, rgba(45, 108, 223, 0.15), transparent 30%),
+                      radial-gradient(circle at 90% 80%, rgba(61, 213, 152, 0.1), transparent 30%);
+    color: var(--text-main);
+    font-family: ui-monospace, monospace;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+  }
+  .glass {
+    background: var(--panel-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 16px; }
+  
+  .header { padding: 20px; text-align: center; }
+  .header h1 { font-size: 20px; font-weight: 900; color: white; text-shadow: 0 0 15px var(--neon-green); }
+  .header p { font-size: 10px; color: var(--text-muted); letter-spacing: 0.2em; margin-top: 4px; }
+
+  .tabs { display: flex; gap: 4px; padding: 4px; border-radius: 16px; background: rgba(0,0,0,0.4); flex-wrap: wrap; }
+  .tab-btn { flex: 1; padding: 10px; border-radius: 12px; border: none; font-weight: 700; font-size: 11px; cursor: pointer; background: transparent; color: var(--text-muted); }
+  .tab-btn.active { background: var(--neon-green); color: black; }
+
+  .input-group { display: flex; flex-direction: column; gap: 8px; }
+  textarea { width: 100%; height: 100px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); border-radius: 12px; padding: 12px; font-family: inherit; font-size: 11px; outline: none; resize: none; }
+  .btn { padding: 10px; border-radius: 12px; border: none; font-weight: 700; font-size: 11px; cursor: pointer; }
+  .btn-primary { background: var(--neon-green); color: black; }
+  .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); }
+  
+  .db-controls { display: flex; gap: 8px; margin-bottom: 12px; }
+  .history-list { display: flex; flex-direction: column; gap: 8px; max-height: 300px; overflow-y: auto; }
+  .history-item { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); font-size: 11px; }
+  .history-time { color: var(--text-muted); font-size: 9px; }
+  .history-status { color: white; margin-top: 4px; font-weight: 700; }
+  
+  .badge { padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 700; }
+  .badge-CT { background: rgba(61,213,152,0.15); color: var(--neon-green); }
+  .badge-KW { background: rgba(45,108,223,0.15); color: var(--neon-blue); }
+  .badge-R0 { background: rgba(94,234,212,0.15); color: var(--neon-cyan); }
+
+  /* GRAPHICS MODULE */
+  .chart-wrapper { width: 100%; height: 250px; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  canvas { width: 100%; height: 100%; }
+  .chart-legend { display: flex; gap: 12px; justify-content: center; margin-top: 8px; font-size: 10px; color: var(--text-muted); }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="glass header">
+    <h1>NEXUS TACTICAL V22</h1>
+    <p>MOTOR DE GRÁFICAS CANVAS</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('diag', this)">DIAG</button>
+    <button class="tab-btn" onclick="switchTab('db', this)">DB</button>
+    <button class="tab-btn" onclick="switchTab('charts', this)">GRÁFICAS</button>
+  </div>
+
+  <!-- DIAGNOSTICO -->
+  <div id="tab-diag" class="glass" style="padding: 16px; display: flex; flex-direction: column; gap: 16px;">
+    <div class="input-group">
+      <textarea id="inputText" placeholder="Pega trama CT, KW o R0..." oninput="processInput()"></textarea>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-primary" style="flex:1" onclick="saveCurrentToDB()">GUARDAR EN DB</button>
+        <button class="btn btn-secondary" style="flex:1" onclick="clearInput()">LIMPIAR</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BASE DE DATOS -->
+  <div id="tab-db" class="glass hidden" style="padding: 16px;">
+    <div class="db-controls">
+      <input type="text" id="dbSearch" class="db-search" placeholder="Buscar..." oninput="renderDB()" style="flex:1; padding:8px; border-radius:8px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:white;">
+      <button class="btn btn-secondary" onclick="exportToCSV()">CSV</button>
+    </div>
+    <div id="historyList" class="history-list"></div>
+  </div>
+
+  <!-- GRAFICAS -->
+  <div id="tab-charts" class="glass hidden" style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:10px; color:var(--text-muted);">EVOLUCIÓN HISTÓRICA</span>
+      <select id="chartMetric" onchange="drawChart()" style="background:rgba(0,0,0,0.4); color:white; border:1px solid rgba(255,255,255,0.1); padding:4px; border-radius:8px; font-size:11px;">
+        <option value="volt">Voltaje Unidad (CT)</option>
+        <option value="fuel">Nivel Combustible (KW)</option>
+      </select>
+    </div>
+
+    <div class="chart-wrapper">
+      <canvas id="chartCanvas" width="400" height="250"></canvas>
+    </div>
+
+    <div class="chart-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--neon-green)"></div> Datos Reales</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,0.1)"></div> Cuadrícula</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ==========================================
+  // 1. LÓGICA DE DECODIFICACIÓN
+  // ==========================================
+  function decodeData(input) {
+    let val = input.trim();
+    if (!val) return null;
+    
+    // CT HEX
+    if (!val.includes('accum_') && !val.includes('APP:') && val.replace(/[^0-9A-F]/gi,'').length > 20) {
+      let clean = val.toUpperCase().replace(/[^0-9A-F]/g, '');
+      if (clean.length % 2 === 1) clean = '0' + clean;
+      
+      const bytes = [];
+      for (let i = 0; i < clean.length; i += 2) bytes.push(parseInt(clean.substr(i, 2), 16));
+      const u16 = [];
+      for (let i = 0; i < bytes.length - 1; i += 2) u16.push((bytes[i] << 8) | bytes[i + 1]);
+
+      const voltU = u16.filter(v => v >= 10000 && v <= 16000).pop() || 0;
+      
+      return { type: 'CT', status: 'Trama CT', raw: val, valToGraph: voltU / 1000 };
+    }
+    // KW TEXT
+    else if (val.includes('accum_')) {
+      let m = val.match(/accum_0\s*=\s*(-?\d+)/i);
+      let volt = m ? parseInt(m[1]) / 1000 : 0;
+      let fuelM = val.match(/esc_lev_0\s*=\s*(-?\d+)/i);
+      let fuel = fuelM ? (parseInt(fuelM[1]) / 4095) * 100 : 0;
+      
+      return { type: 'KW', status: 'Trama KW', raw: val, valToGraph: fuel };
+    }
+    return { type: 'R0', status: 'Trama R0', raw: val, valToGraph: 0 };
+  }
+
+  // ==========================================
+  // 2. INDEXEDDB
+  // ==========================================
+  let db;
+  const DB_NAME = 'RuneforgeTelemetryDB';
+  const STORE_NAME = 'tramas';
+
+  function initDB() {
+    const request = indexedDB.open(DB_NAME, 1);
+    request.onupgradeneeded = function(e) {
+      db = e.target.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        let store = db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+      }
+    };
+    request.onsuccess = function(e) {
+      db = e.target.result;
+      renderDB();
+    };
+  }
+
+  let lastDecoded = null;
+
+  function processInput() {
+    const val = document.getElementById('inputText').value;
+    lastDecoded = decodeData(val);
+    // UI logic here for status if needed
+  }
+
+  function saveCurrentToDB() {
+    if (!lastDecoded || !db) return;
+    
+    const transaction = db.transaction([STORE_NAME], 'readwrite');
+    const store = transaction.objectStore(STORE_NAME);
+    
+    const record = {
+      type: lastDecoded.type,
+      status: lastDecoded.status,
+      raw: lastDecoded.raw,
+      valToGraph: lastDecoded.valToGraph,
+      timestamp: new Date().toISOString()
+    };
+
+    store.add(record).onsuccess = () => {
+      alert('Dato guardado. Ve a Gráficas.');
+      renderDB();
+    };
+  }
+
+  function renderDB() {
+    if (!db) return;
+    const list = document.getElementById('historyList');
+    const transaction = db.transaction([STORE_NAME], 'readonly');
+    const store = transaction.objectStore(STORE_NAME);
+    
+    store.getAll().onsuccess = (e) => {
+      let data = e.target.result || [];
+      data.sort((a, b) => b.id - a.id); // Recientes primero
+
+      if (data.length === 0) {
+        list.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-muted)">Base de datos vacía</div>';
+        return;
+      }
+
+      list.innerHTML = data.map(item => `
+        <div class="history-item">
+          <div style="display:flex; justify-content:space-between;">
+            <span class="history-time">${new Date(item.timestamp).toLocaleString()}</span>
+            <span class="badge badge-${item.type}">${item.type}</span>
+          </div>
+          <div class="history-status">${item.status} (${item.valToGraph.toFixed(2)})</div>
+        </div>
+      `).join('');
+    };
+  }
+
+  // ==========================================
+  // 3. CANVAS CHARTS ENGINE
+  // ==========================================
+  function drawChart() {
+    if (!db) return;
+    const canvas = document.getElementById('chartCanvas');
+    const ctx = canvas.getContext('2d');
+    const metric = document.getElementById('chartMetric').value;
+
+    const w = canvas.width;
+    const h = canvas.height;
+    
+    // Limpiar
+    ctx.clearRect(0, 0, w, h);
+
+    const transaction = db.transaction([STORE_NAME], 'readonly');
+    const store = transaction.objectStore(STORE_NAME);
+    
+    store.getAll().onsuccess = (e) => {
+      let allData = e.target.result || [];
+      
+      // Filtrar por tipo según la métrica seleccionada
+      let data = allData.filter(d => {
+        if (metric === 'volt') return d.type === 'CT';
+        if (metric === 'fuel') return d.type === 'KW';
+        return false;
+      });
+
+      if (data.length < 2) {
+        ctx.fillStyle = '#7a869e';
+        ctx.font = '12px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('Se necesitan al menos 2 datos', w/2, h/2);
+        return;
+      }
+
+      // Ordenar por ID (tiempo)
+      data.sort((a, b) => a.id - b.id);
+
+      // Encontrar min/max para escalar
+      let maxVal = Math.max(...data.map(d => d.valToGraph));
+      let minVal = Math.min(...data.map(d => d.valToGraph));
+      
+      // Dar un margen
+      maxVal = maxVal + (maxVal * 0.1);
+      minVal = Math.max(0, minVal - (minVal * 0.1));
+      
+      if (maxVal === minVal) maxVal = minVal + 1;
+
+      // Dibujar Cuadrícula
+      ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let i = 0; i <= 4; i++) {
+        let y = h - (i / 4) * h;
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+      }
+      ctx.stroke();
+
+      // Dibujar línea
+      ctx.strokeStyle = metric === 'volt' ? '#3dd598' : '#2d6cdf';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      
+      let stepX = w / (data.length - 1);
+      
+      data.forEach((d, i) => {
+        let x = i * stepX;
+        // Normalizar Y (0 abajo, h arriba)
+        let normY = (d.valToGraph - minVal) / (maxVal - minVal);
+        let y = h - (normY * h);
+        
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Dibujar puntos
+      ctx.fillStyle = '#fff';
+      data.forEach((d, i) => {
+        let x = i * stepX;
+        let normY = (d.valToGraph - minVal) / (maxVal - minVal);
+        let y = h - (normY * h);
+        
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = metric === 'volt' ? '#3dd598' : '#2d6cdf';
+        ctx.stroke();
+      });
+
+      // Etiquetas Max/Min
+      ctx.fillStyle = '#7a869e';
+      ctx.font = '10px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText(maxVal.toFixed(2), 5, 12);
+      ctx.fillText(minVal.toFixed(2), 5, h - 5);
+    };
+  }
+
+  // ==========================================
+  // 4. UTILIDADES Y UI
+  // ==========================================
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.container > div[id^="tab-"]').forEach(d => d.classList.add('hidden'));
+    document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+    if (tabId === 'db') renderDB();
+    if (tabId === 'charts') drawChart();
+  }
+
+  function clearInput() {
+    document.getElementById('inputText').value = '';
+  }
+
+  function exportToCSV() {
+    alert('Módulo CSV ya incluido en V21. Usa la pestaña DB.');
+  }
+
+  initDB();
+  document.getElementById('inputText').value = "E4672144079FFFFFF0100006AD7AD6F6AD7AD6F0F39DD9EC24A588B00000002005C11000014FFAB8F070700FFFF0400002C0E00000FE400003E7000003E70";
+</script>
+</body>
+</html>

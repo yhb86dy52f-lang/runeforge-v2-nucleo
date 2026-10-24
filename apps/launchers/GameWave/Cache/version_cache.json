@@ -1,0 +1,18 @@
+{
+  "RadzPrower/Super-Metroid-Launcher": {
+    "Version": "v1.0",
+    "LastChecked": "2026-10-18T19:49:19.8592277Z",
+    "ETag": "\u00220e8a165b4ad83a7ce763491e41cc99b8ecfa2f777b5f29bd896fbed3b0f40a8e\u0022",
+    "CachedRelease": {
+      "tag_name": "v1.0",
+      "assets": [
+        {
+          "name": "Super_Metroid_Launcher_v1-0.zip",
+          "browser_download_url": "https://github.com/RadzPrower/Super-Metroid-Launcher/releases/download/v1.0/Super_Metroid_Launcher_v1-0.zip"
+        }
+      ],
+      "prerelease": false
+    },
+    "LastUpdateCheck": "2026-10-18T19:49:19.859285Z"
+  }
+}

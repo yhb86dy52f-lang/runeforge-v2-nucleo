@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Técnico - Integración Escort TD-BLE con CalAmp LMU-2630MB</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 2rem; background: #f8f9fa; }
+        .container { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1, h2, h3 { color: #1a237e; border-bottom: 2px solid #e0e0e0; padding-bottom: 0.5rem; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #e3f2fd; }
+        .warning { background: #fff3cd; border-left: 5px solid #ffc107; padding: 1rem; margin: 1rem 0; }
+        .success { background: #d4edda; border-left: 5px solid #28a745; padding: 1rem; margin: 1rem 0; }
+        code { background: #eee; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: 'Courier New', monospace; }
+        pre { background: #263238; color: #fff; padding: 1rem; border-radius: 5px; overflow-x: auto; }
+        .tabs { display: flex; border-bottom: 2px solid #ccc; margin-top: 2rem; }
+        .tab-btn { background: none; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; color: #666; }
+        .tab-btn.active { border-bottom: 3px solid #1a237e; color: #1a237e; }
+        .tab-content { display: none; padding-top: 1rem; }
+        .tab-content.active { display: block; }
+        .copy-btn { background: #1a237e; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; float: right; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Informe Técnico de Integración de Telemetría</h1>
+    <p><strong>Proyecto:</strong> Puente de datos entre sensor Escort TD-BLE y rastreador CalAmp LMU-2630MB.</p>
+    <p><strong>Estado:</strong> Documentación verificada y validada. Pendiente de extracción de UUIDs mediante nRF Connect.</p>
+
+    <div class="success">
+        <strong>✅ Verificación de hardware confirmada:</strong> El rastreador CalAmp LMU-2630MB tiene capacidad BLE nativa y el sensor Escort TD-BLE emite paquetes en modo <strong>Advertising</strong> (sin necesidad de emparejamiento GATT complejo), lo cual es la base para una integración robusta y de bajo consumo.
+    </div>
+
+    <div class="warning">
+        <strong>⚠️ ADVERTENCIA CRÍTICA DE FIRMWARE:</strong> El sensor de tu flota (SN: 260463959191, MAC: D1:6D:2A:5B:BE:07) pertenece a la <strong>carcasa de diseño anterior</strong> (anterior al SN 268489). <br>
+        <strong>NO UTILICES EL FIRMWARE 1.4.0</strong> en este sensor, ya que está diseñado exclusivamente para las nuevas carcasas. La versión estable y segura para tu sensor es la <strong>1.3.9</strong>.
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('tab1')">Resumen Ejecutivo</button>
+        <button class="tab-btn" onclick="openTab('tab2')">Datos & Calibración (CSV/JSON)</button>
+        <button class="tab-btn" onclick="openTab('tab3')">Configuración DMC (CalAmp)</button>
+        <button class="tab-btn" onclick="openTab('tab4')">Comandos SMS & PWSH</button>
+    </div>
+
+    <!-- Tab 1: Resumen -->
+    <div id="tab1" class="tab-content active">
+        <h2>1. Resumen Ejecutivo de la Arquitectura</h2>
+        <p>Se ha descartado el uso de soluciones externas basadas en ESP32 para el entorno vehicular, debido a los altos riesgos de interferencia electromagnética con el GPS y la falta de certificación automotriz.</p>
+        <p><strong>Arquitectura Final Elegida:</strong></p>
+        <ul>
+            <li><strong>Sensor:</strong> Escort TD-BLE (BLE 4.0, Modo Advertising).</li>
+            <li><strong>Puente:</strong> <em>Sin hardware extra.</em> El LMU-2630MB lee directamente los paquetes BLE.</li>
+            <li><strong>Procesamiento:</strong> El rastreador lee el valor ADC (1-4095) y lo envía al servidor.</li>
+            <li><strong>Calibración:</strong> El servidor o el sensor (aplicando la tabla de 28 puntos) convierten el ADC a litros reales.</li>
+        </ul>
+
+        <h3>Tabla de datos técnicos verificados</h3>
+        <table>
+            <thead>
+                <tr><th>Parámetro</th><th>Valor</th><th>Fuente</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Modelo del Sensor</td><td>Escort TD-BLE</td><td>Etiqueta del equipo</td></tr>
+                <tr><td>Número de Serie (SN)</td><td>260463959191</td><td>Etiqueta del equipo</td></tr>
+                <tr><td>Dirección MAC</td><td>D1:6D:2A:5B:BE:07</td><td>Etiqueta del equipo</td></tr>
+                <tr><td>Grado de Protección</td><td>IP69S</td><td>Etiqueta del equipo</td></tr>
+                <tr><td>Protocolo BLE</td><td>BLE 4.0 / Modo Advertising (Broadcast)</td><td>Wiki Escort & docs</td></tr>
+                <tr><td>Intervalo de Publicidad</td><td>3000 ms (3 segundos) para FW 1.3.4+</td><td>Documento Firmware Description</td></tr>
+                <tr><td>Firmware Máximo Seguro</td><td>1.3.9 (No usar 1.4.0)</td><td>Documento Firmware Description (Punto 1.4.0)</td></tr>
+                <tr><td>Rango ADC Base</td><td>1 - 4095 (o 1 - 1023 configurable)</td><td>Wiki Escort & Configurador</td></tr>
+                <tr><td>Modelo Rastreador</td><td>CalAmp LMU-2630MB</td><td>Fotos del equipo (FCC: APV-2630MB)</td></tr>
+                <tr><td>Capacidad BLE del Rastreador</td><td>Sí, símbolo BLE en etiqueta</td><td>Etiqueta del equipo</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Flujo de trabajo recomendado</h3>
+        <ol>
+            <li>Extraer las UUIDs exactas de publicidad usando la aplicación <code>nRF Connect</code> en un teléfono Android (paso obligatorio).</li>
+            <li>En el DMC de CalAmp, configurar la opción <strong>"BLE Custom"</strong> con la MAC y UUIDs descubiertas.</li>
+            <li>Configurar el puerto <strong>IO: Fuel Level</strong> para que reciba el dato del offset de bytes correspondiente.</li>
+            <li>Si se prefiere que el sensor envíe litros directamente, cargar el archivo CSV en la app Escort Configurator (función "Convertir en litros").</li>
+        </ol>
+    </div>
+
+    <!-- Tab 2: Datos & Calibración -->
+    <div id="tab2" class="tab-content">
+        <h2>2. Tabla de Calibración Fina (CSV y JSON)</h2>
+        <p>Los siguientes datos representan la tabla de 28 puntos extraída y validada del archivo <code>Calibración matemática TD_959191.csv</code> del usuario, depurada de las filas vacías (0,0) del final.</p>
+        <p><em>Nota: Las unidades de la columna "Volumen" (Litros o Galones) dependen de la selección en el configurador de Escort.</em></p>
+        
+        <button class="copy-btn" onclick="copyCSV()">Copiar CSV</button>
+        <pre id="csv-data">ADC_Raw,Volumen
+1,1
+153,8
+305,20
+458,34
+611,50
+763,68
+916,88
+1069,109
+1221,130
+1374,152
+1527,175
+1679,199
+1832,222
+1985,246
+2137,270
+2290,294
+2443,318
+2595,341
+2748,364
+2901,386
+3053,407
+3206,427
+3359,447
+3511,464
+3664,480
+3817,494
+3969,505
+4095,511</pre>
+
+        <button class="copy-btn" onclick="copyJSON()">Copiar JSON</button>
+        <pre id="json-data">{
+  "sensor_model": "ESCORT TD-BLE",
+  "serial_number": "260463959191",
+  "mac_address": "D1:6D:2A:5B:BE:07",
+  "advertising_interval_ms": 3000,
+  "firmware_compatible_version": "1.3.9",
+  "calibration_points": [
+    {"adc": 1, "volume": 1},
+    {"adc": 153, "volume": 8},
+    {"adc": 305, "volume": 20},
+    {"adc": 458, "volume": 34},
+    {"adc": 611, "volume": 50},
+    {"adc": 763, "volume": 68},
+    {"adc": 916, "volume": 88},
+    {"adc": 1069, "volume": 109},
+    {"adc": 1221, "volume": 130},
+    {"adc": 1374, "volume": 152},
+    {"adc": 1527, "volume": 175},
+    {"adc": 1679, "volume": 199},
+    {"adc": 1832, "volume": 222},
+    {"adc": 1985, "volume": 246},
+    {"adc": 2137, "volume": 270},
+    {"adc": 2290, "volume": 294},
+    {"adc": 2443, "volume": 318},
+    {"adc": 2595, "volume": 341},
+    {"adc": 2748, "volume": 364},
+    {"adc": 2901, "volume": 386},
+    {"adc": 3053, "volume": 407},
+    {"adc": 3206, "volume": 427},
+    {"adc": 3359, "volume": 447},
+    {"adc": 3511, "volume": 464},
+    {"adc": 3664, "volume": 480},
+    {"adc": 3817, "volume": 494},
+    {"adc": 3969, "volume": 505},
+    {"adc": 4095, "volume": 511}
+  ],
+  "total_calibration_points": 28
+}</pre>
+    </div>
+
+    <!-- Tab 3: Configuración DMC -->
+    <div id="tab3" class="tab-content">
+        <h2>3. Configuración del DMC de CalAmp (Integración BLE Nativa)</h2>
+        <div class="warning">
+            <strong>CRÍTICO:</strong> El usuario debe descargar la aplicación <strong>nRF Connect</strong> en su teléfono, conectarse al sensor (MAC <code>D1:6D:2A:5B:BE:07</code>) y anotar el <strong>Service UUID</strong> y <strong>Characteristic UUID</strong> de la pestaña GATT. El documento "Firmware description" no contiene estas UUIDs.
+        </div>
+
+        <h3>Pasos a seguir en el DMC Configurator de CalAmp:</h3>
+        <ol>
+            <li><strong>Conexión:</strong> Conectar el LMU-2630MB al PC vía USB y abrir el DMC Configurator.</li>
+            <li><strong>Menú Bluetooth:</strong> Navegar a la pestaña de <code>Bluetooth 4.0</code> o <code>BLE Settings</code>.</li>
+            <li><strong>Modo Custom BLE:</strong> Habilitar la casilla "Enable" para el BLE Custom.</li>
+            <li><strong>Ingresar datos del sensor:</strong>
+                <ul>
+                    <li><strong>MAC Address:</strong> <code>D1:6D:2A:5B:BE:07</code></li>
+                    <li><strong>Service UUID (Obtenido de nRF):</strong> <code>[PEGAR_UUID_DEL_SERVICIO_AQUÍ]</code></li>
+                    <li><strong>Characteristic UUID (Obtenido de nRF):</strong> <code>[PEGAR_UUID_DE_LA_CARACTERÍSTICA_AQUÍ]</code></li>
+                    <li><strong>Data Offset (Interpretación de bytes):</strong> Buscar en la documentación faltante o usar nRF Connect para verificar qué bytes corresponden al ADC. (Normalmente Bytes 0 y 1 o 2 y 3).</li>
+                </ul>
+            </li>
+            <li><strong>Mapeo de datos:</strong> Asignar el valor extraído a la E/S <code>IO: Fuel Level</code>.</li>
+            <li><strong>Guardar:</strong> Presionar "Save to Device" y esperar el reinicio.</li>
+        </ol>
+    </div>
+
+    <!-- Tab 4: SMS y PWSH -->
+    <div id="tab4" class="tab-content">
+        <h2>4. Comandos SMS de Configuración Remota y Herramientas</h2>
+        <h3>Método de configuración remota vía SMS (Flota)</h3>
+        <p>Una vez que se haya creado un archivo de configuración (.cfg) con los parámetros del paso anterior, se puede desplegar a la flota utilizando el comando SMS de CalAmp.</p>
+        <pre><code>[Tu_Contraseña_de_Configuración],cfgload</code></pre>
+        <p><em>Ejemplo práctico:</em> Si la contraseña es <code>1234</code>, el SMS debe ser <code>1234,cfgload</code>. El rastreador descargará la configuración desde la nube y aplicará los parámetros del sensor automáticamente.</p>
+
+        <h3>Código PowerShell para la gestión de datos (Generación JSON/CSV)</h3>
+        <p>El siguiente script PowerShell permite generar automáticamente el archivo <code>calibration_data.json</code> y <code>calibration_data.csv</code> a partir de los datos depurados del usuario. Puede ser utilizado para subir la tabla a plataformas de monitoreo o para verificar la integridad de los 28 puntos.</p>
+        <button class="copy-btn" onclick="copyPWSH()">Copiar Script</button>
+        <pre id="pwsh-data"># Script de PowerShell para generar los archivos de calibración validados del usuario.
+# Este script está diseñado para ser ejecutado en sistemas Windows o PowerShell Core.
+
+$CalibrationData = @"
+1,1
+153,8
+305,20
+458,34
+611,50
+763,68
+916,88
+1069,109
+1221,130
+1374,152
+1527,175
+1679,199
+1832,222
+1985,246
+2137,270
+2290,294
+2443,318
+2595,341
+2748,364
+2901,386
+3053,407
+3206,427
+3359,447
+3511,464
+3664,480
+3817,494
+3969,505
+4095,511
+"@.Trim() -split "`r`n" | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne "" }
+
+if ($CalibrationData.Count -ne 28) {
+    Write-Warning "Se esperaban 28 filas de calibración, pero se encontraron $($CalibrationData.Count)."
+}
+
+$JSONOutput = @{
+    sensor_model = "ESCORT TD-BLE"
+    serial_number = "260463959191"
+    mac_address = "D1:6D:2A:5B:BE:07"
+    firmware_compatible_version = "1.3.9"
+    calibration_points = @()
+}
+
+foreach ($line in $CalibrationData) {
+    $parts = $line -split ","
+    $JSONOutput.calibration_points += @{adc = [int]$parts[0]; volume = [int]$parts[1]}
+}
+
+$JSONOutput | ConvertTo-Json -Depth 3 | Out-File -FilePath "calibration_data_verified.json" -Encoding utf8
+
+$CSVHeader = "ADC_Raw,Volumen"
+$CSVOutput = @($CSVHeader) + $CalibrationData
+$CSVOutput | Out-File -FilePath "calibration_data_verified.csv" -Encoding utf8
+
+Write-Host "Archivos generados exitosamente:" -ForegroundColor Green
+Write-Host "  - calibration_data_verified.json" -ForegroundColor Cyan
+Write-Host "  - calibration_data_verified.csv" -ForegroundColor Cyan
+Write-Host "Se ha omitido la fila final (0,0) por ser un artefacto del archivo CSV original." -ForegroundColor Yellow</pre>
+    </div>
+
+</div>
+
+<script>
+function openTab(tabId) {
+    var tabs = document.getElementsByClassName("tab-content");
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove("active");
+    }
+    var btns = document.getElementsByClassName("tab-btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove("active");
+    }
+    document.getElementById(tabId).classList.add("active");
+    event.currentTarget.classList.add("active");
+}
+
+function copyCSV() {
+    var content = document.getElementById("csv-data").innerText;
+    navigator.clipboard.writeText(content);
+}
+
+function copyJSON() {
+    var content = document.getElementById("json-data").innerText;
+    navigator.clipboard.writeText(content);
+}
+
+function copyPWSH() {
+    var content = document.getElementById("pwsh-data").innerText;
+    navigator.clipboard.writeText(content);
+}
+</script>
+</body>
+</html>

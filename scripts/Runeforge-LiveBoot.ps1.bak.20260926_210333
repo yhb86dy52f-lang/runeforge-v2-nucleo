@@ -1,0 +1,331 @@
+# =====================================================================
+# RUNEFORGE :: LIVE BOOT v5.0
+# Casi-reinicio en vivo: mata todo lo matable, limpia todo lo limpiable
+# =====================================================================
+[CmdletBinding()]
+param(
+    [switch]$Apply,      # sin esto = SOLO PREVIEW
+    [switch]$Ultra,      # + WSL shutdown, Docker prune, Prefetch, Font cache
+    [switch]$NoReport
+)
+
+$ErrorActionPreference = "Continue"
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+$out = New-Object System.Text.StringBuilder
+function W($t) { [void]$out.AppendLine($t) }
+function H($t) { W ""; W ("=" * 68); W "  $t"; W ("=" * 68) }
+
+$t0 = Get-Date
+$mode = if ($Apply) { "LIVE BOOT (ejecutando)" } else { "PREVIEW (sin -Apply no borra ni mata nada)" }
+$reportFile = Join-Path $env:TEMP "runeforge_liveboot_$(Get-Date -Format 'yyyyMMdd_HHmmss').txt"
+
+# ---------- HELPERS ----------
+function Format-Size($b) {
+    if ($b -ge 1GB) { return "{0,7:N2} GB" -f ($b/1GB) }
+    if ($b -ge 1MB) { return "{0,7:N2} MB" -f ($b/1MB) }
+    if ($b -ge 1KB) { return "{0,7:N2} KB" -f ($b/1KB) }
+    return "{0,7} B" -f $b
+}
+function Get-DirSize($p) {
+    if (-not (Test-Path $p)) { return 0 }
+    try {
+        (Get-ChildItem $p -Recurse -File -Force -EA SilentlyContinue |
+         Measure-Object Length -Sum -EA SilentlyContinue).Sum
+    } catch { 0 }
+}
+
+# ---------- PROTECCIÓN POR CADENA DE ANCESTROS ----------
+# Recorre el árbol de procesos padre-hijo para proteger:
+# - el propio script
+# - su terminal (pwsh, conhost)
+# - su IDE (si es Code, Cursor, etc.)
+# Así aunque mates procesos masivamente, nunca cierras la ventana donde corre el script.
+$ProtectedPIDs = [System.Collections.Generic.HashSet[int]]::new()
+$cur = Get-Process -Id $pid -EA SilentlyContinue
+$depth = 0
+while ($cur -and $depth -lt 8) {
+    [void]$ProtectedPIDs.Add($cur.Id)
+    if ($cur.ProcessName -match 'explorer|services|wininit') { break }
+    try {
+        $parentId = (Get-CimInstance Win32_Process -Filter "ProcessId=$($cur.Id)" -EA SilentlyContinue).ParentProcessId
+        if (-not $parentId -or $parentId -eq $cur.Id) { break }
+        $cur = Get-Process -Id $parentId -EA SilentlyContinue
+    } catch { break }
+    $depth++
+}
+
+# ---------- PROCESOS HARD-PROTEGIDOS (kernel + shell + RUNEFORGE) ----------
+$HardProtected = @(
+    # Kernel crítico
+    "System","Idle","Registry","Memory Compression","smss","csrss","wininit",
+    "services","lsass","winlogon","fontdrvhost","dwm","svchost","taskhostw",
+    "sihost","ctfmon","dllhost","WmiPrvSE","audiodg","spoolsv","LogonUI",
+    "SecurityHealthService","SecurityHealthSystray","MsMpEng","NisSrv",
+    # Shell / Explorer
+    "explorer","ShellExperienceHost","StartMenuExperienceHost",
+    "RuntimeBroker","TextInputHost","SearchIndexer","SearchHost","SearchApp",
+    "ApplicationFrameHost","SystemSettings",
+    # Terminales (red de seguridad, aunque ya cubiertos por ancestros)
+    "conhost","cmd","powershell","pwsh","WindowsTerminal","wt","openconsole",
+    "mintty","alacritty","hyper","terminus",
+    # RUNEFORGE stack
+    "node","python","python3","pythonw","cargo","rustc","sccache",
+    "pm2","ollama","fastify","redis-server","postgres",
+    "nexus-runner","nexus-lab","dictate-studio","dictate-studio-v2",
+    "sms-hub-hmi","openwash-real","openwash-real-v2","opt-verify",
+    "Code","code","cursor","Cursor"
+)
+function Test-HardProtected($name) {
+    $l = $name.ToLower()
+    foreach ($p in $HardProtected) { if ($p.ToLower() -eq $l) { return $true } }
+    if ($l -match '^(pwsh|powershell|conhost|wt|windowsTerminal)') { return $true }
+    return $false
+}
+
+# ---------- 1. RECON ----------
+H "1. ESTADO ACTUAL"
+
+$os = Get-CimInstance Win32_OperatingSystem
+$cpu = Get-CimInstance Win32_Processor | Select-Object -First 1
+$ramTotal = [math]::Round($os.TotalVisibleMemorySize/1MB, 2)
+$ramFree  = [math]::Round($os.FreePhysicalMemory/1MB, 2)
+$ramUsed  = [math]::Round($ramTotal - $ramFree, 2)
+$ramPct   = [math]::Round(($ramUsed/$ramTotal)*100, 1)
+$disk = Get-PSDrive C
+
+W "CPU    : $($cpu.Name.Trim())"
+W "Núcleos: $($cpu.NumberOfCores) cores / $($cpu.NumberOfLogicalProcessors) hilos"
+W "RAM    : $ramUsed / $ramTotal GB ($ramPct% usado)"
+W "Disco C: $([math]::Round($disk.Free/1GB,2)) GB libres"
+W "Modo   : $mode"
+if ($Ultra) { W "Ultra  : SÍ (incluye WSL shutdown, Docker prune, Prefetch)" }
+W "Protegidos por cadena: $(($ProtectedPIDs | ForEach-Object { try { (Get-Process -Id $_ -EA SilentlyContinue).ProcessName } catch {} }) -join ' → ')"
+
+# ---------- 2. PROCESOS A TERMINAR ----------
+H "2. PROCESOS QUE SE CERRARÁN (todo lo no esencial)"
+
+$toKill = Get-Process -EA SilentlyContinue | Where-Object {
+    -not (Test-HardProtected $_.ProcessName) -and
+    -not $ProtectedPIDs.Contains($_.Id) -and
+    $_.Id -ne 0 -and $_.Id -ne 4 -and
+    $_.ProcessName -notmatch '^(Registry|Idle)$'
+}
+
+# Agrupar por nombre para reporte compacto
+$byName = $toKill | Group-Object ProcessName | Sort-Object { ($_.Group | Measure-Object WorkingSet64 -Sum).Sum } -Descending
+
+$totalKillMB = 0
+foreach ($g in $byName) {
+    $mb = [math]::Round((($g.Group | Measure-Object WorkingSet64 -Sum).Sum)/1MB, 1)
+    $totalKillMB += $mb
+    $names = ($g.Group | Select-Object -First 3 -ExpandProperty Id) -join ','
+    W ("  {0,-32} {1,2} proc  {2,8:N1} MB" -f $g.Name, $g.Count, $mb)
+}
+W ""
+W ("  TOTAL: {0} procesos | {1:N0} MB liberables" -f $toKill.Count, $totalKillMB)
+
+# ---------- 3. CACHÉS Y TEMPORALES ----------
+H "3. CACHÉS Y TEMPORALES (recuperables)"
+
+$targets = @(
+    # Windows
+    @{ N="User Temp";          P=$env:TEMP;                                        Peso=1 }
+    @{ N="Windows Temp";       P="$env:WINDIR\Temp";                               Peso=1 }
+    @{ N="Windows Update";     P="$env:WINDIR\SoftwareDistribution\Download";      Peso=1 }
+    @{ N="WER Queue";          P="$env:ProgramData\Microsoft\Windows\WER\ReportQueue";   Peso=1 }
+    @{ N="WER Archive";        P="$env:ProgramData\Microsoft\Windows\WER\ReportArchive"; Peso=1 }
+    @{ N="Thumbnail cache";    P="$env:LOCALAPPDATA\Microsoft\Windows\Explorer";   Peso=1 }
+    @{ N="INetCache";          P="$env:LOCALAPPDATA\Microsoft\Windows\INetCache";  Peso=1 }
+    @{ N="CrashDumps";         P="$env:LOCALAPPDATA\CrashDumps";                   Peso=1 }
+    # Navegadores
+    @{ N="Edge cache";         P="$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Cache"; Peso=1 }
+    @{ N="Chrome cache";       P="$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Cache";  Peso=1 }
+    @{ N="Brave cache";        P="$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\Default\Cache"; Peso=1 }
+    # Dev
+    @{ N="npm cache";          P="$env:LOCALAPPDATA\npm-cache";                    Peso=1 }
+    @{ N="Yarn cache";         P="$env:LOCALAPPDATA\Yarn\Cache";                   Peso=1 }
+    @{ N="pip cache";          P="$env:LOCALAPPDATA\pip\Cache";                    Peso=1 }
+    @{ N="NuGet packages";     P="$env:USERPROFILE\.nuget\packages";               Peso=1 }
+    @{ N="VSCode cache";       P="$env:APPDATA\Code\Cache";                        Peso=1 }
+    @{ N="VSCode CachedData";  P="$env:APPDATA\Code\CachedData";                   Peso=1 }
+    @{ N="VSCode logs";        P="$env:APPDATA\Code\logs";                         Peso=1 }
+    # RUNEFORGE
+    @{ N="Cargo registry cache"; P="$env:USERPROFILE\.cargo\registry\cache";       Peso=1 }
+    @{ N="Cargo git checkouts";  P="$env:USERPROFILE\.cargo\git\checkouts";        Peso=1 }
+    @{ N="RUNEFORGE sccache";    P="C:\RUNEFORGE_V2_CORE\.sccache";                Peso=1 }
+    @{ N="RUNEFORGE target/debug"; P="C:\RUNEFORGE_V2_CORE\target\debug";          Peso=1 }
+    @{ N="RUNEFORGE cargo-timings"; P="C:\RUNEFORGE_V2_CORE\target\cargo-timings"; Peso=1 }
+    @{ N="RUNEFORGE logs";       P="C:\RUNEFORGE_V2_CORE\logs";                    Peso=1 }
+)
+
+if ($Ultra) {
+    $targets += @(
+        @{ N="Prefetch";           P="$env:WINDIR\Prefetch";                       Peso=1 }
+        @{ N="Font cache";         P="$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache"; Peso=1 }
+        @{ N="Docker cache";       P="$env:LOCALAPPDATA\Docker\wsl\data";          Peso=1 }
+    )
+}
+
+$found = @()
+$totalCacheBytes = 0
+foreach ($t in $targets) {
+    if (-not (Test-Path $t.P)) { continue }
+    $sz = Get-DirSize $t.P
+    if ($sz -gt 0) {
+        $found += [pscustomobject]@{ Name=$t.N; Path=$t.P; Size=$sz }
+        $totalCacheBytes += $sz
+    }
+}
+$found = $found | Sort-Object Size -Descending
+
+foreach ($f in $found) {
+    W ("  {0,-30} {1}" -f $f.Name, (Format-Size $f.Size))
+}
+W ""
+W ("  TOTAL RECUPERABLE: {0}" -f (Format-Size $totalCacheBytes))
+
+# ---------- 4. EJECUCIÓN ----------
+if ($Apply) {
+    H "4. EJECUTANDO — LIVE BOOT"
+
+    # 4.1 Matar procesos
+    W "  [4.1] Cerrando procesos..."
+    $killed = 0
+    $killFreedMB = 0
+    foreach ($p in $toKill) {
+        $mb = $p.WorkingSet64 / 1MB
+        try {
+            Stop-Process -Id $p.Id -Force -EA Stop
+            $killed++
+            $killFreedMB += $mb
+        } catch { }
+    }
+    W ("       Cerrados: {0} | RAM liberada: {1:N1} MB" -f $killed, $killFreedMB)
+
+    # 4.2 RAM compaction agresiva
+    W ""
+    W "  [4.2] Compactando working sets..."
+    Add-Type -Namespace Win32 -Name Memory -MemberDefinition @"
+[DllImport("kernel32.dll", SetLastError=true)]
+public static extern bool SetProcessWorkingSetSize(IntPtr proc, int min, int max);
+"@ -EA SilentlyContinue
+
+    $allProcs = Get-Process -EA SilentlyContinue | Where-Object { $_.Id -ne 0 -and $_.Id -ne 4 }
+    $compacted = 0
+    foreach ($p in $allProcs) {
+        try {
+            if ($p.Handle -ne [IntPtr]::Zero) {
+                [Win32.Memory]::SetProcessWorkingSetSize($p.Handle, -1, -1) | Out-Null
+                $compacted++
+            }
+        } catch { }
+    }
+    [System.GC]::Collect()
+    [System.GC]::WaitForPendingFinalizers()
+    W "       Compactados: $compacted procesos"
+
+    # 4.3 Borrar cachés
+    W ""
+    W "  [4.3] Borrando cachés..."
+    $totalDeletedBytes = 0
+    foreach ($f in $found) {
+        $before = Get-DirSize $f.Path
+        try {
+            # No borrar archivos en uso ni locks ni sockets
+            Get-ChildItem $f.Path -Recurse -Force -EA SilentlyContinue |
+                Where-Object {
+                    $_.FullName -notmatch '\\\.lock$' -and
+                    $_.FullName -notmatch '\\\.sock$' -and
+                    $_.FullName -notmatch '\\~' -and
+                    $_.LastWriteTime -lt (Get-Date).AddMinutes(-5)
+                } |
+                Remove-Item -Force -Recurse -EA SilentlyContinue
+            $after = Get-DirSize $f.Path
+            $freed = $before - $after
+            $totalDeletedBytes += $freed
+            W ("       [OK] {0,-28} {1} borrados" -f $f.Name, (Format-Size $freed))
+        } catch {
+            W ("       [!]  {0,-28} bloqueado parcialmente" -f $f.Name)
+        }
+    }
+    W ("       TOTAL BORRADO: {0}" -f (Format-Size $totalDeletedBytes))
+
+    # 4.4 Papelera
+    W ""
+    W "  [4.4] Vaciando papelera..."
+    try {
+        Clear-RecycleBin -Force -EA Stop
+        W "       [OK] Papelera vaciada"
+    } catch {
+        W "       [!] Papelera: $($_.Exception.Message)"
+    }
+
+    # 4.5 Ultra
+    if ($Ultra) {
+        W ""
+        W "  [4.5] Modo Ultra"
+
+        # WSL
+        try {
+            if (Get-Command wsl.exe -EA SilentlyContinue) {
+                & wsl.exe --shutdown 2>&1 | Out-Null
+                W "       [OK] WSL apagado"
+            }
+        } catch { W "       [!] WSL: $($_.Exception.Message)" }
+
+        # Docker
+        try {
+            if (Get-Command docker.exe -EA SilentlyContinue) {
+                $dockerCheck = & docker.exe info 2>&1
+                if ($LASTEXITCODE -eq 0) {
+                    & docker.exe system prune -af --volumes 2>&1 | Out-Null
+                    W "       [OK] Docker: cache + volúmenes huérfanos eliminados"
+                } else {
+                    W "       [i] Docker no disponible"
+                }
+            }
+        } catch { W "       [!] Docker: $($_.Exception.Message)" }
+
+        # DNS (por si acaso)
+        try { Clear-DnsClientCache -EA Stop; W "       [OK] DNS cache limpiada" } catch {}
+    }
+
+} else {
+    H "4. PREVIEW — nada fue modificado"
+    W "  Este script NO tocó tu sistema."
+    W ""
+    W "  Para ejecutarlo de verdad:"
+    W "    -Apply             → casi-reinicio estándar"
+    W "    -Apply -Ultra      → incluye WSL shutdown + Docker prune + Prefetch"
+}
+
+# ---------- 5. ESTADO FINAL ----------
+H "5. ESTADO FINAL"
+
+$osFinal = Get-CimInstance Win32_OperatingSystem
+$ramFreeFinal = [math]::Round($osFinal.FreePhysicalMemory/1MB, 2)
+$diskFinal = Get-PSDrive C
+
+$ramDelta  = [math]::Round($ramFreeFinal - $ramFree, 2)
+$diskDelta = [math]::Round(($diskFinal.Free - $disk.Free)/1GB, 2)
+
+W ("RAM libre : {0} GB → {1} GB  ({2:+#.##;-#.##;0} GB)" -f $ramFree, $ramFreeFinal, $ramDelta)
+W ("Disco C:  {0} GB → {1} GB  ({2:+#.##;-#.##;0} GB)" -f [math]::Round($disk.Free/1GB,2), [math]::Round($diskFinal.Free/1GB,2), $diskDelta)
+
+$total = (Get-Date) - $t0
+W ""
+W ("Tiempo total: {0:N1} seg" -f $total.TotalSeconds)
+W ""
+W "=== FIN ==="
+
+# ---------- OUTPUT ----------
+$text = $out.ToString()
+
+if (-not $NoReport) {
+    [IO.File]::WriteAllText($reportFile, $text, [System.Text.UTF8Encoding]::new($false))
+    $text += "`n`n[Reporte: $reportFile]"
+}
+
+Set-Clipboard -Value $text
+Write-Host $text

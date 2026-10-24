@@ -1,0 +1,68 @@
+
+Name  : Vulkan_1_3_Support
+Value : Requiere GPU con 2GB VRAM + VK_KHR_swapchain + VK_KHR_push_descriptor para ShadPS4. Tu GTX 16 cumple si driver actualizado.
+
+Name  : Software
+Value : {[winget, C:\Users\nesth\AppData\Local\Microsoft\WindowsApps\winget.exe | v1.29.380], [python3, C:\Users\nesth\AppData\Local\Microsoft\WindowsApps\python3.exe | ], [pm2, C:\Users\nesth\AppData\Roaming\npm\pm2.ps1 | 7.0.4], [rustc, C:\Users\nesth\.cargo\bin\rustc.exe | rustc 1.98.1 (48a229cea 2026-09-01)]…}
+
+Name  : RAM_Free_GB
+Value : 0.01
+
+Name  : Recommendations_Prelim
+Value : {}
+
+Name  : InstalledApps
+Value : {[ShareX, @{DisplayName=Recorder Devices for ShareX 0.12.10; DisplayVersion=0.12.10; Publisher=; InstallLocation=C:\Program Files\Recorder Devices for ShareX\}], [Lossless Scaling, @{DisplayName=Lossless Scaling; DisplayVersion=; Publisher=THS; InstallLocation=C:\Program Files (x86)\Steam\steamapps\common\Lossless Scaling}]}
+
+Name  : Ollama_PS
+Value : NAME    ID    SIZE    PROCESSOR    CONTEXT    UNTIL 
+
+Name  : NVIDIA_SMI_VRAM
+Value : 6144 MiB
+
+Name  : GameMode
+Value : 1
+
+Name  : Computer
+Value : To Be Filled By O.E.M. To Be Filled By O.E.M.
+
+Name  : RuneforgeRoot
+Value : {[Exists, True], [Apps, System.Object[]], [Size_GB, 35.37]}
+
+Name  : Ports
+Value : {[3198, OFFLINE], [3100, LISTENING PID 13760], [11434, LISTENING PID 10912]}
+
+Name  : Vulkan_DLL
+Value : True
+
+Name  : PowerPlan
+Value : GUID de plan de energía: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c  (Alto rendimiento)
+
+Name  : CPU
+Value : AMD Ryzen 3 3200G with Radeon Vega Graphics     | Cores: 4 Threads: 4 | Arch: 9 | AVX2: False
+
+Name  : RAM_GB
+Value : 16
+
+Name  : OS
+Value : Microsoft Windows 10 Pro Build 19045 64 bits
+
+Name  : Ollama_List
+Value : NAME    ID    SIZE    MODIFIED 
+
+Name  : GPUs
+Value : {USB Mobile Monitor Virtual Display, NVIDIA GeForce GTX 1660 SUPER}
+
+Name  : Displays
+Value : {@{Name=USB Mobile Monitor Virtual Display; CurrentHorizontalResolution=; CurrentVerticalResolution=; CurrentRefreshRate=; CurrentBitsPerPixel=}, @{Name=NVIDIA GeForce GTX 1660 SUPER; CurrentHorizontalResolution=1228; CurrentVerticalResolution=690; CurrentRefreshRate=60; CurrentBitsPerPixel=32}}
+
+Name  : NVIDIA_SMI
+Value : NVIDIA GeForce GTX 1660 SUPER, 610.47, 6144, 4113, 27, 40
+
+Name  : DirectX
+Value : 4.09.00.0904
+
+Name  : Tailscale
+Value : {100.83.105.117  runeforge-pc   forgerrune@  windows  -                          , 100.95.173.89   iphone-14-pro  forgerrune@  iOS      offline, last seen 1d ago  , , # Funnel on:…}
+
+

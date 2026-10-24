@@ -1,0 +1,192 @@
+#include "pch.h"
+#include "NvApiHooks.h"
+#include <include/nvapi/NvApiDriverSettings.h>
+
+#include "State.h"
+#include <Config.h>
+
+#include <proxies/KernelBase_Proxy.h>
+
+#include <detours/detours.h>
+
+NvAPI_Status __stdcall NvApiHooks::hkNvAPI_GPU_GetArchInfo(NvPhysicalGpuHandle hPhysicalGpu,
+                                                           NV_GPU_ARCH_INFO* pGpuArchInfo)
+{
+    if (!o_NvAPI_GPU_GetArchInfo)
+    {
+        LOG_DEBUG("nullptr");
+        return NVAPI_ERROR;
+    }
+
+    const auto status = o_NvAPI_GPU_GetArchInfo(hPhysicalGpu, pGpuArchInfo);
+
+    if (status == NVAPI_OK && pGpuArchInfo)
+    {
+        if (pGpuArchInfo->architecture_id <= NV_GPU_ARCHITECTURE_GP100)
+        {
+            State::Instance().isPascalOrOlder = true;
+
+            // Check if values were volatile, override them if so
+            // if (!Config::Instance()->StreamlineSpoofing.value_for_config().has_value())
+            //    Config::Instance()->StreamlineSpoofing.set_volatile_value(true);
+
+            if (!Config::Instance()->DisableFlipMetering.value_for_config().has_value())
+                Config::Instance()->DisableFlipMetering.set_volatile_value(true);
+        }
+
+        LOG_DEBUG("Original arch: {0:X} impl: {1:X} rev: {2:X}!", pGpuArchInfo->architecture,
+                  pGpuArchInfo->implementation, pGpuArchInfo->revision);
+
+        // for DLSS on 16xx cards
+        // Can't spoof ada for DLSSG here as that breaks DLSS/DLSSD
+        if (pGpuArchInfo->architecture == NV_GPU_ARCHITECTURE_TU100 &&
+            pGpuArchInfo->implementation > NV_GPU_ARCH_IMPLEMENTATION_TU106)
+        {
+            pGpuArchInfo->implementation = NV_GPU_ARCH_IMPLEMENTATION_TU106;
+            LOG_INFO("Spoofed arch: {0:X} impl: {1:X} rev: {2:X}!", pGpuArchInfo->architecture,
+                     pGpuArchInfo->implementation, pGpuArchInfo->revision);
+        }
+    }
+
+    return status;
+}
+
+NvAPI_Status __stdcall NvApiHooks::hkNvAPI_DRS_GetSetting(NvDRSSessionHandle hSession, NvDRSProfileHandle hProfile,
+                                                          NvU32 settingId, NVDRS_SETTING* pSetting)
+{
+    if (!o_NvAPI_DRS_GetSetting)
+        return NVAPI_ERROR;
+
+    auto result = o_NvAPI_DRS_GetSetting(hSession, hProfile, settingId, pSetting);
+    if (pSetting && result == NVAPI_OK)
+    {
+        if (settingId == NGX_DLSS_SR_OVERRIDE_RENDER_PRESET_SELECTION_ID)
+        {
+            State::Instance().dlssRenderPresetExternal = pSetting->u32CurrentValue;
+
+            State::Instance().dlssPresetsOverriddenExternally =
+                pSetting->u32CurrentValue != NGX_DLSS_SR_OVERRIDE_RENDER_PRESET_SELECTION_OFF;
+
+            // Report no override, we will handle presets from now on
+            pSetting->u32CurrentValue = NGX_DLSS_SR_OVERRIDE_RENDER_PRESET_SELECTION_OFF;
+
+            LOG_DEBUG("DLSS External override: {}", State::Instance().dlssRenderPresetExternal);
+        }
+
+        if (settingId == NGX_DLSS_RR_OVERRIDE_RENDER_PRESET_SELECTION_ID)
+        {
+            State::Instance().dlssdRenderPresetExternal = pSetting->u32CurrentValue;
+
+            State::Instance().dlssdPresetsOverriddenExternally =
+                pSetting->u32CurrentValue != NGX_DLSS_RR_OVERRIDE_RENDER_PRESET_SELECTION_OFF;
+
+            // Report no override, we will handle presets from now on
+            pSetting->u32CurrentValue = NGX_DLSS_RR_OVERRIDE_RENDER_PRESET_SELECTION_OFF;
+
+            LOG_DEBUG("DLSSD External override: {}", State::Instance().dlssdRenderPresetExternal);
+        }
+    }
+
+    return result;
+}
+
+void* __stdcall NvApiHooks::hkNvAPI_QueryInterface(unsigned int InterfaceId)
+{
+    if (!o_NvAPI_QueryInterface)
+        return nullptr;
+
+    // Disable flip metering
+    if (InterfaceId == 0xF3148C42 &&
+        Config::Instance()->DisableFlipMetering.value_or(!State::Instance().isRunningOnNvidia))
+    {
+        LOG_INFO("FlipMetering is disabled!");
+        return nullptr;
+    }
+
+    if (InterfaceId == GET_ID(NvAPI_D3D_SetSleepMode) || InterfaceId == GET_ID(NvAPI_D3D_Sleep) ||
+        InterfaceId == GET_ID(NvAPI_D3D_GetLatency) || InterfaceId == GET_ID(NvAPI_D3D_SetLatencyMarker) ||
+        InterfaceId == GET_ID(NvAPI_D3D12_SetAsyncFrameMarker) ||
+        InterfaceId == GET_ID(NvAPI_Vulkan_SetLatencyMarker) || InterfaceId == GET_ID(NvAPI_Vulkan_SetSleepMode))
+    {
+        // LOG_DEBUG("counter: {}, hookReflex()", qiCounter);
+        ReflexHooks::hookReflex(o_NvAPI_QueryInterface);
+        return ReflexHooks::getHookedReflex(InterfaceId);
+    }
+
+    ReflexHooks::hookReflex(o_NvAPI_QueryInterface);
+
+    const auto functionPointer = o_NvAPI_QueryInterface(InterfaceId);
+
+    if (functionPointer)
+    {
+        if (InterfaceId == GET_ID(NvAPI_GPU_GetArchInfo))
+        {
+            o_NvAPI_GPU_GetArchInfo = reinterpret_cast<decltype(&NvAPI_GPU_GetArchInfo)>(functionPointer);
+            return &hkNvAPI_GPU_GetArchInfo;
+        }
+        if (InterfaceId == GET_ID(NvAPI_DRS_GetSetting))
+        {
+            o_NvAPI_DRS_GetSetting = reinterpret_cast<decltype(&NvAPI_DRS_GetSetting)>(functionPointer);
+            return &hkNvAPI_DRS_GetSetting;
+        }
+    }
+
+    // LOG_DEBUG("counter: {} functionPointer: {:X}", qiCounter, (size_t)functionPointer);
+
+    return functionPointer;
+}
+
+// Requires HMODULE to make sure nvapi is loaded before calling this function
+void NvApiHooks::Hook(HMODULE nvapiModule)
+{
+    if (o_NvAPI_QueryInterface != nullptr)
+        return;
+
+    if (nvapiModule == nullptr)
+    {
+        LOG_ERROR("Hook called with a nullptr nvapi module");
+        return;
+    }
+
+    LOG_DEBUG("Trying to hook NvApi");
+
+    o_NvAPI_QueryInterface =
+        (PFN_NvApi_QueryInterface) KernelBaseProxy::GetProcAddress_()(nvapiModule, "nvapi_QueryInterface");
+
+    LOG_DEBUG("OriginalNvAPI_QueryInterface = {0:X}", (unsigned long long) o_NvAPI_QueryInterface);
+
+    if (o_NvAPI_QueryInterface != nullptr)
+    {
+        LOG_INFO("NvAPI_QueryInterface found, hooking!");
+        fakenvapi::Init(o_NvAPI_QueryInterface);
+
+        DetourTransactionBegin();
+        DetourUpdateThread(GetCurrentThread());
+        DetourAttach(&(PVOID&) o_NvAPI_QueryInterface, hkNvAPI_QueryInterface);
+        auto detourResult = DetourTransactionCommit();
+        if (detourResult != NO_ERROR)
+        {
+            LOG_ERROR("Failed to hook NvAPI_QueryInterface: {:X}", detourResult);
+            o_NvAPI_QueryInterface = nullptr;
+        }
+    }
+}
+
+void NvApiHooks::Unhook()
+{
+    DetourTransactionBegin();
+    DetourUpdateThread(GetCurrentThread());
+
+    if (o_NvAPI_QueryInterface != nullptr)
+        DetourDetach(&(PVOID&) o_NvAPI_QueryInterface, hkNvAPI_QueryInterface);
+
+    auto detourResult = DetourTransactionCommit();
+    if (detourResult != NO_ERROR)
+    {
+        LOG_ERROR("Failed to unhook NvAPI_QueryInterface: {:X}", detourResult);
+    }
+    else
+    {
+        o_NvAPI_QueryInterface = nullptr;
+    }
+}

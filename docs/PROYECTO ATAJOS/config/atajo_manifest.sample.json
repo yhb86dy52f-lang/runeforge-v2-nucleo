@@ -1,0 +1,16 @@
+{
+  "nombre_proyecto": "COMANDOS_SMS",
+  "version": "0.1.0",
+  "bloques": [
+    {
+      "id": "01_ESTADO_GENERAL",
+      "titulo": "Estado general",
+      "archivo": "data/comandos/01_ESTADO_GENERAL.txt"
+    },
+    {
+      "id": "07_IDENTIDAD_Y_GPS",
+      "titulo": "Identidad y GPS",
+      "archivo": "data/comandos/07_IDENTIDAD_Y_GPS.txt"
+    }
+  ]
+}

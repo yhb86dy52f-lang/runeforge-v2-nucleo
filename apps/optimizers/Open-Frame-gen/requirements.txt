@@ -1,0 +1,12 @@
+numpy
+torch
+opencv-python
+PyQt5
+PyOpenGL
+pynput
+keyboard
+pywin32
+dxcam
+Pillow
+pandas
+onnx

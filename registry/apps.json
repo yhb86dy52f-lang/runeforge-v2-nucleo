@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "core": "C:\\RUNEFORGE_V2_CORE",
+  "updated": "2026-10-19T01:27:32.7633437-06:00",
+  "apps": [
+    {
+      "name": "dictate-studio-v2",
+      "path": "C:\\RUNEFORGE_V2_CORE\\apps\\dictate-studio-v2",
+      "src_tauri": "C:\\RUNEFORGE_V2_CORE\\apps\\dictate-studio-v2\\src-tauri",
+      "target_dir": "C:\\RUNEFORGE_V2_CORE\\apps\\dictate-studio-v2\\src-tauri\\target",
+      "exe": "C:\\RUNEFORGE_V2_CORE\\apps\\dictate-studio-v2\\src-tauri\\target\\release\\dictate-studio-v2.exe",
+      "migrated": true,
+      "last_build": "2026-09-27T03:32:31.7775328-06:00"
+    }
+  ]
+}

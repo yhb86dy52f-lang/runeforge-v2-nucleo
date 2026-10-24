@@ -1,0 +1,19 @@
+SSID:	517388haieksja_2.4G
+Protocolo:	Wi-Fi 4 (802.11n)
+Tipo de seguridad:	WPA2-Personal
+Banda de red:	2,4 GHz
+Canal de red	11
+Velocidad de vínculo (recepción/transmisión):	600/65 (Mbps)
+Dirección IPv6:	2806:2f0:30c1:ff4e::7
+2806:2f0:30c1:ff4e:1122:2b40:34fa:4015
+Dirección IPv6 del vínculo local:	fe80::a827:c14d:946f:7274%12
+Servidores DNS IPv6:	2806:2f0:344:1300::4
+2001:4860:4860::8888
+Dirección IPv4:	192.168.100.5
+Servidores DNS IPv4:	192.168.100.1
+Fabricante:	Ralink Technology, Corp.
+Descripción:	802.11n USB Wireless LAN Card
+Versión del controlador:	5.1.22.0
+Dirección física (MAC):	50-2B-73-A0-8E-C4
+CONTRASEÑA
+bebecillogordillo

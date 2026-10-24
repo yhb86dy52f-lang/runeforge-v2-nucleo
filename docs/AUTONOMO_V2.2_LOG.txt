@@ -1,0 +1,9 @@
+AUTONOMO V2.2 LOG 2026-08-15 01:26:56 UTC-6
+Report: C:\RUNEFORGE_V2_CORE\docs\INFORME_V2.2_FINAL.md
+Exists: True
+Size: 4776 bytes
+SHA256: 12E6F14B03FE0ABD738F08DD6E15D77EC1DF4C61D0DBD52A4F9E27B6FDB2DF76
+memory.used [MiB], memory.total [MiB]
+2766 MiB, 6144 MiB
+NAME            ID              SIZE      PROCESSOR    CONTEXT    UNTIL                   
+qwen2.5:1.5b    65ec06548149    1.2 GB    100% GPU     4096       About a minute from now

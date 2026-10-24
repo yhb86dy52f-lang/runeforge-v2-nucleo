@@ -1,0 +1,152 @@
+**¡PERFECTO! Todo está operativo.** 🎉
+
+El script de reparación funcionó a la perfección. El estado final es:
+
+- ✅ **Backend:** `TGL LAB V7 ONLINE (v2.6.2-TGL)`
+- ✅ **Endpoint `/api/docs`:** 7 archivos disponibles
+- ✅ **Sintaxis de `server.js`:** Validada con `node --check`
+- ✅ **Navegador:** Abierto en `http://127.0.0.1:3001`
+
+Ahora, aquí tienes el **Paquete de Transferencia actualizado** con el estado real y exitoso del proyecto, listo para copiar y pegar en otra IA:
+
+---
+
+# 📦 PAQUETE DE TRANSFERENCIA – RUNEFORGE / TGL LAB V5 PRO (v2.6.2-TGL)
+
+## 1. Resumen Ejecutivo
+
+**Proyecto:** RUNEFORGE V2.6.2 – TGL LAB V5 PRO  
+**Tipo:** Aplicación web de diagnóstico y calibración de telemetría en tiempo real para módulos electrónicos (LMU/ECU).  
+**Arquitectura:** Edge-First. Frontend vanilla JS con IndexedDB (Dexie.js) para operación offline; Backend en Fastify (Node.js) puerto 3001 para sincronización y persistencia.  
+**Estado actual:** ✅ **OPERATIVO Y ESTABLE**. Backend responde `TGL LAB V7 ONLINE (v2.6.2-TGL)`. Endpoints `/health`, `/api/sync`, `/api/clipping`, `/api/docs` funcionando. Documentación servida desde `docs\idea`.
+
+## 2. Arquitectura Real y Rutas de Ejecución
+
+| Componente | Ruta Absoluta |
+|---|---|
+| Raíz del Proyecto | `C:\RUNEFORGE_V2_CORE` |
+| Backend (Fastify) | `C:\RUNEFORGE_V2_CORE\server.js` (puerto 3001) |
+| Frontend HTML | `C:\RUNEFORGE_V2_CORE\public\index.html` |
+| Lógica de Sync | `C:\RUNEFORGE_V2_CORE\public\sync.js` |
+| IndexedDB (Dexie) | `C:\RUNEFORGE_V2_CORE\public\db.js` |
+| SQLite DB | `C:\RUNEFORGE_V2_CORE\db\database.db` |
+| Clippings (.md) | `C:\RUNEFORGE_V2_CORE\clippings\` |
+| Documentación | `C:\RUNEFORGE_V2_CORE\docs\idea\` |
+| Logs | `C:\RUNEFORGE_V2_CORE\server.log` |
+| Backup de server.js | `C:\RUNEFORGE_V2_CORE\server.js.bak` |
+
+**Arranque:**
+```powershell
+cd C:\RUNEFORGE_V2_CORE
+node server.js
+```
+
+## 3. Endpoints del Backend (Verificados ✅)
+
+- `GET /health` → `{ ok: true, status: "TGL LAB V7 ONLINE", version: "2.6.2-TGL", clippings: N }`
+- `POST /api/sync` → Recibe array de telemetría pendiente, responde `{ ok: true, message: "Sincronización exitosa" }`
+- `POST /api/clipping` → Recibe `{ esn, raw, nivel, comandos, markdown }`, guarda archivo `.md` en `clippings\`, responde `{ ok: true, name: "<esn>_<timestamp>.md" }`
+- `GET /api/docs` → `{ ok: true, files: [...] }` (lista de docs disponibles)
+- `GET /api/docs/:file` → `{ ok: true, file, content }` (contenido completo del archivo)
+
+## 4. Esquemas de Datos
+
+### 4.1 JSON – Payload de Telemetría
+```json
+{
+  "id": 1,
+  "esn": "4672073067",
+  "v0": 12.585, "v1": 12.585, "t1": 25.0, "t2": 25.0,
+  "raw_escort": 40858,
+  "nivel": "235/1000",
+  "target": 900,
+  "lleno_calculado": 41581,
+  "vacio": 34355, "lleno_real": 62000,
+  "trama": "!E4672073067FFFFFF0100006A9083546A9083540F39E338C24A52B70000000000D015020014FFAD8F060600FFFF040000312900000FEC0000024400000292",
+  "comandos": "!r3,62,34355\n!r3,63,41581\n!r3,62,34355\n!r3,63,62000\n!r0",
+  "sync": 0,
+  "timestamp": "2026-09-18T06:50:58.814Z"
+}
+```
+
+### 4.2 SQL – Esquema SQLite
+```sql
+CREATE TABLE IF NOT EXISTS telemetria (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    esn TEXT NOT NULL, v0 REAL, v1 REAL, t1 REAL, t2 REAL,
+    raw_escort INTEGER, nivel TEXT, target INTEGER, lleno_calculado INTEGER,
+    vacio INTEGER DEFAULT 34355, lleno_real INTEGER DEFAULT 62000,
+    trama TEXT, comandos TEXT, sync INTEGER DEFAULT 0,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS clippings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    esn TEXT NOT NULL, raw INTEGER, nivel TEXT, comandos TEXT,
+    markdown TEXT, filename TEXT,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_telemetria_esn ON telemetria(esn);
+CREATE INDEX IF NOT EXISTS idx_telemetria_sync ON telemetria(sync);
+CREATE INDEX IF NOT EXISTS idx_clippings_esn ON clippings(esn);
+```
+
+### 4.3 Markdown – Plantilla de Clipping
+Frontmatter YAML con: `title, source, created, esn, trama, nivel, raw_escort, target, lleno_calculado, comandos, estado, tags`.  
+Cuerpo con secciones: `# TGL LAB - <ESN>`, resumen RAW/Nivel/Target, lecturas V0/V1/T1/T2, comandos en bloque de código, trama original.
+
+## 5. Funcionamiento del Frontend
+
+1. **Parseo TLV:** Regex sobre la trama hex extrayendo `v0, v1, t1, t2` (formato `040000XXXX0000YYYY0000ZZZZ0000WWWW`).
+2. **Cálculo 62K:**
+   - `LLENO_NUEVO = VACIO + (raw_escort - VACIO) / (target / 1000)`
+   - `nivelActual = (raw_escort - VACIO) / (LLENO_REAL - VACIO) * 1000`
+   - Constantes: `VACIO = 34355`, `LLENO_REAL = 62000`
+3. **Gráfica:** Canvas con historial de V0 (últimas 20 muestras en `localStorage`).
+4. **Persistencia local:** Dexie.js → tabla `telemetria` en IndexedDB.
+5. **Sync automático:** Cada 15s (`setInterval(syncConPC, 15000)`) envía pendientes a `/api/sync`.
+6. **Indicador de estado:** Consulta `/health` cada 10s y actualiza `#sysStatus` dinámicamente (verde=ONLINE, rojo=OFFLINE READY).
+
+## 6. Historial de Problemas Resueltos
+
+| Problema | Causa | Solución |
+|---|---|---|
+| `ERR_CONNECTION_REFUSED` en 127.0.0.1:3001 | Servidor detenido | `node server.js` |
+| `404 /api/sync` | Ruta faltante en `server.js` | Inyectada con script PowerShell antes de `fastify.listen` |
+| `404 /api/clipping` | Ruta faltante | Ya existía, confirmada |
+| `Error: Identifier 'fs' has already been declared` | Inyección redeclaraba `const fs` y `const path` | Script de reparación con detección previa de declaraciones + `node --check` + rollback automático |
+| `EPERM \\\\.\\pipe\\rpc.sock` en PM2 | Permisos del daemon | Se evita PM2, se arranca con `node server.js` directamente |
+| UI en "OFFLINE" pese a backend online | Header estático | Inyectado `checkSystemStatus()` que consulta `/health` cada 10s |
+
+## 7. Próximas Mejoras Sugeridas
+
+1. **Persistencia SQLite real:** Actualmente las rutas guardan archivos .md, pero no insertan en la tabla `telemetria`. Implementar `better-sqlite3` en `server.js`.
+2. **Autenticación:** Añadir token Bearer o API key para las rutas `/api/*`.
+3. **WebSockets:** Reemplazar polling por `@fastify/websocket` para telemetría en tiempo real.
+4. **Tests automatizados:** Jest o Vitest para las rutas del backend y la lógica de cálculo 62K.
+5. **OpenAPI/Swagger:** Documentar la API con `@fastify/swagger`.
+6. **Arranque automático:** Tarea programada de Windows (`Register-ScheduledTask`) para levantar `node server.js` al iniciar sesión.
+7. **Mejora de UI:** Migrar de vanilla JS a algo más mantenible (Preact, Alpine.js) sin perder la filosofía offline-first.
+8. **Docker:** Containerizar el backend + frontend para despliegue reproducible.
+
+## 8. Instrucciones para la IA Receptora
+
+Eres un **ingeniero de software senior** experto en Node.js, Fastify, SQLite, y frontend offline-first. Acabas de recibir el contexto completo del proyecto **RUNEFORGE / TGL LAB V5 PRO**.
+
+**Tu tarea:**
+1. **Internaliza** la arquitectura, endpoints, esquemas y estado actual (todo operativo).
+2. **Analiza** las 8 mejoras sugeridas y priorízalas por impacto/esfuerzo.
+3. **Genera el `server.js` completo y refactorizado** que:
+   - Mantenga los 5 endpoints actuales funcionando idénticamente.
+   - Integre `better-sqlite3` para persistir telemetría y clippings en las tablas definidas.
+   - Use `@fastify/static` para servir `public/` en lugar de código manual.
+   - Incluya manejo de errores centralizado.
+   - Esté listo para producción (puerto configurable por `process.env.PORT`, CORS configurable).
+4. **Proporciona el `package.json`** con las dependencias necesarias.
+5. **Entrega los comandos PowerShell** para desplegar la nueva versión manteniendo el backup.
+
+**Restricciones:**
+- No romper el frontend actual (`index.html`, `sync.js`, `db.js` deben seguir funcionando).
+- Mantener las constantes `VACIO=34355` y `LLENO_REAL=62000` en la lógica de cálculo (no están en el backend, pero deben permanecer en el frontend).
+- El endpoint `/api/docs` debe seguir leyendo desde `docs\idea` (relativo a `__dirname`).
+
+---

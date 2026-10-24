@@ -1,0 +1,23 @@
+{
+    "timestamp": "2026-10-24T15:46:24.889114",
+    "nodes": [
+        {
+            "id": "whisper_ai",
+            "status": "online",
+            "type": "Local AI",
+            "port": 8081
+        },
+        {
+            "id": "ollama_llm",
+            "status": "online",
+            "type": "LLM Local",
+            "port": 11434
+        },
+        {
+            "id": "fastify_api",
+            "status": "offline",
+            "type": "Backend Node",
+            "port": 3001
+        }
+    ]
+}

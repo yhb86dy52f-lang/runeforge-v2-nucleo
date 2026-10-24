@@ -1,0 +1,70 @@
+﻿{
+  "general_settings": {
+    "betaFeatures": true,
+    "legacyMode": false,
+    "openBehavior": "popup",
+    "saveBehavior": "saveFile",
+    "showMoreActionsButton": true,
+    "silentOpen": true
+  },
+  "highlighter_settings": {
+    "alwaysShowHighlights": true,
+    "highlightBehavior": "highlight-inline",
+    "highlighterEnabled": true
+  },
+  "interpreter_settings": {
+    "defaultPromptContext": "[SELLO #20 Purson-Astaroth ACTIVO - TGL Fleet Intelligence Multi-Scenario]\nEres Purson-Astaroth, la entidad Goetia de extracción de tesoros ocultos y Knowledge Graph para RUNEFORGE (Local-First).\n\nTU MISIÓN:\nExtrae y normaliza datos de telemetría de flota, calibración de tanques FLS, comandos CalAmp, tramas AVL y parámetros multicanal desde https://rastreo.tgarzaleal.com/*.\n\nPROTOCOLO PURSON (Búsqueda de tesoros ocultos):\n1. Escanea todo el {content} buscando patrones de alta precisión:\n   - ESN: regex (?:ESN|Serial|ID)[:\\s]*([0-9]{10,15})\n   - TRAMA: !E[0-9]{10},040000[0-9A-F]{4}[0-9A-F]{4}[0-9A-F]{4}[0-9A-F]{4}\n   - NIVEL T1 (FLS): accum_0[:\\s=]*([0-9]+\\.?[0-9]*)\n   - NIVEL T2 (FLS): accum_1[:\\s=]*([0-9]+\\.?[0-9]*)\n   - VOLTAJE: volt_unit[:\\s=]*([0-9]+\\.?[0-9]*)\n   - RAW_ESCORT: Escort\\s*Raw[:\\s]*([0-9]+)\n   - COMANDOS CalAmp: !r3,62,[A-F0-9]+ | !r3,61, | AT\\+.* | !E.*\n   - UNIDAD: Unidad\\s*([A-Z0-9-]+)\n   - EVENTO: event_code[:\\s=]*([0-9]+)\n\n2. Si no encuentras un campo, déjalo como \"\".\n\nPROTOCOLO ASTAROTH (Knowledge Graph - estructuración):\n3. Genera salida en Frontmatter YAML VÁLIDO con ESTOS campos exactos:\n   title, source, published, created, unit, esn, group, trama, nivel_t1, nivel_t2, volt_unit, raw_escort, event_code, comandos, comando_calamp, location, status, obsidian_link, sello, enn\n\n4. Normaliza:\n   - title: \"{title}\" limpio sin emojis\n   - source: \"{url}\"\n   - nivel_t1: número float (litros tanque 1)\n   - nivel_t2: número float (litros tanque 2)\n   - volt_unit: número float\n   - raw_escort: número entero\n   - trama: string exacto de la regex, uppercase\n   - esn: solo dígitos\n   - status: operativo | mantenimiento | alerta | inactivo\n\n5. Formatea el cuerpo en Markdown:\n   - Tabla de telemetría multicanal crítica (Unidad, ESN, Tanque 1 FLS, Tanque 2 FLS, Voltaje, RSSI)\n   - Bloque de código para trama raw: ```trama\n   - Lista de comandos CalAmp y eventos detectados\n   - Sección 🧠 Análisis Purson-Astaroth TGL: 3 insights científicos de datos de flota\n",
+    "interpreterAutoRun": true,
+    "interpreterEnabled": true,
+    "interpreterModel": "purson-astaroth-extractor-v5",
+    "models": [],
+    "providers": []
+  },
+  "migrationVersion": 1,
+  "property_types": [
+    { "defaultValue": "{{title}}", "name": "title", "type": "text" },
+    { "defaultValue": "{{url}}", "name": "source", "type": "text" },
+    { "defaultValue": "{{date:YYYY-MM-DD HH:mm:ss}}", "name": "created", "type": "date" },
+    { "defaultValue": "{{published}}", "name": "published", "type": "date" },
+    { "defaultValue": "", "name": "unit", "type": "text" },
+    { "defaultValue": "", "name": "esn", "type": "text" },
+    { "defaultValue": "", "name": "group", "type": "text" },
+    { "defaultValue": "", "name": "trama", "type": "text" },
+    { "defaultValue": "", "name": "nivel_t1", "type": "number" },
+    { "defaultValue": "", "name": "nivel_t2", "type": "number" },
+    { "defaultValue": "", "name": "volt_unit", "type": "number" },
+    { "defaultValue": "", "name": "raw_escort", "type": "number" },
+    { "defaultValue": "", "name": "event_code", "type": "text" },
+    { "defaultValue": "", "name": "comandos", "type": "text" },
+    { "defaultValue": "", "name": "comando_calamp", "type": "text" },
+    { "defaultValue": "", "name": "location", "type": "text" },
+    { "defaultValue": "operativo", "name": "status", "type": "text" },
+    { "defaultValue": "purson-astaroth", "name": "sello", "type": "text" },
+    { "defaultValue": "Ana secore on ca Purson", "name": "enn", "type": "text" },
+    { "defaultValue": "runeforge/clipping, sello/purson, tgl-lab, fleet/intelligence, fls/telemetry", "name": "tags", "type": "multitext" }
+  ],
+  "reader_settings": {
+    "appearance": "auto",
+    "autoScroll": true,
+    "blendImages": true,
+    "colorLinks": true,
+    "customCss": "",
+    "darkTheme": "same",
+    "defaultFont": "",
+    "followLinks": true,
+    "fontSize": 16,
+    "highlightActiveLine": true,
+    "lightTheme": "default",
+    "lineHeight": 1.6,
+    "maxWidth": 42,
+    "pinPlayer": true
+  },
+  "schemaVersion": "0.1.0",
+  "stats": {
+    "addToObsidian": 15,
+    "copyToClipboard": 164,
+    "saveFile": 68,
+    "share": 3
+  },
+  "templates": []
+}

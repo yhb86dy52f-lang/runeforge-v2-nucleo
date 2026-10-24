@@ -1,0 +1,30 @@
+﻿MEMORIA OPERATIVA ACTUAL - RUNEFORGE V2.6.2
+Fecha de actualización: 2026-10-24
+Estado del sistema: Estable / Producción Local
+
+FILOSOFÍA:
+Local-First, Privacidad Radical, Cero Bloat, Estética Cyber-Mística (#0D0211 / #39FF14).
+
+COMPONENTES ACTIVOS DEL ECOSISTEMA:
+1. Command Center (AHK v2): Panel visual con botones para arrancar, parar, auditar, resetear RAM y copiar contexto de IA.
+2. Core Scripts (PowerShell): 
+   - RUNEFORGE_BOOT.ps1 (Levanta los 6 servicios)
+   - STOP.ps1 (Apagón Nuclear: mata procesos, servicios y red)
+   - AUDIT.ps1 (Auditoría Forense de puertos y procesos)
+3. Backend (Fastify/Node): Corre en PM2 en el puerto 3100.
+4. IA / Audio: Whisper Large-v3-turbo en puerto 8081 (Python venv + CUDA). Ollama en puerto 11434.
+5. Frontend (Tauri/Rust): App de escritorio compilada (app.exe). Vite frontend en puerto 8080.
+6. Red (Tailscale): Servicio Mesh para acceso remoto.
+7. Documentación: MANIFIESTO.md, RUNEFORGE_V2_CORE.md, NEXUS_ARCHITECT_AUTOMATION.md.
+
+REGLAS CANÓNICAS:
+- Todo script debe copiar su salida al portapapeles (Set-Clipboard) al terminar.
+- El Prompt de PowerShell usa ANSI (VT100) para evitar bucles de renderizado.
+- Nunca matar procesos por nombre genérico (node.exe, python.exe); filtrar siempre por CommandLine usando Get-CimInstance Win32_Process.
+- Encoding: UTF-8 con BOM para .ps1 y .ahk. ANSI para .bat.
+
+FLUJOS DE TRABAJO:
+- Para iniciar todo: Ejecutar RUNEFORGE_BOOT.ps1 o botón ARRANCAR.
+- Para apagar todo (incluyendo red): Ejecutar STOP.ps1 o botón PARAR.
+- Para validar estado: Ejecutar AUDIT.ps1 o botón AUDITAR.
+- Para dar contexto a una IA: Usar los botones de la sección IA / CONTEXTO del Panel AHK.

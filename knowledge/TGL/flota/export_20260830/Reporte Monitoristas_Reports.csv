@@ -1,0 +1,5 @@
+Name;Type;Tables;Description
+Geocerca visitada especial;Unit Group;Estadísticas, Geocercas;
+Informe de Unidad Detallado Garza;Unit;Estadísticas, Dibujar geocercas, Paradas, Estacionamientos, Viajes, Estadísticas, Estadísticas, Estacionamientos, Viajes, Estadísticas, Seguimiento, Eventos, Paradas, Estacionamientos, Geocercas Visitadas;
+Temperatura Garza Cliente;Unit;Dibujar geocercas, Paradas, Estacionamientos, Viajes, Estadísticas, Seguimiento del sensor, Gráfica;
+Temperatura Garza Cliente 2;Unit;Dibujar geocercas, Paradas, Estacionamientos, Viajes, Estadísticas, Seguimiento del sensor, Gráfica;

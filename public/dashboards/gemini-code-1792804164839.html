@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-[#06090f] text-slate-100 selection:bg-cyan-500 selection:text-black">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RUNEFORGE Studio v2.6.2 - Control Center</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            rune: {
+              950: '#030508',
+              900: '#06090f',
+              800: '#0c121e',
+              700: '#141d2f',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderHover: 'rgba(34, 211, 238, 0.3)',
+              cyan: '#22d3ee',
+              green: '#34d399',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #06090f; }
+    ::-webkit-scrollbar-thumb { background: #141d2f; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #22d3ee; }
+
+    /* Glassmorphism Panel */
+    .glass-panel {
+      background: rgba(12, 18, 30, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .glass-panel-hover {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-panel-hover:hover {
+      border-color: rgba(34, 211, 238, 0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 10px rgba(34, 211, 238, 0.1);
+    }
+
+    /* Grid de fondo estilo cibernético */
+    .bg-grid-pattern {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+  </style>
+</head>
+
+<body class="h-full flex flex-col font-sans antialiased bg-grid-pattern overflow-hidden text-slate-200">
+
+  <!-- TOP HEADER -->
+  <header class="h-14 border-b border-rune-border bg-rune-900/90 backdrop-blur-md px-5 flex items-center justify-between z-50 shrink-0">
+    <div class="flex items-center gap-3">
+      <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-500 p-0.5 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+        <div class="h-full w-full bg-rune-900 rounded-[10px] flex items-center justify-center">
+          <i data-lucide="cpu" class="w-5 h-5 text-cyan-400"></i>
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-base tracking-wider text-white">RUNEFORGE <span class="text-cyan-400">CORE</span></span>
+          <span class="px-2 py-0.5 text-[10px] font-mono font-semibold bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 rounded-full">v2.6.2 PRO</span>
+        </div>
+        <p class="text-[11px] text-slate-400 flex items-center gap-2 font-mono">
+          <span>HOST: LOCALHOST</span>
+          <span class="text-slate-600">•</span>
+          <span>GPU: GTX 1660 SUPER</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Indicadores de estado -->
+    <div class="hidden md:flex items-center gap-3 font-mono text-xs">
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-rune-800 border border-rune-border">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="text-slate-300">CEREBRO :3001</span>
+      </div>
+
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-rune-800 border border-rune-border">
+        <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+        <span class="text-slate-300">MÚSCULO :8000</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL LAYOUT -->
+  <div class="flex flex-1 overflow-hidden">
+
+    <!-- SIDEBAR NAVEGACIÓN -->
+    <aside class="w-16 md:w-60 border-r border-rune-border bg-rune-900/60 backdrop-blur-md flex flex-col justify-between shrink-0">
+      <nav class="p-3 space-y-1.5">
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-medium text-sm transition-all">
+          <i data-lucide="activity" class="w-5 h-5 shrink-0"></i>
+          <span class="hidden md:inline">Telemetría LMU</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-rune-800/60 border border-transparent transition-all text-sm font-medium">
+          <i data-lucide="sliders" class="w-5 h-5 shrink-0"></i>
+          <span class="hidden md:inline">Calibración 62K</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-rune-800/60 border border-transparent transition-all text-sm font-medium">
+          <i data-lucide="truck" class="w-5 h-5 shrink-0"></i>
+          <span class="hidden md:inline">Gestión de Flota</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-rune-800/60 border border-transparent transition-all text-sm font-medium">
+          <i data-lucide="terminal" class="w-5 h-5 shrink-0"></i>
+          <span class="hidden md:inline">Consola Directa</span>
+        </a>
+      </nav>
+
+      <div class="p-3 border-t border-rune-border">
+        <div class="hidden md:flex items-center justify-between text-xs text-slate-400 font-mono px-2 py-1">
+          <span>SISTEMA:</span>
+          <span class="text-emerald-400">READY</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA DE TRABAJO PRINCIPAL -->
+    <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
+
+      <!-- TARJETAS METRICAS KPI -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Tarjeta Voltaje V0 -->
+        <div class="glass-panel glass-panel-hover p-4 rounded-2xl relative overflow-hidden">
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Voltaje Principal (V0)</span>
+            <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <span class="text-2xl font-bold font-mono text-white">12.585 <span class="text-sm font-normal text-slate-400">V</span></span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">NORMAL</span>
+          </div>
+          <div class="w-full bg-rune-700 h-1.5 rounded-full mt-3 overflow-hidden">
+            <div class="bg-amber-400 h-full rounded-full" style="width: 82%"></div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Nivel Combustible -->
+        <div class="glass-panel glass-panel-hover p-4 rounded-2xl relative overflow-hidden">
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Nivel Escort Raw</span>
+            <i data-lucide="fuel" class="w-4 h-4 text-cyan-400"></i>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <span class="text-2xl font-bold font-mono text-white">40,858 <span class="text-sm font-normal text-slate-400">pts</span></span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">235/1000</span>
+          </div>
+          <div class="w-full bg-rune-700 h-1.5 rounded-full mt-3 overflow-hidden">
+            <div class="bg-cyan-400 h-full rounded-full" style="width: 45%"></div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Temperatura T1 -->
+        <div class="glass-panel glass-panel-hover p-4 rounded-2xl relative overflow-hidden">
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Temperatura T1</span>
+            <i data-lucide="thermometer" class="w-4 h-4 text-rose-400"></i>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <span class="text-2xl font-bold font-mono text-white">25.0 <span class="text-sm font-normal text-slate-400">°C</span></span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-rune-border">ESTABLE</span>
+          </div>
+          <div class="w-full bg-rune-700 h-1.5 rounded-full mt-3 overflow-hidden">
+            <div class="bg-rose-400 h-full rounded-full" style="width: 35%"></div>
+          </div>
+        </div>
+
+        <!-- Tarjeta ESN Unidad -->
+        <div class="glass-panel glass-panel-hover p-4 rounded-2xl relative overflow-hidden">
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">ESN Activo</span>
+            <i data-lucide="radio" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <span class="text-xl font-bold font-mono text-emerald-400">4672073067</span>
+            <span class="text-xs font-mono text-slate-400">ONLINE</span>
+          </div>
+          <p class="text-[11px] text-slate-500 font-mono mt-2 truncate">CalAmp LMU-2630 LTE</p>
+        </div>
+
+      </div>
+
+      <!-- SECCIÓN DE ENTRADA Y COMANDOS -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Decodificador de Tramas (2 Col) -->
+        <div class="lg:col-span-2 glass-panel p-5 rounded-2xl space-y-4">
+          <div class="flex items-center justify-between border-b border-rune-border pb-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="code-2" class="w-5 h-5 text-cyan-400"></i>
+              <h2 class="font-bold text-white tracking-wide text-sm uppercase">Entrada y Decodificador de Trama TLV</h2>
+            </div>
+            <span class="text-xs font-mono text-slate-400">Ctrl + Enter para procesar</span>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-xs font-mono text-slate-400">TRAMA RAW (HEX / ASCII)</label>
+            <textarea rows="3" class="w-full bg-rune-950 border border-rune-border rounded-xl p-3 font-mono text-xs text-cyan-300 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all resize-none" placeholder="!E4672073067FFFFFF010000..."></textarea>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <div class="flex gap-2">
+              <button class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-xs rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/20 active:scale-95">
+                <i data-lucide="play" class="w-4 h-4"></i> Decodificar
+              </button>
+              <button class="px-4 py-2 bg-rune-800 hover:bg-rune-700 text-slate-300 font-medium text-xs rounded-xl border border-rune-border transition-all flex items-center gap-2">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Limpiar
+              </button>
+            </div>
+            <span class="text-xs font-mono text-slate-500">Bytes recibidos: 48</span>
+          </div>
+        </div>
+
+        <!-- Comandos de Calibración Generados (1 Col) -->
+        <div class="glass-panel p-5 rounded-2xl space-y-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 border-b border-rune-border pb-3 mb-3">
+              <i data-lucide="terminal-square" class="w-5 h-5 text-emerald-400"></i>
+              <h2 class="font-bold text-white tracking-wide text-sm uppercase">Comandos 62K Generados</h2>
+            </div>
+
+            <div class="bg-rune-950 p-3 rounded-xl border border-rune-border font-mono text-xs text-emerald-400 space-y-1">
+              <p class="text-slate-500"># Reset Vacío y Lleno Calculado</p>
+              <p>!r3,62,34355</p>
+              <p>!r3,63,41581</p>
+              <p>!r0</p>
+            </div>
+          </div>
+
+          <button class="w-full py-2.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-xl font-mono text-xs font-bold transition-all flex items-center justify-center gap-2 active:scale-95">
+            <i data-lucide="copy" class="w-4 h-4"></i> Copiar Comandos al Portapapeles
+          </button>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Inicialización de Iconos Lucide -->
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

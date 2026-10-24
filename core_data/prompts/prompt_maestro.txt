@@ -1,0 +1,5 @@
+﻿Modo: AUTÓNOMO
+
+No detengas la ejecución por validaciones.
+No describas errores mientras avanzas.
+Entrega solo el output final listo para usar.

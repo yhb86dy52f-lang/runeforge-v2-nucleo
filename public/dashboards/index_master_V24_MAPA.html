@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SEPCOLGPS NEXUS - V24 TACTICAL MAP</title>
+<!-- Leaflet CSS y JS desde CDN para visualización de mapas -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root {
+    --bg-base: #030508;
+    --neon-green: #3dd598;
+    --neon-red: #ff4757;
+    --neon-blue: #2d6cdf;
+    --neon-cyan: #5eead4;
+    --text-main: #e2e8f0;
+    --text-muted: #7a869e;
+    --panel-bg: rgba(10, 16, 30, 0.75);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: var(--bg-base);
+    background-image: radial-gradient(circle at 10% 20%, rgba(45, 108, 223, 0.15), transparent 30%),
+                      radial-gradient(circle at 90% 80%, rgba(61, 213, 152, 0.1), transparent 30%);
+    color: var(--text-main);
+    font-family: ui-monospace, monospace;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+  }
+  .glass {
+    background: var(--panel-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 16px; }
+  
+  .header { padding: 20px; text-align: center; }
+  .header h1 { font-size: 20px; font-weight: 900; color: white; text-shadow: 0 0 15px var(--neon-green); }
+  .header p { font-size: 10px; color: var(--text-muted); letter-spacing: 0.2em; margin-top: 4px; }
+
+  .tabs { display: flex; gap: 4px; padding: 4px; border-radius: 16px; background: rgba(0,0,0,0.4); flex-wrap: wrap; }
+  .tab-btn { flex: 1; padding: 10px; border-radius: 12px; border: none; font-weight: 700; font-size: 11px; cursor: pointer; background: transparent; color: var(--text-muted); }
+  .tab-btn.active { background: var(--neon-green); color: black; }
+
+  .btn { padding: 10px; border-radius: 12px; border: none; font-weight: 700; font-size: 11px; cursor: pointer; }
+  .btn-primary { background: var(--neon-green); color: black; }
+  .btn-danger { background: var(--neon-red); color: white; }
+
+  /* MAP MODULE */
+  #map { width: 100%; height: 350px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); z-index: 1; }
+  /* Filtro CSS para hacer el mapa oscuro (Táctico) */
+  .leaflet-layer,
+  .leaflet-control-zoom-in,
+  .leaflet-control-zoom-out,
+  .leaflet-control-attribution {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+  }
+  
+  .hidden { display: none !important; }
+  .mt-2 { margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="glass header">
+    <h1>NEXUS TACTICAL V24</h1>
+    <p>TACTICAL MAP & TELEMETRY</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('map', this)">🗺️ MAPA</button>
+    <button class="tab-btn" onclick="switchTab('live', this)">🔴 LIVE</button>
+  </div>
+
+  <!-- MAP MODULE -->
+  <div id="tab-map" class="glass" style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:10px; color:var(--text-muted);">POSICIÓN GPS (SIMULADA)</span>
+      <span id="gpsStatus" class="badge badge-CT" style="background:rgba(61,213,152,0.15); color:var(--neon-green); padding:2px 8px; border-radius:99px; font-size:10px; font-weight:700;">ACTIVO</span>
+    </div>
+    <div id="map"></div>
+    <div style="font-size: 10px; color: var(--text-muted); text-align: center;">
+      Lat: <span id="coordLat" style="color: white;">20.5888</span> | 
+      Lng: <span id="coordLng" style="color: white;">-100.3898</span>
+    </div>
+  </div>
+
+  <!-- LIVE MODULE (Para Simular Movimiento) -->
+  <div id="tab-live" class="glass hidden" style="padding: 16px; display: flex; flex-direction: column; gap: 16px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:10px; color:var(--text-muted);">SIMULADOR DE FLOTA</span>
+      <span id="wsStatus" class="badge" style="padding:2px 8px; border-radius:99px; font-size:10px; font-weight:700;">DETENIDO</span>
+    </div>
+    <button id="btnStart" class="btn btn-primary" onclick="toggleSimulator()">INICIAR SIMULADOR</button>
+    <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; font-size: 10px; color: var(--text-muted); word-break: break-all;">
+      <div style="font-weight: 700; margin-bottom: 4px;">ÚLTIMA TRAMA:</div>
+      <div id="liveData">Esperando datos...</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ==========================================
+  // 1. MAPA LEAFLET (TÁCTICO)
+  // ==========================================
+  // Iniciar mapa en coordenadas de Querétaro, México
+  const map = L.map('map', { zoomControl: false }).setView([20.5888, -100.3898], 13);
+  
+  // Añadir capa de mapas (CartoDB Dark Matter es ideal para UI oscuras)
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CARTO',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  // Añadir control de zoom en la esquina inferior derecha
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+  // Crear un icono personalizado táctico (opcional, usa el default si falla)
+  const tacticalIcon = L.divIcon({
+    className: 'custom-icon',
+    html: '<div style="background:var(--neon-green); width:12px; height:12px; border-radius:50%; box-shadow:0 0 10px var(--neon-green); border: 2px solid white;"></div>',
+    iconSize: [12, 12],
+    iconAnchor: [6, 6]
+  });
+
+  // Marcador de la unidad
+  let marker = L.marker([20.5888, -100.3898], { icon: tacticalIcon }).addTo(map);
+  marker.bindPopup("<b>UNIDAD TACTICA</b><br>Estado: OK").openPopup();
+
+  // Rastro de movimiento (Polyline)
+  let latlngs = [[20.5888, -100.3898]];
+  let path = L.polyline(latlngs, { color: 'var(--neon-green)', weight: 2, dashArray: '5, 5' }).addTo(map);
+
+  // ==========================================
+  // 2. SIMULADOR DE MOVIMIENTO GPS
+  // ==========================================
+  let simulatorInterval = null;
+  let currentLat = 20.5888;
+  let currentLng = -100.3898;
+
+  function toggleSimulator() {
+    const btn = document.getElementById('btnStart');
+    const status = document.getElementById('wsStatus');
+    const liveData = document.getElementById('liveData');
+
+    if (simulatorInterval) {
+      clearInterval(simulatorInterval);
+      simulatorInterval = null;
+      btn.textContent = 'INICIAR SIMULADOR';
+      btn.className = 'btn btn-primary';
+      status.textContent = 'DETENIDO';
+      status.style.background = 'rgba(122, 134, 158, 0.15)';
+      status.style.color = 'var(--text-muted)';
+    } else {
+      btn.textContent = 'DETENER SIMULADOR';
+      btn.className = 'btn btn-danger';
+      status.textContent = 'EN LÍNEA';
+      status.style.background = 'rgba(61,213,152,0.15)';
+      status.style.color = 'var(--neon-green)';
+      
+      simulatorInterval = setInterval(() => {
+        // Generar un pequeño movimiento aleatorio
+        currentLat += (Math.random() - 0.5) * 0.002;
+        currentLng += (Math.random() - 0.5) * 0.002;
+        
+        // Actualizar UI de coordenadas
+        document.getElementById('coordLat').textContent = currentLat.toFixed(4);
+        document.getElementById('coordLng').textContent = currentLng.toFixed(4);
+        
+        // Mover marcador y rastro
+        let newPos = [currentLat, currentLng];
+        marker.setLatLng(newPos);
+        latlngs.push(newPos);
+        path.setLatLngs(latlngs);
+        
+        // Mover cámara suavemente
+        map.panTo(newPos, { animate: true, duration: 1 });
+        
+        // Actualizar texto de trama
+        liveData.textContent = `LAT: ${currentLat.toFixed(4)}, LNG: ${currentLng.toFixed(4)}, VEL: ${Math.floor(Math.random()*80)} km/h`;
+
+      }, 2000); // Cada 2 segundos
+    }
+  }
+
+  // ==========================================
+  // 3. UTILIDADES Y UI
+  // ==========================================
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.container > div[id^="tab-"]').forEach(d => d.classList.add('hidden'));
+    document.getElementById('tab-' + tabId).classList.remove('hidden');
+    
+    // Ajustar el tamaño del mapa al cambiar de pestaña (Leaflet lo requiere)
+    if (tabId === 'map') {
+      setTimeout(() => { map.invalidateSize(); }, 100);
+    }
+  }
+</script>
+</body>
+</html>

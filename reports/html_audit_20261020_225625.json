@@ -1,0 +1,618 @@
+[
+  {
+    "MB": 0.2,
+    "Tipo": "Build Output (Revisar)",
+    "Titulo": "React Artifact",
+    "Scripts": 1,
+    "Ruta": ".\\apps\\dictate-studio-v2\\dist\\index.html"
+  },
+  {
+    "MB": 0.04,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNEFORGE SCANNER-PRO v16.0 APEX • ULTRA MAX WAR EDITION",
+    "Scripts": 1,
+    "Ruta": ".\\apps\\esp32-scanner-pro\\src\\index.html"
+  },
+  {
+    "MB": 0.0,
+    "Tipo": "Estático / Docs",
+    "Titulo": "__APPNAME__",
+    "Scripts": 0,
+    "Ruta": ".\\apps\\_template\\src\\index.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\docs\\dashboard\\NEXUS_PRODUCTION_DASHBOARD.html"
+  },
+  {
+    "MB": 0.18,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\docs\\dashboard\\RUNEFORGE_COLLAB_DASHBOARD.html"
+  },
+  {
+    "MB": 0.04,
+    "Tipo": "Estático / Docs",
+    "Titulo": "ScannerPRO - RF Spectrum & Network Analyzer",
+    "Scripts": 4,
+    "Ruta": ".\\docs\\dashboard\\scannerpro_dashboard_original.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\docs\\RUNEFORGE_COLLAB_FINAL_CORREGIDO_v1\\dashboard\\NEXUS_PRODUCTION_DASHBOARD.html"
+  },
+  {
+    "MB": 0.18,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\docs\\RUNEFORGE_COLLAB_FINAL_CORREGIDO_v1\\dashboard\\RUNEFORGE_COLLAB_DASHBOARD.html"
+  },
+  {
+    "MB": 0.04,
+    "Tipo": "Estático / Docs",
+    "Titulo": "ScannerPRO - RF Spectrum & Network Analyzer",
+    "Scripts": 4,
+    "Ruta": ".\\docs\\RUNEFORGE_COLLAB_FINAL_CORREGIDO_v1\\dashboard\\scannerpro_dashboard_original.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNE v12 - ANALISIS FINAL v3 CONSOLIDADO",
+    "Scripts": 1,
+    "Ruta": ".\\firmware\\ANALISIS_x5f_FINAL_x5f_v3_x5f_CONSOLIDADO.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNEFORGE FINAL v4 - 13260 vs 133518 ARCHIVOS",
+    "Scripts": 1,
+    "Ruta": ".\\firmware\\ANALISIS_x5f_FINAL_x5f_v4_x5f_13260_x5f_vs_x5f_133518.html"
+  },
+  {
+    "MB": 0.07,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Entorno de Trabajo BLE ESP32 + Asistente IA Gemini",
+    "Scripts": 4,
+    "Ruta": ".\\firmware\\entorno_de_trabajo_y_c_digo_esp32_ble.html"
+  },
+  {
+    "MB": 0.19,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\firmware\\forge_x5f_sms_x5f_hub_x5f_mobile.html"
+  },
+  {
+    "MB": 0.51,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\firmware\\fusionada_x5f_sonar_x5f_instalaciones_x5f_sepcolgps.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Nexus Telemetry & Operations Suite",
+    "Scripts": 0,
+    "Ruta": ".\\firmware\\gemini-code-1791183792501.html"
+  },
+  {
+    "MB": 1.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\firmware\\grimorio_x5f_completo_x5f_72_x5f_ia (1).html"
+  },
+  {
+    "MB": 1.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\firmware\\grimorio_x5f_completo_x5f_72_x5f_ia.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\firmware\\index.html"
+  },
+  {
+    "MB": 0.06,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Redes de Rastreo Bluetooth Colaborativas - Arquitectura & Criptografía",
+    "Scripts": 4,
+    "Ruta": ".\\firmware\\redes_de_rastreo_bluetooth_colaborativas.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\firmware\\reporte_x5f_patio_x5f_100_x5f_equipos.html"
+  },
+  {
+    "MB": 0.18,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\firmware\\runeforge_x5f_collab_x5f_v1_x5f_dashboard.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\firmware\\scanner-patio-v7-1.html"
+  },
+  {
+    "MB": 0.19,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\firmware\\scanner-v72-decoder.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\firmware\\scannerpro_x5f_nexus_x5f_production_x5f_dashboard.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Scanner PRO v8.0 ULTIMATE - Fusion",
+    "Scripts": 0,
+    "Ruta": ".\\firmware\\ScannerPro_x5f_v8_x5f_Ultimate.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\firmware\\dashboard\\NEXUS_PRODUCTION_DASHBOARD.html"
+  },
+  {
+    "MB": 0.18,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\firmware\\dashboard\\RUNEFORGE_COLLAB_DASHBOARD.html"
+  },
+  {
+    "MB": 0.04,
+    "Tipo": "Estático / Docs",
+    "Titulo": "ScannerPRO - RF Spectrum & Network Analyzer",
+    "Scripts": 4,
+    "Ruta": ".\\firmware\\dashboard\\scannerpro_dashboard_original.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\firmware\\RUNEFORGE_COLLAB_FINAL_CORREGIDO_v1\\dashboard\\NEXUS_PRODUCTION_DASHBOARD.html"
+  },
+  {
+    "MB": 0.18,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\firmware\\RUNEFORGE_COLLAB_FINAL_CORREGIDO_v1\\dashboard\\RUNEFORGE_COLLAB_DASHBOARD.html"
+  },
+  {
+    "MB": 0.04,
+    "Tipo": "Estático / Docs",
+    "Titulo": "ScannerPRO - RF Spectrum & Network Analyzer",
+    "Scripts": 4,
+    "Ruta": ".\\firmware\\RUNEFORGE_COLLAB_FINAL_CORREGIDO_v1\\dashboard\\scannerpro_dashboard_original.html"
+  },
+  {
+    "MB": 1.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "ScannerPRO Cyber Visualizer v10.0 - RUNEFORGE CORE",
+    "Scripts": 2,
+    "Ruta": ".\\firmware\\scannerpro_cyber_visualizer\\scannerpro_cyber_visualizer.html"
+  },
+  {
+    "MB": 0.04,
+    "Tipo": "Estático / Docs",
+    "Titulo": "ScannerPRO - RF Spectrum & Network Analyzer",
+    "Scripts": 4,
+    "Ruta": ".\\firmware\\ScannerPRO_v8.3.8_RAFAGA_FIX_TIMEOUT\\ScannerPRO\\scannerpro_dashboard.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\firmware\\ScannerPRO_v8.3.8_RAFAGA_FIX_TIMEOUT\\ScannerPRO\\Scannerpro-Nexus-Production-Dashboard.html"
+  },
+  {
+    "MB": 0.04,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNE v12 PRO AUTÓNOMO",
+    "Scripts": 2,
+    "Ruta": ".\\FlotaKW_Completo_v3.2_SOBERANO\\FlotaKW_Completo\\docs\\RUNE-V12-AUTONOMO-FINAL.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\FlotaKW_Completo_v3.2_SOBERANO\\FlotaKW_Completo\\web\\Flotakw-Inventario-Real-V3.html"
+  },
+  {
+    "MB": 0.2,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\forja\\laboratorio.html"
+  },
+  {
+    "MB": 0.19,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\forja\\dictate-src\\Dictate-Unified.html"
+  },
+  {
+    "MB": 0.2,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 1,
+    "Ruta": ".\\forja\\dictate-src\\Dictate-Whisper.html"
+  },
+  {
+    "MB": 0.03,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNE v13.0 — Motor de Juegos & IA",
+    "Scripts": 3,
+    "Ruta": ".\\knowledge\\00_INBOX\\deepseek_html_20260812_16221d.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge v2.4 Mission Control",
+    "Scripts": 1,
+    "Ruta": ".\\knowledge\\00_INBOX\\forge_ui_mission_control_v2_4.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Panel de Optimización - Telemetría BLE",
+    "Scripts": 0,
+    "Ruta": ".\\knowledge\\00_INBOX\\gemini-code-1784815556876.html"
+  },
+  {
+    "MB": 0.05,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNE v11.2 PRO + UPDATER",
+    "Scripts": 2,
+    "Ruta": ".\\knowledge\\00_INBOX\\index.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge Mobile Core - Dashboard Técnico",
+    "Scripts": 2,
+    "Ruta": ".\\knowledge\\00_INBOX\\panel_t_cnico_runeforge_mobile.html"
+  },
+  {
+    "MB": 0.04,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge v2.0 | Mission Control",
+    "Scripts": 2,
+    "Ruta": ".\\knowledge\\00_INBOX\\runeforge_mission_control_spa.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNEFORGE // WebCommand Panel V1",
+    "Scripts": 1,
+    "Ruta": ".\\knowledge\\00_INBOX\\RUNEFORGE_PANEL_WEBCOMMAND_V1.html"
+  },
+  {
+    "MB": 0.18,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\knowledge\\00_INBOX\\Runeforge-V2.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Informe Técnico - Integración Escort TD-BLE con CalAmp LMU-2630MB",
+    "Scripts": 0,
+    "Ruta": ".\\knowledge\\99_ARCHIVE_INBOX\\deepseek_html_20260723_920dc1.html"
+  },
+  {
+    "MB": 0.0,
+    "Tipo": "Estático / Docs",
+    "Titulo": "nexus-dashboard",
+    "Scripts": 1,
+    "Ruta": ".\\nexus-dashboard\\index.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNEFORGE MASTER - APP TABAJO",
+    "Scripts": 2,
+    "Ruta": ".\\public\\index_master.html"
+  },
+  {
+    "MB": 0.22,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\public\\index.html"
+  },
+  {
+    "MB": 0.0,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNEFORGE · README",
+    "Scripts": 2,
+    "Ruta": ".\\public\\readme-viewer.html"
+  },
+  {
+    "MB": 0.21,
+    "Tipo": "Dashboard / Panel",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\public\\simulador.html"
+  },
+  {
+    "MB": 0.0,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge Forge UI",
+    "Scripts": 1,
+    "Ruta": ".\\public\\documentacion y propuestas\\index.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge — Núcleo Global Unificado",
+    "Scripts": 0,
+    "Ruta": ".\\public\\forge\\index.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge — Enjambre Multi-Agente",
+    "Scripts": 0,
+    "Ruta": ".\\public\\forge\\swarm\\index.html"
+  },
+  {
+    "MB": 0.0,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge - Acceso iPhone",
+    "Scripts": 3,
+    "Ruta": ".\\public\\pages\\acceso.html"
+  },
+  {
+    "MB": 0.05,
+    "Tipo": "Estático / Docs",
+    "Titulo": "BITÁCORA PRO - Sistema de Gestión de Telemetría",
+    "Scripts": 1,
+    "Ruta": ".\\public\\pages\\bit_cora_pro_web_app.html"
+  },
+  {
+    "MB": 0.0,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge Chat SSE",
+    "Scripts": 1,
+    "Ruta": ".\\public\\pages\\chat.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge Forge UI v2.0 — AI Control Center",
+    "Scripts": 1,
+    "Ruta": ".\\public\\pages\\control.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge Core",
+    "Scripts": 0,
+    "Ruta": ".\\public\\pages\\deepseek.html"
+  },
+  {
+    "MB": 0.05,
+    "Tipo": "Estático / Docs",
+    "Titulo": "BITÁCORA PRO - Sistema de Gestión de Telemetría",
+    "Scripts": 1,
+    "Ruta": ".\\public\\pages\\forge.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge — Enjambre Multi-Agente",
+    "Scripts": 0,
+    "Ruta": ".\\public\\pages\\index.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Infografía Estratégica: Forge UI v2.0",
+    "Scripts": 3,
+    "Ruta": ".\\public\\pages\\infograma.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge Core - Mission Control v2.0",
+    "Scripts": 2,
+    "Ruta": ".\\public\\pages\\mission.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge Core v2",
+    "Scripts": 0,
+    "Ruta": ".\\public\\pages\\pwa.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "Runeforge AI: Roadmap de Evolución",
+    "Scripts": 2,
+    "Ruta": ".\\public\\pages\\roadmap.html"
+  },
+  {
+    "MB": 0.0,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNEFORGE WebCommand",
+    "Scripts": 1,
+    "Ruta": ".\\public\\pages\\RUNEFORGE_PANEL_WEBCOMMAND_V1_1.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNEFORGE // WebCommand Panel V1",
+    "Scripts": 1,
+    "Ruta": ".\\public\\pages\\RUNEFORGE_PANEL_WEBCOMMAND_V1.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "RUNE v12 - Analisis Estatus Actual",
+    "Scripts": 1,
+    "Ruta": ".\\reports\\ANALISIS_ESTATUS_ACTUAL_v12.html"
+  },
+  {
+    "MB": 0.22,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\runeforge-v2-nucleo\\simulador\\index.html"
+  },
+  {
+    "MB": 0.21,
+    "Tipo": "Dashboard / Panel",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\runeforge-v2-nucleo\\simulador\\simulador.html"
+  },
+  {
+    "MB": 0.22,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\runeforge-v2-nucleo\\simulador\\LMU2630_GitHub_Pages_Ready\\index.html"
+  },
+  {
+    "MB": 0.2,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\runeforge-v2-nucleo\\simulador\\LMU2630_GitHub_Pages_Ready\\Lmu2630-Sim-Pro-V5.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\runeforge-v2-nucleo\\simulador\\LMU2630_GitHub_Pages_Ready\\Lmu2630-V7-Engineer-Flujo.html"
+  },
+  {
+    "MB": 0.16,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\runeforge-v2-nucleo\\simulador\\LMU2630_GitHub_Pages_Ready\\Lmu2630-V8-Edge-Mobile.html"
+  },
+  {
+    "MB": 0.17,
+    "Tipo": "Estático / Docs",
+    "Titulo": "React Artifact",
+    "Scripts": 3,
+    "Ruta": ".\\runeforge-v2-nucleo\\simulador\\LMU2630_GitHub_Pages_Ready\\Lmu2630-V8-Final-Funcional.html"
+  },
+  {
+    "MB": 0.21,
+    "Tipo": "Dashboard / Panel",
+    "Titulo": "React Artifact",
+    "Scripts": 2,
+    "Ruta": ".\\runeforge-v2-nucleo\\simulador\\LMU2630_GitHub_Pages_Ready\\simulador.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "bench : Benchmark whisper.cpp performance in the browser",
+    "Scripts": 1,
+    "Ruta": ".\\whisper\\whisper.cpp-master\\examples\\bench.wasm\\index-tmpl.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "command : Voice assistant example using Whisper + WebAssembly",
+    "Scripts": 1,
+    "Ruta": ".\\whisper\\whisper.cpp-master\\examples\\command.wasm\\index-tmpl.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "stream : Real-time Whisper transcription in WebAssembly",
+    "Scripts": 1,
+    "Ruta": ".\\whisper\\whisper.cpp-master\\examples\\stream.wasm\\index-tmpl.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "wchess : voice-controlled chess using Whisper + WebAssembly",
+    "Scripts": 1,
+    "Ruta": ".\\whisper\\whisper.cpp-master\\examples\\wchess\\wchess.wasm\\index-tmpl.html"
+  },
+  {
+    "MB": 0.03,
+    "Tipo": "Estático / Docs",
+    "Titulo": "whisper.cpp : WASM example",
+    "Scripts": 1,
+    "Ruta": ".\\whisper\\whisper.cpp-master\\examples\\whisper.wasm\\index-tmpl.html"
+  },
+  {
+    "MB": 0.01,
+    "Tipo": "Estático / Docs",
+    "Titulo": "bench : Benchmark whisper.cpp performance in the browser",
+    "Scripts": 1,
+    "Ruta": ".\\whisper.cpp\\examples\\bench.wasm\\index-tmpl.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "command : Voice assistant example using Whisper + WebAssembly",
+    "Scripts": 1,
+    "Ruta": ".\\whisper.cpp\\examples\\command.wasm\\index-tmpl.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "stream : Real-time Whisper transcription in WebAssembly",
+    "Scripts": 1,
+    "Ruta": ".\\whisper.cpp\\examples\\stream.wasm\\index-tmpl.html"
+  },
+  {
+    "MB": 0.02,
+    "Tipo": "Estático / Docs",
+    "Titulo": "wchess : voice-controlled chess using Whisper + WebAssembly",
+    "Scripts": 1,
+    "Ruta": ".\\whisper.cpp\\examples\\wchess\\wchess.wasm\\index-tmpl.html"
+  },
+  {
+    "MB": 0.03,
+    "Tipo": "Estático / Docs",
+    "Titulo": "whisper.cpp : WASM example",
+    "Scripts": 1,
+    "Ruta": ".\\whisper.cpp\\examples\\whisper.wasm\\index-tmpl.html"
+  }
+]

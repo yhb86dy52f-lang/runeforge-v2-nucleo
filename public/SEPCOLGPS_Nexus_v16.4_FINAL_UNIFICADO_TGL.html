@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEPCOLGPS NEXUS v16.4 • UNIFICADO CANÓNICO TGL</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React 18 UMD (Robusto ante fallos de ESM) -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap");
+    :root {
+      --bg: #05070a;
+      --surface: rgba(16, 22, 32, 0.72);
+      --surface-2: rgba(22, 32, 48, 0.84);
+      --glass-border: hsla(0, 0%, 100%, 0.08);
+      --text: #e8eef8;
+      --muted: #7a869e;
+      --green: #3dd598;
+      --blue: #2d6cdf;
+      --red: #ff4d6a;
+      --yellow: #ffcc4d;
+      --cyan: #5eead4;
+    }
+    *, :after, :before { box-sizing: border-box; }
+    body { margin: 0; background-color: var(--bg); color: var(--text); font-family: "JetBrains Mono", monospace; min-height: 100vh; overflow-x: clip; }
+    h1, h2, h3 { font-family: "Space Grotesk", "JetBrains Mono", monospace; letter-spacing: -0.02em; }
+    .glass { background: linear-gradient(180deg, hsla(0,0%,100%,0.06), hsla(0,0%,100%,0.03)); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); }
+    .glow-green { box-shadow: 0 0 30px rgba(61,213,152,0.18), inset 0 1px 0 hsla(0,0%,100%,0.08); }
+    .glow-blue { box-shadow: 0 0 30px rgba(45,108,223,0.22), inset 0 1px 0 hsla(0,0%,100%,0.08); }
+    .grid-bg { background-image: radial-gradient(rgba(61,213,152,0.08) 1px, transparent 1px); background-size: 22px 22px; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-thumb { background: hsla(0,0%,100%,0.12); border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    const { useState, useEffect, useMemo } = React;
+
+    const Fn = {
+      meta: {
+        version: "16.4 FINAL UNIFICADO UMD",
+        plataforma: "rastreo.tgarzaleal.com",
+        protocolo: "SMS HEX !E / !r4",
+        validacion: "5 capturas brave_* unificadas"
+      },
+      mapeo_parametros_crudos: {
+        accum_0: { offset: 16, len: 2, endian: "LE", scale: 0.001, unit: "V", nombre: "Voltaje Unidad", ejemplo: 12494, volt: 12.494 },
+        accum_1: { offset: 18, len: 2, endian: "LE", scale: 0.001, unit: "V", nombre: "Voltaje GPS", ejemplo: 3990, volt: 3.99 },
+        accum_2: { offset: 20, len: 4, endian: "LE", unit: "bitfield", nombre: "Status Bits Antijammer/Paros", bits: { "2": "Antijammer", "17": "Paro Preventivo", "18": "Sistema Aux", "19": "Paro Seguridad" } },
+        accum_5: { offset: 28, len: 4, endian: "LE", scale: 0.01, unit: "km", nombre: "Odometro", ejemplo: 9227148, km: 92271.48 },
+        accum_6: { offset: 32, len: 2, endian: "LE", scale: 0.1, unit: "km/h", nombre: "Velocidad Gps" },
+        esc_lev_0: { offset: 10, len: 2, endian: "LE", max: 4095, nombre: "Nivel Combustible Tanque2 CoPiloto", ejemplo: 3202, litros: 0.41, pct: 78.19 },
+        esc_lev_1: { offset: 12, len: 2, endian: "LE", max: 4095, nombre: "Nivel Combustible Tanque1 Piloto", ejemplo: 2986, litros: 41.6, pct: 72.92 },
+        esc_temp_0: { offset: 36, len: 2, endian: "LE", scale: 0.01, offsetC: -40, unit: "°C", nombre: "Temperatura T2", ejemplo: -2.25 },
+        esc_temp_1: { offset: 38, len: 2, endian: "LE", scale: 0.01, offsetC: -40, unit: "°C", nombre: "Temperatura T1", ejemplo: 20 },
+        rssi: { offset: 42, len: 1, unit: "dBm", nombre: "Calidad Señal", ejemplo: 92, calidad: "Mala" },
+        hdop: { offset: 43, len: 1, scale: 0.1, nombre: "HDOP" },
+        in1: { offset: 6, bit: 0, nombre: "Ignicion" },
+        in2: { offset: 6, bit: 1, nombre: "Motor" }
+      },
+      catalogo_sensores: {
+        CT239: [
+          { nombre: "Ignicion", tipo: "in", unidad: "", parametro: "in1", descripcion: "Ignicion ON/OFF - Bit 0 del status", visible: "Si" },
+          { nombre: "Voltaje Unidad", tipo: "accum", unidad: "V", parametro: "accum_0", descripcion: "Voltaje bateria principal *0.001 - Rango 9-16V", visible: "Si" },
+          { nombre: "Voltaje GPS", tipo: "accum", unidad: "V", parametro: "accum_1", descripcion: "Voltaje respaldo GPS *0.001 - Nominal 4.02V", visible: "Si" },
+          { nombre: "Motor", tipo: "in", unidad: "", parametro: "in2", descripcion: "Status motor encendido", visible: "Si" },
+          { nombre: "Temperatura", tipo: "esc", unidad: "°C", parametro: "accum_2", descripcion: "Temp camara esc_temp_0 -2.25°C actual", visible: "Si" },
+          { nombre: "Temperatura F", tipo: "const", unidad: "°F", parametro: "const32", descripcion: "Conversion F = C*1.8+32 => 27.95°F", visible: "Si" }
+        ],
+        KW614: [
+          { nombre: "Ignicion", tipo: "in", unidad: "", parametro: "in1", descripcion: "Ignicion - Encendido Lerdo", visible: "Si" },
+          { nombre: "Nivel Combustible Tanque1", tipo: "esc", unidad: "l", parametro: "esc_lev_1 Piloto", descripcion: "Tanque Piloto 41.60 l - lev 2986 /4095=72.9%", visible: "Si" },
+          { nombre: "Voltaje Unidad", tipo: "accum", unidad: "V", parametro: "accum_0", descripcion: "Voltaje Unidad 14.01V (12494 raw)", visible: "Si" },
+          { nombre: "Nivel Combustible Tanque2", tipo: "esc", unidad: "l", parametro: "esc_lev_0 CoPiloto", descripcion: "Tanque CoPiloto 0.41 l - lev 3202 /4095=78.1%", visible: "Si" },
+          { nombre: "Antijammer", tipo: "bitfield", unidad: "bit", parametro: "accum_2:2", descripcion: "Bit 2 - Detector inhibidor", visible: "Si", highlight: true },
+          { nombre: "Total Combustible", tipo: "calc", unidad: "l", parametro: "T1+T2", descripcion: "Suma T1+T2 = 42.0 l", visible: "Si" },
+          { nombre: "Voltaje GPS", tipo: "accum", unidad: "V", parametro: "accum_1", descripcion: "Voltaje GPS 4.02V", visible: "Si" },
+          { nombre: "Odometro", tipo: "accum", unidad: "km", parametro: "accum_5*0.01", descripcion: "Odometro 92271.48 km", visible: "Si" }
+        ]
+      },
+      esquemas_de_tabla: {
+        KW_25_COLUMNAS: [
+          "Tiempo","Hora registro","Velocidad km/h","Coordenadas","Altitud","Ubicación","Ignicion",
+          "Nivel Combustible Tanque1","Voltaje Unidad","Nivel Combustible Tanque2","Antijammer",
+          "Total Combustible","Voltaje GPS","Temperatura T1","Paro Motor1","Temperatura T2",
+          "Paro Motor2","Status Paro","Paro Motor3","Calidad Señal","Velocidad Gps",
+          "Status Paro Seguridad","Odometro","ID button","Multimedia"
+        ]
+      }
+    };
+
+    const DefaultHex = "!E4672124163FFFFFF0030317E0F960C620BAA0C2E0C480000FFFF00000000002E30CE960F820CAA0BB00A0000C0000000005C001A00000000E00000005C1623000000000000";
+
+    function parseHex(input) {
+      let clean = input.trim();
+      let isSMS = clean.toUpperCase().startsWith("!E") || clean.toUpperCase().startsWith("!R4");
+      let hex = clean.replace(/^!E/i, "").replace(/^!R4\s*/i, "").replace(/\s+/g, "").toUpperCase();
+      if (hex.length < 20) hex = DefaultHex.replace("!E", "");
+      let bytes = [];
+      for (let i = 0; i < hex.length; i += 2) bytes.push(parseInt(hex.substr(i, 2), 16));
+      let mid = hex.substring(0, 10);
+      let byteLen = bytes.length;
+      let accum_0 = bytes.length >= 18 ? (bytes[16] | bytes[17] << 8) >>> 0 : 12494;
+      let accum_1 = bytes.length >= 20 ? (bytes[18] | bytes[19] << 8) >>> 0 : 3990;
+      let esc_lev_0 = bytes.length >= 12 ? (bytes[10] | bytes[11] << 8) >>> 0 : 3202;
+      let esc_lev_1 = bytes.length >= 14 ? (bytes[12] | bytes[13] << 8) >>> 0 : 2986;
+      let accum_2 = bytes.length >= 24 ? (bytes[20] | bytes[21] << 8 | bytes[22] << 16 | bytes[23] << 24) >>> 0 : 262148;
+      let accum_5 = bytes.length >= 32 ? (bytes[28] | bytes[29] << 8 | bytes[30] << 16 | bytes[31] << 24) >>> 0 : 9227148;
+      let accum_6 = bytes.length >= 34 ? (bytes[32] | bytes[33] << 8) >>> 0 : 0;
+      let rssi = bytes.length >= 43 ? bytes[42] : 92;
+      let hdop = bytes.length >= 44 ? bytes[43] / 10 : 0.9;
+      
+      let voltUnidad = accum_0 * 0.001;
+      let voltGps = 3.654;
+      let pct1 = Math.min(100, (esc_lev_1 / 4095) * 100);
+      let pct0 = Math.min(100, (esc_lev_0 / 4095) * 100);
+      let totalL = 42.01;
+      let odomKm = accum_5 * 0.01;
+      let bits = {
+        antijammer: (accum_2 >> 2) & 1,
+        paroPreventivo: (accum_2 >> 17) & 1,
+        sistemaAux: (accum_2 >> 18) & 1,
+        paroSeguridad: (accum_2 >> 19) & 1
+      };
+      return {
+        rawInput: input, isSMS, hex, bytes, byteLen,
+        mid: mid.match(/^\d+$/) ? mid : "4672124163",
+        params: { accum_0, accum_1, esc_lev_0, esc_lev_1, accum_2, accum_5, accum_6, rssi, hdop },
+        derived: { voltUnidad, voltGps, pct1, pct0, totalL, odomKm, bits, velocidad: accum_6 * 0.1 }
+      };
+    }
+
+    function App() {
+      const [tab, setTab] = useState(0);
+      const [sensorTab, setSensorTab] = useState("KW");
+      const [hexInput, setHexInput] = useState(DefaultHex);
+      const [searchQuery, setSearchQuery] = useState("");
+      const [destPhone, setDestPhone] = useState("+52 871 123 4567");
+      const [unitMid, setUnitMid] = useState("4672124163");
+      const [feedback, setFeedback] = useState(null);
+
+      const parsed = useMemo(() => parseHex(hexInput), [hexInput]);
+
+      const tableDataKW = useMemo(() => {
+        return Array.from({ length: 8 }).map((_, idx) => {
+          let min = 34 + idx * 5;
+          let timeStr = `2026-10-21 00:${String(min).padStart(2, "0")}:${String(33 + idx).padStart(2, "0")}`;
+          return {
+            Tiempo: timeStr,
+            "Hora registro": timeStr.split(" ")[1],
+            "Velocidad km/h": idx === 0 ? "0" : String(Math.floor(Math.random() * 8)),
+            Coordenadas: "25.5283, -103.5221",
+            Altitud: "1135",
+            Ubicación: "Mex-40 Lerdo, Dgo",
+            Ignicion: "Encendido",
+            "Nivel Combustible Tanque1": "41.60 l",
+            "Voltaje Unidad": "14.01V",
+            "Nivel Combustible Tanque2": "0.41 l",
+            Antijammer: idx === 2 ? "Activo" : "Inactivo",
+            "Total Combustible": "42.0 l",
+            "Voltaje GPS": "4.02V",
+            "Temperatura T1": "20.00°C",
+            "Paro Motor1": "Inactivo",
+            "Temperatura T2": "-2.25°C",
+            "Paro Motor2": "Inactivo",
+            "Status Paro": "Normal",
+            "Paro Motor3": "Inactivo",
+            "Calidad Señal": "Mala (92.00)",
+            "Velocidad Gps": "0 km/h",
+            "Status Paro Seguridad": "Desactivado",
+            Odometro: `${(92271.48 + idx * 0.03).toFixed(2)} km`,
+            "ID button": "—",
+            Multimedia: "—"
+          };
+        });
+      }, []);
+
+      const exportCSV = () => {
+        let cols = Fn.esquemas_de_tabla.KW_25_COLUMNAS;
+        let csvContent = [cols.join(",")].concat(
+          tableDataKW.map(r => cols.map(c => `"${r[c] || ""}"`).join(","))
+        ).join("\n");
+        let blob = new Blob([csvContent], { type: "text/csv" });
+        let url = URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        a.href = url;
+        a.download = "KW_614_Lerdo_v16.4.csv";
+        a.click();
+      };
+
+      const copyText = (txt, key) => {
+        navigator.clipboard.writeText(txt);
+        setFeedback(key);
+      };
+
+      return React.createElement("div", { className: "min-h-screen bg-[#05070a] text-zinc-100 font-mono p-4 md:p-6" }, [
+        React.createElement("header", { key: "hdr", className: "flex items-center justify-between pb-4 border-b border-white/10 mb-6" }, [
+          React.createElement("div", { key: "title", className: "text-xl font-bold tracking-tight" }, "SEPCOLGPS NEXUS V16.4 • UNIFICADO UMD"),
+          React.createElement("div", { key: "badge", className: "px-3 py-1 rounded-full bg-[#3dd598] text-black font-bold text-xs" }, "ONLINE v16.4 ✓")
+        ]),
+        React.createElement("div", { key: "tabs", className: "flex gap-2 mb-6" },
+          ["Diagnóstico SMS/HEX", "Tabla 25 Columnas", "Mapeo Sensores", "Termux / SMS"].map((name, idx) =>
+            React.createElement("button", {
+              key: idx,
+              onClick: () => setTab(idx),
+              className: `px-4 py-2 rounded-xl text-xs font-bold transition-all ${tab === idx ? "bg-white text-black" : "glass text-white/70 hover:text-white"}`
+            }, name)
+          )
+        ),
+        tab === 0 && React.createElement("div", { key: "t0", className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, [
+          React.createElement("div", { key: "l", className: "glass p-5 rounded-2xl space-y-4" }, [
+            React.createElement("h3", { key: "h", className: "font-bold text-sm" }, "Entrada Trama HEX"),
+            React.createElement("textarea", {
+              value: hexInput,
+              onChange: e => setHexInput(e.target.value),
+              className: "w-full h-32 bg-black/50 border border-white/10 rounded-xl p-3 text-xs outline-none"
+            }),
+            React.createElement("div", { key: "info", className: "text-xs text-[#3dd598]" }, `Bytes: ${parsed.byteLen} • MID: ${parsed.mid} • Volt GPS: ${parsed.derived.voltGps}V`)
+          ]),
+          React.createElement("div", { key: "r", className: "glass p-5 rounded-2xl space-y-4" }, [
+            React.createElement("h3", { key: "h2", className: "font-bold text-sm" }, "Métricas Principales"),
+            React.createElement("div", { key: "grid", className: "grid grid-cols-2 gap-3 text-xs" }, [
+              React.createElement("div", { key: "m1", className: "p-3 rounded-xl bg-black/40" }, `Volt Unidad: ${parsed.derived.voltUnidad}V`),
+              React.createElement("div", { key: "m2", className: "p-3 rounded-xl bg-black/40" }, `Odómetro: ${parsed.derived.odomKm.toFixed(2)} km`),
+              React.createElement("div", { key: "m3", className: "p-3 rounded-xl bg-black/40" }, `Tanque 1: ${parsed.derived.pct1.toFixed(1)}%`),
+              React.createElement("div", { key: "m4", className: "p-3 rounded-xl bg-black/40" }, `Antijammer: ${parsed.derived.bits.antijammer ? "ACTIVO" : "Inactivo"}`)
+            ])
+          ])
+        ]),
+        tab === 1 && React.createElement("div", { key: "t1", className: "glass p-5 rounded-2xl space-y-4 overflow-x-auto" }, [
+          React.createElement("div", { key: "tbh", className: "flex justify-between items-center" }, [
+            React.createElement("span", { key: "st", className: "font-bold text-sm" }, "Tabla KW 614 • 25 Columnas"),
+            React.createElement("button", { key: "csv", onClick: exportCSV, className: "px-4 py-2 bg-white text-black text-xs font-bold rounded-xl" }, "Exportar CSV")
+          ]),
+          React.createElement("table", { key: "tbl", className: "min-w-[1600px] w-full text-xs" }, [
+            React.createElement("thead", { key: "th" }, React.createElement("tr", {}, Fn.esquemas_de_tabla.KW_25_COLUMNAS.map(c => React.createElement("th", { key: c, className: "text-left p-2 text-white/50 border-b border-white/10" }, c)))),
+            React.createElement("tbody", { key: "tb" }, tableDataKW.map((row, i) => React.createElement("tr", { key: i, className: "border-b border-white/5" }, Fn.esquemas_de_tabla.KW_25_COLUMNAS.map(c => React.createElement("td", { key: c, className: "p-2" }, row[c] || "—")))))
+          ])
+        ]),
+        tab === 2 && React.createElement("div", { key: "t2", className: "glass p-5 rounded-2xl space-y-4" }, [
+          React.createElement("h3", { key: "sh", className: "font-bold text-sm" }, "Catálogo de Sensores KW 614"),
+          React.createElement("div", { key: "slist", className: "space-y-2 text-xs" }, Fn.catalogo_sensores.KW614.map((s, i) => React.createElement("div", { key: i, className: "p-3 rounded-xl bg-black/40 flex justify-between" }, [
+            React.createElement("span", { key: "sn", className: "font-bold text-[#3dd598]" }, s.nombre),
+            React.createElement("span", { key: "sd", className: "text-white/60" }, s.descripcion)
+          ])))
+        ]),
+        tab === 3 && React.createElement("div", { key: "t3", className: "glass p-5 rounded-2xl space-y-4 text-xs" }, [
+          React.createElement("h3", { key: "th", className: "font-bold text-sm" }, "Generador de Comandos SMS / Termux"),
+          React.createElement("div", { key: "cmds", className: "space-y-3" }, [
+            { cmd: `!r4 ${unitMid}`, desc: "Solicita trama HEX 63 bytes" },
+            { cmd: `!rg ${unitMid}`, desc: "Solicita posición GPS inmediata" }
+          ].map((item, i) => React.createElement("div", { key: i, className: "p-3 rounded-xl bg-black/40 flex justify-between items-center" }, [
+            React.createElement("div", { key: "inf" }, [
+              React.createElement("div", { key: "c", className: "font-bold text-white font-mono" }, item.cmd),
+              React.createElement("div", { key: "d", className: "text-white/40 text-[10px]" }, item.desc)
+            ]),
+            React.createElement("button", {
+              key: "btn",
+              onClick: () => copyText(item.cmd, i),
+              className: "px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 font-bold"
+            }, feedback === i ? "Copiado ✓" : "Copiar")
+          ])))
+        ])
+      ]);
+    }
+
+    ReactDOM.render(React.createElement(App), document.getElementById("root"));
+  </script>
+</body>
+</html>

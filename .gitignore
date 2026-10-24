@@ -1,0 +1,31 @@
+# ENTORNOS Y DEPENDENCIAS PESADAS
+venv/
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+
+# COMPILADOS
+target/
+dist/
+build/
+out/
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.lib
+*.so
+
+# CACHÉS
+.sccache/
+.cargo/
+
+# RESPALDOS Y BASURA
+RUNEFORGE_BIG_FILES_ARCHIVE/
+RUNEFORGE_BACKUPS/
+*.log
+*.tmp
+*.bak
+backups/

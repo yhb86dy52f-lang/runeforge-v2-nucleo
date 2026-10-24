@@ -1,0 +1,2 @@
+- Comandos de lectura.
+- Guardar respuestas por bloque.

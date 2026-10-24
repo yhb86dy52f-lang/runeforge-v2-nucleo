@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SEPCOLGPS NEXUS v20 MOBILE</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@700;900&display=swap');
+:root{--bg:#030508;--panel:rgba(10,16,30,0.82);--border:rgba(255,255,255,0.08);--green:#3dd598;--blue:#2d6cdf;--red:#ff4757;--text:#e2e8f0;--muted:#94a3b8}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace}
+.app{min-height:100vh;padding:0 12px 20px;position:relative}
+.bg{position:fixed;inset:0;pointer-events:none;background:radial-gradient(800px 400px at 20% -10%, rgba(61,213,152,0.22), transparent), radial-gradient(600px 300px at 80% 0%, rgba(45,108,223,0.28), transparent)}
+.hdr{position:sticky;top:0;z-index:10;backdrop-filter:blur(16px);background:rgba(0,0,0,0.4);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;margin:0 -12px}
+.logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;font-weight:900;color:#000}
+h1{font-family:'Space Grotesk';font-size:13px;margin:0}small{font-size:9px;color:var(--muted);letter-spacing:0.2em}
+.glass{background:var(--panel);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:20px;padding:14px;margin-top:12px;box-shadow:0 10px 40px rgba(0,0,0,0.6)}
+.ta{width:100%;height:140px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:10px;color:var(--green);font-family:'JetBrains Mono';font-size:11px;outline:none}
+.btn{height:42px;border-radius:12px;border:none;font-weight:900;cursor:pointer;letter-spacing:0.1em}
+.primary{flex:1;background:linear-gradient(90deg,var(--green),var(--blue));color:#000}
+.ghost{width:42px;background:rgba(255,255,255,0.08);border:1px solid var(--border);color:#fff}
+.row{display:flex;gap:8px;margin-top:8px}
+.pres{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pres button{padding:6px 10px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--muted);font-size:10px}
+.badge{padding:6px 10px;border-radius:999px;font-weight:800;font-size:10px;border:1px solid}
+.green{background:rgba(61,213,152,0.15);color:#a7f3d0;border-color:rgba(61,213,152,0.3)}
+.red{background:rgba(255,71,87,0.15);color:#fecdd3;border-color:rgba(255,71,87,0.3)}
+.yellow{background:rgba(234,179,8,0.15);color:#fde68a;border-color:rgba(234,179,8,0.3)}
+.blue{background:rgba(45,108,223,0.15);color:#bfdbfe;border-color:rgba(45,108,223,0.3)}
+.muted{background:rgba(255,255,255,0.06);color:var(--muted);border-color:var(--border)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kv{font-size:11px;line-height:1.5;display:flex;flex-direction:column;gap:4px}
+.kv b{color:var(--green)}
+.gauge{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px;background:var(--panel);border:1px solid var(--border);border-radius:16px}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="app">
+  <div class="hdr"><div style="display:flex;gap:10px;align-items:center"><div class="logo">S</div><div><h1>SEPCOLGPS NEXUS v20 MOBILE</h1><small>DESCENTRALIZADO • SOLO ESTE DISPOSITIVO</small></div></div><span id="fam" class="badge muted">--</span></div>
+
+  <div class="glass">
+    <small style="color:rgba(255,255,255,0.4);letter-spacing:0.2em">TRAMA GPS • AUTO-DETECT CT/KW/R0</small>
+    <textarea id="input" class="ta">!E4675022428:444 8.6l COM:-82 DA. INTERNET.ITELCEL.COM GPS:3D-DIFF 17 INP:1000000000011110 12.0V MID:4675022428 ESN INB:94.130.84.182:20785 LMD APP2:REV10979-REL
+rssi=-65, hdop=0.7, accum_0=12585, accum_1=4004, accum_2=2099230, accum_3=0, accum_4=0, accum_5=4348636, accum_6=0, report_type=9, in=30</textarea>
+    <div class="row"><button class="btn primary" onclick="decode()">DECODIFICAR →</button><button class="btn ghost" onclick="navigator.clipboard.writeText(document.getElementById('input').value)">⎙</button><button class="btn ghost" onclick="document.getElementById('input').value='';document.getElementById('out').innerHTML=''">✕</button></div>
+    <div class="pres"><button onclick="loadCT()">Ejemplo CT 24°C / 12.16V</button><button onclick="loadKW()">Ejemplo KW 164/184L 4348km</button></div>
+  </div>
+
+  <div id="out"></div>
+</div>
+
+<script>
+// ===== PARSERS VALIDADO CT227 + KW758 - sin includes, solo indexOf =====
+function detectFamily(s){
+  var up=s.toUpperCase();
+  if(up.indexOf('ACCUM_')!==-1 || up.indexOf('ESC_LEV')!==-1 || up.indexOf('S-LITROS')!==-1) return 'KW';
+  if(up.indexOf('APP:')!==-1 && up.indexOf('MID:')!==-1) return 'R0';
+  if(up.indexOf('APP:')!==-1 && up.indexOf('INP:')!==-1) return 'R0';
+  var clean=up.replace(/[^0-9A-F]/g,''); if(clean.length>=40) return 'CT'; return 'CT';
+}
+function parseCT(input){
+  var clean=input.toUpperCase().replace(/[^0-9A-F]/g,'');
+  var bytes=[]; for(var i=0;i<clean.length;i+=2) bytes.push(parseInt(clean.substr(i,2),16));
+  var u16=[]; for(var j=0;j<bytes.length-1;j+=2) u16.push((bytes[j]<<8)|bytes[j+1]);
+  var accum0=null,accum1=null; for(var k=u16.length-1;k>=0;k--){ if(u16[k]>=10000&&u16[k]<=16000&&!accum0) accum0=u16[k]; if(u16[k]>=3500&&u16[k]<=5000&&!accum1) accum1=u16[k]; }
+  var small=u16.filter(function(v){return v>0&&v<1000;});
+  var accum2=small.length>=2?small[small.length-2]:small[0]||null;
+  var accum3=small.length>=2?small[small.length-1]:null;
+  var m; m=input.match(/accum_0\s*[:=]\s*(\d+)/i); if(m) accum0=parseInt(m[1]);
+  m=input.match(/accum_1\s*[:=]\s*(\d+)/i); if(m) accum1=parseInt(m[1]);
+  m=input.match(/accum_2\s*[:=]\s*(\d+)/i); if(m) accum2=parseInt(m[1]);
+  m=input.match(/accum_3\s*[:=]\s*(\d+)/i); if(m) accum3=parseInt(m[1]);
+  var c3E70=u16.filter(function(v){return v===0x3E70;}).length;
+  var cFFFF=u16.filter(function(v){return v===0xFFFF;}).length;
+  var voltU=accum0?accum0/1000:null, voltG=accum1?accum1/1000:null;
+  var tempC1=accum2?accum2/16:null, tempC2=accum3?accum3/16:null;
+  var estado='BUENO PERFECTO', color='green', msg='Sondas OK';
+  if(c3E70>=2){estado='FALLA DOBLE TERMO';color='red';msg='2x 15984 ambas abiertas';}
+  else if(c3E70===1){estado='FALLA SIMPLE';color='yellow';msg='1x 15984';}
+  else if(cFFFF>=2){estado='OK DESHABILITADO';color='blue';msg='FFFF';}
+  var rssiM=input.match(/rssi\s*=\s*(-?\d+)/i)||input.match(/COM:(-?\d+)/);
+  var midM=input.match(/MID:(\d+)/);
+  return {family:'CT',estado:estado,color:color,msg:msg,voltU:voltU,voltG:voltG,tempC1:tempC1,tempC2:tempC2,accum0:accum0,accum1:accum1,accum2:accum2,accum3:accum3,c3E70:c3E70,cFFFF:cFFFF,rssi:rssiM?parseInt(rssiM[1]):null,mid:midM?midM[1]:null,raw:input};
+}
+function parseKW(input){
+  var get=function(re){var m=input.match(re);return m?parseInt(m[1]):null;};
+  var accum0=get(/accum_0\s*[:=]\s*(\d+)/i), accum1=get(/accum_1\s*[:=]\s*(\d+)/i), accum2=get(/accum_2\s*[:=]\s*(\d+)/i), accum3=get(/accum_3\s*[:=]\s*(\d+)/i), accum5=get(/accum_5\s*[:=]\s*(\d+)/i);
+  var rssi=get(/rssi\s*=\s*(-?\d+)/i)||get(/COM:(-?\d+)/i);
+  var midM=input.match(/MID:(\d+)/); var lev1=get(/S-Litros V1\s*[:=]\s*(\d+)/i)||0; var lev2=get(/S-Litros V2\s*[:=]\s*(\d+)/i)||0;
+  var litros=get(/S-Litros totales\s*[:=]\s*0*(\d+)/i); if(!litros) litros=lev1+lev2||null;
+  var voltU=accum0?accum0/1000:12, voltG=accum1?accum1/1000:4, odo=accum5?accum5/1000:null;
+  return {family:'KW',estado:'COMBUSTIBLE OK',color:'green',voltU:voltU,voltG:voltG,odo:odo,lev1:lev1,lev2:lev2,litros:litros,rssi:rssi,mid:midM?midM[1]:null,raw:input,accum2:accum2,accum3:accum3};
+}
+function parseR0(input){
+  var m=function(re){var v=input.match(re);return v?v[1]:null;};
+  return {family:'R0',estado:'STATUS OK',color:'blue',appVer:m(/APP:(\d+)/i),rssi:(function(){var x=input.match(/COM:(-?\d+)/);return x?parseInt(x[1]):null;})(),mid:m(/MID:(\d+)/),raw:input};
+}
+
+function render(data){
+  var html='<div class="glass"><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="badge '+data.color+'">'+data.estado+'</span>';
+  if(data.rssi!=null) html+='<span class="badge muted">RSSI '+data.rssi+' dBm</span>';
+  if(data.mid) html+='<span class="badge muted">MID '+data.mid+'</span>';
+  html+='</div>';
+  if(data.family==='CT'){
+    html+='<div class="grid2" style="margin-top:12px"><div class="gauge"><small>Volt Unidad</small><b style="font-size:20px;color:var(--green)">'+(data.voltU!=null?data.voltU.toFixed(2)+'V':'--')+'</b><small>accum0 '+data.accum0+'</small></div><div class="gauge"><small>Volt GPS</small><b style="font-size:20px;color:var(--blue)">'+(data.voltG!=null?data.voltG.toFixed(2)+'V':'--')+'</b><small>accum1 '+data.accum1+'</small></div><div class="gauge"><small>Temp1</small><b style="font-size:20px">'+(data.tempC1!=null?data.tempC1.toFixed(1)+'°C':'--')+'</b><small>accum2 '+data.accum2+' /16</small></div><div class="gauge"><small>Temp2</small><b style="font-size:20px">'+(data.tempC2!=null?data.tempC2.toFixed(1)+'°C':'--')+'</b><small>accum3 '+data.accum3+' /16</small></div></div>';
+    html+='<div class="kv" style="margin-top:10px"><div><b>c_3E70</b> '+data.c3E70+' (15984 = falla) • <b>c_FFFF</b> '+data.cFFFF+'</div><div>'+data.msg+'</div></div>';
+  }
+  if(data.family==='KW'){
+    html+='<div class="grid2" style="margin-top:12px"><div class="gauge"><small>Volt U</small><b style="font-size:20px">'+data.voltU+'V</b></div><div class="gauge"><small>Odo</small><b style="font-size:20px">'+(data.odo!=null?data.odo+'km':'--')+'</b></div><div class="gauge"><small>Tanque1</small><b style="font-size:20px">'+data.lev1+'L</b></div><div class="gauge"><small>Tanque2</small><b style="font-size:20px">'+data.lev2+'L</b></div></div><div class="kv" style="margin-top:10px"><div><b>Total</b> '+data.litros+'L</div><div><b>accum2</b> '+data.accum2+' <b>accum3</b> '+data.accum3+'</div></div>';
+  }
+  html+='</div>';
+  document.getElementById('out').innerHTML=html;
+}
+function decode(){
+  var input=document.getElementById('input').value;
+  var fam=detectFamily(input);
+  document.getElementById('fam').textContent=fam;
+  var data;
+  if(fam==='KW') data=parseKW(input);
+  else if(fam==='R0') data=parseR0(input);
+  else data=parseCT(input);
+  render(data);
+}
+function loadCT(){document.getElementById('input').value='!E7000276162:445 8.7b COM:-82 DA. internet.itelcel.com GPS:3D-DIFF 20 INP:0000000000000110 12.4V MID:7000276162 ESN INB:94.130.84.182:20924 LMD APP2:REV12335-REL\\naccum_0=12160, accum_1=4077, accum_2=384, accum_3=399, c_3E70=0, c_FFFF=0';decode();}
+function loadKW(){document.getElementById('input').value='!E4675022428:444 8.6l COM:-82 DA. INTERNET.ITELCEL.COM GPS:3D-DIFF 17 INP:1000000000011110 12.0V MID:4675022428 ESN INB:94.130.84.182:20785 LMD APP2:REV10979-REL\\nrssi=-65, accum_0=12585, accum_1=4004, accum_2=2099230, accum_3=0, accum_5=4348636, S-Litros V1=164, S-Litros V2=184, S-Litros totales=348';decode();}
+window.onload=decode;
+</script>
+</body>
+</html>

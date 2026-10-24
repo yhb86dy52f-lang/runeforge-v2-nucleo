@@ -1,0 +1,14 @@
+
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "esnext",
+    "lib": ["es2015","es2016","dom"],
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./",
+    "forceConsistentCasingInFileNames": false
+  },
+  "include": ["*.ts"]
+}

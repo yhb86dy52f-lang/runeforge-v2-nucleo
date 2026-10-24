@@ -1,0 +1,410 @@
+{
+  "general_settings": {
+    "betaFeatures": true,
+    "legacyMode": false,
+    "openBehavior": "popup",
+    "saveBehavior": "saveFile",
+    "showMoreActionsButton": true,
+    "silentOpen": true
+  },
+  "highlighter_settings": {
+    "alwaysShowHighlights": true,
+    "highlightBehavior": "highlight-inline",
+    "highlighterEnabled": true
+  },
+  "interpreter_settings": {
+    "defaultPromptContext": "Eres el extractor de conocimiento técnico de Runeforge (Local-First). Extrae y normaliza datos de telemetría, calibración, comandos CalAmp y especificaciones de hardware desde el contenido capturado. Genera salida en Frontmatter YAML con campos: title, source, published, esn, trama, nivel, raw_escort, comandos, equipo, comando_calamp, obsidian_link. Prioriza la extracción de patrones como !E[0-9]{10},040000[0-9A-F]{4}[0-9A-F]{4}[0-9A-F]{4}[0-9A-F]{4} y comandos !r3,62,XXXXX. Formatea en Markdown con tablas y código.",
+    "interpreterAutoRun": false,
+    "interpreterEnabled": false,
+    "interpreterModel": "",
+    "models": [],
+    "providers": []
+  },
+  "migrationVersion": 2,
+  "property_types": [
+    {
+      "defaultValue": "{{title}}",
+      "name": "title",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{url}}",
+      "name": "source",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{author|split:\", \"|wikilink|join}}",
+      "name": "author",
+      "type": "multitext"
+    },
+    {
+      "defaultValue": "{{published}}",
+      "name": "published",
+      "type": "date"
+    },
+    {
+      "defaultValue": "{{date}}",
+      "name": "created",
+      "type": "date"
+    },
+    {
+      "defaultValue": "{{description}}",
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "defaultValue": "runeforge/clipping,tgl-lab,telemetry",
+      "name": "tags",
+      "type": "multitext"
+    },
+    {
+      "defaultValue": "",
+      "name": "esn",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "trama",
+      "type": "text"
+    },
+    {
+      "defaultValue": 0,
+      "name": "nivel",
+      "type": "number"
+    },
+    {
+      "defaultValue": 0,
+      "name": "raw_escort",
+      "type": "number"
+    },
+    {
+      "defaultValue": "",
+      "name": "comandos",
+      "type": "text"
+    },
+    {
+      "defaultValue": "pendiente",
+      "name": "estado",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "equipo",
+      "type": "text"
+    },
+    {
+      "defaultValue": "",
+      "name": "comando_calamp",
+      "type": "text"
+    },
+    {
+      "defaultValue": "{{obsidianUrl}}",
+      "name": "obsidian_link",
+      "type": "text"
+    }
+  ],
+  "reader_settings": {
+    "appearance": "auto",
+    "autoScroll": true,
+    "blendImages": true,
+    "colorLinks": true,
+    "customCss": "",
+    "darkTheme": "same",
+    "defaultFont": "",
+    "followLinks": true,
+    "fontSize": 16,
+    "fonts": [],
+    "highlightActiveLine": true,
+    "lightTheme": "default",
+    "lineHeight": 1.6,
+    "maxWidth": 42,
+    "pinPlayer": true
+  },
+  "schema": "rf.webclip.extract.v6",
+  "stats": {
+    "addToObsidian": 12,
+    "copyToClipboard": 127,
+    "saveFile": 46,
+    "share": 3
+  },
+  "status": "super_config_v1",
+  "template_1787708857133hprjuq4b7": {
+    "id": "1787708857133hprjuq4b7",
+    "name": "📋 Extracción datos de plataforma (Original)",
+    "behavior": "create",
+    "noteNameFormat": "{{title}}",
+    "path": "Clippings",
+    "noteContentFormat": "{{content}}",
+    "properties": [
+      {
+        "id": "1787708872681vrgi8mdgn",
+        "name": "title",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "1787708877569yevrxq0k8",
+        "name": "source",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "178770888140401mo39ofh",
+        "name": "published",
+        "value": "",
+        "type": "date"
+      }
+    ],
+    "triggers": [
+      "https://rastreo.tgarzaleal.com/"
+    ],
+    "context": ""
+  },
+  "template_17879951746306i67abj": {
+    "schemaVersion": "0.1.0",
+    "name": "📡 TGL LAB - Extracción Rápida (Legacy)",
+    "behavior": "create",
+    "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{source}}\"\npublished: \"{{published}}\"\nesn: \"\"\ntrama: \"\"\nnivel: \"\"\nraw_escort: \"\"\ncomandos: \"\"\nestado: \"pendiente\"\n---\n\n{{content}}\n\n## Datos extraídos automáticamente (no modificar)\n\n- **ESN:** `{{esn}}`\n- **Trama completa:** `{{trama}}`\n- **Nivel calculado:** `{{nivel}}` / 1000\n- **Raw Escort:** `{{raw_escort}}`\n- **Comandos CalAmp:** `{{comandos}}`",
+    "properties": [
+      {
+        "id": "1787995174631eohysph",
+        "name": "title",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "17879951746315az5ou8",
+        "name": "source",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "1787995174631v2wtw60",
+        "name": "published",
+        "value": "",
+        "type": "date"
+      },
+      {
+        "id": "1787995174631an6j5pl",
+        "name": "esn",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "17879951746315lggyrf",
+        "name": "trama",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "1787995174631lscqnza",
+        "name": "nivel",
+        "value": "",
+        "type": "number"
+      },
+      {
+        "id": "17879951746319pqgfdp",
+        "name": "raw_escort",
+        "value": "",
+        "type": "number"
+      },
+      {
+        "id": "1787995174631fdnievd",
+        "name": "comandos",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "1787995174631yfge9kz",
+        "name": "estado",
+        "value": "pendiente",
+        "type": "text"
+      }
+    ],
+    "triggers": [
+      "https://rastreo.tgarzaleal.com/*"
+    ],
+    "noteNameFormat": "{{published}} - {{esn}} - {{title}}",
+    "path": "Clippings/TGL_Lab",
+    "id": "17879951746306i67abj"
+  },
+  "template_1787995296315w4a0fyt": {
+    "behavior": "create",
+    "name": "🚀 Runeforge - Extracción y Normalización TGL LAB v2",
+    "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\npublished: \"{{published}}\"\ncreated: \"{{date}}\"\nesn: \"{{esn}}\"\ntrama: \"{{trama}}\"\nnivel: {{nivel}}\nraw_escort: {{raw_escort}}\ncomandos: \"{{comandos}}\"\nequipo: \"{{equipo}}\"\ncomando_calamp: \"{{comando_calamp}}\"\nestado: \"{{estado}}\"\ntags: [runeforge/clipping, tgl-lab, telemetry, calibracion]\nobsidian_link: \"{{obsidianUrl}}\"\n---\n\n# 🚀 TGL LAB - {{title}}\n\n**Fuente:** [{{url}}]({{url}})  \n**Capturado:** {{date:YYYY-MM-DD HH:mm:ss}}  \n**ESN:** `{{esn}}`  \n**Estado:** `{{estado}}`\n\n---\n\n## 📡 Datos de Telemetría\n\n| Campo | Valor |\n|-------|-------|\n| **ESN** | `{{esn}}` |\n| **Trama completa** | `{{trama}}` |\n| **Nivel calculado** | `{{nivel}}` / 1000 |\n| **Raw Escort** | `{{raw_escort}}` |\n| **Comandos CalAmp** | `{{comandos}}` |\n| **Comando específico** | `{{comando_calamp}}` |\n\n---\n\n## 📋 Contenido extraído\n\n{{content}}\n\n---\n\n## 🔧 Metadatos de integración\n\n- **Equipo:** `{{equipo}}`\n- **Enlace Obsidian:** [{{obsidian_link}}]({{obsidian_link}})\n- **Procesado:** {{estado}}\n- **Creado:** {{created}}\n\n---\n\n## ⚡ Acciones rápidas\n\n- [ ] Verificar trama en base de datos\n- [ ] Calibrar Escort TD600\n- [ ] Sincronizar con servidor central",
+    "noteNameFormat": "TGL-{{date:YYYYMMDD_HHmmss}}-{{esn}}-{{title|slugify}}",
+    "path": "Clippings/TGL_Lab/Ingesta",
+    "properties": [
+      {
+        "id": "prop_title_01",
+        "name": "title",
+        "value": "{{title}}",
+        "type": "text"
+      },
+      {
+        "id": "prop_source_02",
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "prop_published_03",
+        "name": "published",
+        "value": "{{published}}",
+        "type": "date"
+      },
+      {
+        "id": "prop_created_04",
+        "name": "created",
+        "value": "{{date}}",
+        "type": "date"
+      },
+      {
+        "id": "prop_esn_05",
+        "name": "esn",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "prop_trama_06",
+        "name": "trama",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "prop_nivel_07",
+        "name": "nivel",
+        "value": "",
+        "type": "number"
+      },
+      {
+        "id": "prop_raw_escort_08",
+        "name": "raw_escort",
+        "value": "",
+        "type": "number"
+      },
+      {
+        "id": "prop_comandos_09",
+        "name": "comandos",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "prop_estado_10",
+        "name": "estado",
+        "value": "pendiente",
+        "type": "text"
+      },
+      {
+        "id": "prop_equipo_11",
+        "name": "equipo",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "prop_comando_calamp_12",
+        "name": "comando_calamp",
+        "value": "",
+        "type": "text"
+      },
+      {
+        "id": "prop_obsidian_link_13",
+        "name": "obsidian_link",
+        "value": "{{obsidianUrl}}",
+        "type": "text"
+      }
+    ],
+    "triggers": [
+      "https://rastreo.tgarzaleal.com/*",
+      "https://rastreo.tgarzaleal.com/equipo/*",
+      "https://rastreo.tgarzaleal.com/calibracion/*",
+      "https://rastreo.tgarzaleal.com/historial/*",
+      "https://rastreo.tgarzaleal.com/dashboard/*",
+      "https://rastreo.tgarzaleal.com/telemetria/*"
+    ],
+    "id": "1787995296315w4a0fyt"
+  },
+  "template_list": [
+    "1787995296315w4a0fyt",
+    "17879951746306i67abj",
+    "1787708857133hprjuq4b7"
+  ],
+  "templates": [
+    {
+      "behavior": "create",
+      "id": "rf_tech_hardware_spec_v1",
+      "name": "ᚱ Runeforge - Extracción Técnica y Telemetría (Hardware)",
+      "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\ndate_captured: \"{{date:YYYY-MM-DD HH:mm:ss}}\"\ntags:\n  - runeforge/clipping\n  - hardware/spec\n  - local-first\ncategory: \"Telemetría / Hardware\"\nstatus: \"INGESTED\"\n---\n\n# ᚱ {{title}}\n\n> **Fuente:** [{{url}}]({{url}})\n> **Fecha de Ingesta:** {{date:YYYY-MM-DD HH:mm:ss}}\n\n--- \n\n## 🛠️ Resumen de Ficha Técnica / Especificaciones\n\n{{content}}\n\n--- \n\n## 🧬 Notas de Integración Local-First\n- **Impacto en Núcleo Runeforge:** Nulo (Capa Periférica / Adaptador).\n- **Compatibilidad de Red:** Tailscale / Red Local (`127.0.0.1`).\n- **Observaciones:** Transferido automáticamente a la Memoria Táctica de Obsidian.",
+      "noteNameFormat": "CLIP-{{date:YYYYMMDD_HHmmss}}-{{title|slugify}}",
+      "path": "09_MEMORIA_IA/Clippings",
+      "properties": [
+        {
+          "id": "prop_title_01",
+          "name": "title",
+          "value": "{{title}}"
+        },
+        {
+          "id": "prop_source_02",
+          "name": "source",
+          "value": "{{url}}"
+        },
+        {
+          "id": "prop_captured_03",
+          "name": "captured",
+          "value": "{{date:YYYY-MM-DD HH:mm:ss}}"
+        },
+        {
+          "id": "prop_system_04",
+          "name": "system",
+          "value": "RUNEFORGE_CORE"
+        }
+      ]
+    },
+    {
+      "behavior": "create",
+      "id": "rf_telemetry_log_v1",
+      "name": "ᚱ Runeforge - Log de Telemetría (CINER)",
+      "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\ndate_captured: \"{{date:YYYY-MM-DD HH:mm:ss}}\"\ntags:\n  - runeforge/telemetry\n  - ciner/log\nstatus: \"PENDING\"\n---\n\n# ᚱ Telemetría: {{title}}\n\n**Fecha:** {{date:YYYY-MM-DD HH:mm:ss}}\n**Fuente:** [{{url}}]({{url}})\n\n## Datos Extraídos\n\n{{content}}\n\n---\n\n## Interpretación Runeforge\n- **Tipo:** Telemetría CINER\n- **Prioridad:** Media\n- **Acción requerida:** Revisar y clasificar en bitácora.",
+      "noteNameFormat": "TELE-{{date:YYYYMMDD_HHmmss}}-{{title|slugify}}",
+      "path": "01_MEMORIAS/Telemetria",
+      "properties": [
+        {
+          "id": "prop_tel_title",
+          "name": "title",
+          "value": "{{title}}"
+        },
+        {
+          "id": "prop_tel_source",
+          "name": "source",
+          "value": "{{url}}"
+        },
+        {
+          "id": "prop_tel_captured",
+          "name": "captured",
+          "value": "{{date:YYYY-MM-DD HH:mm:ss}}"
+        }
+      ]
+    },
+    {
+      "behavior": "create",
+      "id": "rf_general_clipper_v1",
+      "name": "📜 Runeforge - Nota Rápida / Captura General",
+      "noteContentFormat": "---\ntitle: \"{{title}}\"\nsource: \"{{url}}\"\ndate: \"{{date:YYYY-MM-DD}}\"\ntags:\n  - runeforge/quicknote\n---\n\n# {{title}}\n\n{{content}}",
+      "noteNameFormat": "NOTE-{{date:YYYYMMDD}}-{{title|slugify}}",
+      "path": "01_MEMORIAS/Capturas",
+      "properties": [
+        {
+          "id": "prop_gen_title",
+          "name": "title",
+          "value": "{{title}}"
+        },
+        {
+          "id": "prop_gen_url",
+          "name": "url",
+          "value": "{{url}}"
+        }
+      ]
+    }
+  ],
+  "vaults": []
+}

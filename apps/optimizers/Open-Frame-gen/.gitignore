@@ -1,0 +1,65 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+*.egg-info/
+.ipynb_checkpoints/
+
+# --- User-generated data & benchmark output ---
+dataset/
+benchmark_results/
+ai_shot_*.png
+error_export.log
+trt_log.txt
+
+# --- Model weights: ignore all, allowlist released artifacts ---
+*.pth
+*.pkl
+*.onnx
+*.engine
+*.engine.trtver
+!checkpoints/nano_v17_best.pth
+!checkpoints/nano_v16.onnx
+
+# --- TensorRT SDK (download separately; place at repo root) ---
+/TensorRT/
+/TensorRT-10/
+
+# --- C++ build output ---
+engine_cpp/build/
+engine_cpp/out/
+engine_cpp/x64/
+engine_cpp/OpenFrameGen/
+.vs/
+*.sln
+*.slnx
+*.vcxproj
+*.vcxproj.*
+*.suo
+*.user
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- LaTeX build artifacts (paper source lives outside this repo) ---
+*.aux
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.toc
+*.tex
+
+# --- Local tooling / archives ---
+graphify-out/
+.claude/
+*.rar
+*.zip

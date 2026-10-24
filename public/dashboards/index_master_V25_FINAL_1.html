@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SEPCOLGPS NEXUS V26 - COMMAND CENTER</title>
+  
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    /* ==========================================================================
+       1. VARIABLES SYSTEM & THEME
+       ========================================================================== */
+    :root {
+      --bg-base: #04070d;
+      --panel-bg: rgba(10, 16, 28, 0.85);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      
+      --neon-green: #3dd598;
+      --neon-red: #ff4757;
+      --neon-blue: #2d6cdf;
+      --neon-cyan: #5eead4;
+      --neon-amber: #ffa502;
+
+      --text-main: #f1f5f9;
+      --text-muted: #64748b;
+      --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(45, 108, 223, 0.12), transparent 35%),
+        radial-gradient(circle at 90% 80%, rgba(61, 213, 152, 0.08), transparent 35%);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    /* ==========================================================================
+       2. GLASSMORPHISM & CONTAINER LAYOUT
+       ========================================================================== */
+    .glass {
+      background: var(--panel-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Header Bar */
+    .header {
+      padding: 16px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(61, 213, 152, 0.5);
+    }
+
+    .header p {
+      font-size: 9px;
+      color: var(--text-muted);
+      letter-spacing: 0.25em;
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    /* HUD Status Metrics Bar */
+    .hud-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 9px;
+    }
+
+    .hud-metric {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hud-label { color: var(--text-muted); font-size: 8px; }
+    .hud-value { font-weight: 700; color: var(--neon-cyan); margin-top: 2px; }
+
+    /* Navigation Tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 4px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      font-size: 10px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .tab-btn.active {
+      background: var(--neon-green);
+      color: #000000;
+      box-shadow: 0 0 12px rgba(61, 213, 152, 0.4);
+    }
+
+    /* ==========================================================================
+       3. MODULE CARDS & COMPONENTS
+       ========================================================================== */
+    .module-card {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: transform 0.1s ease, filter 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--neon-green); color: #000; }
+    .btn-danger { background: var(--neon-red); color: #fff; }
+    .btn-secondary { background: rgba(255, 255, 255, 0.06); color: #fff; border: 1px solid var(--panel-border); }
+
+    /* Badges */
+    .badge {
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-CT { background: rgba(61, 213, 152, 0.15); color: var(--neon-green); border: 1px solid rgba(61, 213, 152, 0.3); }
+    .badge-KW { background: rgba(45, 108, 223, 0.15); color: var(--neon-blue); border: 1px solid rgba(45, 108, 223, 0.3); }
+    .badge-WARN { background: rgba(255, 165, 2, 0.15); color: var(--neon-amber); border: 1px solid rgba(255, 165, 2, 0.3); }
+
+    /* Data Display Area */
+    .data-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 10px;
+      word-break: break-all;
+      line-height: 1.4;
+    }
+
+    /* Event Log List */
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .history-list::-webkit-scrollbar { width: 4px; }
+    .history-list::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+
+    .history-item {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 10px;
+    }
+
+    /* Map Element */
+    #map {
+      width: 100%;
+      height: 320px;
+      border-radius: 12px;
+      border: 1px solid var(--panel-border);
+      z-index: 1;
+    }
+
+    /* Leaflet Dark Filter Overrides */
+    .leaflet-layer,
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out {
+      filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+    }
+
+    /* Canvas Chart Area */
+    .chart-wrapper {
+      width: 100%;
+      height: 220px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+
+    canvas { width: 100%; height: 100%; display: block; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    
+    <!-- HEADER MAIN -->
+    <div class="glass header">
+      <h1>NEXUS COMMAND V26</h1>
+      <p>FLA SYSTEM CONTROL CENTER</p>
+    </div>
+
+    <!-- HUD METRIC MONITOR BAR -->
+    <div class="hud-bar">
+      <div class="hud-metric">
+        <span class="hud-label">LATENCIA API</span>
+        <span id="hudLatency" class="hud-value">-- ms</span>
+      </div>
+      <div class="hud-metric">
+        <span class="hud-label">ESTADO SYNC</span>
+        <span id="hudSync" class="hud-value" style="color:var(--neon-green)">ONLINE</span>
+      </div>
+      <div class="hud-metric">
+        <span class="hud-label">TRAMAS / MIN</span>
+        <span id="hudRate" class="hud-value">0</span>
+      </div>
+    </div>
+
+    <!-- TABS SYSTEM -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('live', this)">🔴 LIVE</button>
+      <button class="tab-btn" onclick="switchTab('map', this)">🗺️ MAPA</button>
+      <button class="tab-btn" onclick="switchTab('charts', this)">📊 ANALYTICS</button>
+      <button class="tab-btn" onclick="switchTab('db', this)">🗄️ HISTORIAL</button>
+    </div>
+
+    <!-- TAB 1: LIVE SIMULATION & API -->
+    <div id="tab-live" class="glass module-card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:10px; color:var(--text-muted); font-weight:700;">TRANSMISIÓN DE FLOTA</span>
+        <span id="wsStatus" class="badge" style="background:rgba(122,134,158,0.15); color:var(--text-muted)">DETENIDO</span>
+      </div>
+      <button id="btnStart" class="btn btn-primary" onclick="toggleSimulator()">INICIAR SIMULADOR</button>
+
+      <div class="data-box">
+        <div style="font-weight: 700; color: var(--text-muted); margin-bottom: 6px; font-size: 9px;">ÚLTIMA TELEMETRÍA RECIBIDA:</div>
+        <div id="liveData" style="color: var(--text-main);">Esperando flujo de datos...</div>
+      </div>
+
+      <!-- MÓDULO NUEVO: PANEL DE ALERTAS TÁCTICAS -->
+      <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;">
+        <div style="font-size: 9px; color: var(--text-muted); font-weight: 700; margin-bottom: 6px;">MONITOR DE EVENTOS Y ALERTAS</div>
+        <div id="alertBox" class="data-box" style="border-color: rgba(255,71,87,0.2); background: rgba(255,71,87,0.05);">
+          <span style="color: var(--neon-green)">✓ Telemetría dentro de rangos normales</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: TACTICAL MAP -->
+    <div id="tab-map" class="glass module-card hidden">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:10px; color:var(--text-muted); font-weight:700;">POSICIONAMIENTO EN TIEMPO REAL</span>
+        <span id="gpsStatus" class="badge badge-CT">GPS LOCK</span>
+      </div>
+      <div id="map"></div>
+      <div style="font-size: 10px; color: var(--text-muted); text-align: center;">
+        LAT: <span id="coordLat" style="color: white; font-weight:700;">20.5888</span> |
+        LNG: <span id="coordLng" style="color: white; font-weight:700;">-100.3898</span>
+      </div>
+    </div>
+
+    <!-- TAB 3: TELEMETRY CHARTS -->
+    <div id="tab-charts" class="glass module-card hidden">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:10px; color:var(--text-muted); font-weight:700;">EVOLUCIÓN MÉTRICA</span>
+        <select id="chartMetric" onchange="drawChart()"
+          style="background:rgba(0,0,0,0.5); color:white; border:1px solid var(--panel-border); padding:6px; border-radius:8px; font-size:10px; font-family:inherit; outline:none;">
+          <option value="volt">Voltaje Batería (CT)</option>
+          <option value="fuel">Nivel Combustible (KW)</option>
+        </select>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="chartCanvas"></canvas>
+      </div>
+    </div>
+
+    <!-- TAB 4: DATABASE & EXPORT -->
+    <div id="tab-db" class="glass module-card hidden">
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="dbSearch" placeholder="Filtrar por tipo o trama..." oninput="renderDB()"
+          style="flex:1; padding:10px; border-radius:8px; border:1px solid var(--panel-border); background:rgba(0,0,0,0.4); color:white; font-size:10px; font-family:inherit; outline:none;">
+        <button class="btn btn-secondary" onclick="exportToCSV()" style="width: auto; padding: 0 16px;">EXPORTAR CSV</button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+     4. ARCHITECTURE CORE SCRIPT
+     ========================================================================== -->
+  <script>
+    /* Global Application State */
+    const State = {
+      db: null,
+      simulatorInterval: null,
+      frameCount: 0,
+      currentLat: 20.5888,
+      currentLng: -100.3898,
+      latlngs: [[20.5888, -100.3898]],
+      map: null,
+      marker: null,
+      path: null
+    };
+
+    const DB_CONFIG = { name: 'RuneforgeTelemetryDB', store: 'tramas', version: 1 };
+
+    /* --- INDEXEDDB STORAGE ENGINE --- */
+    function initDB() {
+      const request = indexedDB.open(DB_CONFIG.name, DB_CONFIG.version);
+      request.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(DB_CONFIG.store)) {
+          db.createObjectStore(DB_CONFIG.store, { keyPath: 'id', autoIncrement: true });
+        }
+      };
+      request.onsuccess = (e) => {
+        State.db = e.target.result;
+        renderDB();
+      };
+    }
+
+    function saveRecordToDB(recordData) {
+      if (!State.db) return;
+      const tx = State.db.transaction([DB_CONFIG.store], 'readwrite');
+      tx.objectStore(DB_CONFIG.store).add({
+        type: recordData.type,
+        status: recordData.status,
+        raw: recordData.raw,
+        valToGraph: recordData.valToGraph,
+        timestamp: new Date().toISOString()
+      }).onsuccess = () => {
+        State.frameCount++;
+        renderDB();
+        if (!document.getElementById('tab-charts').classList.contains('hidden')) drawChart();
+      };
+    }
+
+    /* --- REST API ENGINE --- */
+    async function fetchBackendTelemetry() {
+      const startTime = performance.now();
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/telemetry?limit=50');
+        const latency = Math.round(performance.now() - startTime);
+        document.getElementById('hudLatency').textContent = `${latency} ms`;
+        document.getElementById('hudSync').textContent = 'ONLINE';
+        document.getElementById('hudSync').style.color = 'var(--neon-green)';
+
+        if (!response.ok) throw new Error('Network error');
+        const data = await response.json();
+
+        if (data.length > 0) {
+          const last = data[0];
+          document.getElementById('liveData').textContent = 
+            `[${last.type}] Temp: ${last.temperature ? last.temperature.toFixed(1) : '--'}°C | Volt: ${last.voltage ? last.voltage.toFixed(2) : '--'}V | ${last.source_file}`;
+          
+          evaluateTelemetryAlerts(last);
+        }
+      } catch (err) {
+        document.getElementById('hudSync').textContent = 'OFFLINE';
+        document.getElementById('hudSync').style.color = 'var(--neon-red)';
+      }
+    }
+
+    /* --- ALERT EVALUATOR SYSTEM --- */
+    function evaluateTelemetryAlerts(data) {
+      const alertBox = document.getElementById('alertBox');
+      if (data.voltage && data.voltage < 11.8) {
+        alertBox.className = 'data-box';
+        alertBox.style.borderColor = 'rgba(255,71,87,0.4)';
+        alertBox.style.background = 'rgba(255,71,87,0.1)';
+        alertBox.innerHTML = `<span style="color:var(--neon-red)">⚠️ ALERTA: Voltaje bajo detectado (${data.voltage.toFixed(2)}V)</span>`;
+      } else {
+        alertBox.style.borderColor = 'rgba(61,213,152,0.2)';
+        alertBox.style.background = 'rgba(61,213,152,0.05)';
+        alertBox.innerHTML = `<span style="color:var(--neon-green)">✓ Telemetría dentro de rangos normales</span>`;
+      }
+    }
+
+    /* --- CANVAS RENDERING ENGINE (HIGH-DPI OPTIMIZED) --- */
+    function drawChart() {
+      if (!State.db) return;
+      const canvas = document.getElementById('chartCanvas');
+      const ctx = canvas.getContext('2d');
+      const metric = document.getElementById('chartMetric').value;
+
+      // Fix resolution blurring
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+      const w = rect.width;
+      const h = rect.height;
+
+      const tx = State.db.transaction([DB_CONFIG.store], 'readonly');
+      tx.objectStore(DB_CONFIG.store).getAll().onsuccess = (e) => {
+        let rawData = e.target.result || [];
+        let filtered = rawData.filter(d => metric === 'volt' ? d.type === 'CT' : d.type === 'KW');
+
+        ctx.clearRect(0, 0, w, h);
+
+        if (filtered.length < 2) {
+          ctx.fillStyle = '#64748b';
+          ctx.font = '10px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('Insuficientes datos para renderizar gráfica táctica', w / 2, h / 2);
+          return;
+        }
+
+        filtered.sort((a, b) => a.id - b.id);
+        let maxVal = Math.max(...filtered.map(d => d.valToGraph)) * 1.1;
+        let minVal = Math.min(...filtered.map(d => d.valToGraph)) * 0.9;
+        if (maxVal === minVal) maxVal += 1;
+
+        // Grid Lines
+        ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= 4; i++) {
+          let y = h - (i / 4) * h;
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+        }
+
+        // Line Rendering
+        const strokeColor = metric === 'volt' ? '#3dd598' : '#2d6cdf';
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+
+        let stepX = w / (filtered.length - 1);
+        filtered.forEach((d, i) => {
+          let x = i * stepX;
+          let y = h - (((d.valToGraph - minVal) / (maxVal - minVal)) * (h - 20) + 10);
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+      };
+    }
+
+    /* --- MAP LEAFLET ENGINE --- */
+    function initMap() {
+      State.map = L.map('map', { zoomControl: false }).setView([State.currentLat, State.currentLng], 14);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(State.map);
+
+      const tacticalIcon = L.divIcon({
+        className: 'custom-icon',
+        html: `<div style="background:#3dd598; width:12px; height:12px; border-radius:50%; box-shadow:0 0 12px #3dd598; border: 2px solid white;"></div>`,
+        iconSize: [12, 12],
+        iconAnchor: [6, 6]
+      });
+
+      State.marker = L.marker([State.currentLat, State.currentLng], { icon: tacticalIcon }).addTo(State.map);
+      State.path = L.polyline(State.latlngs, { color: '#3dd598', weight: 2, dashArray: '4, 4' }).addTo(State.map);
+    }
+
+    /* --- TELEMETRY SIMULATOR --- */
+    function toggleSimulator() {
+      const btn = document.getElementById('btnStart');
+      const status = document.getElementById('wsStatus');
+
+      if (State.simulatorInterval) {
+        clearInterval(State.simulatorInterval);
+        State.simulatorInterval = null;
+        btn.textContent = 'INICIAR SIMULADOR';
+        btn.className = 'btn btn-primary';
+        status.textContent = 'DETENIDO';
+        status.style.background = 'rgba(122,134,158,0.15)';
+        status.style.color = 'var(--text-muted)';
+      } else {
+        btn.textContent = 'DETENER SIMULADOR';
+        btn.className = 'btn btn-danger';
+        status.textContent = 'TRANSMITIENDO';
+        status.style.background = 'rgba(61,213,152,0.15)';
+        status.style.color = 'var(--neon-green)';
+
+        State.simulatorInterval = setInterval(() => {
+          const isCT = Math.random() > 0.5;
+          let decoded;
+
+          if (isCT) {
+            const volt = Math.floor((Math.random() * 3500) + 11000);
+            decoded = { type: 'CT', status: 'Trama CT OK', raw: `CT_VOLT_${volt}_RAW_SIM`, valToGraph: volt / 1000 };
+          } else {
+            const level = Math.floor((Math.random() * 3686) + 409);
+            decoded = { type: 'KW', status: 'Trama KW OK', raw: `esc_lev_0=${level}, rssi=-68`, valToGraph: (level / 4095) * 100 };
+          }
+
+          saveRecordToDB(decoded);
+          document.getElementById('liveData').textContent = decoded.raw;
+
+          // Map Simulation Update
+          State.currentLat += (Math.random() - 0.5) * 0.0015;
+          State.currentLng += (Math.random() - 0.5) * 0.0015;
+          document.getElementById('coordLat').textContent = State.currentLat.toFixed(4);
+          document.getElementById('coordLng').textContent = State.currentLng.toFixed(4);
+
+          const newPos = [State.currentLat, State.currentLng];
+          State.marker.setLatLng(newPos);
+          State.latlngs.push(newPos);
+          State.path.setLatLngs(State.latlngs);
+
+          if (!document.getElementById('tab-map').classList.contains('hidden')) {
+            State.map.panTo(newPos, { animate: true, duration: 0.8 });
+          }
+        }, 2000);
+      }
+    }
+
+    /* --- HISTORIAL & EXPORT --- */
+    function renderDB() {
+      if (!State.db) return;
+      const list = document.getElementById('historyList');
+      const filter = document.getElementById('dbSearch').value.toLowerCase();
+      const tx = State.db.transaction([DB_CONFIG.store], 'readonly');
+
+      tx.objectStore(DB_CONFIG.store).getAll().onsuccess = (e) => {
+        let data = e.target.result || [];
+        data.sort((a, b) => b.id - a.id);
+
+        if (filter) {
+          data = data.filter(i => i.type.toLowerCase().includes(filter) || i.raw.toLowerCase().includes(filter));
+        }
+
+        if (data.length === 0) {
+          list.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted)">Sin registros localizados</div>`;
+          return;
+        }
+
+        list.innerHTML = data.slice(0, 40).map(item => `
+          <div class="history-item">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted); font-size:9px;">${new Date(item.timestamp).toLocaleTimeString()}</span>
+              <span class="badge badge-${item.type}">${item.type}</span>
+            </div>
+            <div style="color:white; margin-top:4px; font-weight:700;">
+              ${item.status} (${item.valToGraph.toFixed(2)})
+            </div>
+          </div>
+        `).join('');
+      };
+    }
+
+    function exportToCSV() {
+      if (!State.db) return;
+      const tx = State.db.transaction([DB_CONFIG.store], 'readonly');
+      tx.objectStore(DB_CONFIG.store).getAll().onsuccess = (e) => {
+        const data = e.target.result || [];
+        if (!data.length) return alert('La base de datos local está vacía.');
+        
+        let csv = "ID,Timestamp,Type,Status,Value,RawData\n";
+        data.forEach(i => {
+          csv += `${i.id},"${i.timestamp}","${i.type}","${i.status}",${i.valToGraph},"${i.raw}"\n`;
+        });
+
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `nexus_telemetry_${Date.now()}.csv`;
+        a.click();
+      };
+    }
+
+    /* --- TABS SYSTEM --- */
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.container > div[id^="tab-"]').forEach(d => d.classList.add('hidden'));
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+      if (tabId === 'map' && State.map) setTimeout(() => State.map.invalidateSize(), 100);
+      if (tabId === 'charts') drawChart();
+      if (tabId === 'db') renderDB();
+    }
+
+    /* --- INITIALIZATION --- */
+    window.addEventListener('DOMContentLoaded', () => {
+      initDB();
+      initMap();
+      fetchBackendTelemetry();
+
+      // Monitor de latencia y tasa de tramas cada 5s
+      setInterval(fetchBackendTelemetry, 5000);
+      setInterval(() => {
+        document.getElementById('hudRate').textContent = State.frameCount * 12; // Tramas/min est
+        State.frameCount = 0;
+      }, 5000);
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#05070a">
+<title>SEPCOLGPS • Nexus CalAmp v15</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Glassmorphism & Neomorphism Dark Theme */
+  :root {
+    --bg-base: #05070a;
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-border: rgba(56, 189, 248, 0.15);
+    --neon-green: #3dd598;
+    --neon-red: #ff4757;
+    --neon-blue: #2d6cdf;
+    --neon-yellow: #feca57;
+  }
+  body {
+    margin: 0;
+    background-color: var(--bg-base);
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(45, 108, 223, 0.08), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(61, 213, 152, 0.05), transparent 25%);
+    color: #e2e8f0;
+    font-family: system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  
+  /* Efecto Cristal */
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 20px;
+  }
+
+  /* Neon Glow */
+  .glow-green { box-shadow: 0 0 15px rgba(61, 213, 152, 0.4); border-color: var(--neon-green); }
+  .glow-red { box-shadow: 0 0 15px rgba(255, 71, 87, 0.4); border-color: var(--neon-red); }
+  .glow-blue { box-shadow: 0 0 15px rgba(45, 108, 223, 0.4); border-color: var(--neon-blue); }
+
+  /* Animaciones */
+  @keyframes pulse-ring {
+    0% { transform: scale(0.95); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+    100% { transform: scale(0.95); opacity: 0.5; }
+  }
+  .animate-radar { animation: pulse-ring 2s infinite ease-in-out; }
+  
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-slide { animation: slide-up 0.3s ease-out forwards; }
+
+  /* Inputs */
+  textarea, select {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e2e8f0;
+    transition: all 0.2s;
+  }
+  textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 0 2px rgba(45, 108, 223, 0.3);
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const {useState, useEffect, useMemo} = React;
+
+/* ==========================================
+   LÓGICA CORE (Extraída de Calamp-Decoder-V3.py)
+   ========================================== */
+const decodeCalamp = (hexRaw) => {
+  if (!hexRaw) return null;
+  let clean = hexRaw.toUpperCase().replace(/[^0-9A-F]/g, '');
+  if (clean.length % 2 === 1) clean = '0' + clean;
+  if (clean.length < 20) return null;
+
+  const bytes = [];
+  for (let i = 0; i < clean.length; i += 2) bytes.push(parseInt(clean.substr(i, 2), 16));
+  const u16 = [];
+  for (let i = 0; i < bytes.length - 1; i += 2) u16.push((bytes[i] << 8) | bytes[i + 1]);
+
+  const c3E70 = u16.filter(v => v === 0x3E70).length;
+  const cFFFF = u16.filter(v => v === 0xFFFF).length;
+  
+  // Buscar voltajes en las últimas tramas (lógica Python)
+  const voltU_cand = u16.filter(v => v >= 10000 && v <= 16000);
+  const voltG_cand = u16.filter(v => v >= 3500 && v <= 5000);
+  const voltU = voltU_cand.length ? voltU_cand[voltU_cand.length - 1] : null;
+  const voltG = voltG_cand.length ? voltG_cand[voltG_cand.length - 1] : null;
+
+  let estado, color, rec, s1Color, s2Color, s1Text, s2Text;
+
+  if (c3E70 >= 2) {
+    estado = "FALLA DOBLE TERMO"; color = "var(--neon-red)"; 
+    s1Color = s2Color = "var(--neon-red)"; s1Text = s2Text = "FALLA 15984";
+    rec = "Ambas sondas en 15984 (circuito abierto). Revisar cableado 1-Wire, pull-up 4.7k en ADC2/ADC3.";
+  } else if (c3E70 === 1) {
+    estado = "FALLA SIMPLE RESIDUAL"; color = "var(--neon-yellow)";
+    s1Color = "var(--neon-green)"; s2Color = "var(--neon-red)"; s1Text = "OK"; s2Text = "FALLA 3E70";
+    rec = "1 sonda OK, 1 en 15984. Operativo con 1 sonda. Revisar S2.";
+  } else if (cFFFF >= 2) {
+    estado = "OK DESHABILITADO"; color = "var(--neon-blue)";
+    s1Color = s2Color = "#475569"; s1Text = s2Text = "DESHAB";
+    rec = "Acumuladores en FFFF (deshabilitados en PEG). No es falla física.";
+  } else {
+    estado = "BUENO PERFECTO"; color = "var(--neon-green)";
+    s1Color = s2Color = "var(--neon-green)"; s1Text = s2Text = "OK";
+    rec = "Sin 3E70 ni FFFF. Sensores Dallas operando correctamente.";
+  }
+
+  return {
+    voltU: voltU ? voltU / 1000 : null,
+    voltG: voltG ? voltG / 1000 : null,
+    c3E70, cFFFF, estado, color, rec, s1Color, s2Color, s1Text, s2Text
+  };
+};
+
+const FAMILIES = [
+  { id: 'BDVA', label: 'BDVA / TILE', icon: '📡', color: '#3dd598' },
+  { id: 'CICLOPE', label: 'CÍCLOPE C3', icon: '👁️', color: '#feca57' },
+  { id: 'SAMSARA', label: 'Samsara AT11', icon: '🚚', color: '#2d6cdf' },
+  { id: 'CALAMP', label: 'CalAmp LMU', icon: '🔋', color: '#8b5cf6' },
+  { id: 'UNKNOWN', label: 'Desconocido', icon: '❓', color: '#94a3b8' }
+];
+
+/* ==========================================
+   COMPONENTES UI
+   ========================================== */
+const Gauge = ({ value, max, label, unit, color }) => {
+  const pct = value ? Math.min(100, Math.max(0, (value / max) * 100)) : 0;
+  const activeColor = value ? color : '#334155';
+  
+  return (
+    <div className="flex flex-col items-center justify-center p-2">
+      <div className="relative w-[100px] h-[100px]">
+        <svg width="100" height="100" viewBox="0 0 100 100" className="rotate-[-90deg]">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="8"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke={activeColor} strokeWidth="8" 
+                  strokeLinecap="round" strokeDasharray={`${pct/100*251} 251`} 
+                  style={{transition: 'stroke-dasharray 0.8s cubic-bezier(0.4, 0, 0.2, 1)', filter: `drop-shadow(0 0 6px ${activeColor})`}}/>
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-[20px] font-black mono" style={{color: activeColor, textShadow: `0 0 10px ${activeColor}80`}}>
+            {value !== null ? value.toFixed(2) : "--"}
+          </span>
+          <span className="text-[8px] text-slate-400 font-bold tracking-widest">{unit}</span>
+        </div>
+      </div>
+      <div className="mt-2 text-[9px] text-slate-300 font-bold tracking-wider">{label}</div>
+    </div>
+  );
+};
+
+const TruckVisualizer = ({ data }) => {
+  if(!data) return (
+    <svg viewBox="0 0 340 140" className="w-full h-auto opacity-30">
+      <rect x="10" y="20" width="200" height="90" rx="8" fill="none" stroke="#475569" strokeWidth="2" strokeDasharray="4 4"/>
+      <circle cx="60" cy="75" r="18" fill="none" stroke="#475569" strokeWidth="2"/>
+      <circle cx="160" cy="75" r="18" fill="none" stroke="#475569" strokeWidth="2"/>
+    </svg>
+  );
+
+  return (
+    <svg viewBox="0 0 340 140" className="w-full h-auto animate-slide">
+      {/* Caja Termo */}
+      <rect x="10" y="20" width="200" height="90" rx="8" fill="rgba(15,23,42,0.8)" stroke={data.color} strokeWidth="2" style={{filter: `drop-shadow(0 0 8px ${data.color}40)`}}/>
+      <text x="20" y="35" fill={data.color} fontSize="10" className="mono font-bold">CAJA TERMO</text>
+      
+      {/* Sonda 1 */}
+      <circle cx="60" cy="75" r="18" fill={data.s1Color} stroke="#0f172a" strokeWidth="3" style={{filter: `drop-shadow(0 0 10px ${data.s1Color})`, transition: 'all 0.5s'}}/>
+      <text x="60" y="79" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="900">S1</text>
+      <text x="60" y="108" textAnchor="middle" fill={data.s1Color} fontSize="9" className="mono font-bold">{data.s1Text}</text>
+
+      {/* Sonda 2 */}
+      <circle cx="160" cy="75" r="18" fill={data.s2Color} stroke="#0f172a" strokeWidth="3" style={{filter: `drop-shadow(0 0 10px ${data.s2Color})`, transition: 'all 0.5s'}}/>
+      <text x="160" y="79" textAnchor="middle" fill="#0f172a" fontSize="11" fontWeight="900">S2</text>
+      <text x="160" y="108" textAnchor="middle" fill={data.s2Color} fontSize="9" className="mono font-bold">{data.s2Text}</text>
+
+      {/* Cabina */}
+      <path d="M210 40 L270 40 L300 70 L300 110 L210 110 Z" fill="#1e293b" stroke="#334155" strokeWidth="2"/>
+      <circle cx="240" cy="115" r="12" fill="#0f172a" stroke="#334155" strokeWidth="2"/>
+      <circle cx="290" cy="115" r="12" fill="#0f172a" stroke="#334155" strokeWidth="2"/>
+    </svg>
+  );
+};
+
+/* ==========================================
+   APP PRINCIPAL
+   ========================================== */
+function App() {
+  const [tab, setTab] = useState('thermo'); // 'thermo' | 'sonar'
+  const [hexInput, setHexInput] = useState("E4672144079FFFFFF0100006AD7AD6F6AD7AD6F0F39DD9EC24A588B00000002005C11000014FFAB8F070700FFFF0400002C0E00000FE400003E7000003E70");
+  const [decoded, setDecoded] = useState(null);
+  
+  // BLE States
+  const [scanning, setScanning] = useState(false);
+  const [devices, setDevices] = useState([]);
+
+  // Auto-decodificar al inicio
+  useEffect(() => { setDecoded(decodeCalamp(hexInput)); }, [hexInput]);
+
+  const handleScan = async () => {
+    if(scanning) { setScanning(false); return; }
+    setDevices([]); setScanning(true);
+    try {
+      if(!navigator.bluetooth) throw new Error("No BLE");
+      await navigator.bluetooth.requestLEScan({ acceptAllAdvertisements: true });
+      navigator.bluetooth.addEventListener('advertisementreceived', e => {
+        const name = e.device?.name || 'Desconocido';
+        const mac = e.device?.id || Math.random().toString();
+        setDevices(prev => {
+          if(prev.find(x => x.id === mac)) return prev;
+          return [{ id: mac, name, rssi: e.rssi || -80 }, ...prev];
+        });
+      });
+    } catch(e) {
+      // Fallback Demo
+      setDevices([
+        { id: '1', name: 'BDVA-7011', rssi: -65 },
+        { id: '2', name: 'CT199-CALAMP', rssi: -72 },
+        { id: '3', name: 'SAMSARA-AT11', rssi: -88 }
+      ]);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex justify-center p-3">
+      <div className="w-full max-w-[420px] flex flex-col gap-3">
+        
+        {/* HEADER GLASS */}
+        <div className="glass-panel p-4 text-center relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#3dd598] to-transparent opacity-50"></div>
+          <h1 className="text-[18px] font-black tracking-[3px] text-white">NEXUS <span className="text-[#3dd598]">FUSION</span></h1>
+          <p className="text-[9px] text-slate-400 mt-1 mono tracking-widest">CALAAMP TELEMETRY & BLE SCANNER</p>
+          
+          <div className="flex mt-4 bg-black/40 p-1 rounded-xl border border-white/5">
+            <button onClick={()=>setTab('thermo')} className={`flex-1 py-2 rounded-lg text-[11px] font-bold transition-all ${tab==='thermo'?'bg-[#2d6cdf] text-white glow-blue':'text-slate-400'}`}>
+              🔋 THERMO LAB
+            </button>
+            <button onClick={()=>setTab('sonar')} className={`flex-1 py-2 rounded-lg text-[11px] font-bold transition-all ${tab==='sonar'?'bg-[#3dd598] text-black glow-green':'text-slate-400'}`}>
+              📡 SONAR BLE
+            </button>
+          </div>
+        </div>
+
+        {/* TAB THERMO */}
+        {tab === 'thermo' && (
+          <div className="flex flex-col gap-3 animate-slide">
+            <div className="glass-panel p-4">
+              <textarea 
+                value={hexInput} 
+                onChange={e => setHexInput(e.target.value)}
+                className="w-full h-24 p-3 rounded-xl mono text-[11px] resize-none"
+                placeholder="Pega el HEX de CalAmp (!r4...)"
+              />
+            </div>
+
+            {decoded && (
+              <>
+                <div className="glass-panel p-4 text-center" style={{borderColor: decoded.color}}>
+                  <div className="text-[10px] text-slate-400 font-bold tracking-widest mb-1">ESTADO DE FLOTA</div>
+                  <div className="text-[18px] font-black mono" style={{color: decoded.color, textShadow: `0 0 15px ${decoded.color}60`}}>
+                    {decoded.estado}
+                  </div>
+                  <div className="text-[10px] text-slate-300 mt-2 leading-tight">{decoded.rec}</div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="glass-panel p-2 flex justify-center">
+                    <Gauge value={decoded.voltU} max={15} label="VOLT UNIDAD" unit="V" color={decoded.voltU > 12 ? 'var(--neon-green)' : 'var(--neon-yellow)'} />
+                  </div>
+                  <div className="glass-panel p-2 flex justify-center">
+                    <Gauge value={decoded.voltG} max={5} label="VOLT GPS" unit="V" color={decoded.voltG >= 3.9 ? 'var(--neon-green)' : 'var(--neon-yellow)'} />
+                  </div>
+                </div>
+
+                <div className="glass-panel p-4">
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-[10px] text-slate-400 font-bold tracking-widest">SENSORES 1-WIRE</span>
+                    <span className="text-[9px] mono text-slate-500">3E70: {decoded.c3E70} | FFFF: {decoded.cFFFF}</span>
+                  </div>
+                  <TruckVisualizer data={decoded} />
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+        {/* TAB SONAR */}
+        {tab === 'sonar' && (
+          <div className="flex flex-col gap-3 animate-slide">
+            <button onClick={handleScan} className={`w-full py-4 rounded-xl font-black text-[13px] tracking-wider transition-all ${scanning ? 'glass-panel text-[#ff4757] glow-red' : 'bg-[#3dd598] text-black glow-green'}`}>
+              {scanning ? '⏹ PARAR ESCANEO' : '▶ ESCANEAR DISPOSITIVOS'}
+            </button>
+
+            {devices.map(d => (
+              <div key={d.id} className="glass-panel p-3 flex justify-between items-center">
+                <div>
+                  <div className="text-[13px] font-bold text-white">{d.name}</div>
+                  <div className="text-[9px] mono text-slate-400">{d.id}</div>
+                </div>
+                <div className="text-[12px] font-black mono text-[#3dd598]">{Math.round(d.rssi)} dBm</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

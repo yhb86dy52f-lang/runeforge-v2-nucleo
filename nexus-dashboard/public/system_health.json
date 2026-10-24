@@ -1,0 +1,11 @@
+{
+    "timestamp": "2026-10-24T15:46:24.889114",
+    "core": {
+        "cpu_percent": 80.6,
+        "ram_percent": 57.8
+    },
+    "hardware": {
+        "GPU_Name": "GTX 1660 SUPER",
+        "Disk_Type": "HDD"
+    }
+}

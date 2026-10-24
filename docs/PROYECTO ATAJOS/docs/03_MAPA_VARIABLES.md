@@ -1,0 +1,7 @@
+# Variables
+gps_num
+lista_comandos
+indice_actual
+ultimo_enviado
+ultimo_recibido
+ruta_estado

@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "type": "graph",
+      "ctime": 1792728120589,
+      "title": "neuronas",
+      "options": {
+        "collapse-filter": true,
+        "search": "-path:node_modules -path:target -path:.git",
+        "showTags": true,
+        "showAttachments": true,
+        "hideUnresolved": true,
+        "showOrphans": false,
+        "collapse-color-groups": false,
+        "colorGroups": [
+          {
+            "query": "sello:Purson OR tag:Purson",
+            "color": {
+              "a": 1,
+              "rgb": 3394611
+            }
+          },
+          {
+            "query": "sello:Forneus OR tag:Forneus",
+            "color": {
+              "a": 1,
+              "rgb": 11795861
+            }
+          },
+          {
+            "query": "path:knowledge OR path:canon",
+            "color": {
+              "a": 1,
+              "rgb": 4358943
+            }
+          },
+          {
+            "query": "path:clippings",
+            "color": {
+              "a": 1,
+              "rgb": 16746939
+            }
+          },
+          {
+            "query": "path:FlotaKW_Completo",
+            "color": {
+              "a": 1,
+              "rgb": 16753408
+            }
+          }
+        ],
+        "collapse-display": false,
+        "showArrow": true,
+        "textFadeMultiplier": -0.6,
+        "nodeSizeMultiplier": 2.39941463414634,
+        "lineSizeMultiplier": 0.410731707317073,
+        "collapse-forces": false,
+        "centerStrength": 0.225756097560976,
+        "repelStrength": 15.8208346087134,
+        "linkStrength": 0,
+        "linkDistance": 500,
+        "scale": 0.053597965489019316,
+        "close": true
+      }
+    }
+  ]
+}

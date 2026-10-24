@@ -1,0 +1,58 @@
+{
+  "fecha": "2026-10-07",
+  "host": "RUNEFORGE-PC",
+  "gpu": {
+    "modelo": "NVIDIA GeForce GTX 1660 SUPER",
+    "vram_gb": 6,
+    "driver": "610.47",
+    "cuda_umd": "13.3"
+  },
+  "mqtt": {
+    "host_pc": "192.168.100.10",
+    "puerto_tcp": 1883,
+    "puerto_websocket": 9001,
+    "software": "Eclipse Mosquitto 2.1.2",
+    "config": "C:\\Program Files\\mosquitto\\mosquitto.conf",
+    "servicio_windows": "mosquitto",
+    "estado": "running"
+  },
+  "respuestas": [
+    {
+      "pregunta": "1. FlotaKW CUDA DLL size",
+      "estado_actual": "GPU NVIDIA GeForce GTX 1660 SUPER 6GB driver 610.47, cuda_umd 13.3, whisper_backend cuda large-v3-turbo",
+      "analisis": "Con torch + faster-whisper + CUDA 13.3, PyInstaller --onefile empaqueta ~400-800 MB si incluye torch CUDA DLLs. Estimacion sin optimizacion: 450 MB. Con optimizacion usando onnxruntime o faster-whisper sin torch: 35-55 MB",
+      "veredicto": "Tu setup actual usa Whisper cuda directo, no torch puro. PyInstaller con --collect-all faster-whisper y --exclude-module torch.distributed reduce a ~80-120 MB. Recomendacion PRO: separar modelos en externalBin, no dentro del exe",
+      "accion": "python -m PyInstaller --onefile --noconsole --add-data 'models;models' --exclude-module torch --collect-submodules faster_whisper src/backends/main.py"
+    },
+    {
+      "pregunta": "2. Fastify native addons",
+      "estado_actual": "integrados_runeforge fastify=offline, pm2=online",
+      "analisis": "Fastify offline indica que no has bundelado. Si usas better-sqlite3, ws, uWebSockets, pkg original falla. @yao-pkg/pkg y Node SEA soportan native addons con rebuild",
+      "veredicto": "Sin package.json en manifiesto, asumo Fastify puro (sin better-sqlite3). Compatible con @yao-pkg/pkg directo. Si agregas sqlite, usar Tauri SQL plugin en Rust en lugar de better-sqlite3",
+      "accion": "npm i -D @yao-pkg/pkg && pkg src/whisper-server.js -t node20-win-x64 -o src-tauri/bin/dictate-x86_64-pc-windows-msvc.exe --compress GZip"
+    },
+    {
+      "pregunta": "3. Licencia RUNEFORGE",
+      "estado_actual": "No hay LICENSE en manifiesto, docs_generados solo WHISPER-BACKEND.md y ESP32-PROJECT.json",
+      "analisis": "Sin LICENSE, se asume propietario cerrado. SignPath Foundation solo para OSS MIT/Apache. Para propietario necesitas OV o Azure Trusted Signing",
+      "veredicto": "Para PRO cerrado: Azure Trusted Signing $9.99/mes (5k firmas) o OV cert $250-350/año via Sectigo/DigiCert + HSM. Publisher mostrara tu empresa, no SignPath Foundation",
+      "accion": "Si quieres gratis, publica core como MIT y aplica en signpath.org/apply con tu repo y signing-policy.md"
+    },
+    {
+      "pregunta": "4. WebView2 en PCs destino Torreon",
+      "estado_actual": "Tu PC RUNEFORGE-PC ya tiene WebView2 (Win10/11). Cliente Torreon lat ['BLE scanning continuo', 'Filtro RSSI configurable', 'Filtro Kalman para RSSI', 'GPS lat/lon (Torreon 25.5428,-103.4068)', 'Web UI embebida', 'WebSocket push', 'MQTT publish', 'EID rotation cada 15min', 'Deep sleep opcional']",
+      "analisis": "WebView2 Evergreen preinstalado en Win11 y Win10 21H2+. Para instaladores offline, opciones: downloadBootstrapper 0 MB (requiere internet), embedBootstrapper +1.8 MB, offlineInstaller +127 MB",
+      "veredicto": "Para Torreon distribución local, usa embedBootstrapper (+1.8 MB) balance perfecto. Instalador final ~9-12 MB NSIS, no 70+ MB",
+      "accion": "tauri.conf.json bundle.windows.webviewInstallMode.type = embedBootstrapper"
+    },
+    {
+      "pregunta": "5. Microsoft Store vs winget",
+      "estado_actual": "Dashboard actual es http://127.0.0.1:8090 local, no Store",
+      "analisis": "Tauri no produce MSIX nativo. Electron-builder si. winget acepta NSIS exe directo sin firma obligatoria",
+      "veredicto": "PRO v10: solo winget (wingetcreate). PRO Store v11: envolver con MSIX via MSIX Packaging Tool o migrar a electron-builder para appx target",
+      "accion": "wingetcreate new --url https://github.com/tuuser/runeforge/releases/download/v10/RUNEFORGE_PRO_10_x64-setup.exe"
+    }
+  ],
+  "decision_final": "Tauri v2 + 2 sidecars + NSIS embedBootstrapper + Azure Signing + auto-updater minisign",
+  "bundle_estimado": "NSIS 25-40 MB (Rust 18 MB + Python 15 MB + Node 10 MB) vs Electron 150-200 MB"
+}

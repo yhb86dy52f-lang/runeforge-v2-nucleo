@@ -1,0 +1,41 @@
+{
+  "title": "AWS Console Home + Tailscale - Estado actual runeforge",
+  "sources": [
+    "https://us-east-2.console.aws.amazon.com/console/home?region=us-east-2",
+    "https://console.tailscale.com/admin/machines"
+  ],
+  "created": "2026-08-15",
+  "account": "forgerrune@gmail.com",
+  "region": "us-east-2",
+  "console_home": {
+    "widgets_visible_in_video": [
+      "AWS Health (1 problema)",
+      "Costo y uso (0/100 US$)",
+      "Le damos la bienvenida a AWS",
+      "Visitados recientemente"
+    ],
+    "customization": "Agregar/eliminar/reorganizar/cambiar tamaño via drag handle"
+  },
+  "tailscale": {
+    "machine_count": 2,
+    "machines": [
+      {
+        "name": "desktop-ndfe0b0",
+        "ip": "100.83.105.117",
+        "account": "forgerrune@gmail.com"
+      },
+      {
+        "name": "runeforge",
+        "ip": "100.100.167.48",
+        "account": "forgerrune@gmail.com",
+        "status": "connected",
+        "next_action": "sudo tailscale set --ssh inside instance"
+      }
+    ]
+  },
+  "next_steps": [
+    "ssh to runeforge via Tailscale IP 100.100.167.48",
+    "run sudo tailscale set --ssh inside runeforge",
+    "verify with tailscale status"
+  ]
+}

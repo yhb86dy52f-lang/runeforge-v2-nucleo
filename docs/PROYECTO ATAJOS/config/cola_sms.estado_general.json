@@ -1,0 +1,14 @@
+{
+  "activo": true,
+  "telefono": "+521XXXXXXXXXX",
+  "indice_actual": 0,
+  "comandos": [
+    "!R0",
+    "!R5",
+    "!RR",
+    "!RA"
+  ],
+  "ultimo_enviado": "!R0",
+  "ultimo_recibido": "",
+  "modo_validacion": "mismo_remitente"
+}

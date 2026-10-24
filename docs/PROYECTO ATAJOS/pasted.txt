@@ -1,0 +1,40 @@
+PROYECTO DE ATAJO
+
+1) Nombre del atajo:
+[Escribe aquí]
+
+2) Objetivo exacto:
+[Qué debe hacer, sin resumir de más]
+
+3) Disparador:
+[Manual / compartir / automatización / mensaje / ubicación / NFC / hora / etc.]
+
+4) Entrada:
+[Texto / archivo / contacto / número / URL / fecha / ubicación / nada]
+
+5) Salida esperada:
+[SMS enviado / archivo guardado / menú / JSON / nota / recordatorio / webhook / etc.]
+
+6) Herramientas involucradas:
+[iPhone / App Atajos / Mensajes / Archivos / Safari / Notas / API / PC / iCloud Drive / PowerShell / otra]
+
+7) ¿Ya existe el atajo o es nuevo?
+[Nuevo / Ya existe]
+
+8) Si ya existe, qué parte quieres modificar:
+[Describe bloque, menú, variable, paso o comportamiento]
+
+9) Datos exactos que ya tienes:
+[Números, rutas, nombres, variables, parámetros, IDs, URLs, textos, comandos]
+
+10) Datos que faltan:
+[Lo que no sabes todavía]
+
+11) Restricciones:
+[Sin apps externas / sin API / debe funcionar offline / no usar confirmación / etc.]
+
+12) Validación deseada:
+[Qué prueba quieres hacer para confirmar que funciona]
+
+13) Formato de respuesta que quiero:
+[Lista paso a paso / bloques de texto copiables / estructura del flujo / troubleshooting]

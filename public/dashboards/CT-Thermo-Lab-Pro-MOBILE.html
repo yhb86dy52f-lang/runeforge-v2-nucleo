@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#0f1115">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>CT Thermo Lab - APK</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0a0c10;color:#e8e8e8;font-family:system-ui,Segoe UI,Roboto,sans-serif;padding:0}
+.header{padding:16px;background:linear-gradient(135deg,#122033,#1a2f4a);border-bottom:1px solid #24344f;position:sticky;top:0;z-index:10}
+.header h1{margin:0;font-size:20px}
+.header p{margin:4px 0 0 0;opacity:0.7;font-size:12px}
+.container{padding:12px;max-width:480px;margin:0 auto}
+.card{background:#151a23;border:1px solid #232c3d;border-radius:16px;padding:14px;margin:10px 0}
+.btn{width:100%;padding:16px;border-radius:14px;border:none;font-weight:800;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary{background:#2d6cdf;color:white}
+.btn-secondary{background:#212a3a;color:#cbd5e1;border:1px solid #334155}
+.badge{padding:6px 12px;border-radius:99px;font-weight:800;font-size:12px;display:inline-block}
+.ok{background:#0a3d2e;color:#3dd598;border:1px solid #1a5c45}
+.fail{background:#4a1111;color:#ff6b6b;border:1px solid #7a2222}
+.warn{background:#4a3511;color:#ffd166;border:1px solid #7a5a22}
+textarea{width:100%;min-height:140px;background:#0b0e14;color:#7ee787;border:1px solid #2a3a56;border-radius:12px;padding:12px;font-family:monospace;font-size:13px}
+.truck-wrap{display:flex;justify-content:center;padding:12px}
+.truck{width:100%;max-width:340px}
+.sensor-dot{transition:all 0.4s}
+.input-row{display:flex;gap:8px;margin:8px 0}
+.input-row select{flex:1;background:#0b0e14;color:#fff;border:1px solid #2a3a56;border-radius:12px;padding:12px}
+.gauge{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;border:6px solid #2a3a56}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini{font-size:11px;opacity:0.7}
+pre{background:#0b0e14;border-radius:10px;padding:10px;overflow:auto;font-size:11px;white-space:pre-wrap;word-break:break-all}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>🚛 CT Thermo Lab PRO</h1>
+<p>APK Móvil • Motorola • Pega !r4 y ve el camión en rojo/verde</p>
+</div>
+
+<div class="container">
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<span class="mini">MODO TÉCNICO EN CAMPO</span>
+<span id="statusBadge" class="badge ok">LISTO</span>
+</div>
+
+<div class="input-row">
+<select id="preset">
+<option value="CT199_FALLA_DOBLE">CT199 FALLA DOBLE (tu caso)</option>
+<option value="CT227_BUENO">CT227 BUENO RESIDUAL</option>
+<option value="CT871_PERFECTO">8711025254 BUENO PERFECTO</option>
+<option value="CT256_FFFF">CT256 FFFF DESHABILITADO</option>
+<option value="CT194_FFFF">CT194 FFFF DESHABILITADO</option>
+</select>
+<button class="btn-secondary" style="width:auto;padding:12px" onclick="loadPreset()">Cargar</button>
+</div>
+
+<textarea id="hexInput" placeholder="Pega aquí el HEX largo del SMS !r4...&#10;Ejemplo: E4672144079FFFFFF010000..."></textarea>
+
+<div style="display:flex;gap:8px;margin-top:10px">
+<button class="btn btn-primary" onclick="decode()">▶ DECODIFICAR Y VER CAMIÓN</button>
+</div>
+<button class="btn btn-secondary" style="margin-top:8px" onclick="pasteFromClipboard()">📋 Pegar del portapapeles</button>
+</div>
+
+<div class="card">
+<div class="truck-wrap">
+<svg class="truck" viewBox="0 0 340 140" xmlns="http://www.w3.org/2000/svg">
+<!-- Caja termo -->
+<rect x="10" y="20" width="200" height="90" rx="8" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+<text x="20" y="35" fill="#64748b" font-size="10">CAJA TERMO</text>
+<!-- Sonda 1 -->
+<circle id="s1" class="sensor-dot" cx="60" cy="75" r="18" fill="#334155" stroke="#475569" stroke-width="2"/>
+<text x="60" y="79" text-anchor="middle" fill="white" font-size="11" font-weight="800">S1</text>
+<!-- Sonda 2 -->
+<circle id="s2" class="sensor-dot" cx="160" cy="75" r="18" fill="#334155" stroke="#475569" stroke-width="2"/>
+<text x="160" y="79" text-anchor="middle" fill="white" font-size="11" font-weight="800">S2</text>
+<!-- Cabina -->
+<path d="M210 40 L270 40 L300 70 L300 110 L210 110 Z" fill="#212a3a" stroke="#334155" stroke-width="2"/>
+<circle cx="240" cy="115" r="12" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+<circle cx="290" cy="115" r="12" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+<!-- Etiquetas -->
+<text id="t1" x="60" y="108" text-anchor="middle" fill="#94a3b8" font-size="9">--</text>
+<text id="t2" x="160" y="108" text-anchor="middle" fill="#94a3b8" font-size="9">--</text>
+</svg>
+</div>
+<div id="truckStatus" style="text-align:center;font-weight:800;font-size:14px;margin-top:4px">Esperando HEX...</div>
+</div>
+
+<div class="grid2">
+<div class="card" style="text-align:center">
+<div style="display:flex;justify-content:center"><div id="gaugeV" class="gauge">--</div></div>
+<div style="margin-top:8px;font-weight:700">Volt Unidad</div>
+<div id="voltU" class="mini">--</div>
+</div>
+<div class="card" style="text-align:center">
+<div style="display:flex;justify-content:center"><div id="gaugeG" class="gauge">--</div></div>
+<div style="margin-top:8px;font-weight:700">Volt GPS</div>
+<div id="voltG" class="mini">--</div>
+</div>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between"><b>Diagnóstico</b><span id="diagBadge" class="badge ok">--</span></div>
+<div id="diagText" style="margin-top:8px;font-size:13px;line-height:1.4">Pega un !r4 para diagnosticar</div>
+<div id="counts" class="mini" style="margin-top:8px"></div>
+<pre id="jsonOut">{}</pre>
+</div>
+
+<div class="card">
+<b>📌 Cómo instalar como APK en tu Motorola:</b>
+<ol style="font-size:12px;line-height:1.5;padding-left:18px">
+<li>Abre este archivo en <b>Chrome</b></li>
+<li>Menú ⋮ → <b>Agregar a pantalla principal</b> o <b>Instalar app</b></li>
+<li>Se crea icono como si fuera APK real</li>
+<li>Funciona offline, sin internet</li>
+</ol>
+<b>Con Termux:</b>
+<pre>termux-sms-send -n NUMERO "!r4"
+# espera respuesta, luego:
+termux-sms-list -l 5 | grep -oE "[0-9A-F]{120,}" | tail -1 > /tmp/hex.txt
+cat /tmp/hex.txt</pre>
+</div>
+</div>
+
+<script>
+const presets={
+"CT199_FALLA_DOBLE": "E4672144079FFFFFF0100006AD7AD6F6AD7AD6F0F39DD9EC24A588B00000002005C11000014FFAB8F070700FFFF0400002C0E00000FE400003E7000003E70",
+"CT227_BUENO": "E7000276162FFFFFF0100006AD7B38D6AD7B38D0F39E11FC24A4A2E00000000008213020014FFA58F060600FFFF0400002FF900000FE60000001C000003E70",
+"CT871_PERFECTO": "E4672124239FFFFFF0100006AD7B3A56AD7B3A50BF446EEC4CF904400000000004B14000014FFAA8F060600FFFF04000030B000000FF60000010300000123",
+"CT256_FFFF": "E7000275353FFFFFF0100006AD7B3A46AD7B3A40BF34AFFC4D6E8BC00000000004B15020014FFA08F062500FFFF04000036DC00000FE0FFFFFFECFFFFFFF",
+"CT194_FFFF": "E4672133919FFFFFF0100006AD7B38A6AD7B3890F658243C441928A00000002013913020014FFA08F082500FFFF04000034D800000FF2FFFFFF6AFFFFFF3F"
+};
+
+function cleanHex(s){
+ let c=s.replace(/!/g,'').replace(/\s+/g,'').replace(/[^0-9A-Fa-f]/g,'').toUpperCase();
+ if(c.length%2==1) c='0'+c;
+ return c;
+}
+function decodeHex(hex){
+ const clean=cleanHex(hex);
+ const bytes=[];
+ for(let i=0;i<clean.length;i+=2) bytes.push(parseInt(clean.substr(i,2),16));
+ const u16=[];
+ for(let i=0;i<bytes.length-1;i+=2) u16.push((bytes[i]<<8)|bytes[i+1]);
+ const c3E70=u16.filter(v=>v==0x3E70).length;
+ const cFFFF=u16.filter(v=>v==0xFFFF).length;
+ const voltU_c=u16.filter(v=>v>=10000&&v<=16000);
+ const voltG_c=u16.filter(v=>v>=3500&&v<=5000);
+ const voltU=voltU_c.length?voltU_c[voltU_c.length-1]:null;
+ const voltG=voltG_c.length?voltG_c[voltG_c.length-1]:null;
+ let estado, badge, colorS1, colorS2, t1, t2, reco;
+ if(c3E70>=2){
+   estado="FALLA DOBLE TERMO"; badge="fail"; colorS1="#ff3b3b"; colorS2="#ff3b3b"; t1="FALLA 15984"; t2="FALLA 15984";
+   reco="Ambas sondas en 15984 = circuito abierto. Revisar cableado 1-Wire, pull-up 4.7k en ADC2/ADC3 del CalAmp.";
+ } else if(c3E70==1){
+   estado="BUENO RESIDUAL (1x 3E70)"; badge="warn"; colorS1="#3dd598"; colorS2="#ff3b3b"; t1="OK 01C0"; t2="FALLA 3E70";
+   reco="1 sonda OK, 1 en 15984. Como CT227 - opera con 1 sonda. Revisar solo S2.";
+ } else if(cFFFF>=2){
+   estado="OK DESHABILITADO (FFFF)"; badge="ok"; colorS1="#475569"; colorS2="#475569"; t1="DESHAB"; t2="DESHAB";
+   reco="Acumuladores en FFFF = deshabilitados en PEG REV10979, no es falla.";
+ } else {
+   estado="BUENO PERFECTO"; badge="ok"; colorS1="#3dd598"; colorS2="#3dd598"; t1="OK 1030"; t2="OK 0123";
+   reco="Sin 3E70 ni FFFF. Patron bueno referencia 8711025254 - 29.1C termo.";
+ }
+ return {clean, u16, c3E70, cFFFF, voltU, voltG, estado, badge, colorS1, colorS2, t1, t2, reco};
+}
+
+function decode(){
+ const hex=document.getElementById('hexInput').value;
+ if(!hex.trim()){alert('Pega HEX !r4'); return;}
+ const r=decodeHex(hex);
+ document.getElementById('statusBadge').textContent=r.estado;
+ document.getElementById('statusBadge').className='badge '+r.badge;
+ document.getElementById('diagBadge').textContent=r.estado;
+ document.getElementById('diagBadge').className='badge '+r.badge;
+ document.getElementById('diagText').textContent=r.reco;
+ document.getElementById('counts').textContent=`3E70=${r.c3E70} | FFFF=${r.cFFFF} | Bytes=${r.clean.length/2}`;
+ document.getElementById('voltU').textContent=r.voltU? (r.voltU/1000).toFixed(2)+'V ('+r.voltU+')' : '--';
+ document.getElementById('voltG').textContent=r.voltG? (r.voltG/1000).toFixed(3)+'V' : '--';
+ const gV=document.getElementById('gaugeV');
+ gV.textContent=r.voltU? (r.voltU/1000).toFixed(1)+'V' : '--';
+ gV.style.borderColor=r.voltU && r.voltU>12000?'#3dd598': r.voltU && r.voltU>11000?'#ffd166':'#ff6b6b';
+ const gG=document.getElementById('gaugeG');
+ gG.textContent=r.voltG? (r.voltG/1000).toFixed(2)+'V' : '--';
+ gG.style.borderColor=r.voltG?'#3dd598':'#ff6b6b';
+ document.getElementById('s1').setAttribute('fill', r.colorS1);
+ document.getElementById('s2').setAttribute('fill', r.colorS2);
+ document.getElementById('t1').textContent=r.t1;
+ document.getElementById('t2').textContent=r.t2;
+ document.getElementById('truckStatus').textContent=r.estado;
+ document.getElementById('jsonOut').textContent=JSON.stringify({volt_unidad_v: r.voltU?r.voltU/1000:null, volt_gps_v: r.voltG?r.voltG/1000:null, conteo_3E70:r.c3E70, conteo_FFFF:r.cFFFF, estado:r.estado, u16_tail:r.u16.slice(-8)}, null, 2);
+}
+
+function loadPreset(){
+ const k=document.getElementById('preset').value;
+ document.getElementById('hexInput').value=presets[k];
+ decode();
+}
+async function pasteFromClipboard(){
+ try{
+  const text=await navigator.clipboard.readText();
+  document.getElementById('hexInput').value=text;
+  decode();
+ } catch(e){ alert('No se pudo leer portapapeles, pega manual'); }
+}
+loadPreset();
+</script>
+</body>
+</html>

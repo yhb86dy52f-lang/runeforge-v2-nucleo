@@ -1,0 +1,398 @@
+import sys
+import os
+import platform
+import ctypes
+import time
+import queue
+import threading
+import collections
+import numpy as np
+import win32gui
+import win32con
+import win32api
+import win32process
+import cv2
+
+# CRITICAL: High DPI awareness must be first
+try:
+    ctypes.windll.shcore.SetProcessDpiAwareness(1)
+except:
+    ctypes.windll.user32.SetProcessDPIAware()
+
+win32process.SetPriorityClass(win32api.GetCurrentProcess(), win32process.HIGH_PRIORITY_CLASS)
+
+if platform.system() == "Windows":
+    os.environ["TORCHDYNAMO_DISABLE"] = "1"
+
+import torch
+from OpenGL.GL import *
+from PyQt5.QtWidgets import (
+    QApplication, QMainWindow, QLabel, QWidget,
+    QPushButton, QHBoxLayout, QVBoxLayout, QFrame,
+    QComboBox, QOpenGLWidget
+)
+from PyQt5.QtCore import Qt, QThread, pyqtSignal, QTimer
+from PyQt5.QtGui import QColor, QPainter, QFont, QSurfaceFormat, QImage
+
+from ui_input import *
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "src"))
+try:
+    from nano import NanoEngine
+    print("✅ Engine Imported.")
+except ImportError as e:
+    print(f"❌ Import Error: {e}"); sys.exit()
+
+# ─────────────────────────────────────────────
+#  CONFIG
+# ─────────────────────────────────────────────
+MODEL_PATH  = os.path.join(ROOT, "checkpoints", "nano_v17_best.pth")
+AI_SCALE    = 0.4
+BUFFER_COUNT = 3
+
+C_BG      = "#0a0b0f"
+C_SURFACE = "#0f1117"
+C_BORDER  = "#1e2130"
+C_ACCENT  = "#00f5c4"
+C_RED     = "#ff3d5a"
+C_TEXT    = "#c8cfe0"
+C_DIM     = "#4a5068"
+
+PANEL_STYLE = f"""
+QWidget {{ background:{C_BG}; color:{C_TEXT}; font-family:'Consolas',monospace; }}
+QFrame#card {{ background:{C_SURFACE}; border:1px solid {C_BORDER}; border-radius:12px; }}
+QLabel#title {{ color:{C_ACCENT}; font-size:11px; font-weight:bold; letter-spacing:3px; }}
+QLabel#value {{ color:#ffffff; font-size:24px; font-weight:bold; }}
+QComboBox {{ background:{C_SURFACE}; color:{C_TEXT}; border:1px solid {C_BORDER}; border-radius:6px; padding:4px; }}
+QPushButton {{ background:{C_SURFACE}; color:{C_TEXT}; border:1px solid {C_BORDER}; border-radius:6px; padding:8px; font-weight:bold; }}
+QPushButton:hover {{ background:{C_BORDER}; }}
+"""
+
+TOGGLE_ON = f"QPushButton {{ background:{C_ACCENT}; color:{C_BG}; border:none; }}"
+TOGGLE_OFF = f"QPushButton {{ background:{C_RED}; color:#ffffff; border:none; }}"
+
+# ─────────────────────────────────────────────
+#  HELPERS
+# ─────────────────────────────────────────────
+def _enum_windows() -> list:
+    results = []
+    def _cb(hwnd, _):
+        if not win32gui.IsWindowVisible(hwnd): return
+        title = win32gui.GetWindowText(hwnd)
+        if not title or len(title) < 2: return
+        if title in {"Program Manager", "NANO AI OVERLAY", "NANO · PRO PIPELINE"}: return
+        results.append((hwnd, title))
+    win32gui.EnumWindows(_cb, None)
+    return results
+
+def _window_region(hwnd) -> tuple | None:
+    try:
+        if hwnd is None or win32gui.IsIconic(hwnd): return None
+        l, t, r, b = win32gui.GetWindowRect(hwnd)
+        return (l, t, r, b)
+    except: return None
+
+def _set_capture_visibility(window_obj, visible: bool):
+    """
+    Sets the window display affinity.
+    WDA_EXCLUDEFROMCAPTURE (2) is mandatory to prevent the AI from capturing itself.
+    """
+    try:
+        wid = window_obj.effectiveWinId()
+        if wid is None: return
+        hwnd = int(wid)
+        # Apply to the root window handle to ensure all children are hidden too
+        root_hwnd = win32gui.GetAncestor(hwnd, win32con.GA_ROOT)
+        flag = 0 if visible else 2
+        ctypes.windll.user32.SetWindowDisplayAffinity(root_hwnd, flag)
+    except Exception as e:
+        print(f"Affinity Error: {e}")
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  GL VIDEO WIDGET
+# ═══════════════════════════════════════════════════════════════════════════
+class GLVideoWidget(QOpenGLWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._frame = None
+        self._tex = None
+        self._tex_res = (0, 0)
+        self.setAttribute(Qt.WA_TransparentForMouseEvents)
+
+    def initializeGL(self):
+        glEnable(GL_TEXTURE_2D)
+        glClearColor(0.0, 0.0, 0.0, 0.0)
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        self._tex = glGenTextures(1)
+        glBindTexture(GL_TEXTURE_2D, self._tex)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+
+    def resizeGL(self, w, h):
+        glViewport(0, 0, w, h)
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        glOrtho(0, w, h, 0, -1, 1)
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+
+    def paintGL(self):
+        glClear(GL_COLOR_BUFFER_BIT)
+        if self._frame is not None:
+            h, w = self._frame.shape[:2]
+            glBindTexture(GL_TEXTURE_2D, self._tex)
+            if (w, h) != self._tex_res:
+                self._tex_res = (w, h)
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, None)
+            glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, w, h, GL_RGB, GL_UNSIGNED_BYTE, self._frame)
+
+            W, H = self.width(), self.height()
+            glBegin(GL_QUADS)
+            glTexCoord2f(0, 0); glVertex2f(0, H)
+            glTexCoord2f(1, 0); glVertex2f(W, H)
+            glTexCoord2f(1, 1); glVertex2f(W, 0)
+            glTexCoord2f(0, 1); glVertex2f(0, 0)
+            glEnd()
+
+    def update_frame(self, frame):
+        self._frame = frame
+        self.repaint() # Repaint immediately for lowest latency
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  PIPELINE WORKER
+# ═══════════════════════════════════════════════════════════════════════════
+class PipelineWorker(QThread):
+    frame_ready = pyqtSignal(object)
+    fps_output  = pyqtSignal(float)
+    fps_game    = pyqtSignal(float)
+    log_msg     = pyqtSignal(str)
+
+    def __init__(self, target_hwnd, bypass_ai=False):
+        super().__init__()
+        self.target_hwnd = target_hwnd
+        self.bypass_ai = bypass_ai
+        self._running = True
+
+    def stop(self): self._running = False
+
+    def run(self):
+        import dxcam
+        self.log_msg.emit("⚙  Initialising DXCam...")
+        region = _window_region(self.target_hwnd)
+        try:
+            del cam
+        except:
+            pass
+        cam = dxcam.create(region=None, output_color="BGRA", max_buffer_len=2)
+        cam.start(video_mode=True)
+
+        test = None
+        for _ in range(50):
+            test = cam.get_latest_frame()
+            if test is not None: break
+            time.sleep(0.01)
+        if test is None:
+            self.log_msg.emit("❌ DXCam Timeout"); cam.stop(); return
+
+        H, W = test.shape[:2]
+        ai_H, ai_W = int(H * AI_SCALE), int(W * AI_SCALE)
+        ai_H = (ai_H // 32) * 32
+        ai_W = (ai_W // 32) * 32
+
+        engine = None
+        if not self.bypass_ai:
+            self.log_msg.emit("⚙  Loading AI Engine...")
+            try:
+                engine = NanoEngine(MODEL_PATH, input_shape=(ai_H, ai_W))
+            except Exception as e:
+                self.log_msg.emit(f"❌ Engine Error: {e}")
+                cam.stop(); return
+
+        device = torch.device("cuda")
+        dtype  = torch.float16
+
+        frame_times = collections.deque(maxlen=60)
+        out_times = collections.deque(maxlen=60)
+        prev_t = time.perf_counter()
+        last_out_t = time.perf_counter()
+
+        print(f"🚀 Pipeline Live | AI={not self.bypass_ai} | {ai_W}x{ai_H}")
+        self.log_msg.emit("🚀 Running...")
+
+        prev_gpu = None
+
+        while self._running:
+            raw = cam.get_latest_frame()
+            if raw is None: continue
+
+            now = time.perf_counter()
+            frame_times.append(now - prev_t)
+            prev_t = now
+
+            with torch.inference_mode():
+                # 1. Fast Upload
+                t_raw = torch.from_numpy(raw).to(device, non_blocking=True)
+                # 2. BGRA -> RGB & Normalize
+                t_rgb = t_raw[..., [2, 1, 0]].permute(2, 0, 1).to(dtype).div_(255.0)
+
+                # 3. Downsample to AI Internal Res
+                curr_gpu = torch.nn.functional.interpolate(t_rgb.unsqueeze(0), size=(ai_H, ai_W), mode='bilinear', align_corners=False).squeeze(0)
+
+                if self.bypass_ai:
+                    # Pass-through Mode
+                    out_rgb = (curr_gpu.permute(1, 2, 0) * 255).byte().cpu().numpy()
+                    self.frame_ready.emit(out_rgb)
+
+                    o_now = time.perf_counter()
+                    out_times.append(o_now - last_out_t)
+                    last_out_t = o_now
+                else:
+                    # AI Interpolation Mode
+                    if prev_gpu is not None:
+                        # 4. Infer Mid Frame
+                        x = torch.cat([prev_gpu.unsqueeze(0), curr_gpu.unsqueeze(0)], dim=1)
+                        mid_gpu = engine.infer_tensor(x)
+
+                        # 5. Emit Mid then Real (Doubling FPS)
+                        mid_np = mid_gpu.permute(1, 2, 0).cpu().numpy()
+                        self.frame_ready.emit(mid_np)
+                        o_now = time.perf_counter()
+                        out_times.append(o_now - last_out_t)
+                        last_out_t = o_now
+
+                        real_np = (prev_gpu.permute(1, 2, 0) * 255).byte().cpu().numpy()
+                        self.frame_ready.emit(real_np)
+                        o_now = time.perf_counter()
+                        out_times.append(o_now - last_out_t)
+                        last_out_t = o_now
+
+                    prev_gpu = curr_gpu
+
+            if len(frame_times) >= 10: self.fps_game.emit(1.0 / (sum(frame_times)/len(frame_times)))
+            if len(out_times) >= 10: self.fps_output.emit(1.0 / (sum(out_times)/len(out_times)))
+
+        cam.stop()
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  UI CLASSES
+# ═══════════════════════════════════════════════════════════════════════════
+class FPSCounter(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool | Qt.WindowTransparentForInput)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setFixedSize(180, 80)
+        self.output_fps, self.game_fps = 0.0, 0.0
+        self._visible = False
+        QTimer(self, timeout=self.update).start(200)
+
+    def paintEvent(self, _):
+        if not self._visible: return
+        p = QPainter(self); p.setRenderHint(QPainter.Antialiasing)
+        p.setBrush(QColor(10, 11, 15, 230)); p.setPen(QColor(30, 33, 48))
+        p.drawRoundedRect(0, 0, 180, 80, 8, 8)
+        p.setPen(QColor(0, 245, 196)); p.setFont(QFont("Consolas", 10, QFont.Bold))
+        p.drawText(10, 30, f"OUT:  {self.output_fps:.0f} FPS")
+        p.setPen(QColor(200, 207, 224))
+        p.drawText(10, 55, f"GAME: {self.game_fps:.0f} FPS")
+
+class ControlPanel(QWidget):
+    def __init__(self, overlay, fps_counter):
+        super().__init__()
+        self.overlay, self.fps_counter = overlay, fps_counter
+        self.worker = None
+        self.setWindowTitle("NANO · PRO PIPELINE")
+        self.setWindowFlags(Qt.WindowStaysOnTopHint)
+        self.setStyleSheet(PANEL_STYLE)
+        self.setFixedSize(320, 420)
+
+        v = QVBoxLayout(self); card = QFrame(); card.setObjectName("card"); v.addWidget(card)
+        l = QVBoxLayout(card)
+
+        title = QLabel("NANO AI PRO"); title.setObjectName("title"); l.addWidget(title)
+
+        self._lbl_fps = QLabel("OUT: —"); self._lbl_fps.setObjectName("value"); l.addWidget(self._lbl_fps)
+        self._lbl_game = QLabel("GAME: —"); l.addWidget(self._lbl_game)
+        self._lbl_log = QLabel("Ready."); self._lbl_log.setStyleSheet(f"color:{C_DIM}"); l.addWidget(self._lbl_log)
+
+        l.addStretch()
+        l.addWidget(QLabel("TARGET WINDOW"))
+        self._win_combo = QComboBox(); l.addWidget(self._win_combo)
+        self._refresh_windows()
+
+        btn_refresh = QPushButton("REFRESH WINDOWS"); btn_refresh.clicked.connect(self._refresh_windows); l.addWidget(btn_refresh)
+
+        self._btn = QPushButton("START AI PIPELINE"); self._btn.setStyleSheet(TOGGLE_ON); l.addWidget(self._btn)
+        self._btn.clicked.connect(lambda: self._toggle(False))
+
+        self._btn_pass = QPushButton("PASS-THROUGH TEST"); l.addWidget(self._btn_pass)
+        self._btn_pass.clicked.connect(lambda: self._toggle(True))
+
+        btn_shot = QPushButton("SAVE AI SCREENSHOT"); btn_shot.clicked.connect(self._take_screenshot); l.addWidget(btn_shot)
+
+    def _refresh_windows(self):
+        self._win_combo.clear(); self._win_combo.addItem("Fullscreen / Monitor 0", None)
+        for h, t in _enum_windows(): self._win_combo.addItem(t, h)
+
+    def _take_screenshot(self):
+        if self.overlay.gl_widget._frame is not None:
+            f = self.overlay.gl_widget._frame
+            h, w, c = f.shape
+            img = QImage(f.data, w, h, w*c, QImage.Format_RGB888)
+            fname = f"ai_shot_{int(time.time())}.png"
+            img.save(fname)
+            self._lbl_log.setText(f"Saved: {fname}")
+
+    def _toggle(self, pass_through):
+        if not self.worker:
+            self._btn.setText("STOP PIPELINE"); self._btn.setStyleSheet(TOGGLE_OFF)
+            self.fps_counter._visible = True
+
+            # MANDATORY: Hide overlay from system capture to prevent feedback loop
+            _set_capture_visibility(self.overlay, False)
+            _set_capture_visibility(self.fps_counter, False)
+            _set_capture_visibility(self, False)
+
+            self.overlay.showFullScreen()
+
+            self.worker = PipelineWorker(self._win_combo.currentData(), bypass_ai=pass_through)
+            self.worker.frame_ready.connect(self.overlay.gl_widget.update_frame)
+            self.worker.fps_output.connect(lambda v: (self._lbl_fps.setText(f"OUT: {v:.0f}"), setattr(self.fps_counter, 'output_fps', v)))
+            self.worker.fps_game.connect(lambda v: (self._lbl_game.setText(f"GAME: {v:.0f}"), setattr(self.fps_counter, 'game_fps', v)))
+            self.worker.log_msg.connect(self._lbl_log.setText)
+            self.worker.start()
+        else:
+            self._btn.setText("START AI PIPELINE"); self._btn.setStyleSheet(TOGGLE_ON)
+            self.fps_counter._visible = False
+            self.overlay.hide()
+            # Restore visibility when stopped
+            _set_capture_visibility(self.overlay, True)
+            _set_capture_visibility(self.fps_counter, True)
+            _set_capture_visibility(self, True)
+            self.worker.stop(); self.worker.wait(); self.worker = None
+
+if __name__ == "__main__":
+    fmt = QSurfaceFormat()
+    fmt.setSwapInterval(0)
+    QSurfaceFormat.setDefaultFormat(fmt)
+
+    app = QApplication(sys.argv); app.setStyle("Fusion")
+
+    overlay = QMainWindow()
+    overlay.setWindowTitle("NANO AI OVERLAY")
+    overlay.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool | Qt.WindowTransparentForInput)
+    overlay.setAttribute(Qt.WA_TranslucentBackground)
+
+    glw = GLVideoWidget(overlay); overlay.setCentralWidget(glw)
+    overlay.gl_widget = glw
+
+    fps = FPSCounter(); panel = ControlPanel(overlay, fps)
+
+    screen_w = win32api.GetSystemMetrics(win32con.SM_CXSCREEN)
+    fps.move(screen_w - 200, 40)
+
+    panel.show(); fps.show()
+    sys.exit(app.exec_())
+

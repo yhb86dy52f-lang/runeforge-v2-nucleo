@@ -1,0 +1,10 @@
+{
+  "equipos": [
+    {
+      "alias": "LMU4350_DEMO",
+      "telefono": "+5210000000000",
+      "modelo": "LMU-4350",
+      "notas": "REEMPLAZAR con equipo real"
+    }
+  ]
+}

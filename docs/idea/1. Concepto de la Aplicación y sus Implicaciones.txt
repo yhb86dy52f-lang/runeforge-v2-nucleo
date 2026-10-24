@@ -1,0 +1,14 @@
+📘 RUNEFORGE / TGL LAB V5 PRO - Documentación Técnica
+1. Concepto de la Aplicación y sus Implicaciones
+Concepto:
+TGL LAB V5 PRO (integrado en el ecosistema RUNEFORGE) es una herramienta web de diagnóstico y calibración de telemetría en tiempo real para módulos electrónicos (como LMU/ECU de vehículos o equipos industriales). La aplicación funciona bajo una arquitectura Edge-First: el frontend captura y decodifica tramas hexadecimales (formato TLV), realiza cálculos de calibración (lógica "62K") para ajustar sensores de nivel/voltaje, y almacena los datos localmente en el navegador (IndexedDB/Dexie.js). Un backend en Fastify (Node.js) actúa como puente de sincronización y guardado persistente en el servidor (SQLite y archivos Markdown).
+
+Implicaciones:
+
+Operación en Campo (Offline-Ready): Los técnicos pueden usar la aplicación sin conexión a internet. Los datos se guardan localmente y se sincronizan automáticamente cuando el dispositivo recupera la conexión (o se conecta a la red local).
+
+Trazabilidad y Auditoría: La generación automática de "clippings" en formato Markdown (compatibles con Obsidian) crea un historial inmutable de cada calibración, incluyendo la trama original, los valores calculados y los comandos enviados al hardware.
+
+Estandarización de Calibración: El cálculo automático del valor de "llenado" (LLENO_NUEVO) a partir de un valor RAW y un objetivo (target) elimina el error humano y acelera el proceso de ajuste de sensores.
+
+Integración con Flotas: La sección "FLOTA LOCAL" y la capacidad de sincronización permiten centralizar la telemetría de múltiples vehículos/dispositivos en una base de datos central para análisis posterior (predictivo o correctivo).

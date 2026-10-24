@@ -1,0 +1,58 @@
+﻿**********************
+Inicio de la transcripción de Windows PowerShell
+Hora de inicio: 20261024155025
+Nombre de usuario: RUNEFORGE-PC\nesth
+Usuario RunAs: RUNEFORGE-PC\nesth
+Nombre de la configuración: 
+Máquina: RUNEFORGE-PC (Microsoft Windows NT 10.0.19045.0)
+Aplicación host: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\RUNEFORGE_V2_CORE\scripts\STOP.ps1
+Id. de proceso: 13396
+PSVersion: 5.1.19041.6456
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
+BuildVersion: 10.0.19041.6456
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[*] 1. Deteniendo PM2 (silencioso)...
+
+[*] 2. Deteniendo Ollama...
+[*] 3. Deteniendo Tailscale Mesh (Cortando red)...
+[*] 4. Cazando procesos RUNEFORGE (Node, Python, Cargo, App)...
+[*] 5. Liberando puertos huÃ©rfanos (8080, 8081, 3100, 11434, 1420)...
+
+[*] 6. Verificando estado final (ApagÃ³n Total)...
+=== REPORTE DE AUDITORIA FORENSE RUNEFORGE ===
+Fecha: 2026-10-24 15:50:30
+
+[1] ARCHIVOS CRITICOS:
+  [OK] C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_BOOT.ps1
+  [OK] C:\RUNEFORGE_V2_CORE\scripts\brain_hub.py
+  [OK] C:\RUNEFORGE_V2_CORE\nexus-tactical
+
+[2] ESTADO DE SERVICIOS:
+  [OFFLINE] Fastify
+  [OFFLINE] Whisper IA
+  [OFFLINE] Ollama
+  [OFFLINE] Tauri Core
+  [OFFLINE] Tailscale Mesh
+
+[3] PROCESOS ACTIVOS (Forense):
+  [LIMPIO] Ningun proceso del ecosistema activo.
+
+[4] HARDWARE:
+  [CPU] 26% | [RAM] 7.86 GB
+
+=========================================
+[OK] Reporte copiado al portapapeles.
+
+=========================================================
+  [OK] SISTEMA TOTALMENTE APAGADO. PC EN MODO DE REPOSO.
+=========================================================
+
+**********************
+Fin de la transcripción de Windows PowerShell
+Hora de finalización: 20261024155053
+**********************

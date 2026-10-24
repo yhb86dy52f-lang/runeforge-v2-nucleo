@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TGL LAB V5 PRO</title>
+<link rel="manifest" href="./manifest.json">
+<script src="https://unpkg.com/dexie@4/dist/dexie.min.js"></script>
+<style>
+:root{--bg:#060608;--card:#19191e;--border:#2a2a30;--green:#22ff66;--mut:#9a9aa0}
+body{margin:0;background:var(--bg);color:#fff;font-family:monospace}
+.header{padding:12px 16px;background:#0e0e12;border-bottom:1px solid var(--border);font-weight:900;color:var(--green)}
+.wrap{padding:12px;display:grid;gap:12px;max-width:900px;margin:auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px}
+.card h2{font-size:11px;color:var(--mut);margin:0 0 10px;letter-spacing:1px}
+.input{width:100%;background:#08080a;border:1px solid var(--border);border-radius:12px;padding:12px;color:#fff;font-family:monospace;box-sizing:border-box}
+.btn{padding:12px;border-radius:12px;font-weight:900;border:0;cursor:pointer;width:100%}
+.btn-green{background:var(--green);color:#000}
+#chart{width:100%!important;height:260px!important;background:#000;border:2px solid #22ff66;border-radius:12px;display:block!important;margin-top:12px}
+.kpi{display:inline-block;width:46%;background:#08080a;border:1px solid var(--border);border-radius:12px;padding:10px;margin:1%}
+pre{background:#000;border:1px solid var(--border);padding:10px;border-radius:12px;white-space:pre-wrap;font-size:11px}
+</style>
+</head>
+<body>
+<div class="header">TGL LAB V5 PRO - OFFLINE READY - 62K FIX</div>
+<div class="wrap">
+<div class="card">
+<h2>ENTRADA TRAMA + ESCORT</h2>
+<input id="esn" class="input" value="4672073067">
+<textarea id="trama" class="input" style="height:90px;margin-top:6px">!E4672073067FFFFFF0100006A9083546A9083540F39E338C24A52B70000000000D015020014FFAD8F060600FFFF040000312900000FEC0000024400000292</textarea>
+<div style="display:flex;gap:6px;margin-top:6px">
+<input id="escort_raw" class="input" value="40858" placeholder="Corriente actual ej 40858">
+<input id="escort_target" class="input" value="900" placeholder="900">
+</div>
+<button class="btn btn-green" style="margin-top:8px" onclick="decodificar()">DECODIFICAR + CALC 62K</button>
+</div>
+<div class="card">
+<h2>TELEMETRIA + GRAFICA VISIBLE 100%</h2>
+<div id="kpis"></div>
+<canvas id="chart" width="800" height="260"></canvas>
+<div id="deltas" style="margin-top:8px;color:#22ff66"></div>
+<div id="calc62k" style="margin-top:10px;background:#000;padding:10px;border-radius:10px;border:1px dashed #22ff66"></div>
+</div>
+<div class="card"><h2>DIAGNOSTICO</h2><div id="diag"></div></div>
+<div class="card"><h2>BITACORA</h2><pre id="bitacora">Offline listo</pre></div>
+<div class="card"><h2>FLOTA LOCAL (IndexedDB)</h2><div id="tabla">Cargando...</div><button onclick="limpiar()" style="background:#ff2d55;color:#fff;padding:8px 12px;border-radius:8px;border:0;margin-top:8px">BORRAR CACHE LOCAL</button></div>
+</div>
+<script src="./db.js"></script>
+<script src="./sync.js"></script>
+<script>
+function parseLast32(s){
+ let m=s.match(/040000[0-9A-F]{4}0000[0-9A-F]{4}0000[0-9A-F]{4}0000[0-9A-F]{4}/i);
+ if(!m) return null;
+ const toV=h=>parseInt(h,16)/1000;
+ const toT=h=>{let v=parseInt(h,16);if(v&0x8000)v-=0x10000;return v/16;};
+ return {v0:toV(m[1]),h0:m[1],v1:toV(m[2]),h1:m[2],t1:toT(m[3]),ht1:m[3],t2:toT(m[4]),ht2:m[4],hex:m[0]};
+}
+function drawChart(v0){
+ let c=document.getElementById('chart'); let ctx=c.getContext('2d');
+ ctx.fillStyle='#000'; ctx.fillRect(0,0,c.width,c.height);
+ ctx.strokeStyle='#1a1a1a'; for(let i=0;i<6;i++){ctx.beginPath();ctx.moveTo(0,(c.height/6)*i);ctx.lineTo(c.width,(c.height/6)*i);ctx.stroke();}
+ let hist=JSON.parse(localStorage.getItem('tgl_hist')||'[]');
+ if(hist.length===0) hist=[{v0:v0||12.585}];
+ hist=hist.slice(0,20).reverse();
+ let minV=Math.min(...hist.map(x=>x.v0))-0.5,maxV=Math.max(...hist.map(x=>x.v0))+0.5;
+ let mapX=i=> (i/(hist.length-1||1))*c.width;
+ let mapY=v=> c.height - ((v-minV)/(maxV-minV))*c.height;
+ ctx.beginPath();ctx.strokeStyle='#22ff66';ctx.lineWidth=3;
+ hist.forEach((h,i)=>{let x=mapX(i),y=mapY(h.v0);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();
+ hist.forEach((h,i)=>{let x=mapX(i),y=mapY(h.v0);ctx.fillStyle='#22ff66';ctx.beginPath();ctx.arc(x,y,4,0,6.28);ctx.fill();});
+ ctx.fillStyle='#22ff66';ctx.font='bold 13px monospace';ctx.fillText('V0: '+(v0||0).toFixed(3)+'V - GRAFICA ACTIVA',10,18);
+}
+async function decodificar(){
+ let trama=document.getElementById('trama').value.toUpperCase().trim();
+ let esn=document.getElementById('esn').value.trim();
+ let rawEscort=parseInt(document.getElementById('escort_raw').value)||0;
+ let target=parseInt(document.getElementById('escort_target').value)||900;
+ let mf=trama.match(/040000[0-9A-F]{4}0000[0-9A-F]{4}0000[0-9A-F]{4}0000[0-9A-F]{4}/i);
+ if(!mf) return alert('No patron 040000');
+ let d=parseLast32(mf[0]);
+ let VACIO=34355;
+ let LLENO_NUEVO=Math.round(VACIO + (rawEscort - VACIO) / (target/1000));
+ let LLENO_REAL=62000;
+ let nivelActual=Math.round((rawEscort - VACIO)/(LLENO_REAL - VACIO)*1000);
+ document.getElementById('kpis').innerHTML='<div class=kpi>V0<br><b>'+d.v0.toFixed(3)+'V</b></div><div class=kpi>V1<br><b>'+d.v1.toFixed(3)+'V</b></div><div class=kpi>T1<br><b>'+d.t1.toFixed(1)+'C</b></div><div class=kpi>T2<br><b>'+d.t2.toFixed(1)+'C</b></div>';
+ document.getElementById('calc62k').innerHTML='RAW actual: '+rawEscort+' | Nivel con tabla 62K: '+nivelActual+'/1000<br><br>Para forzar '+target+':<br><span style=color:#22ff66>!r3,62,'+VACIO+'<br>!r3,63,'+LLENO_NUEVO+'</span><br><br>Cuando calibres bien el TD600 a 62K:<br><span style=color:#6c5cff>!r3,62,34355<br>!r3,63,62000<br>!r0</span>';
+ document.getElementById('diag').innerHTML=(rawEscort<50000?'RAW BAJO - CALIBRAR ESCORT EN RANGO 1-1023':'RAW OK >60K');
+ document.getElementById('bitacora').textContent='ESN:'+esn+'\nV0:'+d.v0+'\nV1:'+d.v1+'\nRAW:'+rawEscort+'\nLLENO_CALC:'+LLENO_NUEVO+' para '+target+'\n'+new Date().toLocaleString();
+ let hist=JSON.parse(localStorage.getItem('tgl_hist')||'[]'); hist.unshift({esn,v0:d.v0,t:new Date().toLocaleTimeString()}); localStorage.setItem('tgl_hist',JSON.stringify(hist.slice(0,20)));
+ drawChart(d.v0);
+ await db.telemetria.add({esn,v0:d.v0,v1:d.v1,raw_escort:rawEscort,nivel:target,trama,timestamp:new Date(),sync:0});
+ await db.tramas_raw.add({esn,trama,timestamp:new Date(),sync:0});
+ cargarTabla(); syncConPC();
+}
+async function cargarTabla(){
+ let rows=await db.telemetria.reverse().limit(20).toArray();
+ document.getElementById('tabla').innerHTML=rows.map(r=> r.esn+' '+r.v0.toFixed(2)+'V RAW:'+r.raw_escort+' '+(r.sync?'SYNC':'PEND')).join('<br>');
+}
+function limpiar(){ localStorage.clear(); db.telemetria.clear(); db.tramas_raw.clear(); location.reload(); }
+window.onload=function(){ drawChart(12.585); cargarTabla(); if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js'); };
+</script>
+</body>
+</html>

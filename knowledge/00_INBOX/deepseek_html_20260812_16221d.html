@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>RUNE v13.0 — Motor de Juegos & IA</title>
+
+  <!-- Tailwind + Lucide + Three.js (solo para efecto visual) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    :root {
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: #050811;
+      color: #e2e8f0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+
+    .glass-card {
+      background: rgba(10, 16, 31, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 242, 254, 0.12);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .glass-nav {
+      background: rgba(5, 8, 17, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .active-tab-glow {
+      position: relative;
+    }
+    .active-tab-glow::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 3px;
+      background: #00f2fe;
+      border-radius: 9999px;
+      box-shadow: 0 0 12px #00f2fe;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 242, 254, 0.2);
+      border-radius: 4px;
+    }
+
+    .pulse-online {
+      animation: pulse-green 2s infinite;
+    }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Mensajes del chat */
+    .msg-user {
+      background: rgba(0, 242, 254, 0.15);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      border-radius: 16px 16px 4px 16px;
+    }
+    .msg-ai {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px 16px 16px 4px;
+    }
+    .msg-ai .typing-dots span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00f2fe;
+      margin: 0 2px;
+      animation: typing 1.4s infinite both;
+    }
+    .msg-ai .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .msg-ai .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing {
+      0% { transform: scale(0.8); opacity: 0.4; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.8); opacity: 0.4; }
+    }
+
+    .btn-glow {
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
+      transition: all 0.2s ease;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.3);
+      transform: scale(0.97);
+    }
+
+    #chat-container {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ENCABEZADO -->
+  <header class="sticky top-0 z-40 px-4 py-3 glass-card border-b border-cyan-500/20 mb-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-slate-950 font-extrabold shadow-lg shadow-cyan-500/30">
+        <i data-lucide="zap" class="w-5 h-5 fill-slate-950"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="font-extrabold text-sm tracking-tight text-white">RUNE <span class="text-cyan-400 font-mono text-xs">v13.0</span></h1>
+          <span class="px-2 py-0.5 text-[10px] font-mono font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-online"></span> FASTIFY
+          </span>
+        </div>
+        <p class="text-[11px] text-slate-400 font-semibold">Motor de Juegos · IA Local · RAG</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="fetchStatus()" title="Estado del sistema" class="p-2 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 border border-slate-700/50 text-slate-300 transition-all active:scale-95">
+        <i data-lucide="activity" class="w-4 h-4 text-cyan-400"></i>
+      </button>
+      <button onclick="exportConversations()" title="Exportar conversación" class="p-2 rounded-xl bg-slate-800/60 hover:bg-slate-700/60 border border-slate-700/50 text-slate-300 transition-all active:scale-95">
+        <i data-lucide="download" class="w-4 h-4 text-emerald-400"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="max-w-xl mx-auto px-4">
+
+    <!-- VISTA 1: DASHBOARD -->
+    <section id="view-dashboard" class="space-y-4 tab-content">
+      <!-- Estado del motor -->
+      <div class="glass-card p-4 rounded-2xl border-cyan-500/30 bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-cyan-950/30 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <div class="flex items-center gap-2">
+            <div class="p-2 rounded-lg bg-cyan-500/20 text-cyan-400">
+              <i data-lucide="cpu" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300">Motor RUNEFORGE</h2>
+              <p class="text-[10px] text-cyan-400 font-mono" id="motor-status">● Activo</p>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full" id="model-label">qwen2.5:1.5b</span>
+        </div>
+        <div class="grid grid-cols-3 gap-2 text-center font-mono">
+          <div class="p-2 rounded-xl bg-slate-950/60 border border-slate-800">
+            <span class="text-[9px] text-slate-400 block">Consultas</span>
+            <span class="text-base font-black text-white" id="stat-queries">0</span>
+          </div>
+          <div class="p-2 rounded-xl bg-slate-950/60 border border-slate-800">
+            <span class="text-[9px] text-slate-400 block">Modelos</span>
+            <span class="text-base font-black text-emerald-400" id="stat-models">1</span>
+          </div>
+          <div class="p-2 rounded-xl bg-slate-950/60 border border-slate-800">
+            <span class="text-[9px] text-slate-400 block">RAG Hits</span>
+            <span class="text-base font-black text-amber-400" id="stat-rag">0</span>
+          </div>
+        </div>
+        <button onclick="switchTab('chat')" class="w-full py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-bold border border-cyan-500/30 transition-all flex items-center justify-center gap-2">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          <span>Ir al Chat Inteligente</span>
+        </button>
+      </div>
+
+      <!-- Accesos rápidos -->
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="switchTab('chat')" class="glass-card p-4 rounded-2xl text-left hover:border-cyan-500/40 transition-all group flex items-center gap-3">
+          <div class="p-3 rounded-xl bg-cyan-500/10 group-hover:bg-cyan-500/20 text-cyan-400 transition-colors">
+            <i data-lucide="bot" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="font-bold text-sm text-white">Chat IA</p>
+            <p class="text-[11px] text-slate-400">Pregunta a Runeforge</p>
+          </div>
+        </button>
+        <button onclick="switchTab('run')" class="glass-card p-4 rounded-2xl text-left hover:border-emerald-500/40 transition-all group flex items-center gap-3">
+          <div class="p-3 rounded-xl bg-emerald-500/10 group-hover:bg-emerald-500/20 text-emerald-400 transition-colors">
+            <i data-lucide="play-circle" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="font-bold text-sm text-white">Ejecutar Script</p>
+            <p class="text-[11px] text-slate-400">Python en el motor</p>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- VISTA 2: CHAT (con streaming) -->
+    <section id="view-chat" class="space-y-4 hidden tab-content">
+      <div class="glass-card p-4 rounded-2xl border-cyan-500/20 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="text-sm font-bold text-cyan-300 flex items-center gap-2">
+            <i data-lucide="message-circle" class="w-4 h-4 text-cyan-400"></i>
+            Conversación con Runeforge
+          </h2>
+          <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-full border border-cyan-500/20" id="chat-model-badge">qwen2.5:1.5b</span>
+        </div>
+
+        <!-- Contenedor de mensajes -->
+        <div id="chat-container" class="space-y-3 max-h-[55vh] overflow-y-auto p-1">
+          <div class="msg-ai p-3 text-xs text-slate-300">
+            👋 Hola, soy Runeforge. Puedes preguntarme sobre el motor, sus tecnologías o ejecutar scripts. Usa el menú inferior para cambiar de modelo o limpiar la conversación.
+          </div>
+        </div>
+
+        <!-- Input + acciones -->
+        <div class="flex items-center gap-2">
+          <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 transition-all font-mono">
+          <button onclick="sendChat()" class="p-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 transition-all active:scale-95">
+            <i data-lucide="send" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-1.5 pt-1">
+          <button onclick="clearChat()" class="px-2.5 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-[10px] font-mono transition-all">Limpiar</button>
+          <button onclick="changeModel('qwen2.5:1.5b')" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 border border-slate-700/60 text-[10px] font-mono transition-all">1.5b</button>
+          <button onclick="changeModel('llama3.2:3b')" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 border border-slate-700/60 text-[10px] font-mono transition-all">3b</button>
+          <button onclick="changeModel('mistral:7b')" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 border border-slate-700/60 text-[10px] font-mono transition-all">7b</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISTA 3: EJECUTAR SCRIPT -->
+    <section id="view-run" class="space-y-4 hidden tab-content">
+      <div class="glass-card p-4 rounded-2xl border-emerald-500/20 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="text-sm font-bold text-emerald-300 flex items-center gap-2">
+            <i data-lucide="terminal" class="w-4 h-4 text-emerald-400"></i>
+            Ejecutar Script Python
+          </h2>
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">engine/</span>
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Nombre del script</label>
+          <div class="flex items-center gap-2">
+            <input type="text" id="script-name" placeholder="ej: test.py" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 transition-all font-mono">
+            <button onclick="runScript()" class="px-4 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition-all active:scale-95 flex items-center gap-1">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i> Ejecutar
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Salida (stdout / stderr)</label>
+          <div id="script-output" class="bg-slate-950 border border-slate-800 rounded-xl p-3 font-mono text-[11px] text-slate-300 min-h-[120px] max-h-[300px] overflow-y-auto whitespace-pre-wrap">
+            > Esperando ejecución...
+          </div>
+        </div>
+
+        <p class="text-[10px] text-slate-500">Los scripts deben estar en <span class="text-cyan-400">engine/</span> y tener extensión .py</p>
+      </div>
+    </section>
+
+    <!-- VISTA 4: CONFIGURACIÓN / INFO -->
+    <section id="view-config" class="space-y-4 hidden tab-content">
+      <div class="glass-card p-4 rounded-2xl border-purple-500/20 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h2 class="text-sm font-bold text-purple-300 flex items-center gap-2">
+            <i data-lucide="settings" class="w-4 h-4 text-purple-400"></i>
+            Configuración del Motor
+          </h2>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs border-b border-slate-800/60 py-1.5">
+            <span class="text-slate-400">Versión</span>
+            <span class="text-cyan-300 font-mono">RUNE v13.0</span>
+          </div>
+          <div class="flex justify-between text-xs border-b border-slate-800/60 py-1.5">
+            <span class="text-slate-400">Backend</span>
+            <span class="text-cyan-300 font-mono">Fastify + Node.js</span>
+          </div>
+          <div class="flex justify-between text-xs border-b border-slate-800/60 py-1.5">
+            <span class="text-slate-400">IA Local</span>
+            <span class="text-cyan-300 font-mono">Ollama API</span>
+          </div>
+          <div class="flex justify-between text-xs border-b border-slate-800/60 py-1.5">
+            <span class="text-slate-400">RAG</span>
+            <span class="text-cyan-300 font-mono">FAISS + Sentence‑Transformers</span>
+          </div>
+          <div class="flex justify-between text-xs border-b border-slate-800/60 py-1.5">
+            <span class="text-slate-400">Estado</span>
+            <span class="text-emerald-400 font-mono flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-online"></span> Conectado</span>
+          </div>
+        </div>
+
+        <button onclick="fetchStatus()" class="w-full py-2 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 text-xs font-bold border border-purple-500/30 transition-all flex items-center justify-center gap-2">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refrescar estado
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FOOTER FIJO (NAVEGACIÓN) -->
+  <footer class="fixed bottom-0 left-0 right-0 z-50 glass-nav border-t border-slate-800/80 px-3 py-2">
+    <div class="max-w-xl mx-auto flex flex-col gap-1.5">
+      <div class="flex items-center justify-around border-b border-slate-800/60 pb-1.5">
+        <button onclick="switchTab('dashboard')" id="btn-tab-dashboard" class="nav-btn active-tab-glow flex flex-col items-center gap-0.5 text-cyan-400">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          <span class="text-[9px] font-semibold">Inicio</span>
+        </button>
+        <button onclick="switchTab('chat')" id="btn-tab-chat" class="nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-slate-200">
+          <i data-lucide="message-square" class="w-4 h-4"></i>
+          <span class="text-[9px] font-semibold">Chat</span>
+        </button>
+        <button onclick="switchTab('run')" id="btn-tab-run" class="nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-slate-200">
+          <div class="w-8 h-8 -mt-4 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center text-slate-950 shadow-lg shadow-emerald-500/30">
+            <i data-lucide="play" class="w-5 h-5 stroke-[3]"></i>
+          </div>
+          <span class="text-[9px] font-semibold mt-0.5">Ejecutar</span>
+        </button>
+        <button onclick="switchTab('config')" id="btn-tab-config" class="nav-btn flex flex-col items-center gap-0.5 text-slate-400 hover:text-slate-200">
+          <i data-lucide="settings" class="w-4 h-4"></i>
+          <span class="text-[9px] font-semibold">Config</span>
+        </button>
+      </div>
+      <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 px-1">
+        <span class="flex items-center gap-1"><i data-lucide="cpu" class="w-3 h-3 text-cyan-400"></i> <span id="m-ram">1.2G libre</span></span>
+        <span class="flex items-center gap-1"><i data-lucide="hard-drive" class="w-3 h-3 text-emerald-400"></i> <span id="m-storage">14G libre</span></span>
+        <span class="flex items-center gap-1"><i data-lucide="globe" class="w-3 h-3 text-purple-400"></i> <span id="m-ip">localhost:3000</span></span>
+        <span class="text-cyan-300 font-bold" id="m-server">● online</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toastContainer" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 w-11/12 max-w-xs space-y-2 pointer-events-none"></div>
+
+  <script>
+    // -------- ESTADO --------
+    let currentModel = 'qwen2.5:1.5b';
+    let conversation = [];
+    let isStreaming = false;
+
+    // -------- NAVEGACIÓN --------
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`view-${tabId}`).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active-tab-glow', 'text-cyan-400');
+        btn.classList.add('text-slate-400');
+      });
+      const activeBtn = document.getElementById(`btn-tab-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('active-tab-glow', 'text-cyan-400');
+        activeBtn.classList.remove('text-slate-400');
+      }
+      if (tabId === 'chat') document.getElementById('chat-input').focus();
+    }
+
+    // -------- CHAT --------
+    function addMessage(role, content, isPartial = false) {
+      const container = document.getElementById('chat-container');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = role === 'user' ? 'msg-user p-3 text-xs text-slate-100 self-end max-w-[85%] ml-auto' :
+                                          'msg-ai p-3 text-xs text-slate-300 self-start max-w-[85%]';
+      msgDiv.setAttribute('data-role', role);
+
+      if (role === 'ai' && isPartial) {
+        msgDiv.innerHTML = `<span class="typing-dots"><span></span><span></span><span></span></span>`;
+        msgDiv.id = 'streaming-msg';
+      } else {
+        msgDiv.textContent = content;
+      }
+
+      container.appendChild(msgDiv);
+      container.scrollTop = container.scrollHeight;
+      return msgDiv;
+    }
+
+    async function sendChat() {
+      const input = document.getElementById('chat-input');
+      const prompt = input.value.trim();
+      if (!prompt || isStreaming) return;
+      input.value = '';
+
+      // Añadir mensaje de usuario
+      addMessage('user', prompt);
+      conversation.push({ role: 'user', content: prompt });
+
+      // Indicador de escritura
+      const aiMsg = addMessage('ai', '', true);
+      isStreaming = true;
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt, model: currentModel })
+        });
+
+        if (!response.ok) throw new Error('Error en el servidor');
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+        let fullText = '';
+
+        // Eliminar el indicador de escritura y crear el mensaje final
+        const finalMsg = document.createElement('div');
+        finalMsg.className = 'msg-ai p-3 text-xs text-slate-300 self-start max-w-[85%]';
+        aiMsg.replaceWith(finalMsg);
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value, { stream: true });
+          // El backend puede enviar chunks con o sin marcadores
+          const lines = chunk.split('\n');
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = line.slice(6);
+              if (data === '[DONE]') continue;
+              try {
+                const parsed = JSON.parse(data);
+                if (parsed.response) {
+                  fullText += parsed.response;
+                  finalMsg.textContent = fullText;
+                  document.getElementById('chat-container').scrollTop = document.getElementById('chat-container').scrollHeight;
+                }
+              } catch (e) {
+                // Si no es JSON, es texto plano
+                if (line.trim()) {
+                  fullText += line;
+                  finalMsg.textContent = fullText;
+                  document.getElementById('chat-container').scrollTop = document.getElementById('chat-container').scrollHeight;
+                }
+              }
+            }
+          }
+        }
+
+        conversation.push({ role: 'ai', content: fullText });
+        document.getElementById('stat-queries').textContent = conversation.filter(m => m.role === 'user').length;
+
+      } catch (err) {
+        finalMsg.textContent = '❌ Error al conectar con el motor. Asegúrate de que el servidor esté activo.';
+        console.error(err);
+      } finally {
+        isStreaming = false;
+        const container = document.getElementById('chat-container');
+        const dots = container.querySelector('.typing-dots');
+        if (dots) dots.parentElement?.remove();
+      }
+    }
+
+    function clearChat() {
+      document.getElementById('chat-container').innerHTML = `
+        <div class="msg-ai p-3 text-xs text-slate-300">
+          👋 Conversación reiniciada. Pregunta lo que quieras.
+        </div>
+      `;
+      conversation = [];
+      document.getElementById('stat-queries').textContent = '0';
+    }
+
+    function changeModel(model) {
+      currentModel = model;
+      document.getElementById('chat-model-badge').textContent = model;
+      document.getElementById('model-label').textContent = model;
+      showToast(`🔁 Modelo cambiado a ${model}`);
+    }
+
+    // -------- EJECUTAR SCRIPT --------
+    async function runScript() {
+      const name = document.getElementById('script-name').value.trim();
+      if (!name) {
+        showToast('⚠️ Ingresa el nombre del script (ej: test.py)');
+        return;
+      }
+      const output = document.getElementById('script-output');
+      output.textContent = '⏳ Ejecutando...';
+
+      try {
+        const res = await fetch(`/api/run/${encodeURIComponent(name)}`);
+        if (!res.ok) throw new Error('Script no encontrado o error');
+        const text = await res.text();
+        output.textContent = text || '(sin salida)';
+      } catch (err) {
+        output.textContent = `❌ ${err.message}`;
+      }
+    }
+
+    // -------- ESTADO DEL SISTEMA --------
+    async function fetchStatus() {
+      try {
+        const res = await fetch('/api/system/status');
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('m-ram').textContent = `${data.ramFree || '1.2G'} libre`;
+          document.getElementById('m-storage').textContent = `${data.storageFree || '14G'} libre`;
+          document.getElementById('m-ip').textContent = `${data.ip || 'localhost'}:${data.port || '3000'}`;
+          document.getElementById('m-server').textContent = data.server || '● online';
+        }
+      } catch (e) {
+        // silencioso
+      }
+    }
+
+    // -------- EXPORTAR CONVERSACIÓN --------
+    function exportConversations() {
+      if (conversation.length === 0) {
+        showToast('📭 No hay conversación para exportar');
+        return;
+      }
+      const text = conversation.map(m => `${m.role.toUpperCase()}: ${m.content}`).join('\n\n');
+      const blob = new Blob([text], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `runeforge_chat_${new Date().toISOString().slice(0,10)}.txt`;
+      a.click();
+      showToast('⬇️ Conversación exportada');
+    }
+
+    // -------- TOAST --------
+    function showToast(msg) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'glass-card p-3 rounded-xl border border-cyan-500/30 text-xs font-mono text-slate-100 shadow-xl opacity-0 transform translate-y-2 transition-all duration-200';
+      toast.textContent = msg;
+      container.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.classList.remove('opacity-0', 'translate-y-2');
+      });
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 200);
+      }, 2500);
+    }
+
+    // -------- ENTER PARA ENVIAR --------
+    document.getElementById('chat-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendChat();
+      }
+    });
+
+    // -------- INICIO --------
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      document.getElementById('model-label').textContent = currentModel;
+      document.getElementById('chat-model-badge').textContent = currentModel;
+      fetchStatus();
+      setInterval(fetchStatus, 15000);
+      switchTab('dashboard');
+    });
+  </script>
+
+</body>
+</html>

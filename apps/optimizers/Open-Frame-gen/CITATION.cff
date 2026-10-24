@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "Open-Frame-gen"
+type: software
+license: MIT
+repository-code: "https://github.com/Deadly-pro/Open-Frame-gen"
+authors:
+  - family-names: "Nair"
+    given-names: "Prithivi"
+    affiliation: "PES University"
+  - family-names: "R"
+    given-names: "Prajwal"
+    affiliation: "PES University"
+  - family-names: "S"
+    given-names: "Madhav"
+    affiliation: "PES University"
+  - family-names: "Ugarakhod"
+    given-names: "Rashmi N"
+    affiliation: "PES University"
+preferred-citation:
+  type: conference-paper
+  title: "Open-Frame-gen: Real-Time Video Frame Interpolation on Constrained Consumer Hardware"
+  year: 2026
+  collection-title: "JSCCE 2026"
+  authors:
+    - family-names: "Nair"
+      given-names: "Prithivi"
+    - family-names: "R"
+      given-names: "Prajwal"
+    - family-names: "S"
+      given-names: "Madhav"
+    - family-names: "Ugarakhod"
+      given-names: "Rashmi N"

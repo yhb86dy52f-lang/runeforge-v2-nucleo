@@ -1,0 +1,9 @@
+{
+  "core": "C:\\RUNEFORGE_V2_CORE",
+  "version": "1.0.0",
+  "target_isolation": true,
+  "sccache_enabled": false,
+  "desktop": "D:\\UserData\\Desktop",
+  "default_profile": "release",
+  "updated": "2026-10-07T21:46:58.1607598-06:00"
+}

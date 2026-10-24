@@ -1,0 +1,31 @@
+{
+  "build": {
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "frontendDist": "../dist"
+  },
+  "identifier": "com.runeforge.dictate_studio_v2",
+  "productName": "DICTATE Studio",
+  "version": "1.0.0",
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "DICTATE Studio",
+        "width": 1440,
+        "height": 900
+      }
+    ]
+  },
+  "plugins": {
+    "http": {
+      "scope": [
+        "http://127.0.0.1:8081/*",
+        "http://localhost:8081/*",
+        "http://127.0.0.1:8080/*",
+        "http://localhost:8080/*"
+      ],
+      "scopeRedirects": true
+    }
+  }
+}

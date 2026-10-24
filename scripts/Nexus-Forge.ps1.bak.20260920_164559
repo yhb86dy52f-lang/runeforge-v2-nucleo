@@ -1,0 +1,202 @@
+# =====================================================================
+# RUNEFORGE :: CANON v1.0 :: NEXUS APP FACTORY
+# HTML autocontenido -> App nativa Windows
+# Uso:
+#   Nexus-Forge.ps1 -Name "mi-app" -Html "C:\ruta\index.html"
+#   Nexus-Forge.ps1 -Name "mi-app" -Html "C:\ruta\index.html" -Bundle
+# =====================================================================
+
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory=$true)][string]$Name,
+    [Parameter(Mandatory=$true)][string]$Html,
+    [string]$Title       = $null,
+    [int]   $Width       = 1440,
+    [int]   $Height      = 900,
+    [string]$Identifier  = $null,
+    [switch]$Bundle,
+    [switch]$Run
+)
+
+$ErrorActionPreference = "Stop"
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+$CANON_ROOT = "C:\RUNEFORGE_V2_CORE\apps"
+$APP        = Join-Path $CANON_ROOT $Name
+$TAURI      = Join-Path $APP "src-tauri"
+if (-not $Title)      { $Title = $Name }
+if (-not $Identifier) { $Identifier = "com.runeforge." + $Name.ToLower().Replace(" ","-") }
+
+$env:Path = "$env:USERPROFILE\.cargo\bin;$env:Path"
+if (-not (Get-Command cargo -ErrorAction SilentlyContinue)) {
+    Write-Host "[X] cargo no encontrado." -ForegroundColor Red; exit 1
+}
+if (-not (Test-Path $Html)) {
+    Write-Host "[X] HTML no encontrado: $Html" -ForegroundColor Red; exit 1
+}
+
+# --- Limpieza controlada ---
+if (Test-Path $APP) {
+    Get-Process -Name $Name -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+    Start-Sleep -Milliseconds 400
+    Remove-Item $APP -Recurse -Force -ErrorAction SilentlyContinue
+}
+
+# --- Scaffold ---
+New-Item -ItemType Directory -Path "$APP\dist"           -Force | Out-Null
+New-Item -ItemType Directory -Path "$TAURI\src"          -Force | Out-Null
+New-Item -ItemType Directory -Path "$TAURI\capabilities" -Force | Out-Null
+New-Item -ItemType Directory -Path "$TAURI\icons"        -Force | Out-Null
+
+Copy-Item $Html "$APP\dist\index.html" -Force
+$kb = [math]::Round((Get-Item "$APP\dist\index.html").Length/1KB,1)
+Write-Host "[OK] HTML empacotado ($kb KB)" -ForegroundColor Green
+
+$libName = $Name.Replace("-","_") + "_lib"
+
+# --- Cargo.toml ---
+$cargoToml = @(
+    "[package]"
+    "name = ""$Name"""
+    "version = ""1.0.0"""
+    "description = ""$Title"""
+    "edition = ""2021"""
+    "rust-version = ""1.77"""
+    ""
+    "[lib]"
+    "name = ""$libName"""
+    "crate-type = [""staticlib"", ""cdylib"", ""rlib""]"
+    ""
+    "[build-dependencies]"
+    "tauri-build = { version = ""2"", features = [] }"
+    ""
+    "[dependencies]"
+    "tauri = { version = ""2"", features = [] }"
+    ""
+    "[profile.release]"
+    "opt-level = ""s"""
+    "lto = true"
+    "strip = true"
+    "codegen-units = 1"
+    "panic = ""abort"""
+)
+Set-Content "$TAURI\Cargo.toml" -Value $cargoToml -Encoding UTF8
+
+# --- build.rs ---
+Set-Content "$TAURI\build.rs" -Value "fn main() { tauri_build::build() }" -Encoding UTF8
+
+# --- main.rs ---
+$mainRs = "#![cfg_attr(not(debug_assertions), windows_subsystem = \""windows\"")]" + "`n" + "fn main() { " + $libName + "::run() }"
+Set-Content "$TAURI\src\main.rs" -Value $mainRs -Encoding UTF8
+
+# --- lib.rs ---
+$libRs = @(
+    "#[cfg_attr(mobile, tauri::mobile_entry_point)]"
+    "pub fn run() {"
+    "    tauri::Builder::default()"
+    "        .run(tauri::generate_context!())"
+    "        .expect(\"" + "error while running $Title" + "\");"
+    "}"
+)
+Set-Content "$TAURI\src\lib.rs" -Value $libRs -Encoding UTF8
+
+# --- tauri.conf.json ---
+$conf = @(
+    "{"
+    "  ""`$schema"": ""https://schema.tauri.app/config/2"","
+    "  ""productName"": ""$Title"","
+    "  ""version"": ""1.0.0"","
+    "  ""identifier"": ""$Identifier"","
+    "  ""build"": { ""frontendDist"": ""../dist"" },"
+    "  ""app"": {"
+    "    ""withGlobalTauri"": true,"
+    "    ""windows"": [{"
+    "      ""label"": ""main"","
+    "      ""title"": ""$Title"","
+    "      ""width"": $Width, ""height"": $Height,"
+    "      ""minWidth"": 800, ""minHeight"": 600,"
+    "      ""resizable"": true, ""fullscreen"": false,"
+    "      ""decorations"": true, ""transparent"": false,"
+    "      ""theme"": ""Dark"", ""center"": true"
+    "    }],"
+    "    ""security"": { ""csp"": null }"
+    "  },"
+    "  ""bundle"": {"
+    "    ""active"": true,"
+    "    ""targets"": [""msi"", ""nsis""],"
+    "    ""publisher"": ""RUNEFORGE"","
+    "    ""icon"": [""icons/32x32.png"", ""icons/128x128.png"", ""icons/128x128@2x.png"", ""icons/icon.ico""]"
+    "  }"
+    "}"
+)
+Set-Content "$TAURI\tauri.conf.json" -Value $conf -Encoding UTF8
+
+# --- capabilities/default.json ---
+$cap = @(
+    "{"
+    "  ""`$schema"": ""../gen/schemas/desktop-schema.json"","
+    "  ""identifier"": ""default"","
+    "  ""description"": ""Default capability"","
+    "  ""windows"": [""main""],"
+    "  ""permissions"": [""core:default""]"
+    "}"
+)
+Set-Content "$TAURI\capabilities\default.json" -Value $cap -Encoding UTF8
+
+# --- Iconos ---
+Add-Type -AssemblyName System.Drawing
+$iconSizes = [ordered]@{ "32x32.png"=32; "128x128.png"=128; "128x128@2x.png"=256; "icon.png"=512 }
+foreach ($kv in $iconSizes.GetEnumerator()) {
+    $s = $kv.Value
+    $bmp = New-Object System.Drawing.Bitmap $s, $s
+    $g = [System.Drawing.Graphics]::FromImage($bmp)
+    $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
+    $rect = New-Object System.Drawing.Rectangle 0, 0, $s, $s
+    $brush = New-Object System.Drawing.Drawing2D.LinearGradientBrush($rect, [System.Drawing.Color]::FromArgb(0,245,255), [System.Drawing.Color]::FromArgb(255,0,255), 45.0)
+    $g.FillRectangle($brush, $rect)
+    $dark = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(8,10,18))
+    $m = [int]($s * 0.20)
+    $g.FillEllipse($dark, $m, $m, $s - 2*$m, $s - 2*$m)
+    $cyan = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(0,245,255))
+    $i = [int]($s * 0.40)
+    $g.FillEllipse($cyan, $i, $i, $s - 2*$i, $s - 2*$i)
+    $bmp.Save("$TAURI\icons\$($kv.Key)", [System.Drawing.Imaging.ImageFormat]::Png)
+    $bmp.Dispose(); $g.Dispose(); $brush.Dispose(); $dark.Dispose(); $cyan.Dispose()
+}
+$png = [IO.File]::ReadAllBytes("$TAURI\icons\32x32.png")
+$ms = New-Object IO.MemoryStream
+$bw = New-Object IO.BinaryWriter($ms)
+$bw.Write([UInt16]0); $bw.Write([UInt16]1); $bw.Write([UInt16]1)
+$bw.Write([Byte]32); $bw.Write([Byte]32); $bw.Write([Byte]0); $bw.Write([Byte]0)
+$bw.Write([UInt16]1); $bw.Write([UInt16]32)
+$bw.Write([UInt32]$png.Length); $bw.Write([UInt32]22)
+$bw.Write($png); $bw.Flush()
+[IO.File]::WriteAllBytes("$TAURI\icons\icon.ico", $ms.ToArray())
+$bw.Dispose(); $ms.Dispose()
+Write-Host "[OK] Iconos generados" -ForegroundColor Green
+
+# --- Compilar ---
+Set-Location $TAURI
+Write-Host "[*] cargo build --release..." -ForegroundColor Cyan
+cargo build --release
+if ($LASTEXITCODE -ne 0) { Write-Host "[X] Fallo la compilacion" -ForegroundColor Red; exit 1 }
+
+$exe = "$TAURI\target\release\$Name.exe"
+if (-not (Test-Path $exe)) { Write-Host "[X] No se genero el .exe" -ForegroundColor Red; exit 1 }
+$mb = [math]::Round((Get-Item $exe).Length/1MB,2)
+Write-Host "[OK] $exe ($mb MB)" -ForegroundColor Green
+
+# --- Bundle MSI/NSIS opcional ---
+if ($Bundle) {
+    if (-not (Get-Command cargo-tauri -ErrorAction SilentlyContinue)) {
+        Write-Host "[*] Instalando tauri-cli..." -ForegroundColor Cyan
+        cargo install tauri-cli --version "^2" --locked
+    }
+    cargo tauri build
+}
+
+# --- Lanzar ---
+if ($Run -or -not $Bundle) {
+    Write-Host "[RUNEFORGE] Lanzando $Title..." -ForegroundColor Green
+    Start-Process $exe
+}

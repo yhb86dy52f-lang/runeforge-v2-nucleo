@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEPCOLGPS • FUSION v14</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html,body{background:#060806;color:#e8f0eb;min-height:100%}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  .mono{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const {useState,useEffect,useRef,useMemo,useCallback} = React;
+
+/* =========================================================
+   1. FAMILIAS
+   ========================================================= */
+const DEFAULT_FAMILIES = [
+  {
+    id:'BDVA', label:'BDVA · TILE', subtitle:'Baliza BLE patio SEPCOLGPS',
+    icon:'📡', color:'#00ff88',
+    patterns:[
+      {type:'regex', value:'BDVA[-_ ]?\\d+', note:'Prefijo BDVA'},
+      {type:'regex', value:'TILE[-_ ]?\\d+',  note:'Alias TILE'},
+    ],
+  },
+  {
+    id:'CICLOPE', label:'CÍCLOPE C3', subtitle:'Concentrador / gateway',
+    icon:'👁️', color:'#ffcc00',
+    patterns:[
+      {type:'macPrefix', value:'C3:00', note:'OUI C3:00'},
+      {type:'regex', value:'C[IÍ]CLOPE|C3[:_]00', note:'Nombre'},
+    ],
+  },
+  {
+    id:'SAMSARA_AT11', label:'Samsara AT11', subtitle:'Gateway telemático CAN',
+    icon:'🚚', color:'#00c3ff',
+    patterns:[
+      {type:'regex', value:'SAMSARA', note:'Marca'},
+      {type:'regex', value:'AT[-_ ]?11', note:'Modelo'},
+      {type:'regex', value:'GDXF[-_ ]', note:'Prefijo serial etiqueta'},
+    ],
+    label_ids:{ fcc:'2AIHD-AT11', model:'030-00007', ip:'IP67 / IP69K' },
+  },
+  {
+    id:'CALAMP', label:'CalAmp LMU', subtitle:'Rastreador GPS / Telemetría',
+    icon:'🔋', color:'#2d6cdf',
+    patterns:[
+      {type:'regex', value:'CT199|CT227|CT256|CT194', note:'Modelos CalAmp'},
+      {type:'regex', value:'CALAMP', note:'Marca'},
+    ],
+    label_ids:{ protocolo:'1-Wire', voltaje:'12V/24V' },
+  },
+  {
+    id:'UNKNOWN', label:'Sin clasificar', subtitle:'Pendiente de revisar',
+    icon:'❓', color:'#b388ff', patterns:[],
+  },
+];
+
+const FAM = Object.fromEntries(DEFAULT_FAMILIES.map(f=>[f.id,f]));
+
+const SEED_REGISTRY = [
+  {id:'BDVA-7011',            familyId:'BDVA',   alias:'TILE 15',      kw:'KW753', pb:'780901807724529'},
+  {id:'C3:00:00:6B:9B:C8',    familyId:'CICLOPE',alias:'CÍCLOPE C3:00', note:'Gateway principal patio'},
+  {id:'GDXF-HK4-HZ7',         familyId:'SAMSARA_AT11', alias:'Samsara AT11', serial:'GDXF-HK4-HZ7'},
+  {id:'CT199-DEMO',           familyId:'CALAMP', alias:'CalAmp CT199', note:'Unidad de prueba taller'},
+];
+
+/* =========================================================
+   2. PERSISTENCIA Y UTILIDADES
+   ========================================================= */
+const LS_FAM = 'sepcol_families_v1';
+const LS_REG = 'sepcol_registry_v1';
+
+function loadLS(key, fallback){
+  try{ const r = localStorage.getItem(key); if(r) return JSON.parse(r); }catch{}
+  return fallback;
+}
+function saveLS(key, val){
+  try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){ console.warn(e); }
+}
+
+function classifyAdv(adv, families, registry){
+  const name = (adv.name || '').toUpperCase();
+  const mac  = (adv.mac  || adv.id || '').toUpperCase();
+  const hay  = `${name} ${mac}`;
+
+  const hit = registry.find(r =>
+    (r.mac    && r.mac.toUpperCase()    === mac) ||
+    (r.id     && r.id.toUpperCase()     === mac) ||
+    (r.serial && hay.includes(r.serial.toUpperCase()))
+  );
+  if(hit) return {familyId:hit.familyId, conf:1.0, src:'REGISTRO', match:hit.alias||hit.id};
+
+  for(const fam of families){
+    if(fam.id==='UNKNOWN') continue;
+    for(const p of (fam.patterns||[])){
+      if(p.type==='regex'){
+        try{
+          const m = hay.match(new RegExp(p.value,'i'));
+          if(m) return {familyId:fam.id, conf:0.85, src:'PATRÓN', match:m[0]};
+        }catch{}
+      }else if(p.type==='macPrefix'){
+        if(mac.startsWith(p.value.toUpperCase()))
+          return {familyId:fam.id, conf:0.9, src:'MAC', match:p.value};
+      }
+    }
+  }
+  return {familyId:'UNKNOWN', conf:0.1, src:'—', match:null};
+}
+
+/* Decodificador CalAmp (integrado del CT Thermo Lab) */
+function decodeCalampHex(hexRaw) {
+  let cleanHex = hexRaw.toUpperCase().replace(/!/g, '').replace(/[^0-9A-F]/g, '');
+  if (cleanHex.length % 2 !== 0) cleanHex = '0' + cleanHex;
+  if (cleanHex.length < 10) return null;
+
+  let bytes = [];
+  for (let i = 0; i < cleanHex.length; i += 2) bytes.push(parseInt(cleanHex.substr(i, 2), 16));
+  
+  let uint16 = [];
+  for (let i = 0; i + 1 < bytes.length; i += 2) uint16.push((bytes[i] << 8) | bytes[i + 1]);
+
+  let voltUnidad = null, voltGps = null;
+  for (let val of uint16) {
+    if (voltUnidad === null && val >= 10000 && val <= 15000) voltUnidad = val / 1000;
+    if (voltGps === null && val >= 3500 && val <= 5000) voltGps = val / 1000;
+  }
+  
+  let count3E70 = uint16.filter(v => v === 15984).length;
+  let countFFFF = uint16.filter(v => v === 65535).length;
+  let estado = 'BUENO', color = '#00ff88', rec = 'Sistema operativo. Termos OK.';
+
+  if (count3E70 >= 2) {
+    estado = 'FALLA_DOBLE'; color = '#ff4444';
+    rec = 'Revisar cableado 1-Wire, pull-up 4.7k, cortos a GND.';
+  } else if (count3E70 === 1) {
+    estado = 'FALLA_SIMPLE'; color = '#ffcc00';
+    rec = 'Residual. Limpiar acumuladores CT.';
+  } else if (countFFFF > 0) {
+    estado = 'DESHABILITADO'; color = '#7a9180';
+    rec = 'Sensores deshabilitados por configuración.';
+  }
+
+  return { cleanHex, uint16, voltUnidad, voltGps, count3E70, countFFFF, estado, color, rec };
+}
+
+/* =========================================================
+   3. COMPONENTES UI
+   ========================================================= */
+function FamilyBadge({familyId, small}){
+  const f = FAM[familyId] || FAM.UNKNOWN;
+  return (
+    <span className={`inline-flex items-center gap-1 rounded font-black tracking-wider
+      ${small?'text-[8px] px-1.5 py-0.5':'text-[9px] px-2 py-1'}`}
+      style={{background:f.color+'22', color:f.color, border:`1px solid ${f.color}55`}}>
+      {f.icon} {f.label}
+    </span>
+  );
+}
+
+function Gauge({value, max, label, unit, color}){
+  const pct = value !== null ? Math.min(100, Math.max(0, (value / max) * 100)) : 0;
+  const c = value === null ? '#2a2f3d' : color;
+  
+  return (
+    <div className="flex flex-col items-center justify-center p-2">
+      <div className="relative w-[110px] h-[110px]">
+        <svg width="110" height="110" viewBox="0 0 110 110" className="rotate-[-90deg]">
+          <circle cx="55" cy="55" r="45" fill="none" stroke="#1e2a1e" strokeWidth="10"/>
+          <circle cx="55" cy="55" r="45" fill="none" stroke={c} strokeWidth="10" 
+                  strokeLinecap="round" strokeDasharray={`${pct/100*282.7} 282.7`} 
+                  className="transition-all duration-700"/>
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-[22px] font-black" style={{color:c}}>
+            {value !== null ? value.toFixed(2) : "--"}
+          </span>
+          <span className="text-[9px] text-[#7a9180] tracking-widest">{unit}</span>
+        </div>
+      </div>
+      <div className="mt-1 text-center text-[9px] text-[#e8f0eb] font-bold tracking-wider">{label}</div>
+    </div>
+  );
+}
+
+/* =========================================================
+   4. APP PRINCIPAL
+   ========================================================= */
+function App(){
+  const [tab, setTab] = useState('sonar');
+  const [families, setFamilies] = useState(()=>loadLS(LS_FAM, DEFAULT_FAMILIES));
+  const [registry, setRegistry] = useState(()=>loadLS(LS_REG, SEED_REGISTRY));
+
+  // Estados Sonar
+  const [scanning, setScanning] = useState(false);
+  const [devices, setDevices]   = useState([]);
+  const [demo, setDemo]         = useState(false);
+  const [selected, setSelected] = useState(null);
+  
+  // Estados Thermo Lab
+  const [hexInput, setHexInput] = useState('');
+  const [decoded, setDecoded]   = useState(null);
+
+  const scanRef = useRef(null);
+
+  useEffect(()=>saveLS(LS_FAM, families),[families]);
+  useEffect(()=>saveLS(LS_REG, registry),[registry]);
+
+  const enriched = useMemo(()=>(
+    devices.map(d => ({...d, ...classifyAdv(d, families, registry)}))
+           .sort((a,b)=>b.rssi-a.rssi)
+  ),[devices, families, registry]);
+
+  const startScan = async () => {
+    if(scanning){
+      try{ scanRef.current?.stop?.(); }catch{}
+      scanRef.current = null;
+      setScanning(false);
+      return;
+    }
+    setDevices([]); setDemo(false); setScanning(true);
+
+    try{
+      if(!navigator.bluetooth?.requestLEScan) throw new Error('no BLE');
+      const scan = await navigator.bluetooth.requestLEScan({acceptAllAdvertisements:true});
+      scanRef.current = scan;
+      navigator.bluetooth.addEventListener('advertisementreceived', e=>{
+        const name = (e.device?.name||'').trim();
+        const mac  = (e.device?.id||'').toUpperCase();
+        const id   = mac || name || `anon-${Math.random().toString(36).slice(2,8)}`;
+        setDevices(prev => {
+          const i = prev.findIndex(x => x.id === id);
+          if(i>=0){ const cp=[...prev]; cp[i]={...cp[i], rssi:e.rssi??-80}; return cp; }
+          return [{id, name: name||'(sin nombre)', mac, rssi:e.rssi??-80, _adv:{name, mac}}, ...prev];
+        });
+      });
+    }catch(err){
+      setDemo(true);
+      setDevices([
+        {id:'BDVA-7011', name:'BDVA-7011', rssi:-70},
+        {id:'CT199-DEMO', name:'CALAMP-CT199', rssi:-65},
+        {id:'AA:BB:CC:11:22:33', name:'DESCONOCIDO', rssi:-88}
+      ].map(s=>({...s, mac:s.id, _mock:true, _adv:{name:s.name, mac:s.id}})));
+    }
+  };
+
+  const decodeHex = () => {
+    const res = decodeCalampHex(hexInput);
+    setDecoded(res);
+  };
+
+  return (
+    <div className="min-h-screen flex justify-center p-2.5 bg-[#060806] text-[#e8f0eb]">
+      <div className="w-full max-w-[430px] flex flex-col gap-2.5">
+        
+        {/* HEADER */}
+        <div className="border border-[#1e2a1e] rounded-[14px] bg-[#121412] p-3.5 text-center">
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse"></div>
+            <h1 className="text-[15px] tracking-[2.5px] font-black text-[#00ff88]">FUSION v14</h1>
+          </div>
+          <p className="text-[9px] text-[#7a9180] mt-1">SONAR BLE + CALAMP THERMO LAB</p>
+          
+          <div className="flex mt-3 rounded-[12px] p-[3px] bg-[#0a0c0a] gap-[3px] border border-[#1e2a1e]">
+            {[
+              {id:'sonar',  lbl:'🔎 SONAR'},
+              {id:'thermo', lbl:'🔋 TERMO'},
+              {id:'registro',lbl:'🏷️ REGISTRO'},
+              {id:'familias',lbl:'🧬 FAMILIAS'},
+            ].map(t=>(
+              <button key={t.id} onClick={()=>setTab(t.id)}
+                className={`flex-1 py-2 rounded-[9px] text-[10px] font-black tracking-wider transition-all
+                  ${tab===t.id?'bg-[#00ff88] text-black shadow-[0_0_12px_rgba(0,255,136,0.35)]':'text-[#7a9180]'}`}>
+                {t.lbl}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* ================= TAB SONAR ================= */}
+        {tab==='sonar' && (
+          <>
+            <button onClick={startScan}
+              className={`w-full rounded-[14px] py-4 font-black text-[13px] tracking-wider border transition-all
+                ${scanning ?'bg-[#121412] text-[#00ff88] border-[#00ff88]' :'bg-[#00ff88] text-black border-[#00ff88]'}`}>
+              {scanning ? `⏹ PARAR • ${devices.length} disp.` : '▶ ESCANEAR DISPOSITIVOS'}
+            </button>
+
+            {demo && (
+              <div className="border border-[#2a2410] bg-[#1a1a0a] rounded-[12px] p-2 text-[10px] text-[#ffcc00]/90">
+                ⚠ MODO DEMO ACTIVADO
+              </div>
+            )}
+
+            {enriched.map(d=>{
+              const f = FAM[d.familyId] || FAM.UNKNOWN;
+              return (
+                <div key={d.id} onClick={()=>setSelected(d.id)}
+                  className={`rounded-[14px] px-3 py-3 border-l-4 bg-[#121412] border border-[#1e2a1e] cursor-pointer
+                    ${selected===d.id ? 'border-l-[#ffcc00] bg-[#1a1a0a]' : ''}`}
+                  style={{borderLeftColor: f.color}}>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[13px] font-black" style={{color:f.color}}>{f.icon} {d.name}</span>
+                        <FamilyBadge familyId={d.familyId} small />
+                      </div>
+                      <div className="text-[9px] text-[#7a9180] mono mt-1">
+                        {d.id} · <span className="text-[#ffcc00]">{Math.round(d.rssi)} dBm</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        )}
+
+        {/* ================= TAB THERMO LAB ================= */}
+        {tab==='thermo' && (
+          <>
+            <div className="border border-[#1e2a1e] rounded-[14px] bg-[#121412] p-3.5">
+              <div className="text-[11px] font-black text-[#2d6cdf] mb-2">🔋 CALAMP THERMO LAB</div>
+              <textarea value={hexInput} onChange={e=>setHexInput(e.target.value)}
+                placeholder="Pega el HEX (ej. !r4 E4672144079FFFF...)"
+                className="w-full h-[100px] bg-[#060806] border border-[#1e2a1e] rounded-[10px] p-2 text-[11px] mono text-[#e8f0eb] focus:border-[#2d6cdf] outline-none resize-none"/>
+              <button onClick={decodeHex}
+                className="mt-2 w-full py-2.5 rounded-[10px] font-black text-[12px] bg-[#2d6cdf] text-white">
+                DECODIFICAR AHORA
+              </button>
+            </div>
+
+            {decoded && (
+              <>
+                <div className="border rounded-[14px] p-3.5 bg-[#121412]" style={{borderColor: decoded.color}}>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-[10px] font-black tracking-wider text-[#7a9180]">ESTADO GENERAL</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded font-black" style={{background: decoded.color+'22', color: decoded.color}}>
+                      {decoded.estado}
+                    </span>
+                  </div>
+                  <div className="text-[12px] text-[#e8f0eb] leading-tight">{decoded.rec}</div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="border border-[#1e2a1e] rounded-[14px] bg-[#121412] p-2">
+                    <Gauge value={decoded.voltUnidad} max={15} label="VOLT UNIDAD" unit="V" 
+                           color={decoded.voltUnidad > 12 ? '#00ff88' : '#ffcc00'} />
+                  </div>
+                  <div className="border border-[#1e2a1e] rounded-[14px] bg-[#121412] p-2">
+                    <Gauge value={decoded.voltGps} max={5} label="VOLT GPS" unit="V" 
+                           color={decoded.voltGps >= 3.9 ? '#00ff88' : '#ffcc00'} />
+                  </div>
+                </div>
+
+                <div className="border border-[#1e2a1e] rounded-[14px] bg-[#121412] p-3">
+                  <div className="text-[10px] font-black text-[#7a9180] mb-2">SENSORES 1-WIRE</div>
+                  <div className="flex gap-2">
+                    <div className="flex-1 bg-[#0a0c0a] p-2 rounded border border-[#1e2a1e]">
+                      <div className="text-[9px] text-[#7a9180]">Sensor 1 (S1)</div>
+                      <div className={`text-[11px] font-bold ${decoded.count3E70 >= 1 ? 'text-[#ff4444]' : decoded.countFFFF >= 1 ? 'text-[#7a9180]' : 'text-[#00ff88]'}`}>
+                        {decoded.count3E70 >= 1 ? 'FALLA' : decoded.countFFFF >= 1 ? 'DESHAB.' : 'OK'}
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-[#0a0c0a] p-2 rounded border border-[#1e2a1e]">
+                      <div className="text-[9px] text-[#7a9180]">Sensor 2 (S2)</div>
+                      <div className={`text-[11px] font-bold ${decoded.count3E70 >= 2 ? 'text-[#ff4444]' : decoded.count3E70 === 1 ? 'text-[#ffcc00]' : decoded.countFFFF >= 1 ? 'text-[#7a9180]' : 'text-[#00ff88]'}`}>
+                        {decoded.count3E70 >= 2 ? 'FALLA' : decoded.count3E70 === 1 ? 'RESIDUAL' : decoded.countFFFF >= 1 ? 'DESHAB.' : 'OK'}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-2 flex justify-between text-[9px] mono text-[#7a9180]">
+                    <span>3E70: {decoded.count3E70}</span>
+                    <span>FFFF: {decoded.countFFFF}</span>
+                  </div>
+                </div>
+              </>
+            )}
+          </>
+        )}
+
+        {/* ================= TAB REGISTRO ================= */}
+        {tab==='registro' && (
+          <div className="border border-[#1e2a1e] rounded-[14px] bg-[#121412] p-3.5">
+            <div className="text-[11px] font-black text-[#e8f0eb] mb-3">🏷️ MIS CLASIFICACIONES ({registry.length})</div>
+            {registry.map((r,i)=>(
+              <div key={i} className="bg-[#0a0c0a] border border-[#1e2a1e] rounded-[10px] p-2 mb-2 flex justify-between items-center">
+                <div>
+                  <div className="text-[11px] font-black text-[#e8f0eb]">{r.alias || r.id}</div>
+                  <div className="text-[9px] mono text-[#7a9180]">{r.id}</div>
+                </div>
+                <FamilyBadge familyId={r.familyId} small />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* ================= TAB FAMILIAS ================= */}
+        {tab==='familias' && (
+          <>
+            {families.map(f=>(
+              <div key={f.id} className="border border-[#1e2a1e] rounded-[14px] bg-[#121412] p-3.5 mb-2"
+                   style={{borderLeftColor:f.color, borderLeftWidth:4}}>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">{f.icon}</span>
+                  <div className="text-[12px] font-black" style={{color:f.color}}>{f.label}</div>
+                </div>
+                <div className="text-[9px] text-[#7a9180] mt-1">{f.subtitle}</div>
+              </div>
+            ))}
+          </>
+        )}
+
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
