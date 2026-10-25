@@ -45,7 +45,10 @@ CopyToClipboard(text, successMsg) {
 
 RunInWT(cmd) {
     global CYBER_MONJA_GUID
-    try Run('wt.exe -w 0 -p "' CYBER_MONJA_GUID '" ' cmd)
+    try Run('wt.exe -w 0 -p "' CYBER_MONJA_GUID '" -- ' cmd)
+    catch as e {
+        LogConsole("Error al abrir Terminal: " e.Message)
+    }
 }
 
 ; --- Telemetría ---

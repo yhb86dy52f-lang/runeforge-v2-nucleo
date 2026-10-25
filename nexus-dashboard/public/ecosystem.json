@@ -1,9 +1,9 @@
 {
-    "timestamp": "2026-10-24T23:53:10.680514",
+    "timestamp": "2026-10-25T00:05:04.264922",
     "nodes": [
         {
             "id": "whisper_ai",
-            "status": "online",
+            "status": "offline",
             "type": "Local AI",
             "port": 8081
         },
