@@ -15,7 +15,7 @@ Set-Location "C:\RUNEFORGE_V2_CORE"
 Log "[*] Buscando cambios locales..." "Yellow"
 $status = git status --porcelain
 
-if ([string]::IsNullOrWhiteSpace($status)) {
+if (-not $status) {
     Log "`n[OK] El repositorio ya está actualizado. No hay nada nuevo que subir." "Green"
     $capture -join "`r`n" | Set-Clipboard
     Log "`n[OK] Reporte copiado al portapapeles (Ctrl+V)." "Cyan"
@@ -29,7 +29,11 @@ git add .
 $commitMsg = "Actualización RUNEFORGE - $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
 Log "[*] Haciendo commit: $commitMsg" "Yellow"
 $commitResult = git commit -m "$commitMsg" 2>&1
-Log $commitResult "DarkGray"
+
+# SOLUCIÓN: Iterar sobre cada línea para evitar System.Object[]
+if ($commitResult) {
+    foreach ($line in $commitResult) { Log $line "DarkGray" }
+}
 
 # Push SEGURO (Sin -f)
 Log "`n[*] Subiendo a GitHub (Origin/Main)..." "Yellow"
@@ -39,7 +43,7 @@ if ($LASTEXITCODE -eq 0) {
     Log "`n[OK] Sincronización completada con éxito. Tu ecosistema está a salvo." "Green"
 } else {
     Log "`n[X] ERROR al subir a GitHub:" "Red"
-    Log $pushResult "DarkRed"
+    foreach ($line in $pushResult) { Log $line "DarkRed" }
     Log "Si el error es por 'Push Protection', significa que intentaste subir una clave. Revisa tu código." "Yellow"
 }
 
