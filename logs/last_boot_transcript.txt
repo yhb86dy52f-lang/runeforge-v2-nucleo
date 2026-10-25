@@ -1,27 +1,28 @@
-﻿**********************
-Inicio de la transcripción de Windows PowerShell
-Hora de inicio: 20261024171631
+**********************
+Inicio de transcripción de PowerShell
+Hora de inicio: 20261024233059
 Nombre de usuario: RUNEFORGE-PC\nesth
-Usuario RunAs: RUNEFORGE-PC\nesth
-Nombre de la configuración: 
+Usuario de RunAs: RUNEFORGE-PC\nesth
+Nombre de configuración: 
 Máquina: RUNEFORGE-PC (Microsoft Windows NT 10.0.19045.0)
-Aplicación host: powershell -NoProfile -ExecutionPolicy Bypass -File C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_BOOT.ps1
-Id. de proceso: 5900
-PSVersion: 5.1.19041.6456
-PSEdition: Desktop
-PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
-BuildVersion: 10.0.19041.6456
-CLRVersion: 4.0.30319.42000
-WSManStackVersion: 3.0
-PSRemotingProtocolVersion: 2.3
+Aplicación host: C:\Program Files\PowerShell\7\pwsh.dll -NoExit -ExecutionPolicy Bypass -File C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_BOOT.ps1
+Id. de proceso: 12300
+PSVersion: 7.6.8
+PSEdition: Core
+GitCommitId: 7.6.8
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
 **********************
 [*] Arrancando Servicios...
 
 [*] Esperando 12 segundos a que los servicios inicialicen...
 [*] Verificando estado...
 === REPORTE DE AUDITORIA FORENSE RUNEFORGE ===
-Fecha: 2026-10-24 17:16:55
+Fecha: 2026-10-24 23:31:12
 
 [1] ARCHIVOS CRITICOS:
   [OK] C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_BOOT.ps1
@@ -29,19 +30,23 @@ Fecha: 2026-10-24 17:16:55
   [OK] C:\RUNEFORGE_V2_CORE\nexus-tactical
 
 [2] ESTADO DE SERVICIOS:
-  [OFFLINE] Fastify
-  [ONLINE] Whisper IA
+  [ONLINE] Fastify
+  [OFFLINE] Whisper IA
   [ONLINE] Ollama
   [OFFLINE] Tauri Core
   [ONLINE] Tailscale Mesh
 
 [3] PROCESOS ACTIVOS (Forense):
-  [ACTIVO] python.exe (PID: 3456, RAM: 3.34 MB)
-  [ACTIVO] python.exe (PID: 2288, RAM: 14.77 MB)
-  [ACTIVO] node.exe (PID: 15356, RAM: 46.33 MB)
+  [ACTIVO] node.exe (PID: 13696, RAM: 53.25 MB)
+  [ACTIVO] node.exe (PID: 10884, RAM: 58.61 MB)
+  [ACTIVO] python.exe (PID: 1184, RAM: 3.36 MB)
+  [ACTIVO] python.exe (PID: 17296, RAM: 15.1 MB)
+  [ACTIVO] node.exe (PID: 12992, RAM: 49.85 MB)
+  [ACTIVO] node.exe (PID: 13172, RAM: 50.79 MB)
+  [ACTIVO] node.exe (PID: 12184, RAM: 81.35 MB)
 
 [4] HARDWARE:
-  [CPU] 29% | [RAM] 7.59 GB
+  [CPU] 100% | [RAM] 9.65 GB
 
 =========================================
 [OK] Reporte copiado al portapapeles.
@@ -49,8 +54,3 @@ Fecha: 2026-10-24 17:16:55
 =========================================================
   [OK] ARRANQUE GLOBAL FINALIZADO.
 =========================================================
-
-**********************
-Fin de la transcripción de Windows PowerShell
-Hora de finalización: 20261024171657
-**********************

@@ -1,0 +1,1075 @@
+﻿
+--- [2026-10-24 17:39:09] ---
+# ==============================================================================
+# PARCHE V12.1 - FIX WARNING A_CaretX
+# ==============================================================================
+$ErrorActionPreference = 'Continue'
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+$AhkPath = "C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_MASTER_PANEL.ahk"
+
+# 1. Leer el archivo
+$Content = Get-Content $AhkPath -Raw
+
+# 2. Crear la nueva función limpia
+$NewFunction = @"
+CopyScriptBox(*) {
+    global ScriptBox
+    if (Trim(ScriptBox.Text) != "") {
+        A_Clipboard := ScriptBox.Text
+        MouseGetPos(&mx, &my)
+        ToolTip("Copiado al portapapeles", mx + 10, my + 20)
+        SetTimer () => ToolTip(), -1500
+    }
+}
+"@
+
+# 3. Reemplazar la función antigua usando Regex
+$Content = $Content -replace '(?s)CopyScriptBox\(\*\) \{.*?\r?\n\}', $NewFunction
+
+# 4. Guardar cambios
+$Utf8Bom = New-Object System.Text.UTF8Encoding $true
+[System.IO.File]::WriteAllText($AhkPath, $Content, $Utf8Bom)
+
+Write-Host "[OK] Advertencia corregida." -ForegroundColor Green
+Write-Host "[*] Reiniciando AutoHotkey..." -ForegroundColor Cyan
+
+Stop-Process -Name "AutoHotkey" -Force -ErrorAction SilentlyContinue
+Start-Sleep -Milliseconds 500
+& $AhkPath
+
+--- [2026-10-24 17:39:59] ---
+ls
+
+
+--- [2026-10-24 17:40:48] ---
+=== REPORTE DE AUDITORIA FORENSE RUNEFORGE ===
+Fecha: 2026-10-24 17:40:45
+
+[1] ARCHIVOS CRITICOS:
+  [OK] C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_BOOT.ps1
+  [OK] C:\RUNEFORGE_V2_CORE\scripts\brain_hub.py
+  [OK] C:\RUNEFORGE_V2_CORE\nexus-tactical
+
+[2] ESTADO DE SERVICIOS:
+  [OFFLINE] Fastify
+  [ONLINE] Whisper IA
+  [ONLINE] Ollama
+  [OFFLINE] Tauri Core
+  [ONLINE] Tailscale Mesh
+
+[3] PROCESOS ACTIVOS (Forense):
+  [ACTIVO] node.exe (PID: 15356, RAM: 10.71 MB)
+  [ACTIVO] python.exe (PID: 2080, RAM: 0.54 MB)
+  [ACTIVO] python.exe (PID: 15056, RAM: 3.95 MB)
+
+[4] HARDWARE:
+  [CPU] 55% | [RAM] 6.67 GB
+
+=========================================
+
+--- [2026-10-24 17:41:06] ---
+rf-audit
+
+
+--- [2026-10-24 17:41:17] ---
+=== REPORTE DE AUDITORIA FORENSE RUNEFORGE ===
+Fecha: 2026-10-24 17:41:14
+
+[1] ARCHIVOS CRITICOS:
+  [OK] C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_BOOT.ps1
+  [OK] C:\RUNEFORGE_V2_CORE\scripts\brain_hub.py
+  [OK] C:\RUNEFORGE_V2_CORE\nexus-tactical
+
+[2] ESTADO DE SERVICIOS:
+  [OFFLINE] Fastify
+  [ONLINE] Whisper IA
+  [ONLINE] Ollama
+  [OFFLINE] Tauri Core
+  [ONLINE] Tailscale Mesh
+
+[3] PROCESOS ACTIVOS (Forense):
+  [ACTIVO] node.exe (PID: 15356, RAM: 10.76 MB)
+  [ACTIVO] python.exe (PID: 2080, RAM: 0.54 MB)
+  [ACTIVO] python.exe (PID: 15056, RAM: 3.95 MB)
+
+[4] HARDWARE:
+  [CPU] 50% | [RAM] 6.82 GB
+
+=========================================
+
+--- [2026-10-24 17:43:12] ---
+# ==============================================================================
+# BOOTSTRAP MAESTRO - RUNEFORGE NEXUS ARCHITECT (Panel V13)
+# ==============================================================================
+$ErrorActionPreference = 'Continue'
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+$CanonicalDir = "C:\RUNEFORGE_V2_CORE\scripts"
+$InternalCode = @'
+; ================================
+; RUNEFORGE MASTER PANEL V13
+; AutoHotkey v2 - Terminal Integrada + Auto-Copy Output
+; ================================
+
+#Requires AutoHotkey v2.0
+#SingleInstance Force
+
+global RF := Map(
+    "ROOT", "C:\RUNEFORGE_V2_CORE",
+    "SCRIPTS", "C:\RUNEFORGE_V2_CORE\scripts",
+    "DOCS", "C:\RUNEFORGE_V2_CORE\docs\md",
+    "DATA", "C:\RUNEFORGE_V2_CORE\core_data",
+    "MEMORIA", "C:\RUNEFORGE_V2_CORE\core_data\memorias\memoria_operativa.txt",
+    "PROMPT_MAESTRO", "C:\RUNEFORGE_V2_CORE\core_data\prompts\prompt_maestro.txt",
+    "DOC_MANIFIESTO", "C:\RUNEFORGE_V2_CORE\docs\md\MANIFIESTO.md",
+    "DOC_ARQUITECTURA", "C:\RUNEFORGE_V2_CORE\docs\md\RUNEFORGE_V2_CORE.md",
+    "DOC_NEXUS", "C:\RUNEFORGE_V2_CORE\docs\md\NEXUS_ARCHITECT_AUTOMATION.md",
+    "BAT_BOOT", "C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE.bat",
+    "BAT_STOP", "C:\RUNEFORGE_V2_CORE\scripts\STOP.bat",
+    "BAT_AUDIT", "C:\RUNEFORGE_V2_CORE\scripts\AUDIT.bat",
+    "BAT_RESET", "C:\RUNEFORGE_V2_CORE\scripts\RESET.bat"
+)
+
+; GUID de tu perfil en Windows Terminal
+global CYBER_MONJA_GUID := "{9f2b7a50-7c7e-4a35-9a6e-000000000001}"
+
+global txtFastify, txtWhisper, txtOllama, txtTauri, txtTailscale, ScriptBox
+global lastClipboard := ""
+
+; ========= UTILIDADES =========
+CopyFile(path) => (FileExist(path) ? A_Clipboard := FileRead(path, "UTF-8") : MsgBox("Archivo no encontrado: " path, "Error"))
+OpenPath(path) => (FileExist(path) || DirExist(path) ? Run(path) : MsgBox("Ruta no encontrada: " path, "Error"))
+EditFile(path) => (FileExist(path) ? Run('notepad.exe "' path '"') : MsgBox("Archivo no encontrado: " path, "Error"))
+
+; Función maestra para abrir en Windows Terminal (Cyber Monja) en la misma ventana
+RunInWT(cmd) {
+    global CYBER_MONJA_GUID
+    ; -w 0 reutiliza la ventana actual. Si no, abre una nueva.
+    Run('wt.exe -w 0 -p "' CYBER_MONJA_GUID '" ' cmd)
+}
+
+RunBatOrPs1(path) {
+    if FileExist(path) {
+        RunInWT('"' path '"')
+    } else {
+        ps1Path := StrReplace(path, ".bat", ".ps1")
+        if FileExist(ps1Path)
+            RunInWT('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' ps1Path '"')
+        else
+            MsgBox("No se encontró el script:`n" path, "Error", "Icon!")
+    }
+}
+
+RunGitPush() {
+    gitPs1 := RF["SCRIPTS"] "\rf-git.ps1"
+    if FileExist(gitPs1)
+        RunInWT('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' gitPs1 '"')
+    else
+        MsgBox("No se encontró rf-git.ps1 en " RF["SCRIPTS"], "Error", "Icon!")
+}
+
+SearchInRepo(*) {
+    ib := InputBox("Texto a buscar en C:\RUNEFORGE_V2_CORE:", "Buscar en Código")
+    if (ib.Result != "OK" || Trim(ib.Value) = "")
+        return
+    safeBase := '"' RF["ROOT"] '"'
+    safeTerm := StrReplace(Trim(ib.Value), '"', '\"')
+    RunInWT('cmd.exe /k cd /d ' safeBase ' && (rg -n --hidden --glob "!node_modules" --glob "!target" "' safeTerm '" || findstr /s /i /n "' safeTerm '" *.*)')
+}
+
+CreateModule(*) {
+    ib := InputBox("Nombre del módulo (ej. scanner_v2):", "Crear Módulo")
+    if (ib.Result != "OK" || Trim(ib.Value) = "")
+        return
+    name := RegExReplace(Trim(ib.Value), "[^\w\-]", "_")
+    file := RF["FORJA"] "\" name ".ts"
+    if FileExist(file) {
+        MsgBox("Ya existe:`n" file, "Aviso")
+        return
+    }
+    content := "export function " name "() {`n    return { ok: true, module: '" name "', ts: new Date().toISOString() };`n}`n"
+    FileAppend(content, file, "UTF-8")
+    Run('notepad.exe "' file '"')
+}
+
+CopySnippetFastify(*) {
+    A_Clipboard := "import { FastifyInstance } from 'fastify';`n`nexport async function registerRoutes(app: FastifyInstance) {`n    app.get('/health', async () => ({ ok: true, service: 'runeforge' }));`n}`n"
+}
+
+CopySnippetPS(*) {
+    A_Clipboard := "$ErrorActionPreference = 'Stop'`n`n$result = [pscustomobject]@{`n    ok = $true`n    ts = (Get-Date).ToString('s')`n}`n`n$result | ConvertTo-Json -Depth 5`n"
+}
+
+; ========= LÓGICA DEL SCRATCHPAD V13 =========
+ExecScript(*) {
+    global ScriptBox, RF
+    scriptText := ScriptBox.Text
+    if (Trim(scriptText) = "")
+        return
+        
+    tmpFile := RF["SCRIPTS"] "\scratch_ia.ps1"
+    FileDelete tmpFile
+    
+    ; Usamos Start-Transcript para capturar toda la salida de la consola
+    wrapper := "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8`n"
+    wrapper .= "$tempLog = `"$env:TEMP\scratch_output.txt`"`n"
+    wrapper .= "Start-Transcript -Path `$tempLog -Force | Out-Null`n"
+    wrapper .= "try {`n"
+    wrapper .= "`n" scriptText "`n"
+    wrapper .= "} catch { `$_ } finally {`n"
+    wrapper .= "    Stop-Transcript | Out-Null`n"
+    wrapper .= "    if (Test-Path `$tempLog) { Get-Content `$tempLog -Raw | Set-Clipboard }`n"
+    wrapper .= "}`n"
+    
+    FileAppend wrapper, tmpFile, "UTF-8"
+    
+    ; Ejecutamos en Windows Terminal (Cyber Monja)
+    RunInWT('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' tmpFile '"')
+}
+
+ClearScript(*) {
+    global ScriptBox
+    ScriptBox.Text := ""
+}
+
+CopyScriptText(*) {
+    global ScriptBox
+    if (Trim(ScriptBox.Text) != "") {
+        A_Clipboard := ScriptBox.Text
+        MouseGetPos(&mx, &my)
+        ToolTip("Texto copiado al portapapeles", mx + 10, my + 20)
+        SetTimer () => ToolTip(), -1500
+    }
+}
+
+; ========= LÓGICA DE AUTO-COPY GLOBAL =========
+OnClipboardChange(ClipChanged)
+ClipChanged(dataType) {
+    global lastClipboard, RF
+    if (dataType = 1) {
+        text := A_Clipboard
+        if (text != lastClipboard && Trim(text) != "") {
+            lastClipboard := text
+            historyFile := RF["DATA"] "\clipboard_history.txt"
+            timestamp := FormatTime(A_Now, "yyyy-MM-dd HH:mm:ss")
+            FileAppend "`n--- [" timestamp "] ---`n" text "`n", historyFile, "UTF-8"
+        }
+    }
+}
+
+; ========= LÓGICA DE ESTADO (SIN CMD) =========
+IsPortListening(port) {
+    static wsadata := Buffer(400, 0)
+    if (DllCall("ws2_32\WSAStartup", "UShort", 0x0202, "Ptr", wsadata) != 0)
+        return false
+    sock := DllCall("ws2_32\socket", "Int", 2, "Int", 1, "Int", 6, "Ptr")
+    if (sock = -1) {
+        DllCall("ws2_32\WSACleanup")
+        return false
+    }
+    addr := Buffer(16, 0)
+    NumPut("UShort", 2, addr, 0)
+    NumPut("UShort", DllCall("ws2_32\htons", "UShort", port, "UShort"), addr, 2)
+    NumPut("UInt", DllCall("ws2_32\inet_addr", "AStr", "127.0.0.1", "UInt"), addr, 4)
+    res := DllCall("ws2_32\connect", "Ptr", sock, "Ptr", addr, "Int", 16, "Int")
+    DllCall("ws2_32\closesocket", "Ptr", sock)
+    DllCall("ws2_32\WSACleanup")
+    return (res == 0)
+}
+
+UpdateStatus() {
+    global txtFastify, txtWhisper, txtOllama, txtTauri, txtTailscale
+    txtFastify.Text := IsPortListening(3100) ? "Fastify: 🟢 ONLINE" : "Fastify: 🔴 OFFLINE"
+    txtWhisper.Text := IsPortListening(8081) ? "Whisper: 🟢 ONLINE" : "Whisper: 🔴 OFFLINE"
+    txtOllama.Text  := IsPortListening(11434) ? "Ollama:  🟢 ONLINE" : "Ollama:  🔴 OFFLINE"
+    txtTauri.Text   := ProcessExist("app.exe") ? "Tauri:   🟢 ONLINE" : "Tauri:   🔴 OFFLINE"
+    txtTailscale.Text := ProcessExist("tailscaled.exe") ? "Tailscale: 🟢 ONLINE" : "Tailscale: 🔴 OFFLINE"
+}
+
+; ========= INIT =========
+myGui := Gui("+AlwaysOnTop +Resize", "RUNEFORGE COMMAND CENTER V13")
+myGui.BackColor := "0D0211"
+myGui.SetFont("s10 c39FF14", "Segoe UI")
+
+title := myGui.AddText("xm w430 Center c39FF14", "⚡ RUNEFORGE COMMAND CENTER V13")
+title.SetFont("s14 Bold", "Segoe UI")
+
+; ===== BLOQUE 0: STATUS DASHBOARD =====
+myGui.AddGroupBox("xm y+10 w430 h80 c39FF14", " STATUS DASHBOARD ")
+txtFastify := myGui.AddText("xm+15 yp+25 w190 c39FF14", "Fastify: 🔴 OFFLINE")
+txtWhisper := myGui.AddText("x+10 w190 c39FF14", "Whisper: 🔴 OFFLINE")
+txtOllama  := myGui.AddText("xm+15 y+5 w190 c39FF14", "Ollama:  🔴 OFFLINE")
+txtTauri   := myGui.AddText("x+10 w190 c39FF14", "Tauri:   🔴 OFFLINE")
+txtTailscale := myGui.AddText("xm+15 y+5 w190 c39FF14", "Tailscale: 🔴 OFFLINE")
+
+; ===== BLOQUE 1: MASTERS =====
+myGui.AddGroupBox("xm y+15 w430 h70 c39FF14", " MASTERS (UI) ")
+myGui.AddButton("xm+15 yp+28 w125 h30", "📊 Dashboard").OnEvent("Click", (*) => OpenPath(RF["MASTER_DASH"]))
+myGui.AddButton("x+10 w125 h30", "📡 Radar BLE").OnEvent("Click", (*) => OpenPath(RF["MASTER_RADAR"]))
+myGui.AddButton("x+10 w125 h30", "📍 GPS/Sonar").OnEvent("Click", (*) => OpenPath(RF["MASTER_GPS"]))
+
+; ===== BLOQUE 2: IA / CONTEXTO =====
+myGui.AddGroupBox("xm y+15 w430 h150 c39FF14", " IA / CONTEXTO ")
+myGui.AddButton("xm+15 yp+28 w125 h30", "🧠 Memoria Ops").OnEvent("Click", (*) => CopyFile(RF["MEMORIA"]))
+myGui.AddButton("x+10 w125 h30", "📜 Prompt Master").OnEvent("Click", (*) => CopyFile(RF["PROMPT_MAESTRO"]))
+myGui.AddButton("x+10 w125 h30", "💬 ChatGPT").OnEvent("Click", (*) => Run("https://chatgpt.com/"))
+myGui.AddButton("xm+15 y+10 w125 h30", "📄 Manifiesto").OnEvent("Click", (*) => CopyFile(RF["DOC_MANIFIESTO"]))
+myGui.AddButton("x+10 w125 h30", "🏗️ Arquitectura").OnEvent("Click", (*) => CopyFile(RF["DOC_ARQUITECTURA"]))
+myGui.AddButton("x+10 w125 h30", "⚙️ Reglas IA").OnEvent("Click", (*) => CopyFile(RF["DOC_NEXUS"]))
+myGui.AddButton("xm+15 y+10 w125 h30", "📝 Editar Mem").OnEvent("Click", (*) => EditFile(RF["MEMORIA"]))
+myGui.AddButton("x+10 w125 h30", "✏️ Editar Prompt").OnEvent("Click", (*) => EditFile(RF["PROMPT_MAESTRO"]))
+myGui.AddButton("x+10 w125 h30", "📂 Docs Dir").OnEvent("Click", (*) => OpenPath(RF["DOCS"]))
+
+; ===== BLOQUE 3: SISTEMA / CORE =====
+myGui.AddGroupBox("xm y+15 w430 h150 c39FF14", " SISTEMA / CORE ")
+myGui.AddButton("xm+15 yp+30 w125 h30", "🚀 ARRANCAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_BOOT"]))
+myGui.AddButton("x+10 w125 h30", "🛑 PARAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_STOP"]))
+myGui.AddButton("x+10 w125 h30", "🐙 GIT PUSH").OnEvent("Click", (*) => RunGitPush())
+myGui.AddButton("xm+15 y+10 w125 h30", "🔍 AUDITAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_AUDIT"]))
+myGui.AddButton("x+10 w125 h30", "⚡ RESET RAM").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_RESET"]))
+myGui.AddButton("x+10 w125 h30", "🖥️ Snippet PS").OnEvent("Click", CopySnippetPS)
+
+; ===== BLOQUE 4: SCRATCHPAD =====
+myGui.AddGroupBox("xm y+15 w430 h220 c39FF14", " SCRATCHPAD (Auto-Copy Output) ")
+myGui.SetFont("s10 cWhite", "Consolas")
+ScriptBox := myGui.AddEdit("xm+15 yp+25 w400 h150 Multi Background0D0211 c39FF14", "")
+myGui.SetFont("s10 c39FF14", "Segoe UI")
+myGui.AddButton("xm+15 y+10 w125 h30", "▶ EJECUTAR").OnEvent("Click", ExecScript)
+myGui.AddButton("x+10 w125 h30", "📋 COPIAR TEXTO").OnEvent("Click", CopyScriptText)
+myGui.AddButton("x+10 w125 h30", "🧹 LIMPIAR").OnEvent("Click", ClearScript)
+
+; ===== PIE =====
+myGui.AddButton("xm+155 y+15 w120 h32", "✖ CERRAR").OnEvent("Click", (*) => ExitApp())
+
+myGui.Show("w455 h850")
+UpdateStatus()
+SetTimer(UpdateStatus, 5000)
+'@
+
+$Utf8Bom = New-Object System.Text.UTF8Encoding $true
+[System.IO.File]::WriteAllText("$CanonicalDir\RUNEFORGE_MASTER_PANEL.ahk", $InternalCode, $Utf8Bom)
+
+Write-Host "[OK] Panel AHK V13 (Auto-Copy + Cyber Monja) guardado." -ForegroundColor Green
+Write-Host "[*] Reiniciando AutoHotkey..." -ForegroundColor Cyan
+
+Stop-Process -Name "AutoHotkey" -Force -ErrorAction SilentlyContinue
+Start-Sleep -Milliseconds 500
+& "$CanonicalDir\RUNEFORGE_MASTER_PANEL.ahk"
+
+--- [2026-10-24 17:44:26] ---
+rf-audit
+
+--- [2026-10-24 17:44:36] ---
+**********************
+Inicio de transcripción de PowerShell
+Hora de inicio: 20261024174431
+Nombre de usuario: RUNEFORGE-PC\nesth
+Usuario de RunAs: RUNEFORGE-PC\nesth
+Nombre de configuración: 
+Máquina: RUNEFORGE-PC (Microsoft Windows NT 10.0.19045.0)
+Aplicación host: C:\Program Files\PowerShell\7\pwsh.dll -NoExit -ExecutionPolicy Bypass -File C:\RUNEFORGE_V2_CORE\scripts\scratch_ia.ps1
+Id. de proceso: 3612
+PSVersion: 7.6.8
+PSEdition: Core
+GitCommitId: 7.6.8
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+=== REPORTE DE AUDITORIA FORENSE RUNEFORGE ===
+Fecha: 2026-10-24 17:44:31
+
+[1] ARCHIVOS CRITICOS:
+  [OK] C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_BOOT.ps1
+  [OK] C:\RUNEFORGE_V2_CORE\scripts\brain_hub.py
+  [OK] C:\RUNEFORGE_V2_CORE\nexus-tactical
+
+[2] ESTADO DE SERVICIOS:
+  [OFFLINE] Fastify
+  [ONLINE] Whisper IA
+  [ONLINE] Ollama
+  [OFFLINE] Tauri Core
+  [ONLINE] Tailscale Mesh
+
+[3] PROCESOS ACTIVOS (Forense):
+  [ACTIVO] node.exe (PID: 15356, RAM: 5.68 MB)
+  [ACTIVO] python.exe (PID: 2080, RAM: 0 MB)
+  [ACTIVO] python.exe (PID: 15056, RAM: 3.46 MB)
+
+[4] HARDWARE:
+  [CPU] 52% | [RAM] 5.78 GB
+
+=========================================
+[OK] Reporte copiado al portapapeles.
+**********************
+Fin de transcripción de PowerShell
+Hora de finalización: 20261024174435
+**********************
+
+
+--- [2026-10-24 17:44:51] ---
+*
+
+--- [2026-10-24 17:44:53] ---
+rf-audit
+
+--- [2026-10-24 17:47:56] ---
+# ==============================================================================
+# BOOTSTRAP MAESTRO - RUNEFORGE NEXUS ARCHITECT (Panel V14 - UI Pro)
+# ==============================================================================
+$ErrorActionPreference = 'Continue'
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+$CanonicalDir = "C:\RUNEFORGE_V2_CORE\scripts"
+if (-not (Test-Path $CanonicalDir)) { 
+    New-Item -ItemType Directory -Path $CanonicalDir -Force | Out-Null 
+}
+
+$InternalCode = @'
+; ================================
+; RUNEFORGE MASTER PANEL V14 - UI PRO
+; Telemetría en Vivo + Monitor de Portapapeles
+; ================================
+
+#Requires AutoHotkey v2.0
+#SingleInstance Force
+
+global RF := Map(
+    "ROOT", "C:\RUNEFORGE_V2_CORE",
+    "SCRIPTS", "C:\RUNEFORGE_V2_CORE\scripts",
+    "DOCS", "C:\RUNEFORGE_V2_CORE\docs\md",
+    "DATA", "C:\RUNEFORGE_V2_CORE\core_data",
+    "MEMORIA", "C:\RUNEFORGE_V2_CORE\core_data\memorias\memoria_operativa.txt",
+    "PROMPT_MAESTRO", "C:\RUNEFORGE_V2_CORE\core_data\prompts\prompt_maestro.txt",
+    "DOC_MANIFIESTO", "C:\RUNEFORGE_V2_CORE\docs\md\MANIFIESTO.md",
+    "DOC_ARQUITECTURA", "C:\RUNEFORGE_V2_CORE\docs\md\RUNEFORGE_V2_CORE.md",
+    "DOC_NEXUS", "C:\RUNEFORGE_V2_CORE\docs\md\NEXUS_ARCHITECT_AUTOMATION.md",
+    "BAT_BOOT", "C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE.bat",
+    "BAT_STOP", "C:\RUNEFORGE_V2_CORE\scripts\STOP.bat",
+    "BAT_AUDIT", "C:\RUNEFORGE_V2_CORE\scripts\AUDIT.bat",
+    "BAT_RESET", "C:\RUNEFORGE_V2_CORE\scripts\RESET.bat"
+)
+
+global CYBER_MONJA_GUID := "{9f2b7a50-7c7e-4a35-9a6e-000000000001}"
+
+global txtFastify, txtWhisper, txtOllama, txtTauri, txtTailscale, ScriptBox
+global txtTime, txtCpu, txtRam, txtClip
+global lastClipboard := ""
+
+; ========= UTILIDADES =========
+CopyFile(path) => (FileExist(path) ? A_Clipboard := FileRead(path, "UTF-8") : MsgBox("Archivo no encontrado: " path, "Error"))
+OpenPath(path) => (FileExist(path) || DirExist(path) ? Run(path) : MsgBox("Ruta no encontrada: " path, "Error"))
+EditFile(path) => (FileExist(path) ? Run('notepad.exe "' path '"') : MsgBox("Archivo no encontrado: " path, "Error"))
+
+RunInWT(cmd) {
+    global CYBER_MONJA_GUID
+    Run('wt.exe -w 0 -p "' CYBER_MONJA_GUID '" ' cmd)
+}
+
+RunBatOrPs1(path) {
+    if FileExist(path) {
+        RunInWT('"' path '"')
+    } else {
+        ps1Path := StrReplace(path, ".bat", ".ps1")
+        if FileExist(ps1Path)
+            RunInWT('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' ps1Path '"')
+        else
+            MsgBox("No se encontró el script:`n" path, "Error", "Icon!")
+    }
+}
+
+RunGitPush() {
+    gitPs1 := RF["SCRIPTS"] "\rf-git.ps1"
+    if FileExist(gitPs1)
+        RunInWT('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' gitPs1 '"')
+    else
+        MsgBox("No se encontró rf-git.ps1 en " RF["SCRIPTS"], "Error", "Icon!")
+}
+
+SearchInRepo(*) {
+    ib := InputBox("Texto a buscar en C:\RUNEFORGE_V2_CORE:", "Buscar en Código")
+    if (ib.Result != "OK" || Trim(ib.Value) = "")
+        return
+    safeBase := '"' RF["ROOT"] '"'
+    safeTerm := StrReplace(Trim(ib.Value), '"', '\"')
+    RunInWT('cmd.exe /k cd /d ' safeBase ' && (rg -n --hidden --glob "!node_modules" --glob "!target" "' safeTerm '" || findstr /s /i /n "' safeTerm '" *.*)')
+}
+
+CreateModule(*) {
+    ib := InputBox("Nombre del módulo (ej. scanner_v2):", "Crear Módulo")
+    if (ib.Result != "OK" || Trim(ib.Value) = "")
+        return
+    name := RegExReplace(Trim(ib.Value), "[^\w\-]", "_")
+    file := RF["FORJA"] "\" name ".ts"
+    if FileExist(file) {
+        MsgBox("Ya existe:`n" file, "Aviso")
+        return
+    }
+    content := "export function " name "() {`n    return { ok: true, module: '" name "', ts: new Date().toISOString() };`n}`n"
+    FileAppend(content, file, "UTF-8")
+    Run('notepad.exe "' file '"')
+}
+
+CopySnippetFastify(*) {
+    A_Clipboard := "import { FastifyInstance } from 'fastify';`n`nexport async function registerRoutes(app: FastifyInstance) {`n    app.get('/health', async () => ({ ok: true, service: 'runeforge' }));`n}`n"
+}
+
+CopySnippetPS(*) {
+    A_Clipboard := "$ErrorActionPreference = 'Stop'`n`n$result = [pscustomobject]@{`n    ok = $true`n    ts = (Get-Date).ToString('s')`n}`n`n$result | ConvertTo-Json -Depth 5`n"
+}
+
+; ========= SCRATCHPAD =========
+ExecScript(*) {
+    global ScriptBox, RF
+    scriptText := ScriptBox.Text
+    if (Trim(scriptText) = "")
+        return
+        
+    tmpFile := RF["SCRIPTS"] "\scratch_ia.ps1"
+    FileDelete tmpFile
+    
+    wrapper := "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8`n"
+    wrapper .= "$tempLog = `"$env:TEMP\scratch_output.txt`"`n"
+    wrapper .= "Start-Transcript -Path `$tempLog -Force | Out-Null`n"
+    wrapper .= "try {`n"
+    wrapper .= "`n" scriptText "`n"
+    wrapper .= "} catch { `$_ } finally {`n"
+    wrapper .= "    Stop-Transcript | Out-Null`n"
+    wrapper .= "    if (Test-Path `$tempLog) { Get-Content `$tempLog -Raw | Set-Clipboard }`n"
+    wrapper .= "}`n"
+    
+    FileAppend wrapper, tmpFile, "UTF-8"
+    RunInWT('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' tmpFile '"')
+}
+
+ClearScript(*) {
+    global ScriptBox
+    ScriptBox.Text := ""
+}
+
+CopyScriptText(*) {
+    global ScriptBox
+    if (Trim(ScriptBox.Text) != "") {
+        A_Clipboard := ScriptBox.Text
+        MouseGetPos(&mx, &my)
+        ToolTip("Texto copiado", mx + 10, my + 20)
+        SetTimer () => ToolTip(), -1500
+    }
+}
+
+; ========= AUTO-COPY GLOBAL =========
+OnClipboardChange(ClipChanged)
+ClipChanged(dataType) {
+    global lastClipboard, RF, txtClip
+    if (dataType = 1) {
+        text := A_Clipboard
+        if (text != lastClipboard && Trim(text) != "") {
+            lastClipboard := text
+            historyFile := RF["DATA"] "\clipboard_history.txt"
+            timestamp := FormatTime(A_Now, "yyyy-MM-dd HH:mm:ss")
+            FileAppend "`n--- [" timestamp "] ---`n" text "`n", historyFile, "UTF-8"
+            
+            ; Actualizar UI (solo las primeras 2 líneas para el preview)
+            previewText := SubStr(StrReplace(text, "`r`n", " | "), 1, 50)
+            if (StrLen(text) > 50)
+                previewText .= "..."
+            txtClip.Value := previewText
+        }
+    }
+}
+
+; ========= TELEMETRÍA (WMI) =========
+GetTelemetry() {
+    static wmi := ComObjGet("winmgmts:\\.\root\cimv2")
+    cpu := wmi.ExecQuery("SELECT LoadPercentage FROM Win32_Processor").ItemIndex(0).LoadPercentage
+    os := wmi.ExecQuery("SELECT FreePhysicalMemory, TotalVisibleMemorySize FROM Win32_OperatingSystem").ItemIndex(0)
+    ramUsed := (os.TotalVisibleMemorySize - os.FreePhysicalMemory) / 1024 / 1024
+    return { cpu: cpu, ram: Format("{:.1f}", ramUsed) }
+}
+
+; ========= LÓGICA DE ESTADO =========
+IsPortListening(port) {
+    static wsadata := Buffer(400, 0)
+    if (DllCall("ws2_32\WSAStartup", "UShort", 0x0202, "Ptr", wsadata) != 0)
+        return false
+    sock := DllCall("ws2_32\socket", "Int", 2, "Int", 1, "Int", 6, "Ptr")
+    if (sock = -1) {
+        DllCall("ws2_32\WSACleanup")
+        return false
+    }
+    addr := Buffer(16, 0)
+    NumPut("UShort", 2, addr, 0)
+    NumPut("UShort", DllCall("ws2_32\htons", "UShort", port, "UShort"), addr, 2)
+    NumPut("UInt", DllCall("ws2_32\inet_addr", "AStr", "127.0.0.1", "UInt"), addr, 4)
+    res := DllCall("ws2_32\connect", "Ptr", sock, "Ptr", addr, "Int", 16, "Int")
+    DllCall("ws2_32\closesocket", "Ptr", sock)
+    DllCall("ws2_32\WSACleanup")
+    return (res == 0)
+}
+
+UpdateDashboard() {
+    global txtFastify, txtWhisper, txtOllama, txtTauri, txtTailscale
+    global txtTime, txtCpu, txtRam
+    
+    ; Hora
+    txtTime.Text := FormatTime(A_Now, "yyyy-MM-dd HH:mm:ss")
+    
+    ; Telemetría
+    tel := GetTelemetry()
+    txtCpu.Text := "CPU: " tel.cpu "%"
+    txtRam.Text := "RAM: " tel.ram " GB"
+    
+    ; Servicios
+    txtFastify.Text := IsPortListening(3100) ? "Fastify: 🟢" : "Fastify: 🔴"
+    txtWhisper.Text := IsPortListening(8081) ? "Whisper: 🟢" : "Whisper: 🔴"
+    txtOllama.Text  := IsPortListening(11434) ? "Ollama:  🟢" : "Ollama:  🔴"
+    txtTauri.Text   := ProcessExist("app.exe") ? "Tauri:   🟢" : "Tauri:   🔴"
+    txtTailscale.Text := ProcessExist("tailscaled.exe") ? "Tailscale: 🟢" : "Tailscale: 🔴"
+}
+
+; ========= INIT =========
+myGui := Gui("+AlwaysOnTop +Resize", "RUNEFORGE COMMAND CENTER V14 PRO")
+myGui.BackColor := "0D0211"
+myGui.SetFont("s10 c39FF14", "Segoe UI")
+
+; ===== TÍTULO Y TELEMETRÍA SUPERIOR =====
+myGui.SetFont("s14 Bold c39FF14", "Segoe UI")
+myGui.AddText("xm w490 Center", "⚡ RUNEFORGE COMMAND CENTER PRO")
+myGui.SetFont("s9 c00FFFF", "Consolas") ; Cian para telemetría
+myGui.AddText("xm w490 Center", "==================================================")
+txtTime := myGui.AddText("xm w160", "2026-10-24 00:00:00")
+txtCpu  := myGui.AddText("x+10 w100", "CPU: 0%")
+txtRam  := myGui.AddText("x+10 w100", "RAM: 0.0 GB")
+myGui.AddText("xm w490 Center", "==================================================")
+myGui.SetFont("s10 c39FF14", "Segoe UI")
+
+; ===== BLOQUE 0: STATUS DASHBOARD =====
+myGui.AddGroupBox("xm y+10 w490 h60 c39FF14", " STATUS DASHBOARD ")
+txtFastify := myGui.AddText("xm+15 yp+25 w100 c39FF14", "Fastify: 🔴")
+txtWhisper := myGui.AddText("x+5 w100 c39FF14", "Whisper: 🔴")
+txtOllama  := myGui.AddText("x+5 w100 c39FF14", "Ollama: 🔴")
+txtTauri   := myGui.AddText("x+5 w100 c39FF14", "Tauri: 🔴")
+txtTailscale := myGui.AddText("x+5 w90 c39FF14", "Tailscale: 🔴")
+
+; ===== BLOQUE 1: MASTERS / IA =====
+myGui.AddGroupBox("xm y+15 w490 h140 c39FF14", " MASTERS & CONTEXTO ")
+myGui.AddButton("xm+15 yp+25 w110 h30", "📊 Dashboard").OnEvent("Click", (*) => OpenPath(RF["MASTER_DASH"]))
+myGui.AddButton("x+10 w110 h30", "📡 Radar BLE").OnEvent("Click", (*) => OpenPath(RF["MASTER_RADAR"]))
+myGui.AddButton("x+10 w110 h30", "📍 GPS/Sonar").OnEvent("Click", (*) => OpenPath(RF["MASTER_GPS"]))
+myGui.AddButton("x+10 w110 h30", "💬 ChatGPT").OnEvent("Click", (*) => Run("https://chatgpt.com/"))
+
+myGui.AddButton("xm+15 y+10 w110 h30", "🧠 Memoria Ops").OnEvent("Click", (*) => CopyFile(RF["MEMORIA"]))
+myGui.AddButton("x+10 w110 h30", "📜 Prompt Master").OnEvent("Click", (*) => CopyFile(RF["PROMPT_MAESTRO"]))
+myGui.AddButton("x+10 w110 h30", "📄 Manifiesto").OnEvent("Click", (*) => CopyFile(RF["DOC_MANIFIESTO"]))
+myGui.AddButton("x+10 w110 h30", "🏗️ Arquitectura").OnEvent("Click", (*) => CopyFile(RF["DOC_ARQUITECTURA"]))
+
+myGui.AddButton("xm+15 y+10 w110 h30", "⚙️ Reglas IA").OnEvent("Click", (*) => CopyFile(RF["DOC_NEXUS"]))
+myGui.AddButton("x+10 w110 h30", "📝 Editar Mem").OnEvent("Click", (*) => EditFile(RF["MEMORIA"]))
+myGui.AddButton("x+10 w110 h30", "✏️ Editar Prompt").OnEvent("Click", (*) => EditFile(RF["PROMPT_MAESTRO"]))
+myGui.AddButton("x+10 w110 h30", "📂 Docs Dir").OnEvent("Click", (*) => OpenPath(RF["DOCS"]))
+
+; ===== BLOQUE 2: SISTEMA / CORE =====
+myGui.AddGroupBox("xm y+15 w490 h110 c39FF14", " SISTEMA / CORE ")
+myGui.AddButton("xm+15 yp+25 w110 h30", "🚀 ARRANCAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_BOOT"]))
+myGui.AddButton("x+10 w110 h30", "🛑 PARAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_STOP"]))
+myGui.AddButton("x+10 w110 h30", "🐙 GIT PUSH").OnEvent("Click", (*) => RunGitPush())
+myGui.AddButton("x+10 w110 h30", "🔎 Buscar Repo").OnEvent("Click", SearchInRepo)
+
+myGui.AddButton("xm+15 y+10 w110 h30", "🔍 AUDITAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_AUDIT"]))
+myGui.AddButton("x+10 w110 h30", "⚡ RESET RAM").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_RESET"]))
+myGui.AddButton("x+10 w110 h30", "🧱 Crear Módulo").OnEvent("Click", CreateModule)
+myGui.AddButton("x+10 w110 h30", "📁 Root Core").OnEvent("Click", (*) => OpenPath(RF["ROOT"]))
+
+; ===== BLOQUE 3: PORTAPAPELES =====
+myGui.AddGroupBox("xm y+15 w490 h60 c39FF14", " ÚLTIMO PORTAPAPELES ")
+txtClip := myGui.AddEdit("xm+15 yp+25 w460 h25 ReadOnly Background1A0B1F c00FFFF", "")
+
+; ===== BLOQUE 4: SCRATCHPAD =====
+myGui.AddGroupBox("xm y+15 w490 h200 c39FF14", " SCRATCHPAD (Ejecución IA) ")
+myGui.SetFont("s10 cWhite", "Consolas")
+ScriptBox := myGui.AddEdit("xm+15 yp+25 w460 h130 Multi Background0D0211 c39FF14", "")
+myGui.SetFont("s10 c39FF14", "Segoe UI")
+myGui.AddButton("xm+15 y+10 w150 h30", "▶ EJECUTAR CÓDIGO").OnEvent("Click", ExecScript)
+myGui.AddButton("x+10 w150 h30", "📋 COPIAR TEXTO").OnEvent("Click", CopyScriptText)
+myGui.AddButton("x+10 w150 h30", "🧹 LIMPIAR").OnEvent("Click", ClearScript)
+
+; ===== PIE =====
+myGui.AddButton("xm+185 y+15 w120 h32", "✖ CERRAR").OnEvent("Click", (*) => ExitApp())
+
+; Mostrar y activar timers
+myGui.Show("w520 h820")
+UpdateDashboard()
+SetTimer(UpdateDashboard, 1000) ; Actualizar telemetría cada 1 segundo
+'@
+
+$Utf8Bom = New-Object System.Text.UTF8Encoding $true
+[System.IO.File]::WriteAllText("$CanonicalDir\RUNEFORGE_MASTER_PANEL.ahk", $InternalCode, $Utf8Bom)
+
+Write-Host "[OK] Panel AHK V14 (UI Pro) guardado." -ForegroundColor Green
+Write-Host "[*] Reiniciando AutoHotkey..." -ForegroundColor Cyan
+
+Stop-Process -Name "AutoHotkey" -Force -ErrorAction SilentlyContinue
+Start-Sleep -Milliseconds 500
+& "$CanonicalDir\RUNEFORGE_MASTER_PANEL.ahk"
+
+--- [2026-10-24 17:49:12] ---
+# ==============================================================================
+# PARCHE V14.1 - OPTIMIZACIÓN DE RENDIMIENTO (ANTI-LAG)
+# ==============================================================================
+$ErrorActionPreference = 'Continue'
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+$AhkPath = "C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_MASTER_PANEL.ahk"
+$Content = Get-Content $AhkPath -Raw
+
+# 1. Reemplazar la función de Telemetría por una nativa (RAM) y pausada
+$NewTelemetry = @"
+; ========= TELEMETRÍA (NATIVA + WMI LIGERO) =========
+GetTelemetry() {
+    ; RAM nativa (Microsegundos)
+    static MEMORYSTATUSEX := Buffer(64, 0)
+    NumPut("UInt", 64, MEMORYSTATUSEX, 0)
+    DllCall("GlobalMemoryStatusEx", "Ptr", MEMORYSTATUSEX)
+    totalRam := NumGet(MEMORYSTATUSEX, 8, "UInt64")
+    availRam := NumGet(MEMORYSTATUSEX, 16, "UInt64")
+    ramUsed := (totalRam - availRam) / (1024 ** 3)
+
+    ; CPU vía WMI (solo cuando no está arrastrando)
+    try {
+        wmi := ComObjGet("winmgmts:\\.\root\cimv2")
+        cpu := wmi.ExecQuery("SELECT LoadPercentage FROM Win32_Processor").ItemIndex(0).LoadPercentage
+    } catch {
+        cpu := "??"
+    }
+    
+    return { cpu: cpu, ram: Format("{:.1f}", ramUsed) }
+}
+"@
+$Content = $Content -replace '(?s); ========= TELEMETRÍA \(WMI\) =========.*?return \{ cpu: cpu, ram: Format\("\{:.1f\}", ramUsed\) \}\r?\n\}', $NewTelemetry
+
+# 2. Añadir la magia de pausar mientras se arrastra
+$WindowDragHook = @"
+; ========= PAUSA DE RENDIMIENTO AL ARRASTRAR =========
+OnMessage(0x0231, WM_ENTERSIZEMOVE)
+OnMessage(0x0232, WM_EXITSIZEMOVE)
+
+WM_ENTERSIZEMOVE(wParam, lParam, msg, hwnd) {
+    SetTimer(UpdateDashboard, 0) ; Pausar timer
+}
+
+WM_EXITSIZEMOVE(wParam, lParam, msg, hwnd) {
+    UpdateDashboard() ; Refrescar inmediatamente
+    SetTimer(UpdateDashboard, 2000) ; Reanudar cada 2 segundos
+}
+"@
+
+$Content = $Content -replace '(?s); ========= INIT =========', "$WindowDragHook`n; ========= INIT ========="
+
+# 3. Arreglar el tamaño del texto de Tailscale
+$Content = $Content -replace 'txtTailscale := myGui\.AddText\("x\+5 w90 c39FF14", "Tailscale: 🔴"\)', 'txtTailscale := myGui.AddText("x+5 w100 c39FF14", "Tailscale: 🔴")'
+
+# 4. Ajustar el timer inicial a 2 segundos
+$Content = $Content -replace 'SetTimer\(UpdateDashboard, 1000\)', 'SetTimer(UpdateDashboard, 2000)'
+
+# 5. Guardar
+$Utf8Bom = New-Object System.Text.UTF8Encoding $true
+[System.IO.File]::WriteAllText($AhkPath, $Content, $Utf8Bom)
+
+Write-Host "[OK] Panel AHK V14.1 (Optimizado) guardado." -ForegroundColor Green
+Write-Host "[*] Reiniciando AutoHotkey..." -ForegroundColor Cyan
+
+Stop-Process -Name "AutoHotkey" -Force -ErrorAction SilentlyContinue
+Start-Sleep -Milliseconds 500
+& $AhkPath
+
+--- [2026-10-24 17:58:32] ---
+# ==============================================================================
+# PARCHE V15.2 - PAUSA INTELIGENTE POR FOCO (ANTI-COLAPSO)
+# ==============================================================================
+$ErrorActionPreference = 'Continue'
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+$AhkPath = "C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE_MASTER_PANEL.ahk"
+$Content = Get-Content $AhkPath -Raw
+
+# 1. Quitar el parche anterior de GetKeyState (ya no es necesario)
+$Content = $Content -replace '(?s)UpdateDashboard\(\) \{\r?\n    ; MAGIA ANTI-LAG.*?return\r?\n', "UpdateDashboard() {`n"
+
+# 2. Inyectar el manejo de WM_ACTIVATE para pausar/reanudar
+$ActivateHook = @"
+; ========= PAUSA INTELIGENTE POR FOCO =========
+OnMessage(0x0006, WM_ACTIVATE)
+
+WM_ACTIVATE(wParam, lParam, msg, hwnd) {
+    if (hwnd != myGui.Hwnd)
+        return
+    ; wParam = 0 significa ventana desactivada
+    ; wParam = 1 o 2 significa ventana activada
+    if (wParam = 0) {
+        SetTimer(UpdateDashboard, 0) ; Pausar timer
+    } else {
+        UpdateDashboard() ; Refrescar inmediatamente
+        SetTimer(UpdateDashboard, 4000) ; Reanudar timer
+    }
+}
+"@
+
+$Content = $Content -replace '(?s); ========= INIT =========', "$ActivateHook`n; ========= INIT ========="
+
+# 3. Guardar y reiniciar
+$Utf8Bom = New-Object System.Text.UTF8Encoding $true
+[System.IO.File]::WriteAllText($AhkPath, $Content, $Utf8Bom)
+
+Write-Host "[OK] Panel AHK V15.2 (Pausa por Foco) aplicado." -ForegroundColor Green
+Write-Host "[*] Reiniciando AutoHotkey..." -ForegroundColor Cyan
+
+Stop-Process -Name "AutoHotkey" -Force -ErrorAction SilentlyContinue
+Start-Sleep -Milliseconds 500
+& $AhkPath
+
+--- [2026-10-24 17:58:50] ---
+**********************
+Inicio de transcripción de PowerShell
+Hora de inicio: 20261024175849
+Nombre de usuario: RUNEFORGE-PC\nesth
+Usuario de RunAs: RUNEFORGE-PC\nesth
+Nombre de configuración: 
+Máquina: RUNEFORGE-PC (Microsoft Windows NT 10.0.19045.0)
+Aplicación host: C:\Program Files\PowerShell\7\pwsh.dll -NoExit -ExecutionPolicy Bypass -File C:\RUNEFORGE_V2_CORE\scripts\scratch_ia.ps1
+Id. de proceso: 2160
+PSVersion: 7.6.8
+PSEdition: Core
+GitCommitId: 7.6.8
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+[OK] Panel AHK V15.2 (Pausa por Foco) aplicado.
+[*] Reiniciando AutoHotkey...
+**********************
+Fin de transcripción de PowerShell
+Hora de finalización: 20261024175850
+**********************
+
+
+--- [2026-10-24 17:59:00] ---
+**********************
+Inicio de transcripción de PowerShell
+Hora de inicio: 20261024175859
+Nombre de usuario: RUNEFORGE-PC\nesth
+Usuario de RunAs: RUNEFORGE-PC\nesth
+Nombre de configuración: 
+Máquina: RUNEFORGE-PC (Microsoft Windows NT 10.0.19045.0)
+Aplicación host: C:\Program Files\PowerShell\7\pwsh.dll -NoExit -ExecutionPolicy Bypass -File C:\RUNEFORGE_V2_CORE\scripts\scratch_ia.ps1
+Id. de proceso: 13980
+PSVersion: 7.6.8
+PSEdition: Core
+GitCommitId: 7.6.8
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+[OK] Panel AHK V15.2 (Pausa por Foco) aplicado.
+[*] Reiniciando AutoHotkey...
+**********************
+Fin de transcripción de PowerShell
+Hora de finalización: 20261024175900
+**********************
+
+
+--- [2026-10-24 18:00:44] ---
+**********************
+Inicio de transcripción de PowerShell
+Hora de inicio: 20261024180044
+Nombre de usuario: RUNEFORGE-PC\nesth
+Usuario de RunAs: RUNEFORGE-PC\nesth
+Nombre de configuración: 
+Máquina: RUNEFORGE-PC (Microsoft Windows NT 10.0.19045.0)
+Aplicación host: C:\Program Files\PowerShell\7\pwsh.dll -NoExit -ExecutionPolicy Bypass -File C:\RUNEFORGE_V2_CORE\scripts\scratch_ia.ps1
+Id. de proceso: 6876
+PSVersion: 7.6.8
+PSEdition: Core
+GitCommitId: 7.6.8
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+
+**********************
+Fin de transcripción de PowerShell
+Hora de finalización: 20261024180044
+**********************
+
+
+--- [2026-10-24 18:31:06] ---
+# ==============================================================================
+# BOOTSTRAP MAESTRO - ACTUALIZACIÓN TOTAL DE DOCUMENTACIÓN (V2.7)
+# ==============================================================================
+$ErrorActionPreference = 'Continue'
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+$DocsDir = "C:\RUNEFORGE_V2_CORE\docs\md"
+if (-not (Test-Path $DocsDir)) { New-Item -ItemType Directory -Path $DocsDir -Force | Out-Null }
+
+$capture = New-Object System.Collections.ArrayList
+function Log { param($msg, $color="Gray") Write-Host $msg -ForegroundColor $color; $null = $capture.Add($msg) }
+
+Log "╔══════════════════════════════════════════════════════╗" "Cyan"
+Log "║   REESTRUCTURACIÓN DE LA MEMORIA DEL PROYECTO V2.7   ║" "Cyan"
+Log "╚══════════════════════════════════════════════════════╝" "Cyan"
+
+$Utf8Bom = New-Object System.Text.UTF8Encoding $true
+
+# ------------------------------------------------------------------------------
+# 1. MANIFIESTO.md
+# ------------------------------------------------------------------------------
+$Manifiesto = @'
+# 🏛️ RUNEFORGE V2.7 — MANIFIESTO DE ARQUITECTURA
+
+## Filosofía del Sistema
+- **Local-First:** Cero dependencias de la nube para la operación táctica.
+- **Privacidad Radical:** Los datos no salen del dispositivo.
+- **Cero Bloat:** Uso de Vanilla JS, Canvas nativo y limpieza forense de archivos.
+- **Estética Cyber-Mística:** Dark mode, acentos neón (#39FF14) y Glassmorphism.
+
+## Reglas Canónicas Inquebrantables
+1. **Copia Total (Clipboard):** Todo script (`BOOT`, `STOP`, `AUDIT`) debe capturar su salida en consola (Transcript) y copiarla automáticamente al portapapeles al finalizar.
+2. **Prompt ANSI:** El perfil de PowerShell usa códigos de escape ANSI (VT100) para el prompt, NUNCA `Write-Host` (para evitar bucles de renderizado).
+3. **Protección de Procesos:** El botón de apagado (STOP) debe usar `taskkill /F /T` y filtrar por `CommandLine`, sin matar procesos ajenos al ecosistema.
+4. **Rutas Canónicas:** Todo script `.ps1`, `.ahk` y `.bat` vive en `C:\RUNEFORGE_V2_CORE\scripts`.
+5. **Cero Bloqueos en AHK:** Los sockets de red deben ser no-bloqueantes y las interfaces gráficas deben pausar su actualización si la ventana pierde el foco (`WinActive`).
+
+## Ecosistema Modular Actual
+1. **Command Center (AHK v2):** Panel de control V17.2 con Telemetría en vivo (CPU/RAM nativa), Scratchpad de ejecución IA y Monitor de Portapapeles.
+2. **Perfil pwsh:** Prompt de 2 líneas con fecha/hora, validación de entorno y variables de Rust/Node inyectadas.
+3. **Scripts Core:** 
+   - `RUNEFORGE_BOOT.ps1` (Arranque de 6 servicios).
+   - `STOP.ps1` (Apagón Nuclear de servicios y red).
+   - `AUDIT.ps1` (Auditoría Forense de puertos y procesos).
+   - `rf-git.ps1` (Sincronización con GitHub).
+'@
+[System.IO.File]::WriteAllText("$DocsDir\MANIFIESTO.md", $Manifiesto, $Utf8Bom)
+Log "  [OK] MANIFIESTO.md actualizado (Filosofía y Reglas)." "Green"
+
+# ------------------------------------------------------------------------------
+# 2. NEXUS_ARCHITECT_AUTOMATION.md
+# ------------------------------------------------------------------------------
+$Automation = @'
+# ROL Y CONTEXTO: NEXUS ARCHITECT (Nivel 3.0)
+Actúa como un Ingeniero Experto en Automatización de Windows, PowerShell, Rust, Tauri, Svelte, Python y AutoHotkey v2.
+
+## REGLAS ESTRICTAS DE GENERACIÓN DE CÓDIGO
+1. **Rutas Canónicas:** Todo script DEBE guardarse en `C:\RUNEFORGE_V2_CORE\scripts`.
+2. **Encoding (El Infierno del Encoding):** 
+   - Para archivos `.ps1` y `.ahk`: Usar SIEMPRE UTF-8 con BOM.
+   - Para archivos `.bat`: Usar ANSI. Evitar emojis.
+3. **Regla de Captura Total:** Al final de cada script generado, se DEBE inyectar:
+   `$capture -join "\`r\`n" | Set-Clipboard` o `Get-Content $TransFile -Raw | Set-Clipboard`.
+4. **Blindaje de Procesos:** Al matar procesos, NUNCA usar `Stop-Process -Name node` a secas. Filtrar por `CommandLine` usando `Get-CimInstance Win32_Process` para evitar daños colaterales.
+5. **Estética Cyber-Mística:** Interfaces oscuras. Variables CSS: `--bg-core: #0D0211;`, `--neon-green: #39FF14;`.
+6. **PowerShell 7 & AHK v2:** Usar la sintaxis moderna. Evitar `Write-Host` dentro de la función `prompt` (usar ANSI).
+7. **Sintaxis AHK v2 (Crítico):** 
+   - Para capturar errores usar `catch as e`, NO `catch e`.
+   - Declarar variables `global` y `static` FUERA de bloques `try`.
+   - Los sockets de red (`ws2_32\connect`) DEBEN ser no-bloqueantes usando `ioctlsocket`.
+'@
+[System.IO.File]::WriteAllText("$DocsDir\NEXUS_ARCHITECT_AUTOMATION.md", $Automation, $Utf8Bom)
+Log "  [OK] NEXUS_ARCHITECT_AUTOMATION.md actualizado (Reglas de Código)." "Green"
+
+# ------------------------------------------------------------------------------
+# 3. RUNEFORGE_V2_CORE.md
+# ------------------------------------------------------------------------------
+$V2Core = @'
+# RUNEFORGE V2 CORE - Documentación Arquitectónica
+**Fecha de Reestructuración:** 2026-10-24
+**Estado:** Estable / Producción Local
+
+## 1. Resumen Ejecutivo
+El ecosistema ha sido purgado de "Bloat". Se ha implementado un modelo modular estricto con separación de responsabilidades y un Command Center gráfico (AHK v2) que monitorea y ejecuta todos los flujos tácticos.
+
+## 2. Estructura de Carpetas (Canónica)
+C:\RUNEFORGE_V2_CORE
+├── core_data\         # Memoria operativa y Prompts maestros para IA
+├── docs\md\           # Documentación (este archivo)
+├── firmware\          # Código de hardware (ESP32, Radar, GPS)
+├── forja\             # Proyectos en desarrollo (Tauri, Svelte)
+├── logs\              # Transcripciones de arranque/apagado y logs de error
+├── public\dashboards\ # Interfaces UI y simuladores HTML finales
+├── scripts\           # Automatización (.ps1, .ahk, .bat)
+└── target\            # Binarios compilados de Tauri (Rust)
+
+## 3. Matriz de Servicios y Puertos
+| Servicio | Puerto / Proceso | Gestor | Script de Arranque |
+| :--- | :--- | :--- | :--- |
+| **Whisper IA** | `8081` | Python Venv (CUDA) | `RUNEFORGE_BOOT.ps1` |
+| **Fastify (Backend)** | `3100` | PM2 (Node.js) | `pm2 start 1` |
+| **Ollama (LLM)** | `11434` | Nativo | `ollama serve` |
+| **Tauri Core** | `app.exe` / `8080` | Cargo / NPM | `npm run tauri dev` |
+| **Nexus Brain** | `python.exe` | Python Global | `brain_hub.py` |
+| **Tailscale Mesh** | Servicio Windows | Windows Svc | `Start-Service` |
+
+## 4. Scripts Principales (C:\RUNEFORGE_V2_CORE\scripts)
+- `RUNEFORGE_MASTER_PANEL.ahk` (V17.2): Interfaz gráfica de control.
+- `RUNEFORGE_BOOT.ps1`: Arranque de los 6 servicios.
+- `STOP.ps1`: Apagón Nuclear.
+- `AUDIT.ps1`: Auditoría forense.
+- `rf-git.ps1`: Script de sincronización con GitHub.
+- `scratch_ia.ps1`: Archivo temporal que ejecuta el código pegado en el panel.
+
+## 5. Flujos de Operación
+- **Arranque (`rf-boot`):** Levanta Tailscale, Ollama, PM2, Whisper, Brain y Tauri. Espera 12s y audita.
+- **Apagón (`rf-stop`):** Mata PM2, Ollama, Tailscale. Fusila procesos Node/Python/Tauri. Libera puertos.
+- **Auditoría (`rf-audit`):** Verifica puertos y devuelve reporte forense al portapapeles.
+'@
+[System.IO.File]::WriteAllText("$DocsDir\RUNEFORGE_V2_CORE.md", $V2Core, $Utf8Bom)
+Log "  [OK] RUNEFORGE_V2_CORE.md actualizado (Arquitectura y Scripts)." "Green"
+
+# ------------------------------------------------------------------------------
+# 4. README.md
+# ------------------------------------------------------------------------------
+$Readme = @'
+# ⚡ RUNEFORGE V2.7 - Manual de Operación
+
+## 1. Inicio Rápido
+1. Ejecuta `RUNEFORGE_MASTER_PANEL.ahk` en `C:\RUNEFORGE_V2_CORE\scripts`.
+2. El panel mostrará la telemetría (CPU, RAM) y el estado de los servicios (🟢/🔴).
+3. Usa los botones para arrancar, parar o auditar el ecosistema.
+
+## 2. Comandos de Terminal (pwsh)
+Si prefieres la terminal, usa el perfil de Windows Terminal:
+- `rf-cd` : Viaja a la raíz del CORE.
+- `rf-boot` : Inicia el Ecosistema Global.
+- `rf-stop` : Apagón Nuclear.
+- `rf-audit` : Ejecuta la auditoría forense.
+
+## 3. Panel de Control AHK V17.2
+- **MASTERS & CONTEXTO:** Copia memorias, prompts y abre los dashboards (HTML).
+- **SISTEMA / CORE:** Botones de Arranque, Apagado, Auditoría y Git Push.
+- **SCRATCHPAD:** Pega cualquier script de PowerShell y presiona `▶ EJECUTAR`. El resultado se abrirá en Windows Terminal (Cyber Monja) y se copiará automáticamente a tu portapapeles.
+- **ÚLTIMO PORTAPAPELES:** Muestra un preview de lo último que has copiado en Windows. Todo se guarda en `core_data\clipboard_history.txt`.
+
+## 4. Resolución de Problemas
+- Si un servicio falla, revisa los logs en `C:\RUNEFORGE_V2_CORE\logs\`.
+- Si el puerto `3100` (Fastify) está caído, ejecuta `pm2 resurrect` o usa el botón GIT PUSH.
+- Si el panel de AHK parpadea o se cierra, asegúrate de tener la versión v2.0.30 o superior instalada (no la v1).
+'@
+[System.IO.File]::WriteAllText("$DocsDir\README.md", $Readme, $Utf8Bom)
+Log "  [OK] README.md actualizado (Manual de Operación)." "Green"
+
+Log "`n[OK] Reestructuración documental V2.7 completada al 100%." "Cyan"
+Log "[*] Todos los archivos .md han sido actualizados." "Yellow"
+
+$capture -join "`r`n" | Set-Clipboard

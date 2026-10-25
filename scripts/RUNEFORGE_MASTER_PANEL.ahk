@@ -1,169 +1,251 @@
 ﻿; ================================
-; RUNEFORGE MASTER PANEL V9
-; AutoHotkey v2 - Perfil Canónico Integrado
+; RUNEFORGE MASTER PANEL V21.1
+; Interfaz Completa + Consola de Eventos (Sintaxis Corregida)
 ; ================================
-
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
 global RF := Map(
     "ROOT", "C:\RUNEFORGE_V2_CORE",
-    "FIRMWARE", "C:\RUNEFORGE_V2_CORE\firmware",
-    "PUBLIC", "C:\RUNEFORGE_V2_CORE\public",
-    "FORJA", "C:\RUNEFORGE_V2_CORE\forja",
     "SCRIPTS", "C:\RUNEFORGE_V2_CORE\scripts",
     "DOCS", "C:\RUNEFORGE_V2_CORE\docs\md",
-    "REPORTS", "C:\RUNEFORGE_V2_CORE\reports",
     "DATA", "C:\RUNEFORGE_V2_CORE\core_data",
-    
-    ; Archivos Clave
-    "MASTER_DASH", "C:\RUNEFORGE_V2_CORE\public\dashboards\index_master_V25_FINAL.html",
-    "MASTER_RADAR", "C:\RUNEFORGE_V2_CORE\firmware\scannerpro_cyber_visualizer\scannerpro_cyber_visualizer.html",
-    "MASTER_GPS", "C:\RUNEFORGE_V2_CORE\public\dashboards\fusionada_x5f_sonar_x5f_instalaciones_x5f_sepcolgps.html",
-
-    ; Prompts y Memoria
-    "PROMPTS_DIR", "C:\RUNEFORGE_V2_CORE\core_data\prompts",
-    "MEMORIAS_DIR", "C:\RUNEFORGE_V2_CORE\core_data\memorias",
     "MEMORIA", "C:\RUNEFORGE_V2_CORE\core_data\memorias\memoria_operativa.txt",
     "PROMPT_MAESTRO", "C:\RUNEFORGE_V2_CORE\core_data\prompts\prompt_maestro.txt",
-    
-    ; Documentación (Memoria del Proyecto)
     "DOC_MANIFIESTO", "C:\RUNEFORGE_V2_CORE\docs\md\MANIFIESTO.md",
     "DOC_ARQUITECTURA", "C:\RUNEFORGE_V2_CORE\docs\md\RUNEFORGE_V2_CORE.md",
     "DOC_NEXUS", "C:\RUNEFORGE_V2_CORE\docs\md\NEXUS_ARCHITECT_AUTOMATION.md",
-
-    ; Batch Scripts (System Ops)
-    "BAT_BOOT", "C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE.bat",
-    "BAT_STOP", "C:\RUNEFORGE_V2_CORE\scripts\STOP.bat",
-    "BAT_AUDIT", "C:\RUNEFORGE_V2_CORE\scripts\AUDIT.bat",
-    "BAT_RESET", "C:\RUNEFORGE_V2_CORE\scripts\RESET.bat"
+    "LOGDIR", "C:\RUNEFORGE_V2_CORE\logs",
+    "LOGFILE", "C:\RUNEFORGE_V2_CORE\logs\panel.log"
 )
 
-; ========= AUTOSETUP =========
-EnsureBase() {
-    for _, dir in [RF["ROOT"], RF["FIRMWARE"], RF["PUBLIC"], RF["FORJA"], RF["SCRIPTS"], RF["DOCS"], RF["REPORTS"], RF["DATA"], RF["PROMPTS_DIR"], RF["MEMORIAS_DIR"]] {
-        if !DirExist(dir)
-            DirCreate(dir)
+global CYBER_MONJA_GUID := "{9f2b7a50-7c7e-4a35-9a6e-000000000001}"
+global txtTime, txtCpu, txtRam, txtFastify, txtWhisper, txtOllama, txtTauri, txtTailscale, txtConsole, ScriptBox
+
+; --- Utilidades ---
+LogConsole(msg) {
+    global txtConsole, RF
+    if IsSet(txtConsole) && IsObject(txtConsole) {
+        timestamp := FormatTime(A_Now, "HH:mm:ss")
+        current := txtConsole.Value
+        lines := StrSplit(current, "`n")
+        if (lines.Length > 3)
+            current := lines[lines.Length-2] "`n" lines[lines.Length-1] "`n"
+        txtConsole.Value := current "[" timestamp "] " msg "`n"
+    }
+    try FileAppend "[" FormatTime(A_Now, "yyyy-MM-dd HH:mm:ss") "] " msg "`n", RF["LOGFILE"], "UTF-8"
+}
+
+CopyToClipboard(text, successMsg) {
+    try {
+        A_Clipboard := text
+        LogConsole(successMsg)
     }
 }
 
-; ========= UTILIDADES =========
-CopyText(text) => A_Clipboard := text
-CopyFile(path) => (FileExist(path) ? A_Clipboard := FileRead(path, "UTF-8") : MsgBox("Archivo no encontrado: " path, "Error"))
-OpenPath(path) => (FileExist(path) || DirExist(path) ? Run(path) : MsgBox("Ruta no encontrada: " path, "Error"))
-EditFile(path) => (FileExist(path) ? Run('notepad.exe "' path '"') : MsgBox("Archivo no encontrado: " path, "Error"))
+RunInWT(cmd) {
+    global CYBER_MONJA_GUID
+    try Run('wt.exe -w 0 -p "' CYBER_MONJA_GUID '" ' cmd)
+}
 
-; ========= LÓGICA DE EJECUCIÓN CANÓNICA =========
-; Usa pwsh sin -NoProfile para cargar el prompt y las variables.
-; Usa -NoExit para que la ventana no se cierre de golpe al terminar el script.
-RunPowerShellCanonical(cmd) => Run('pwsh.exe -NoExit -Command ' cmd)
+; --- Telemetría ---
+UpdateDashboard() {
+    global txtTime, txtCpu, txtRam, txtFastify, txtWhisper, txtOllama, txtTauri, txtTailscale
+    txtTime.Text := FormatTime(A_Now, "yyyy-MM-dd HH:mm:ss")
+    txtFastify.Text := "Fastify: " (ProcessExist("node.exe") ? "🟢" : "🔴")
+    txtWhisper.Text := "Whisper: " (ProcessExist("python.exe") ? "🟢" : "🔴")
+    txtOllama.Text  := "Ollama:  " (ProcessExist("ollama.exe") ? "🟢" : "🔴")
+    txtTauri.Text   := "Tauri:   " (ProcessExist("app.exe") ? "🟢" : "🔴")
+    txtTailscale.Text := "Tailscale: " (ProcessExist("tailscaled.exe") ? "🟢" : "🔴")
 
-RunBatOrPs1(path) {
-    if FileExist(path) {
-        ; Ejecuta el .bat (que ya está configurado para llamar a pwsh)
-        Run('"' path '"')
+    try {
+        wmi := ComObjGet("winmgmts:\\.\root\cimv2")
+        cpu := wmi.ExecQuery("SELECT LoadPercentage FROM Win32_Processor").ItemIndex(0).LoadPercentage
+        os := wmi.ExecQuery("SELECT FreePhysicalMemory, TotalVisibleMemorySize FROM Win32_OperatingSystem").ItemIndex(0)
+        ramUsed := (os.TotalVisibleMemorySize - os.FreePhysicalMemory) / 1024 / 1024
+        txtCpu.Text := "CPU: " cpu "%"
+        txtRam.Text := "RAM: " Format("{:.1f}", ramUsed) " GB"
+    } catch {
+    }
+}
+
+; --- Acciones ---
+ActUpdate() {
+    UpdateDashboard()
+    LogConsole("Datos actualizados manualmente.")
+}
+
+ActDashboard() {
+    Run("https://yhb86dy52f-lang.github.io/runeforge-v2-nucleo/")
+    LogConsole("Abriendo Dashboard PWA.")
+}
+
+ActFlota() {
+    Run("https://github.com/yhb86dy52f-lang/runeforge-v2-nucleo/tree/main/FlotaKW_Completo_v3.2_SOBERANO")
+    LogConsole("Abriendo FlotaKW.")
+}
+
+ActMemoria() {
+    CopyToClipboard(FileRead(RF["MEMORIA"], "UTF-8"), "Memoria copiada.")
+}
+
+ActPrompt() {
+    CopyToClipboard(FileRead(RF["PROMPT_MAESTRO"], "UTF-8"), "Prompt copiado.")
+}
+
+ActManifiesto() {
+    CopyToClipboard(FileRead(RF["DOC_MANIFIESTO"], "UTF-8"), "Manifiesto copiado.")
+}
+
+ActArquitectura() {
+    CopyToClipboard(FileRead(RF["DOC_ARQUITECTURA"], "UTF-8"), "Arquitectura copiada.")
+}
+
+ActReglasIA() {
+    CopyToClipboard(FileRead(RF["DOC_NEXUS"], "UTF-8"), "Reglas IA copiadas.")
+}
+
+ActEditarMem() {
+    Run('notepad.exe "' RF["MEMORIA"] '"')
+    LogConsole("Abriendo editor de Memoria.")
+}
+
+ActEditarPrompt() {
+    Run('notepad.exe "' RF["PROMPT_MAESTRO"] '"')
+    LogConsole("Abriendo editor de Prompt.")
+}
+
+ActDocs() {
+    Run(RF["DOCS"])
+    LogConsole("Abriendo carpeta Docs.")
+}
+
+ActArrancar() {
+    RunInWT('cmd.exe /c "C:\RUNEFORGE_V2_CORE\scripts\RUNEFORGE.bat"')
+    LogConsole("Iniciando Ecosistema Global...")
+}
+
+ActParar() {
+    RunInWT('cmd.exe /c "C:\RUNEFORGE_V2_CORE\scripts\STOP.bat"')
+    LogConsole("Ejecutando Apagón Nuclear...")
+}
+
+ActGitPush() {
+    RunInWT('pwsh -NoExit -File "C:\RUNEFORGE_V2_CORE\scripts\rf-git.ps1"')
+    LogConsole("Sincronizando con GitHub...")
+}
+
+ActAuditar() {
+    RunInWT('pwsh -NoExit -File "C:\RUNEFORGE_V2_CORE\scripts\AUDIT.ps1"')
+    LogConsole("Ejecutando Auditoría...")
+}
+
+ActResetRam() {
+    RunInWT('pwsh -NoExit -File "C:\RUNEFORGE_V2_CORE\scripts\Optimizador-Runeforge.ps1"')
+    LogConsole("Ejecutando Reset de RAM...")
+}
+
+ActCopiarLog() {
+    if FileExist(RF["LOGFILE"]) {
+        CopyToClipboard(FileRead(RF["LOGFILE"], "UTF-8"), "Log completo copiado.")
     } else {
-        ps1Path := StrReplace(path, ".bat", ".ps1")
-        if FileExist(ps1Path) {
-            ; Ejecuta directo el .ps1 usando pwsh con el perfil cargado
-            Run('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' ps1Path '"')
-        } else {
-            MsgBox("No se encontró el script:`n" path, "Error", "Icon!")
-        }
+        LogConsole("El log está vacío.")
     }
 }
 
-RunGitPush() {
-    gitPs1 := RF["SCRIPTS"] "\rf-git.ps1"
-    if FileExist(gitPs1) {
-        ; Lanza git con tu entorno pwsh
-        Run('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' gitPs1 '"')
-    } else {
-        MsgBox("No se encontró rf-git.ps1 en " RF["SCRIPTS"], "Error", "Icon!")
+ActEjecutarScratchpad() {
+    global ScriptBox, RF
+    scriptText := ScriptBox.Text
+    if (Trim(scriptText) = "") {
+        LogConsole("Error: El Scratchpad está vacío.")
+        return
+    }
+    tmpFile := RF["SCRIPTS"] "\scratch_ia.ps1"
+    FileDelete tmpFile
+    wrapper := "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8`n"
+    wrapper .= "$tempLog = `"$env:TEMP\scratch_output.txt`"`n"
+    wrapper .= "Start-Transcript -Path `$tempLog -Force | Out-Null`n"
+    wrapper .= "try {`n`n" scriptText "`n} catch { `$_ } finally {`n"
+    wrapper .= "    Stop-Transcript | Out-Null`n"
+    wrapper .= "    if (Test-Path `$tempLog) { Get-Content `$tempLog -Raw | Set-Clipboard }`n}`n"
+    FileAppend wrapper, tmpFile, "UTF-8"
+    RunInWT('pwsh.exe -NoExit -ExecutionPolicy Bypass -File "' tmpFile '"')
+    LogConsole("Ejecutando Scratchpad en Terminal...")
+}
+
+ActCopiarTexto() {
+    global ScriptBox
+    if (Trim(ScriptBox.Text) != "") {
+        A_Clipboard := ScriptBox.Text
+        LogConsole("Texto del Scratchpad copiado.")
     }
 }
 
-SearchInRepo(*) {
-    ib := InputBox("Texto a buscar en C:\RUNEFORGE_V2_CORE:", "Buscar en Código")
-    if (ib.Result != "OK" || Trim(ib.Value) = "")
-        return
-    safeBase := '"' RF["ROOT"] '"'
-    safeTerm := StrReplace(Trim(ib.Value), '"', '\"')
-    ; Usamos cmd para rg, es más rápido
-    Run('cmd.exe /k cd /d ' safeBase ' && (rg -n --hidden --glob "!node_modules" --glob "!target" "' safeTerm '" || findstr /s /i /n "' safeTerm '" *.*)')
+ActLimpiar() {
+    global ScriptBox
+    ScriptBox.Text := ""
+    LogConsole("Scratchpad limpiado.")
 }
 
-CreateModule(*) {
-    ib := InputBox("Nombre del módulo (ej. scanner_v2):", "Crear Módulo")
-    if (ib.Result != "OK" || Trim(ib.Value) = "")
-        return
-    name := RegExReplace(Trim(ib.Value), "[^\w\-]", "_")
-    file := RF["FORJA"] "\" name ".ts"
-    if FileExist(file) {
-        MsgBox("Ya existe:`n" file, "Aviso")
-        return
-    }
-    content := "export function " name "() {`n    return { ok: true, module: '" name "', ts: new Date().toISOString() };`n}`n"
-    FileAppend(content, file, "UTF-8")
-    Run('notepad.exe "' file '"')
-}
-
-CopySnippetFastify(*) {
-    A_Clipboard := "import { FastifyInstance } from 'fastify';`n`nexport async function registerRoutes(app: FastifyInstance) {`n    app.get('/health', async () => ({ ok: true, service: 'runeforge' }));`n}`n"
-}
-
-CopySnippetPS(*) {
-    A_Clipboard := "$ErrorActionPreference = 'Stop'`n`n$result = [pscustomobject]@{`n    ok = $true`n    ts = (Get-Date).ToString('s')`n}`n`n$result | ConvertTo-Json -Depth 5`n"
-}
-
-; ========= INIT =========
-EnsureBase()
-
-; ========= GUI =========
-myGui := Gui("+AlwaysOnTop +Resize", "RUNEFORGE COMMAND CENTER V9")
+; --- GUI ---
+myGui := Gui("+AlwaysOnTop -MaximizeBox", "RUNEFORGE COMMAND CENTER V21.1")
 myGui.BackColor := "0D0211"
-myGui.SetFont("s10 c39FF14", "Segoe UI")
+myGui.SetFont("s10 c39FF14 Bold", "Segoe UI")
 
-title := myGui.AddText("xm w430 Center c39FF14", "⚡ RUNEFORGE COMMAND CENTER V9")
-title.SetFont("s14 Bold", "Segoe UI")
+myGui.SetFont("s16 Bold c39FF14", "Segoe UI")
+myGui.AddText("xm w510 Center", "⚡ RUNEFORGE COMMAND CENTER")
+myGui.SetFont("s9 c00FFFF", "Consolas")
+myGui.AddText("xm w510 Center", "======================================================")
 
-; ===== BLOQUE 1: MASTERS =====
-myGui.AddGroupBox("xm y+10 w430 h70 c39FF14", " MASTERS (UI) ")
-myGui.AddButton("xm+15 yp+28 w125 h30", "📊 Dashboard").OnEvent("Click", (*) => OpenPath(RF["MASTER_DASH"]))
-myGui.AddButton("x+10 w125 h30", "📡 Radar BLE").OnEvent("Click", (*) => OpenPath(RF["MASTER_RADAR"]))
-myGui.AddButton("x+10 w125 h30", "📍 GPS/Sonar").OnEvent("Click", (*) => OpenPath(RF["MASTER_GPS"]))
+myGui.SetFont("s10 c39FF14 Bold", "Segoe UI")
+txtTime := myGui.AddText("xm w170", "Cargando...")
+txtCpu  := myGui.AddText("x+10 w100", "CPU: --%")
+txtRam  := myGui.AddText("x+10 w100", "RAM: -- GB")
+myGui.AddText("xm w510 Center", "======================================================")
 
-; ===== BLOQUE 2: IA / CONTEXTO =====
-myGui.AddGroupBox("xm y+15 w430 h150 c39FF14", " IA / CONTEXTO ")
-myGui.AddButton("xm+15 yp+28 w125 h30", "🧠 Memoria Ops").OnEvent("Click", (*) => CopyFile(RF["MEMORIA"]))
-myGui.AddButton("x+10 w125 h30", "📜 Prompt Master").OnEvent("Click", (*) => CopyFile(RF["PROMPT_MAESTRO"]))
-myGui.AddButton("x+10 w125 h30", "💬 ChatGPT").OnEvent("Click", (*) => Run("https://chatgpt.com/"))
+myGui.AddGroupBox("xm y+10 w510 h60 c39FF14", " STATUS TÁCTICO ")
+txtFastify := myGui.AddText("xm+15 yp+25 w100", "Fastify: 🔴")
+txtWhisper := myGui.AddText("x+5 w100", "Whisper: 🔴")
+txtOllama  := myGui.AddText("x+5 w100", "Ollama: 🔴")
+txtTauri   := myGui.AddText("x+5 w100", "Tauri: 🔴")
+txtTailscale := myGui.AddText("x+5 w100", "Tailscale: 🔴")
 
-myGui.AddButton("xm+15 y+10 w125 h30", "📄 Manifiesto").OnEvent("Click", (*) => CopyFile(RF["DOC_MANIFIESTO"]))
-myGui.AddButton("x+10 w125 h30", "🏗️ Arquitectura").OnEvent("Click", (*) => CopyFile(RF["DOC_ARQUITECTURA"]))
-myGui.AddButton("x+10 w125 h30", "⚙️ Reglas IA").OnEvent("Click", (*) => CopyFile(RF["DOC_NEXUS"]))
+myGui.AddGroupBox("xm y+15 w510 h110 c39FF14", " MASTERS & MÓDULOS ")
+myGui.SetFont("s9 c39FF14", "Segoe UI")
+myGui.AddButton("xm+15 yp+25 w110 h32 +Background1A0B1F", "📊 Dashboard").OnEvent("Click", (*) => ActDashboard())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "🚀 FlotaKW").OnEvent("Click", (*) => ActFlota())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "🧠 Memoria Ops").OnEvent("Click", (*) => ActMemoria())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "📜 Prompt Master").OnEvent("Click", (*) => ActPrompt())
+myGui.AddButton("xm+15 y+10 w110 h32 +Background1A0B1F", "📄 Manifiesto").OnEvent("Click", (*) => ActManifiesto())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "🏗️ Arquitectura").OnEvent("Click", (*) => ActArquitectura())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "⚙️ Reglas IA").OnEvent("Click", (*) => ActReglasIA())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "📝 Editar Mem").OnEvent("Click", (*) => ActEditarMem())
 
-myGui.AddButton("xm+15 y+10 w125 h30", "📝 Editar Mem").OnEvent("Click", (*) => EditFile(RF["MEMORIA"]))
-myGui.AddButton("x+10 w125 h30", "✏️ Editar Prompt").OnEvent("Click", (*) => EditFile(RF["PROMPT_MAESTRO"]))
-myGui.AddButton("x+10 w125 h30", "📂 Docs Dir").OnEvent("Click", (*) => OpenPath(RF["DOCS"]))
+myGui.AddGroupBox("xm y+15 w510 h110 c39FF14", " SISTEMA / CORE ")
+myGui.AddButton("xm+15 yp+25 w110 h32 +Background1A0B1F", "🚀 ARRANCAR").OnEvent("Click", (*) => ActArrancar())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "🛑 PARAR").OnEvent("Click", (*) => ActParar())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "🐙 GIT PUSH").OnEvent("Click", (*) => ActGitPush())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "🔍 AUDITAR").OnEvent("Click", (*) => ActAuditar())
+myGui.AddButton("xm+15 y+10 w110 h32 +Background1A0B1F", "⚡ RESET RAM").OnEvent("Click", (*) => ActResetRam())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "🔄 ACTUALIZAR").OnEvent("Click", (*) => ActUpdate())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "📋 COPIAR LOG").OnEvent("Click", (*) => ActCopiarLog())
+myGui.AddButton("x+10 w110 h32 +Background1A0B1F", "📂 Docs Dir").OnEvent("Click", (*) => ActDocs())
 
-; ===== BLOQUE 3: SISTEMA / CORE =====
-myGui.AddGroupBox("xm y+15 w430 h150 c39FF14", " SISTEMA / CORE ")
-myGui.AddButton("xm+15 yp+30 w125 h30", "🚀 ARRANCAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_BOOT"]))
-myGui.AddButton("x+10 w125 h30", "🛑 PARAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_STOP"]))
-myGui.AddButton("x+10 w125 h30", "🐙 GIT PUSH").OnEvent("Click", (*) => RunGitPush())
+myGui.AddGroupBox("xm y+15 w510 h80 c39FF14", " CONSOLA DE EVENTOS ")
+myGui.SetFont("s9 c00FFFF", "Consolas")
+txtConsole := myGui.AddEdit("xm+15 yp+25 w480 h45 ReadOnly Background080A12 c00FFFF -VScroll", "Sistema listo...`n")
 
-myGui.AddButton("xm+15 y+10 w125 h30", "🔍 AUDITAR").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_AUDIT"]))
-myGui.AddButton("x+10 w125 h30", "⚡ RESET RAM").OnEvent("Click", (*) => RunBatOrPs1(RF["BAT_RESET"]))
-myGui.AddButton("x+10 w125 h30", "🖥️ Snippet PS").OnEvent("Click", CopySnippetPS)
+myGui.AddGroupBox("xm y+15 w510 h180 c39FF14", " SCRATCHPAD (Ejecución IA) ")
+myGui.SetFont("s10 cWhite", "Consolas")
+ScriptBox := myGui.AddEdit("xm+15 yp+25 w480 h120 Multi Background1A0B1F c39FF14", "")
+myGui.SetFont("s9 c39FF14", "Segoe UI")
+myGui.AddButton("xm+15 y+10 w155 h30 +Background1A0B1F", "▶ EJECUTAR").OnEvent("Click", (*) => ActEjecutarScratchpad())
+myGui.AddButton("x+10 w155 h30 +Background1A0B1F", "📋 COPIAR TEXTO").OnEvent("Click", (*) => ActCopiarTexto())
+myGui.AddButton("x+10 w155 h30 +Background1A0B1F", "🧹 LIMPIAR").OnEvent("Click", (*) => ActLimpiar())
 
-; ===== BLOQUE 4: CÓDIGO / FRAMEWORKS =====
-myGui.AddGroupBox("xm y+15 w430 h80 c39FF14", " CÓDIGO / FRAMEWORKS ")
-myGui.AddButton("xm+15 yp+30 w125 h30", "📁 Root Core").OnEvent("Click", (*) => OpenPath(RF["ROOT"]))
-myGui.AddButton("x+10 w125 h30", "🔎 Buscar Repo").OnEvent("Click", SearchInRepo)
-myGui.AddButton("x+10 w125 h30", "🧱 Crear Módulo").OnEvent("Click", CreateModule)
+myGui.AddButton("xm+195 y+20 w120 h32 +Background1A0B1F", "✖ CERRAR").OnEvent("Click", (*) => ExitApp())
 
-; ===== PIE =====
-myGui.AddButton("xm+155 y+15 w120 h32", "✖ CERRAR").OnEvent("Click", (*) => ExitApp())
-
-myGui.Show("w455 h590")
+myGui.Show("w540 h850")
+UpdateDashboard()
+SetTimer(UpdateDashboard, 5000)
+LogConsole("Panel V21.1 iniciado correctamente.")
