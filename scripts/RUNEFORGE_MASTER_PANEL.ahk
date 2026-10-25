@@ -131,8 +131,15 @@ ActParar() {
 }
 
 ActGitPush() {
-    RunInWT('pwsh -NoExit -File "C:\RUNEFORGE_V2_CORE\scripts\rf-git.ps1"')
-    LogConsole("Sincronizando con GitHub...")
+    global CYBER_MONJA_GUID
+    try {
+        ; Aplicando Regla de AHK v2
+        Run('wt.exe -w 0 -p "' CYBER_MONJA_GUID '" pwsh -NoExit -ExecutionPolicy Bypass -File "C:\RUNEFORGE_V2_CORE\scripts\rf-git.ps1"')
+        LogConsole("Sincronizando con GitHub...")
+    } catch as e {
+        ; Captura de error moderna v2
+        LogConsole("❌ Error al abrir Terminal: " e.Message)
+    }
 }
 
 ActAuditar() {
